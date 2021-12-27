@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <a href="/statistics/gyunggi">전체</a>
+        <a href="/statistics/gyunggi/2017">2017</a>
+        <a href="/statistics/gyunggi/2018">2018</a>
+        <a href="/statistics/gyunggi/2019">2019</a>
+        <a href="/statistics/gyunggi/2020">2020</a>
+        <a href="/statistics/gyunggi/2021">2021</a>
+<!--        <div>-->
+<!--            <form th:object="${aptSearch}" class="form-inline">-->
+<!--                <div class="form-group mb-2">-->
+<!--                    <input type="text" th:field="*{aptName}" class="form-control" placeholder="아파트명"/>-->
+<!--                </div>-->
+<!--                <button type="submit" class="btn btn-primary mb-2">검색</button>-->
+<!--                &lt;!&ndash;                <div class="form-group mx-sm-1 mb-2">&ndash;&gt;-->
+<!--                &lt;!&ndash;                    <select th:field="*{orderStatus}" class="form-control">&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <option value="">주문상태</option>&ndash;&gt;-->
+<!--                &lt;!&ndash;                        <option th:each="status : ${T(jpabook.jpashop.domain.OrderStatus).values()}"                                 th:value="${status}"&ndash;&gt;-->
+<!--                &lt;!&ndash;                                th:text="${status}">option&ndash;&gt;-->
+<!--                &lt;!&ndash;                        </option>&ndash;&gt;-->
+<!--                &lt;!&ndash;                    </select>&ndash;&gt;-->
+<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
+
+<!--            </form>-->
+<!--        </div>-->
+        <table class="table table-striped">
+            <thead>
+            <tr style="font-size:12px;" align="center">
+                <th>년-월</th>
+                <th>최저<br/>매매가</th>
+                <th>평균<br/>매매가</th>
+                <th>최고<br/>매매가</th>
+                <th>거래량</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="font-size:12px;" th:each="list : ${list}">
+                <td align="center" th:text="${list.dealYYMM}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.minPrice,3,'COMMA')}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.avgPrice,3,'COMMA')}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.maxPrice,3,'COMMA')}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.cnt,3,'COMMA')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+<script>
+    function findSeoulYear(year){
+        var form = document.createElement("form");
+            form.setAttribute("method", "get");
+            form.setAttribute("action", "/statistics/seoul/" + year);
+            document.body.appendChild(form);
+            form.submit();
+    }
+</script>
+</html>

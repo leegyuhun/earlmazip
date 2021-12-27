@@ -34,4 +34,13 @@ public class StatRepository {
                         + " order by a.dealYYMM desc", stat_area_yymm.class)
                 .getResultList();
     }
+
+    public List<stat_area_yymm> findGyungGiYear(String year){
+        return em.createQuery("select a from stat_area_yymm a"
+                        + " where a.areaCode = '41' and use_area_type = 'UA01'"
+                        + "    and a.dealYear = :dealYear"
+                        + " order by a.dealYYMM desc", stat_area_yymm.class)
+                .setParameter("dealYaer", year)
+                .getResultList();
+    }
 }

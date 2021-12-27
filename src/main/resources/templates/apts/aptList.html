@@ -7,19 +7,13 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
         <div>
-            <form th:object="${aptSearch}" class="form-inline">
-                <div class="form-group mb-2">
+            <form th:object="${aptSearch}" class="row g-2">
+                <div class="col">
                     <input type="text" th:field="*{aptName}" class="form-control" placeholder="아파트명"/>
                 </div>
-                <button type="submit" class="btn btn-primary mb-2">검색</button>
-<!--                <div class="form-group mx-sm-1 mb-2">-->
-<!--                    <select th:field="*{orderStatus}" class="form-control">-->
-<!--                        <option value="">주문상태</option>-->
-<!--                        <option th:each="status : ${T(jpabook.jpashop.domain.OrderStatus).values()}"                                 th:value="${status}"-->
-<!--                                th:text="${status}">option-->
-<!--                        </option>-->
-<!--                    </select>-->
-<!--                </div>-->
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">검색</button>
+                </div>
 
             </form>
         </div>
@@ -28,8 +22,6 @@
             <tr style="font-size:12px;"  align="center">
                 <th>아파트명</th>
                 <th>지역</th>
-<!--                <th>시 구</th>-->
-<!--                <th>읍 면 동</th>-->
                 <th>입주년도</th>
                 <th>세대수</th>
                 <th>세대당<br/>주차수</th>

@@ -7,7 +7,7 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import java.util.List;
+import java.util.*;
 
 @Repository
 @RequiredArgsConstructor
@@ -27,12 +27,16 @@ public class AptRepository {
                 jpql += " and";
             }
             jpql += " o.aptName like :aptName";
+        }else{
+            List<apt_info> lists = new ArrayList<>();
+            return lists;
         }
         TypedQuery<apt_info> query = em.createQuery(jpql, apt_info.class)
-                .setMaxResults(100);
+                .setMaxResults(50);
         if (StringUtils.hasText(aptSearch.getAptName())) {
             query = query.setParameter("aptName", '%' + aptSearch.getAptName() + '%');
         }
+
         return query.getResultList();
     }
 

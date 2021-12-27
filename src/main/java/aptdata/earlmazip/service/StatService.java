@@ -24,4 +24,8 @@ public class StatService {
     public List<stat_area_yymm> findStatGyunggiList() {
         return statRepository.findGyungGi();
     }
+
+    public List<stat_area_yymm> findStatGyunggiListYear(String year) {
+        return statRepository.findGyungGiYear(year);
+    }
 }
