@@ -19,6 +19,15 @@ public class StatRepository {
                 .getResultList();
     }
 
+    public List<stat_area_yymm> findSeoulYear(String year){
+        return em.createQuery("select a from stat_area_yymm a"
+                        + " where a.areaCode = '11' and use_area_type = 'UA01'"
+                        + "   and a.dealYear = :dealYaer"
+                        + " order by a.dealYYMM desc", stat_area_yymm.class)
+                .setParameter("dealYaer", year)
+                .getResultList();
+    }
+
     public List<stat_area_yymm> findGyungGi(){
         return em.createQuery("select a from stat_area_yymm a"
                         + " where a.areaCode = '41' and use_area_type = 'UA01'"

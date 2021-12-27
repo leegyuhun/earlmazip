@@ -21,6 +21,9 @@ public class stat_area_yymm {
     @Column(name = "area_name")
     private String areaName;
 
+    @Column(name = "deal_year")
+    private String dealYear;
+
     @Column(name = "deal_yymm")
     private String dealYYMM;
 

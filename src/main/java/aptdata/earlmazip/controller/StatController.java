@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -18,6 +19,13 @@ public class StatController {
     @GetMapping("/statistics/seoul")
     public String seoulList(Model model) {
         List<stat_area_yymm> areas = statService.findStatSeoulList();
+        model.addAttribute("list", areas);
+        return "/statistics/stat";
+    }
+
+    @GetMapping("/statistics/seoul/{year}")
+    public String seoulListYear(@PathVariable String year, Model model) {
+        List<stat_area_yymm> areas = statService.findStatSeoulListYear(year);
         model.addAttribute("list", areas);
         return "/statistics/stat";
     }

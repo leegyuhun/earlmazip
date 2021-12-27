@@ -17,6 +17,10 @@ public class StatService {
         return statRepository.findSeoul();
     }
 
+    public List<stat_area_yymm> findStatSeoulListYear(String year) {
+        return statRepository.findSeoulYear(year);
+    }
+
     public List<stat_area_yymm> findStatGyunggiList() {
         return statRepository.findGyungGi();
     }
