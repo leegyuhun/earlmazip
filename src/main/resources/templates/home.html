@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+<div class="container">
+
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+
+    <div class="jumbotron">
+<!--        <h1></h1>-->
+        <p class="lead">아파트 정보 검색</p>
+        <p>
+            <a class="btn btn-lg btn-dark" href="/apts">아파트 검색</a>
+        </p>
+        <p class="lead">부동산 통계</p>
+        <p>
+            <a class="btn btn-lg btn-info" href="/statistics/seoul">서울시 통계</a>
+            <a class="btn btn-lg btn-info" href="/statistics/gyunggi">경기도 통계</a>
+        </p>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+
+</div> <!-- /container -->
+</body>
+</html>

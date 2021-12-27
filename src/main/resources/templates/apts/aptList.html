@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <div>
+            <form th:object="${aptSearch}" class="form-inline">
+                <div class="form-group mb-2">
+                    <input type="text" th:field="*{aptName}" class="form-control" placeholder="아파트명"/>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">검색</button>
+<!--                <div class="form-group mx-sm-1 mb-2">-->
+<!--                    <select th:field="*{orderStatus}" class="form-control">-->
+<!--                        <option value="">주문상태</option>-->
+<!--                        <option th:each="status : ${T(jpabook.jpashop.domain.OrderStatus).values()}"                                 th:value="${status}"-->
+<!--                                th:text="${status}">option-->
+<!--                        </option>-->
+<!--                    </select>-->
+<!--                </div>-->
+
+            </form>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr style="font-size:12px;"  align="center">
+                <th>아파트명</th>
+                <th>지역</th>
+<!--                <th>시 구</th>-->
+<!--                <th>읍 면 동</th>-->
+                <th>입주년도</th>
+                <th>세대수</th>
+                <th>세대당<br/>주차수</th>
+                <th>국평초과<br/>비율</th>
+<!--                <th>시공사</th>-->
+<!--                <th>지하철역</th>-->
+<!--                <th>지하철역 거리</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="font-size:12px;" th:each="apts : ${apts}">
+                <td th:text="${apts.aptName}"></td>
+                <td th:text="${#strings.concat(apts.as1, ' ', apts.as2, ' ', apts.as3)}"></td>
+                <td align="center" th:text="${apts.useAplyYear}"></td>
+<!--                <td th:text="${apts.as1}"></td>-->
+<!--                <td th:text="${apts.as2}"></td>-->
+<!--                <td th:text="${apts.as3}"></td>-->
+                <td align="right" th:text="${#numbers.formatInteger(apts.daCnt,3,'COMMA')}"></td>
+                <td align="right" th:text="${apts.parkRate}"></td>
+                <td align="right" th:text="${apts.bigMpRate}"></td>
+<!--                <td th:text="${apts.bComp}"></td>-->
+<!--                <td th:text="${apts.subName}"></td>-->
+<!--                <td th:text="${apts.subDist}"></td>-->
+<!--                <td th:text="${apts.address?.zipcode}"></td>-->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body> </html>
