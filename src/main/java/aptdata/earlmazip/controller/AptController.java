@@ -4,6 +4,7 @@ import aptdata.earlmazip.domain.apt_info;
 import aptdata.earlmazip.repository.AptSearch;
 import aptdata.earlmazip.service.AptService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import java.util.List;
 
 @Controller
+@Slf4j
 @RequiredArgsConstructor
 public class AptController {
 
@@ -19,6 +21,7 @@ public class AptController {
 
     @GetMapping("/apts")
     public String list(@ModelAttribute("aptSearch") AptSearch aptSearch, Model model) {
+        log.info("aptSearh: " + aptSearch.getAptName());
         List<apt_info> apts = aptService.findAllByName(aptSearch);
         model.addAttribute("apts", apts);
         return "apts/aptList";
