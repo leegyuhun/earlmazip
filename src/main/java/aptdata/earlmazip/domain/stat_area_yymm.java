@@ -28,7 +28,7 @@ public class stat_area_yymm {
     private String dealYYMM;
 
     public String getDealYYMM() {
-        return dealYYMM.substring(0,3) + "-" + dealYYMM.substring(4,6);
+        return dealYYMM.substring(0,4) + "-" + dealYYMM.substring(4,6);
     }
 
     @Column(name = "min_price")
