@@ -28,6 +28,41 @@ public class StatRepository {
                 .getResultList();
     }
 
+    public List<stat_area_yymm> findSeoulUA2(){
+        return em.createQuery("select a from stat_area_yymm a"
+                        + " where a.areaCode = '11' and use_area_type = 'UA02'"
+                        + " order by a.dealYYMM desc", stat_area_yymm.class)
+                .getResultList();
+    }
+
+    public List<stat_area_yymm> findSeoulUA3(){
+        return em.createQuery("select a from stat_area_yymm a"
+                        + " where a.areaCode = '11' and use_area_type = 'UA03'"
+                        + " order by a.dealYYMM desc", stat_area_yymm.class)
+                .getResultList();
+    }
+
+    public List<stat_area_yymm> findSeoulUA4(){
+        return em.createQuery("select a from stat_area_yymm a"
+                        + " where a.areaCode = '11' and use_area_type = 'UA04'"
+                        + " order by a.dealYYMM desc", stat_area_yymm.class)
+                .getResultList();
+    }
+
+    public List<stat_area_yymm> findSeoulUA5(){
+        return em.createQuery("select a from stat_area_yymm a"
+                        + " where a.areaCode = '11' and use_area_type = 'UA05'"
+                        + " order by a.dealYYMM desc", stat_area_yymm.class)
+                .getResultList();
+    }
+
+    public List<stat_area_yymm> findSeoulUA6(){
+        return em.createQuery("select a from stat_area_yymm a"
+                        + " where a.areaCode = '11' and use_area_type = 'UA06'"
+                        + " order by a.dealYYMM desc", stat_area_yymm.class)
+                .getResultList();
+    }
+
     public List<stat_area_yymm> findGyungGi(){
         return em.createQuery("select a from stat_area_yymm a"
                         + " where a.areaCode = '41' and use_area_type = 'UA01'"

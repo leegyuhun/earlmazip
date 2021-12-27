@@ -21,6 +21,26 @@ public class StatService {
         return statRepository.findSeoulYear(year);
     }
 
+    public List<stat_area_yymm> findStatSeoulListUA02() {
+        return statRepository.findSeoulUA2();
+    }
+
+    public List<stat_area_yymm> findStatSeoulListUA03() {
+        return statRepository.findSeoulUA3();
+    }
+
+    public List<stat_area_yymm> findStatSeoulListUA04() {
+        return statRepository.findSeoulUA4();
+    }
+
+    public List<stat_area_yymm> findStatSeoulListUA05() {
+        return statRepository.findSeoulUA5();
+    }
+
+    public List<stat_area_yymm> findStatSeoulListUA06() {
+        return statRepository.findSeoulUA6();
+    }
+
     public List<stat_area_yymm> findStatGyunggiList() {
         return statRepository.findGyungGi();
     }

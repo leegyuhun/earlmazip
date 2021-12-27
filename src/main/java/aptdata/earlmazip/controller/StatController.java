@@ -34,6 +34,47 @@ public class StatController {
         return "statistics/statSeoul";
     }
 
+    @GetMapping("/statistics/seoul/UA02")
+    public String seoulListUA02(Model model) {
+        log.info("/statistics/seoul/UA02");
+        List<stat_area_yymm> areas = statService.findStatSeoulListUA02();
+        model.addAttribute("list", areas);
+        return "statistics/statSeoul";
+    }
+
+    @GetMapping("/statistics/seoul/UA03")
+    public String seoulListUA03(Model model) {
+        log.info("/statistics/seoul/UA03");
+        List<stat_area_yymm> areas = statService.findStatSeoulListUA03();
+        model.addAttribute("list", areas);
+        return "statistics/statSeoul";
+    }
+
+    @GetMapping("/statistics/seoul/UA04")
+    public String seoulListUA04(Model model) {
+        log.info("/statistics/seoul/UA04");
+        List<stat_area_yymm> areas = statService.findStatSeoulListUA04();
+        model.addAttribute("list", areas);
+        return "statistics/statSeoul";
+    }
+
+    @GetMapping("/statistics/seoul/UA05")
+    public String seoulListUA05(Model model) {
+        log.info("/statistics/seoul/UA05");
+        List<stat_area_yymm> areas = statService.findStatSeoulListUA05();
+        model.addAttribute("list", areas);
+        return "statistics/statSeoul";
+    }
+
+    @GetMapping("/statistics/seoul/UA06")
+    public String seoulListUA06(Model model) {
+        log.info("/statistics/seoul/UA06");
+        List<stat_area_yymm> areas = statService.findStatSeoulListUA06();
+        model.addAttribute("list", areas);
+        return "statistics/statSeoul";
+    }
+
+
     @GetMapping("/statistics/gyunggi")
     public String gyunggiList(Model model) {
         log.info("/statistics/gyunggi");
