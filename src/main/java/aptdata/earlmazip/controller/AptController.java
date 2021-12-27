@@ -21,6 +21,6 @@ public class AptController {
     public String list(@ModelAttribute("aptSearch") AptSearch aptSearch, Model model) {
         List<apt_info> apts = aptService.findAllByName(aptSearch);
         model.addAttribute("apts", apts);
-        return "/apts/aptList";
+        return "apts/aptList";
     }
 }

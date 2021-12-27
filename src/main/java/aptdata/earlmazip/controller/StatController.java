@@ -20,20 +20,20 @@ public class StatController {
     public String seoulList(Model model) {
         List<stat_area_yymm> areas = statService.findStatSeoulList();
         model.addAttribute("list", areas);
-        return "/statistics/stat";
+        return "statistics/stat";
     }
 
     @GetMapping("/statistics/seoul/{year}")
     public String seoulListYear(@PathVariable String year, Model model) {
         List<stat_area_yymm> areas = statService.findStatSeoulListYear(year);
         model.addAttribute("list", areas);
-        return "/statistics/stat";
+        return "statistics/stat";
     }
 
     @GetMapping("/statistics/gyunggi")
     public String gyunggiList(Model model) {
         List<stat_area_yymm> areas = statService.findStatGyunggiList();
         model.addAttribute("list", areas);
-        return "/statistics/stat";
+        return "statistics/stat";
     }
 }
