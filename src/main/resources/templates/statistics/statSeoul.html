@@ -7,20 +7,21 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
         <div>
+            <a>년도별</a>
             <a href="/statistics/seoul">전체</a>
-            <a href="/statistics/seoul/2017">2017</a>
-            <a href="/statistics/seoul/2018">2018</a>
-            <a href="/statistics/seoul/2019">2019</a>
-            <a href="/statistics/seoul/2020">2020</a>
             <a href="/statistics/seoul/2021">2021</a>
+            <a href="/statistics/seoul/2020">2020</a>
+            <a href="/statistics/seoul/2019">2019</a>
+            <a href="/statistics/seoul/2018">2018</a>
+            <a href="/statistics/seoul/2017">2017</a>
         </div>
         <div>
-            <a>전용평수별</a>
-            <a href="/statistics/seoul/UA02">59미만</a>
-            <a href="/statistics/seoul/UA03">59이상 85미만</a>
-            <a href="/statistics/seoul/UA04">85이상 102미만</a>
-            <a href="/statistics/seoul/UA05">102이상 135이하</a>
-            <a href="/statistics/seoul/UA06">135초과</a>
+            <a>전용면적별</a>
+            <a href="/statistics/seoul/usearea/UA02">59미만</a>
+            <a href="/statistics/seoul/usearea/UA03">59이상 85미만</a>
+            <a href="/statistics/seoul/usearea/UA04">85이상 102미만</a>
+            <a href="/statistics/seoul/usearea/UA05">102이상 135이하</a>
+            <a href="/statistics/seoul/usearea/UA06">135초과</a>
         </div>
 <!--        <div>-->
 <!--            <form th:object="${aptSearch}" class="form-inline">-->
@@ -42,6 +43,7 @@
         <table class="table table-striped">
             <thead>
             <tr style="font-size:12px;" align="center">
+                <th>지역</th>
                 <th>년-월</th>
                 <th>최저<br/>매매가</th>
                 <th>평균<br/>매매가</th>
@@ -51,6 +53,7 @@
             </thead>
             <tbody>
             <tr style="font-size:12px;" th:each="list : ${list}">
+                <td align="center" th:text="${list.area_name}"></td>
                 <td align="center" th:text="${list.dealYYMM}"></td>
                 <td align="right" th:text="${#numbers.formatInteger(list.minPrice,3,'COMMA')}"></td>
                 <td align="right" th:text="${#numbers.formatInteger(list.avgPrice,3,'COMMA')}"></td>

@@ -6,20 +6,20 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "stat_area_yymm")
+@Table(name = "stat_sido_yymm")
 @Getter
 @Setter
-public class stat_area_yymm {
+public class stat_sido_yymm {
     @Id
     @GeneratedValue
-    @Column(name="SEQ")
+    @Column(name="seq")
     private String seq;
 
-    @Column(name = "area_code")
-    private String areaCode;
+    @Column(name = "sido_code")
+    private String sidoCode;
 
-    @Column(name = "area_name")
-    private String areaName;
+    @Column(name = "sido_name")
+    private String sidoName;
 
     @Column(name = "deal_year")
     private String dealYear;

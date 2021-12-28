@@ -1,6 +1,7 @@
 package aptdata.earlmazip.service;
 
 import aptdata.earlmazip.domain.stat_area_yymm;
+import aptdata.earlmazip.domain.stat_sido_yymm;
 import aptdata.earlmazip.repository.StatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,24 +22,8 @@ public class StatService {
         return statRepository.findSeoulYear(year);
     }
 
-    public List<stat_area_yymm> findStatSeoulListUA02() {
-        return statRepository.findSeoulUA2();
-    }
-
-    public List<stat_area_yymm> findStatSeoulListUA03() {
-        return statRepository.findSeoulUA3();
-    }
-
-    public List<stat_area_yymm> findStatSeoulListUA04() {
-        return statRepository.findSeoulUA4();
-    }
-
-    public List<stat_area_yymm> findStatSeoulListUA05() {
-        return statRepository.findSeoulUA5();
-    }
-
-    public List<stat_area_yymm> findStatSeoulListUA06() {
-        return statRepository.findSeoulUA6();
+    public List<stat_area_yymm> findStatSeoulListUA(String ua) {
+        return statRepository.findSeoulUA(ua);
     }
 
     public List<stat_area_yymm> findStatGyunggiList() {
@@ -47,5 +32,13 @@ public class StatService {
 
     public List<stat_area_yymm> findStatGyunggiListYear(String year) {
         return statRepository.findGyungGiYear(year);
+    }
+
+    public List<stat_area_yymm> findStatGyunggiListUA(String ua) {
+        return statRepository.findGyungGiUA(ua);
+    }
+
+    public List<stat_sido_yymm> findStatGyunggiSiList(String sidoCode) {
+        return statRepository.findGyungGiSi(sidoCode);
     }
 }

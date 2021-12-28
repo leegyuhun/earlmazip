@@ -1,6 +1,7 @@
 package aptdata.earlmazip.repository;
 
 import aptdata.earlmazip.domain.stat_area_yymm;
+import aptdata.earlmazip.domain.stat_sido_yymm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -28,38 +29,11 @@ public class StatRepository {
                 .getResultList();
     }
 
-    public List<stat_area_yymm> findSeoulUA2(){
+    public List<stat_area_yymm> findSeoulUA(String ua){
         return em.createQuery("select a from stat_area_yymm a"
-                        + " where a.areaCode = '11' and use_area_type = 'UA02'"
+                        + " where a.areaCode = '11' and a.useAreaType = :useAreaType"
                         + " order by a.dealYYMM desc", stat_area_yymm.class)
-                .getResultList();
-    }
-
-    public List<stat_area_yymm> findSeoulUA3(){
-        return em.createQuery("select a from stat_area_yymm a"
-                        + " where a.areaCode = '11' and use_area_type = 'UA03'"
-                        + " order by a.dealYYMM desc", stat_area_yymm.class)
-                .getResultList();
-    }
-
-    public List<stat_area_yymm> findSeoulUA4(){
-        return em.createQuery("select a from stat_area_yymm a"
-                        + " where a.areaCode = '11' and use_area_type = 'UA04'"
-                        + " order by a.dealYYMM desc", stat_area_yymm.class)
-                .getResultList();
-    }
-
-    public List<stat_area_yymm> findSeoulUA5(){
-        return em.createQuery("select a from stat_area_yymm a"
-                        + " where a.areaCode = '11' and use_area_type = 'UA05'"
-                        + " order by a.dealYYMM desc", stat_area_yymm.class)
-                .getResultList();
-    }
-
-    public List<stat_area_yymm> findSeoulUA6(){
-        return em.createQuery("select a from stat_area_yymm a"
-                        + " where a.areaCode = '11' and use_area_type = 'UA06'"
-                        + " order by a.dealYYMM desc", stat_area_yymm.class)
+                .setParameter("useAreaType", ua)
                 .getResultList();
     }
 
@@ -75,7 +49,23 @@ public class StatRepository {
                         + " where a.areaCode = '41' and use_area_type = 'UA01'"
                         + "    and a.dealYear = :dealYear"
                         + " order by a.dealYYMM desc", stat_area_yymm.class)
-                .setParameter("dealYaer", year)
+                .setParameter("dealYear", year)
+                .getResultList();
+    }
+
+    public List<stat_area_yymm> findGyungGiUA(String ua){
+        return em.createQuery("select a from stat_area_yymm a"
+                        + " where a.areaCode = '41' and a.useAreaType = :useAreaType"
+                        + " order by a.dealYYMM desc", stat_area_yymm.class)
+                .setParameter("useAreaType", ua)
+                .getResultList();
+    }
+
+    public List<stat_sido_yymm> findGyungGiSi(String sidoCode){
+        return em.createQuery("select a from stat_sido_yymm a"
+                        + " where a.sidoCode = :sidoCode and use_area_type = 'UA01'"
+                        + " order by a.dealYYMM desc", stat_sido_yymm.class)
+                .setParameter("sidoCode", sidoCode)
                 .getResultList();
     }
 }
