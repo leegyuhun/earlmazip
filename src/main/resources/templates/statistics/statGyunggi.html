@@ -36,7 +36,7 @@
             </thead>
             <tbody>
             <tr style="font-size:12px;" th:each="list : ${list}">
-                <td align="center" th:text="${list.area_name}"></td>
+                <td align="center" th:text="${list.areaName}"></td>
                 <td align="center" th:text="${list.dealYYMM}"></td>
                 <td align="right" th:text="${#numbers.formatInteger(list.minPrice,3,'COMMA')}"></td>
                 <td align="right" th:text="${#numbers.formatInteger(list.avgPrice,3,'COMMA')}"></td>
