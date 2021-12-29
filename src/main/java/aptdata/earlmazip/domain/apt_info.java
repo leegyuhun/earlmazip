@@ -60,6 +60,9 @@ public class apt_info {
     private int mpArea135; //전용면적 85이상 135이하
     @Column(name="mp_area_136")
     private int mpArea136; //135초과
+    public float getBigMpRate() {
+        return bigMpRate * 100;
+    }
     @Column(name="big_mp_rate")
     private float bigMpRate; //국민평수 초과비율
     @Column(name="park_cnt_up")
