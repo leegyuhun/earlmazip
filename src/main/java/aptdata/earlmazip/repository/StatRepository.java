@@ -41,7 +41,7 @@ public class StatRepository {
     public List<aptPriceRaw> findSeoulTop(String sigungucode){
         return em.createQuery(" select a from aptPriceRaw a "
                             + " where a.sigunguCode = :sigunguCode and a.dealYear = '2021'"
-//                            + " and a.dealMon = '10'"
+                            + " and a.cnclDealDate = ''"
                             + " order by a.dealAmt desc", aptPriceRaw.class)
                 .setParameter("sigunguCode", sigungucode)
                 .setMaxResults(100)
@@ -83,6 +83,7 @@ public class StatRepository {
     public List<aptPriceRaw> findGyungGiTop(String sidocode){
         return em.createQuery(" select a from aptPriceRaw a "
                         + " where a.sidoCode = :sidoCode and a.dealYear = '2021'"
+                        + "     and a.cnclDealDate = ''"
                         + " order by a.dealAmt desc", aptPriceRaw.class)
                 .setParameter("sidoCode", sidocode)
                 .setMaxResults(100)

@@ -60,7 +60,7 @@
             <tr style="font-size:12px;" th:each="list : ${list}">
                 <td align="center" th:text="${list.dealDate}"></td>
                 <td align="center" th:text="${list.landDong}"></td>
-                <td align="center" th:text="${list.aptName}"></td>
+                <td align="left" th:text="${list.aptName}"></td>
                 <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,1,'POINT')}"></td>
                 <td align="right" th:text="${#numbers.formatInteger(list.dealAmt,1,'COMMA')}"></td>
                 <td align="right" th:text="${list.floor}"></td>
