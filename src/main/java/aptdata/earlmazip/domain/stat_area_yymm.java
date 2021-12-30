@@ -12,7 +12,6 @@ import javax.persistence.*;
 public class stat_area_yymm {
     @Id
     @GeneratedValue
-    @Column(name="SEQ")
     private String seq;
 
     @Column(name = "area_code")

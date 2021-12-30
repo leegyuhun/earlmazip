@@ -1,6 +1,6 @@
 package aptdata.earlmazip.repository;
 
-import aptdata.earlmazip.domain.apt_info;
+import aptdata.earlmazip.domain.aptInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
@@ -15,8 +15,8 @@ public class AptRepository {
 
     private final EntityManager em;
 
-    public List<apt_info> findAllByString(AptSearch aptSearch) {
-        String jpql = "select o from apt_info o";
+    public List<aptInfo> findAllByString(AptSearch aptSearch) {
+        String jpql = "select o from aptInfo o";
         boolean isFirstCondition = true;
 
         if (StringUtils.hasText(aptSearch.getAptName())) {
@@ -28,10 +28,10 @@ public class AptRepository {
             }
             jpql += " o.aptName like :aptName";
         }else{
-            List<apt_info> lists = new ArrayList<>();
+            List<aptInfo> lists = new ArrayList<>();
             return lists;
         }
-        TypedQuery<apt_info> query = em.createQuery(jpql, apt_info.class)
+        TypedQuery<aptInfo> query = em.createQuery(jpql, aptInfo.class)
                 .setMaxResults(50);
         if (StringUtils.hasText(aptSearch.getAptName())) {
             query = query.setParameter("aptName", '%' + aptSearch.getAptName() + '%');
@@ -40,14 +40,14 @@ public class AptRepository {
         return query.getResultList();
     }
 
-    public List<apt_info> findAll(){
-        return em.createQuery("select a from apt_info a where a.aptName = :aptName", apt_info.class)
+    public List<aptInfo> findAll(){
+        return em.createQuery("select a from aptInfo a where a.aptName = :aptName", aptInfo.class)
                 .setParameter("aptName", "래미안안양메가트리아")
                 .getResultList();
     }
 
-    public List<apt_info> findByName(String name){
-        return em.createQuery("select a from apt_info a where a.aptName = :aptName", apt_info.class)
+    public List<aptInfo> findByName(String name){
+        return em.createQuery("select a from aptInfo a where a.aptName = :aptName", aptInfo.class)
                 .setParameter("aptName", name)
                 .getResultList();
     }

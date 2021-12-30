@@ -1,5 +1,6 @@
 package aptdata.earlmazip.repository;
 
+import aptdata.earlmazip.domain.aptPriceRaw;
 import aptdata.earlmazip.domain.stat_area_yymm;
 import aptdata.earlmazip.domain.stat_sido_yymm;
 import lombok.RequiredArgsConstructor;
@@ -37,16 +38,26 @@ public class StatRepository {
                 .getResultList();
     }
 
+    public List<aptPriceRaw> findSeoulTop(String sigungucode){
+        return em.createQuery(" select a from aptPriceRaw a "
+                            + " where a.sigunguCode = :sigunguCode and a.dealYear = '2021'"
+//                            + " and a.dealMon = '10'"
+                            + " order by a.dealAmt desc", aptPriceRaw.class)
+                .setParameter("sigunguCode", sigungucode)
+                .setMaxResults(100)
+                .getResultList();
+    }
+
     public List<stat_area_yymm> findGyungGi(){
         return em.createQuery("select a from stat_area_yymm a"
-                        + " where a.areaCode = '41' and use_area_type = 'UA01'"
+                        + " where a.areaCode = '41' and useAreaType = 'UA01'"
                         + " order by a.dealYYMM desc", stat_area_yymm.class)
                 .getResultList();
     }
 
     public List<stat_area_yymm> findGyungGiYear(String year){
         return em.createQuery("select a from stat_area_yymm a"
-                        + " where a.areaCode = '41' and use_area_type = 'UA01'"
+                        + " where a.areaCode = '41' and useAreaType = 'UA01'"
                         + "    and a.dealYear = :dealYear"
                         + " order by a.dealYYMM desc", stat_area_yymm.class)
                 .setParameter("dealYear", year)
@@ -68,4 +79,14 @@ public class StatRepository {
                 .setParameter("sidoCode", sidoCode)
                 .getResultList();
     }
+
+    public List<aptPriceRaw> findGyungGiTop(String sidocode){
+        return em.createQuery(" select a from aptPriceRaw a "
+                        + " where a.sidoCode = :sidoCode and a.dealYear = '2021'"
+                        + " order by a.dealAmt desc", aptPriceRaw.class)
+                .setParameter("sidoCode", sidocode)
+                .setMaxResults(100)
+                .getResultList();
+    }
+
 }

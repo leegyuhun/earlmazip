@@ -1,5 +1,6 @@
 package aptdata.earlmazip.service;
 
+import aptdata.earlmazip.domain.aptPriceRaw;
 import aptdata.earlmazip.domain.stat_area_yymm;
 import aptdata.earlmazip.domain.stat_sido_yymm;
 import aptdata.earlmazip.repository.StatRepository;
@@ -26,6 +27,10 @@ public class StatService {
         return statRepository.findSeoulUA(ua);
     }
 
+    public List<aptPriceRaw> findSeoulTopList(String sigungucode) {
+        return statRepository.findSeoulTop(sigungucode);
+    }
+
     public List<stat_area_yymm> findStatGyunggiList() {
         return statRepository.findGyungGi();
     }
@@ -40,5 +45,9 @@ public class StatService {
 
     public List<stat_sido_yymm> findStatGyunggiSiList(String sidoCode) {
         return statRepository.findGyungGiSi(sidoCode);
+    }
+
+    public List<aptPriceRaw> findGyunggiTopList(String sidocode) {
+        return statRepository.findGyungGiTop(sidocode);
     }
 }

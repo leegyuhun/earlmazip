@@ -1,5 +1,6 @@
 package aptdata.earlmazip.controller;
 
+import aptdata.earlmazip.domain.aptPriceRaw;
 import aptdata.earlmazip.domain.stat_area_yymm;
 import aptdata.earlmazip.domain.stat_sido_yymm;
 import aptdata.earlmazip.service.StatService;
@@ -43,6 +44,14 @@ public class StatController {
         return "statistics/statSeoul";
     }
 
+    @GetMapping("/statistics/seoul/top/{sigungucode}")
+    public String seoulTopList(@PathVariable String sigungucode, Model model) {
+        log.info("/statistics/seoul/top/" + sigungucode);
+        List<aptPriceRaw> tops = statService.findSeoulTopList(sigungucode);
+        model.addAttribute("list", tops);
+        return "statistics/statSeoulTop";
+    }
+
     @GetMapping("/statistics/gyunggi")
     public String gyunggiList(Model model) {
         log.info("/statistics/gyunggi");
@@ -73,5 +82,13 @@ public class StatController {
         List<stat_sido_yymm> areas = statService.findStatGyunggiSiList(sidoCode);
         model.addAttribute("list", areas);
         return "statistics/statGyunggiSi";
+    }
+
+    @GetMapping("/statistics/gyunggi/top/{sidocode}")
+    public String gyunggiTopList(@PathVariable String sidocode, Model model) {
+        log.info("/statistics/gyunggi/top/" + sidocode);
+        List<aptPriceRaw> tops = statService.findGyunggiTopList(sidocode);
+        model.addAttribute("list", tops);
+        return "statistics/statGyunggiTop";
     }
 }
