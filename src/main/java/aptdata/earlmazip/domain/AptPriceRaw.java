@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "apt_price_raw")
 @Getter @Setter
-public class aptPriceRaw {
+public class AptPriceRaw {
     @Id
     private int seq;
     private String areaCode;

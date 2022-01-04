@@ -1,6 +1,6 @@
 package aptdata.earlmazip.controller;
 
-import aptdata.earlmazip.domain.aptInfo;
+import aptdata.earlmazip.domain.AptInfo;
 import aptdata.earlmazip.repository.AptSearch;
 import aptdata.earlmazip.service.AptService;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class AptController {
     @GetMapping("/apts")
     public String list(@ModelAttribute("aptSearch") AptSearch aptSearch, Model model) {
         log.info("aptSearh: " + aptSearch.getAptName());
-        List<aptInfo> apts = aptService.findAllByName(aptSearch);
+        List<AptInfo> apts = aptService.findAllByName(aptSearch);
         model.addAttribute("apts", apts);
         return "apts/aptList";
     }

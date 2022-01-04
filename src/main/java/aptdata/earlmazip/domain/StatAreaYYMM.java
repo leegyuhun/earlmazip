@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "stat_area_yymm")
 @Getter
 @Setter
-public class stat_area_yymm {
+public class StatAreaYYMM {
     @Id
     @GeneratedValue
     private String seq;

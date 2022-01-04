@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "apt_info")
-public class aptInfo {
+public class AptInfo {
     @Id
     @GeneratedValue
     @Column(name = "apt_code")
