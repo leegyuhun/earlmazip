@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -22,7 +23,12 @@ public class AptController {
     @GetMapping("/apts")
     public String list(@ModelAttribute("aptSearch") AptSearch aptSearch, Model model) {
         log.info("aptSearh: " + aptSearch.getAptName());
-        List<AptInfo> apts = aptService.findAllByName(aptSearch);
+        List<AptInfo> apts;
+        if(aptSearch.getAptName() == null || aptSearch.getAptName().equals("")){
+            apts = new ArrayList<>();
+        } else{
+            apts = aptService.findAllByName(aptSearch);
+        }
         model.addAttribute("apts", apts);
         return "apts/aptList";
     }
