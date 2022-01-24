@@ -31,6 +31,7 @@ public class AptRepository {
             List<AptInfo> lists = new ArrayList<>();
             return lists;
         }
+        jpql += " order by o.useAplyYear desc";
         TypedQuery<AptInfo> query = em.createQuery(jpql, AptInfo.class)
                 .setMaxResults(50);
         if (StringUtils.hasText(aptSearch.getAptName())) {

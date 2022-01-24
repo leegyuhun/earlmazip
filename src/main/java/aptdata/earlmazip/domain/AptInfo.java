@@ -7,7 +7,6 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
 @Table(name = "apt_info")
 public class AptInfo {
     @Id

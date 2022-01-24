@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "apt_price_raw")
-@Getter @Setter
+@Getter
 public class AptPriceRaw {
     @Id
     private int seq;
@@ -51,5 +51,6 @@ public class AptPriceRaw {
     private String cnclDealDate;
     private String dealType;
     private String dealLoc;
+    private int newHighestPrice;
 
 }

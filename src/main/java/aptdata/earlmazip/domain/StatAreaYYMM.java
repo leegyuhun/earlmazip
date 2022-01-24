@@ -8,7 +8,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "stat_area_yymm")
 @Getter
-@Setter
 public class StatAreaYYMM {
     @Id
     @GeneratedValue
@@ -44,4 +43,7 @@ public class StatAreaYYMM {
 
     @Column(name = "cnt")
     private int cnt;
+
+    @Column(name = "highest_rate")
+    private float highestRate;
 }

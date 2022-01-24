@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "rank_year")
-@Getter @Setter
+@Getter
 public class RankYear {
     @Id
     private int seq;

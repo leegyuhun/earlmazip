@@ -8,6 +8,7 @@
         <div>
             <a>년도별</a>
             <a href="/statistics/seoul">전체</a>
+            <a href="/statistics/seoul/2022">2022</a>
             <a href="/statistics/seoul/2021">2021</a>
             <a href="/statistics/seoul/2020">2020</a>
             <a href="/statistics/seoul/2019">2019</a>
@@ -48,6 +49,7 @@
                 <th>평균<br/>매매가</th>
                 <th>최고<br/>매매가</th>
                 <th>거래량</th>
+                <th>신고가율</th>
             </tr>
             </thead>
             <tbody>
@@ -58,6 +60,7 @@
                 <td align="right" th:text="${#numbers.formatInteger(list.avgPrice,1,'COMMA')}"></td>
                 <td align="right" th:text="${#numbers.formatInteger(list.maxPrice,1,'COMMA')}"></td>
                 <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
+                <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>
             </tr>
             </tbody>
         </table>
