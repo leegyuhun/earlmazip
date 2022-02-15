@@ -42,7 +42,7 @@ public class AptInfo {
     @Column(name = "mp_area_136")
     private int mpArea136; //135초과
     private float bigMpRate; //국민평수 초과비율
-    public float getBigMpRate() { return bigMpRate * 100; }
+//    public float getBigMpRate() { return bigMpRate * 100; }
     private int parkCntUp; //주차가능수(지상)
     private int parkCntDn; //주차가능수(지하)
     private float parkRate; //세대당 주차수

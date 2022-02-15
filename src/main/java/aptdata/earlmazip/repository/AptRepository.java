@@ -1,5 +1,6 @@
 package aptdata.earlmazip.repository;
 
+import aptdata.earlmazip.controller.dto.AptResponseDto;
 import aptdata.earlmazip.domain.AptInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -8,6 +9,7 @@ import org.springframework.util.StringUtils;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -15,7 +17,7 @@ public class AptRepository {
 
     private final EntityManager em;
 
-    public List<AptInfo> findAllByString(AptSearch aptSearch) {
+    public List<AptResponseDto> findAllByString(AptSearch aptSearch) {
         String jpql = "select o from AptInfo o";
         boolean isFirstCondition = true;
 
@@ -28,7 +30,7 @@ public class AptRepository {
             }
             jpql += " o.aptName like :aptName";
         }else{
-            List<AptInfo> lists = new ArrayList<>();
+            List<AptResponseDto> lists = new ArrayList<>();
             return lists;
         }
         jpql += " order by o.useAplyYear desc";
@@ -38,7 +40,7 @@ public class AptRepository {
             query = query.setParameter("aptName", '%' + aptSearch.getAptName() + '%');
         }
 
-        return query.getResultList();
+        return query.getResultList().stream().map(AptResponseDto::new).collect(Collectors.toList());
     }
 
     public List<AptInfo> findAll(){

@@ -1,5 +1,6 @@
 package aptdata.earlmazip.service;
 
+import aptdata.earlmazip.controller.dto.StatResponseDto;
 import aptdata.earlmazip.domain.RankYear;
 import aptdata.earlmazip.domain.StatAreaYYMM;
 import aptdata.earlmazip.domain.StatSidoYYMM;
@@ -15,39 +16,39 @@ public class StatService {
 
     private final StatRepository statRepository;
 
-    public List<StatAreaYYMM> findStatSeoulList() {
+    public List<StatResponseDto> findStatSeoulList() {
         return statRepository.findSeoul();
     }
 
-    public List<StatAreaYYMM> findStatSeoulListYear(String year) {
+    public List<StatResponseDto> findStatSeoulListYear(String year) {
         return statRepository.findSeoulYear(year);
     }
 
-    public List<StatAreaYYMM> findStatSeoulListUA(String ua) {
+    public List<StatResponseDto> findStatSeoulListUA(String ua) {
         return statRepository.findSeoulUA(ua);
     }
 
-    public List<RankYear> findSeoulTopList(String sigungucode) {
-        return statRepository.findSeoulTop(sigungucode);
+    public List<RankYear> findSeoulTopList(String year, String sigungucode) {
+        return statRepository.findSeoulTop(year, sigungucode);
     }
 
-    public List<StatAreaYYMM> findStatGyunggiList() {
+    public List<StatResponseDto> findStatGyunggiList() {
         return statRepository.findGyungGi();
     }
 
-    public List<StatAreaYYMM> findStatGyunggiListYear(String year) {
+    public List<StatResponseDto> findStatGyunggiListYear(String year) {
         return statRepository.findGyungGiYear(year);
     }
 
-    public List<StatAreaYYMM> findStatGyunggiListUA(String ua) {
+    public List<StatResponseDto> findStatGyunggiListUA(String ua) {
         return statRepository.findGyungGiUA(ua);
     }
 
-    public List<StatSidoYYMM> findStatGyunggiSiList(String sidoCode) {
+    public List<StatResponseDto> findStatGyunggiSiList(String sidoCode) {
         return statRepository.findGyungGiSi(sidoCode);
     }
 
-    public List<RankYear> findGyunggiTopList(String sidocode) {
-        return statRepository.findGyungGiTop(sidocode);
+    public List<RankYear> findGyunggiTopList(String year, String sidocode) {
+        return statRepository.findGyungGiTop(year, sidocode);
     }
 }

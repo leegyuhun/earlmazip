@@ -1,5 +1,6 @@
 package aptdata.earlmazip.controller;
 
+import aptdata.earlmazip.controller.dto.StatResponseDto;
 import aptdata.earlmazip.domain.RankYear;
 import aptdata.earlmazip.domain.StatAreaYYMM;
 import aptdata.earlmazip.domain.StatSidoYYMM;
@@ -25,7 +26,7 @@ public class StatController {
     @GetMapping("/statistics/seoul")
     public String seoulList(Model model) {
         log.info("/statistics/seoul");
-        List<StatAreaYYMM> areas = statService.findStatSeoulList();
+        List<StatResponseDto> areas = statService.findStatSeoulList();
         model.addAttribute("list", areas);
         return "statistics/statSeoul";
     }
@@ -33,7 +34,7 @@ public class StatController {
     @GetMapping("/statistics/seoul/{year}")
     public String seoulListYear(@PathVariable String year, Model model) {
         log.info("/statistics/seoul/" + year);
-        List<StatAreaYYMM> areas;
+        List<StatResponseDto> areas;
         if (StringUtils.hasText(year)) {
             areas = statService.findStatSeoulListYear(year);
         }
@@ -47,7 +48,7 @@ public class StatController {
     @GetMapping("/statistics/seoul/usearea/{ua}")
     public String seoulListUA(@PathVariable String ua, Model model) {
         log.info("/statistics/seoul/usearea/" + ua);
-        List<StatAreaYYMM> areas;
+        List<StatResponseDto> areas;
         if (StringUtils.hasText(ua)) {
             areas = statService.findStatSeoulListUA(ua);
         }
@@ -58,23 +59,25 @@ public class StatController {
         return "statistics/statSeoul";
     }
 
-    @GetMapping("/statistics/seoul/top/{sigungucode}")
-    public String seoulTopList(@PathVariable String sigungucode, Model model) {
+    @GetMapping("/statistics/seoul/top/{year}/{sigungucode}")
+    public String seoulTopList(@PathVariable String year,
+                               @PathVariable String sigungucode, Model model) {
         log.info("/statistics/seoul/top/" + sigungucode);
         List<RankYear> tops;
         if (StringUtils.hasText(sigungucode)) {
-            tops = statService.findSeoulTopList(sigungucode);
+            tops = statService.findSeoulTopList(year, sigungucode);
         } else {
             tops = new ArrayList<>();
         }
         model.addAttribute("list", tops);
+        model.addAttribute("year", year);
         return "statistics/statSeoulTop";
     }
 
     @GetMapping("/statistics/gyunggi")
     public String gyunggiList(Model model) {
         log.info("/statistics/gyunggi");
-        List<StatAreaYYMM> areas = statService.findStatGyunggiList();
+        List<StatResponseDto> areas = statService.findStatGyunggiList();
         model.addAttribute("list", areas);
         return "statistics/statGyunggi";
     }
@@ -82,7 +85,7 @@ public class StatController {
     @GetMapping("/statistics/gyunggi/{year}")
     public String gyunggiListYear(@PathVariable String year, Model model) {
         log.info("/statistics/gyunggi/" + year);
-        List<StatAreaYYMM> areas;
+        List<StatResponseDto> areas;
         if (StringUtils.hasText(year)) {
             areas = statService.findStatGyunggiListYear(year);
         } else{
@@ -95,7 +98,7 @@ public class StatController {
     @GetMapping("/statistics/gyunggi/usearea/{ua}")
     public String gyunggiListUA(@PathVariable String ua, Model model) {
         log.info("/statistics/gyunggi/usearea/" + ua);
-        List<StatAreaYYMM> areas;
+        List<StatResponseDto> areas;
         if (StringUtils.hasText(ua)) {
             areas = statService.findStatGyunggiListUA(ua);
         } else{
@@ -108,7 +111,7 @@ public class StatController {
     @GetMapping("/statistics/gyunggisi/{sidoCode}")
     public String gyunggisiList(@PathVariable String sidoCode, Model model) {
         log.info("/statistics/gyunggisi/" + sidoCode);
-        List<StatSidoYYMM> areas;
+        List<StatResponseDto> areas;
         if (StringUtils.hasText(sidoCode)) {
             areas = statService.findStatGyunggiSiList(sidoCode);
         } else{
@@ -118,16 +121,18 @@ public class StatController {
         return "statistics/statGyunggiSi";
     }
 
-    @GetMapping("/statistics/gyunggi/top/{sidocode}")
-    public String gyunggiTopList(@PathVariable String sidocode, Model model) {
+    @GetMapping("/statistics/gyunggi/top/{year}/{sidocode}")
+    public String gyunggiTopList(@PathVariable String year,
+                                 @PathVariable String sidocode, Model model) {
         log.info("/statistics/gyunggi/top/" + sidocode);
         List<RankYear> tops;
         if (StringUtils.hasText(sidocode)) {
-            tops = statService.findGyunggiTopList(sidocode);
+            tops = statService.findGyunggiTopList(year, sidocode);
         } else{
             tops = new ArrayList<>();
         }
         model.addAttribute("list", tops);
+        model.addAttribute("year", year);
         return "statistics/statGyunggiTop";
     }
 }

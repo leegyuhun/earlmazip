@@ -22,11 +22,9 @@ public class AptPriceRaw {
     private String dealYear;
     private String dealMon;
     private String dealDay;
-
-    public String getDealDate() {
-        return dealDate.substring(0,4) + "-" + dealDate.substring(4,6) + "-" + dealDate.substring(6,8);
-    }
-
+//    public String getDealDate() {
+//        return dealDate.substring(0,4) + "-" + dealDate.substring(4,6) + "-" + dealDate.substring(6,8);
+//    }
     private String dealDate;
     private String aptName;
     private float useArea;

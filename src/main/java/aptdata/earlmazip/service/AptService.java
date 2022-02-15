@@ -1,5 +1,6 @@
 package aptdata.earlmazip.service;
 
+import aptdata.earlmazip.controller.dto.AptResponseDto;
 import aptdata.earlmazip.domain.AptInfo;
 import aptdata.earlmazip.repository.AptRepository;
 import aptdata.earlmazip.repository.AptSearch;
@@ -20,7 +21,7 @@ public class AptService {
         return aptRepository.findByName(name);
     }
 
-    public List<AptInfo> findAllByName(AptSearch aptSearch) {
+    public List<AptResponseDto> findAllByName(AptSearch aptSearch) {
         return aptRepository.findAllByString(aptSearch);
     }
 }

@@ -1,5 +1,6 @@
 package aptdata.earlmazip.controller;
 
+import aptdata.earlmazip.controller.dto.AptResponseDto;
 import aptdata.earlmazip.domain.AptInfo;
 import aptdata.earlmazip.repository.AptSearch;
 import aptdata.earlmazip.service.AptService;
@@ -23,7 +24,7 @@ public class AptController {
     @GetMapping("/apts")
     public String list(@ModelAttribute("aptSearch") AptSearch aptSearch, Model model) {
         log.info("aptSearh: " + aptSearch.getAptName());
-        List<AptInfo> apts;
+        List<AptResponseDto> apts;
         if(aptSearch.getAptName() == null || aptSearch.getAptName().equals("")){
             apts = new ArrayList<>();
         } else{
