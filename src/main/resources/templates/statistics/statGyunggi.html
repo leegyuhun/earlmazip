@@ -6,40 +6,50 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                년도별
-            </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="/statistics/gyunggi">전체</a>
-                <a class="dropdown-item" href="/statistics/gyunggi/2022">2022</a>
-                <a class="dropdown-item" href="/statistics/gyunggi/2021">2021</a>
-                <a class="dropdown-item" href="/statistics/gyunggi/2020">2020</a>
-                <a class="dropdown-item" href="/statistics/gyunggi/2019">2019</a>
-                <a class="dropdown-item" href="/statistics/gyunggi/2018">2018</a>
-                <a class="dropdown-item" href="/statistics/gyunggi/2017">2017</a>
-            </div>
+<!--        <div class="btn-group">-->
+<!--            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                년도별-->
+<!--            </button>-->
+<!--            <div class="dropdown-menu">-->
+<!--                <a class="dropdown-item" href="/statistics/gyunggi">전체</a>-->
+<!--                <a class="dropdown-item" href="/statistics/gyunggi/2022">2022</a>-->
+<!--                <a class="dropdown-item" href="/statistics/gyunggi/2021">2021</a>-->
+<!--                <a class="dropdown-item" href="/statistics/gyunggi/2020">2020</a>-->
+<!--                <a class="dropdown-item" href="/statistics/gyunggi/2019">2019</a>-->
+<!--                <a class="dropdown-item" href="/statistics/gyunggi/2018">2018</a>-->
+<!--                <a class="dropdown-item" href="/statistics/gyunggi/2017">2017</a>-->
+<!--            </div>-->
 
-            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                전용면적별
-            </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="/statistics/gyunggi/usearea/UA01">전체</a>
-                <a class="dropdown-item" href="/statistics/gyunggi/usearea/UA02">59미만</a>
-                <a class="dropdown-item" href="/statistics/gyunggi/usearea/UA03">59이상 85미만</a>
-                <a class="dropdown-item" href="/statistics/gyunggi/usearea/UA04">85이상 102미만</a>
-                <a class="dropdown-item" href="/statistics/gyunggi/usearea/UA05">102이상 135이하</a>
-                <a class="dropdown-item" href="/statistics/gyunggi/usearea/UA06">135초과</a>
-            </div>
-        </div>
-<!--        <div>-->
-<!--            <a>전용면적별</a>-->
-<!--            <a href="/statistics/gyunggi/usearea/UA02">59미만</a>-->
-<!--            <a href="/statistics/gyunggi/usearea/UA03">59이상 85미만</a>-->
-<!--            <a href="/statistics/gyunggi/usearea/UA04">85이상 102미만</a>-->
-<!--            <a href="/statistics/gyunggi/usearea/UA05">102이상 135이하</a>-->
-<!--            <a href="/statistics/gyunggi/usearea/UA06">135초과</a>-->
+<!--            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                전용면적별-->
+<!--            </button>-->
+<!--            <div class="dropdown-menu">-->
+<!--                <a class="dropdown-item" href="/statistics/gyunggi/usearea/UA01">전체</a>-->
+<!--                <a class="dropdown-item" href="/statistics/gyunggi/usearea/UA02">59미만</a>-->
+<!--                <a class="dropdown-item" href="/statistics/gyunggi/usearea/UA03">59이상 85미만</a>-->
+<!--                <a class="dropdown-item" href="/statistics/gyunggi/usearea/UA04">85이상 102미만</a>-->
+<!--                <a class="dropdown-item" href="/statistics/gyunggi/usearea/UA05">102이상 135이하</a>-->
+<!--                <a class="dropdown-item" href="/statistics/gyunggi/usearea/UA06">135초과</a>-->
+<!--            </div>-->
 <!--        </div>-->
+        <div>
+            <a>년도별</a>
+            <a href="/statistics/gyunggi">전체</a>
+            <a href="/statistics/gyunggi/2022">2022</a>
+            <a href="/statistics/gyunggi/2021">2021</a>
+            <a href="/statistics/gyunggi/2020">2020</a>
+            <a href="/statistics/gyunggi/2019">2019</a>
+            <a href="/statistics/gyunggi/2018">2018</a>
+            <a href="/statistics/gyunggi/2017">2017</a>
+        </div>
+        <div>
+            <a>전용면적별</a>
+            <a href="/statistics/gyunggi/usearea/UA02">59미만</a>
+            <a href="/statistics/gyunggi/usearea/UA03">59이상 85미만</a>
+            <a href="/statistics/gyunggi/usearea/UA04">85이상 102미만</a>
+            <a href="/statistics/gyunggi/usearea/UA05">102이상 135이하</a>
+            <a href="/statistics/gyunggi/usearea/UA06">135초과</a>
+        </div>
         <table class="table table-striped">
             <thead>
             <tr class="table-dark" style="font-size:12px;" align="center">
