@@ -30,7 +30,7 @@ public class TradeController {
         }
         model.addAttribute("list", trads);
 
-        return "/tradelist/seoul";
+        return "tradelist/seoul";
     }
 
     @GetMapping("/tradelist/gyunggi/{sidocode}")
@@ -44,6 +44,6 @@ public class TradeController {
         }
         model.addAttribute("list", trads);
 
-        return "/tradelist/gyunggi";
+        return "tradelist/gyunggi";
     }
 }

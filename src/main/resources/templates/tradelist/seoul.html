@@ -69,13 +69,4 @@
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 </body>
-<script>
-    function findSeoulYear(year){
-        var form = document.createElement("form");
-            form.setAttribute("method", "get");
-            form.setAttribute("action", "/statistics/seoul/" + year);
-            document.body.appendChild(form);
-            form.submit();
-    }
-</script>
 </html>
