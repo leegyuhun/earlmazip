@@ -33,4 +33,13 @@ public class TradeRepository {
                 .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
 
+    public List<AptPriceResponseDto> getTradeList_Incheon(String sigungucode) {
+        return em.createQuery("select a from AptPriceRaw a"
+                        + " where a.dealYear >= 2021 and a.areaCode = '28' and a.sigunguCode = :sigunguCode"
+                        + " order by a.dealDate desc", AptPriceRaw.class)
+                .setParameter("sigunguCode", sigungucode)
+                .setMaxResults(100)
+                .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    }
+
 }

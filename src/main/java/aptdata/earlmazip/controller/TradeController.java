@@ -46,4 +46,18 @@ public class TradeController {
 
         return "tradelist/gyunggi";
     }
+
+    @GetMapping("/tradelist/incheon/{sigungucode}")
+    public String getTradeList_Incheon(@PathVariable String sigungucode, Model model) {
+        log.info("/tradelist/incheon/" + sigungucode);
+        List<AptPriceResponseDto> trads;
+        if (StringUtils.hasText(sigungucode)) {
+            trads = tradeService.getTradeList_Incheon(sigungucode);
+        } else {
+            trads = new ArrayList<>();
+        }
+        model.addAttribute("list", trads);
+
+        return "tradelist/incheon";
+    }
 }

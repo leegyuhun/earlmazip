@@ -18,8 +18,11 @@ public class TradeService {
         return tradeRepository.getTradeList_SeoulSigungu(sigungucode);
     }
 
-    public List<AptPriceResponseDto> getTradeList_GyunggiSido(String sidocode)
-    {
+    public List<AptPriceResponseDto> getTradeList_GyunggiSido(String sidocode) {
         return tradeRepository.getTradeList_GyunggiSido(sidocode);
+    }
+
+    public List<AptPriceResponseDto> getTradeList_Incheon(String sigungu) {
+        return tradeRepository.getTradeList_Incheon(sigungu);
     }
 }

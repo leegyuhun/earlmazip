@@ -41,6 +41,7 @@ public class AptPriceResponseDto {
     private String cnclDealDate;
     private String dealType;
     private String dealLoc;
+    private String newHighest;
     private int newHighestPrice;
 
     public AptPriceResponseDto(AptPriceRaw entity) {
@@ -78,5 +79,7 @@ public class AptPriceResponseDto {
         this.dealType = entity.getDealType();
         this.dealLoc = entity.getDealLoc();
         this.newHighestPrice = entity.getNewHighestPrice();
+        if (entity.getNewHighestPrice() == 0) { this.newHighest = "O"; }
+        else { this.newHighest = "-"; }
     }
 }
