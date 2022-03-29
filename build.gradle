@@ -32,6 +32,7 @@ dependencies {
 
 jar {
 	enabled = false
+	archiveClassifier = ''
 }
 
 test {
