@@ -16,7 +16,7 @@ public class SiteInfoRepository {
     private final EntityManager em;
 
     public String findSiteInfo(String name) {
-        log.info("findSiteInfo name: " + name);
+//        log.info("findSiteInfo name: " + name);
 //        SiteInfo siteInfo = em.createQuery("select a from SiteInfo a where a.infoName = :name", SiteInfo.class)
 //                .setParameter("name", name)
 //                .getSingleResult();
