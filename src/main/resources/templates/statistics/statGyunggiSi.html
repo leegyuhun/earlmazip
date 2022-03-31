@@ -55,8 +55,8 @@
                 <th>최저<br/>매매가</th>
                 <th>평균<br/>매매가</th>
                 <th>최고<br/>매매가</th>
-                <th>거래량</th>
-                <th>신고가율</th>
+                <th>거래건수</th>
+<!--                <th>신고가율</th>-->
             </tr>
             </thead>
             <tbody>
@@ -67,7 +67,7 @@
                 <td align="right" th:text="${#numbers.formatInteger(list.avgPrice,1,'COMMA')}"></td>
                 <td align="right" th:text="${#numbers.formatInteger(list.maxPrice,1,'COMMA')}"></td>
                 <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
-                <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>
+<!--                <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>-->
             </tr>
             </tbody>
         </table>
