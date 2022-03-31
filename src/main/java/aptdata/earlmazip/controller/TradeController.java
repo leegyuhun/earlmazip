@@ -1,6 +1,7 @@
 package aptdata.earlmazip.controller;
 
 import aptdata.earlmazip.controller.dto.AptPriceResponseDto;
+import aptdata.earlmazip.service.ApiCallStatService;
 import aptdata.earlmazip.service.TradeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +19,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TradeController {
     private final TradeService tradeService;
+    private final ApiCallStatService apiCallStatService;
 
     @GetMapping("/tradelist/seoul/{sigungucode}")
     public String getTradeList_Seoul(@PathVariable String sigungucode, Model model) {
         log.info("/tradelist/seoul/" + sigungucode);
+        apiCallStatService.writeApiCallStat("TRADE", "SEOUL");
         List<AptPriceResponseDto> trads;
         if (StringUtils.hasText(sigungucode)) {
             trads = tradeService.getTradeList_SeoulSigungu(sigungucode);
@@ -36,6 +39,7 @@ public class TradeController {
     @GetMapping("/tradelist/gyunggi/{sidocode}")
     public String getTradeList_Gyunggi(@PathVariable String sidocode, Model model) {
         log.info("/tradelist/gyunggi/" + sidocode);
+        apiCallStatService.writeApiCallStat("TRADE", "GYUNGGI");
         List<AptPriceResponseDto> trads;
         if (StringUtils.hasText(sidocode)) {
             trads = tradeService.getTradeList_GyunggiSido(sidocode);
@@ -50,6 +54,7 @@ public class TradeController {
     @GetMapping("/tradelist/incheon/{sigungucode}")
     public String getTradeList_Incheon(@PathVariable String sigungucode, Model model) {
         log.info("/tradelist/incheon/" + sigungucode);
+        apiCallStatService.writeApiCallStat("TRADE", "INCHEON");
         List<AptPriceResponseDto> trads;
         if (StringUtils.hasText(sigungucode)) {
             trads = tradeService.getTradeList_Incheon(sigungucode);

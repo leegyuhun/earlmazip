@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Setter
 public class ApiCallStat {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idx;
 
     @Column(name = "call_year")

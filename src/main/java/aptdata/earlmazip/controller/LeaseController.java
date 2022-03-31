@@ -2,6 +2,7 @@ package aptdata.earlmazip.controller;
 
 import aptdata.earlmazip.controller.dto.AptLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.AptPriceResponseDto;
+import aptdata.earlmazip.service.ApiCallStatService;
 import aptdata.earlmazip.service.LeaseService;
 import aptdata.earlmazip.service.TradeService;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +21,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LeaseController {
     private final LeaseService leaseService;
+    private final ApiCallStatService apiCallStatService;
 
     @GetMapping("/leaselist/seoul/{sigungucode}")
     public String getLeaseList_Seoul(@PathVariable String sigungucode, Model model) {
         log.info("/leaselist/seoul/" + sigungucode);
+        apiCallStatService.writeApiCallStat("LEASE", "SEOUL");
         List<AptLeaseResponseDto> trads;
         if (StringUtils.hasText(sigungucode)) {
             trads = leaseService.getLeaseList_SeoulSigungu(sigungucode);
@@ -38,6 +41,7 @@ public class LeaseController {
     @GetMapping("/leaselist/gyunggi/{sidocode}")
     public String getLeaseList_Gyunggi(@PathVariable String sidocode, Model model) {
         log.info("/leaselist/gyunggi/" + sidocode);
+        apiCallStatService.writeApiCallStat("LEASE", "GYUNGGI");
         List<AptLeaseResponseDto> trads;
         if (StringUtils.hasText(sidocode)) {
             trads = leaseService.getLeaseList_GyunggiSido(sidocode);
@@ -52,6 +56,7 @@ public class LeaseController {
     @GetMapping("/leaselist/incheon/{sigungucode}")
     public String getLeaseList_Incheon(@PathVariable String sigungucode, Model model) {
         log.info("/leaselist/incheon/" + sigungucode);
+        apiCallStatService.writeApiCallStat("LEASE", "INCHEON");
         List<AptLeaseResponseDto> trads;
         if (StringUtils.hasText(sigungucode)) {
             trads = leaseService.getLeaseList_IncheonSigungu(sigungucode);

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
@@ -18,14 +19,16 @@ public class ApiCallStatRepository {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         String date = simpleDateFormat.format(new Date());
 
-        ApiCallStat item = em.createQuery("select a from ApiCallStat a "
+        List<ApiCallStat> items = em.createQuery("select a from ApiCallStat a "
                         + " where a.callDate = :date and a.apiGubn = :gubn "
                         + " and a.apiName = :name",ApiCallStat.class)
                 .setParameter("date", date)
                 .setParameter("gubn", gubn)
                 .setParameter("name", name)
-                .getSingleResult();
-        if (item == null) {
+                .getResultList();
+        ApiCallStat item;
+        if (items.size() == 0) {
+            item = new ApiCallStat();
             item.setCallDate(date);
             item.setCallYear(date.substring(0, 4));
             item.setCallMonth(date.substring(4, 6));
@@ -35,6 +38,7 @@ public class ApiCallStatRepository {
             item.setCnt(1);
             em.persist(item);
         } else {
+            item = items.get(0);
             item.setCnt(item.getCnt()+1);
             em.merge(item);
         }
