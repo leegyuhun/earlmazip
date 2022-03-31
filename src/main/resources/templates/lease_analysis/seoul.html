@@ -56,7 +56,7 @@
             </thead>
             <tbody>
             <tr style="font-size:12px;" th:each="list : ${list}">
-                <td align="left" th:text="${list.sidoName}"></td>
+                <td align="left" th:text="${list.gubnName}"></td>
                 <td align="center" th:text="${list.dealYYMM}"></td>
                 <td align="right" th:text="${#numbers.formatInteger(list.shortCnt,1,'COMMA')}"></td>
                 <td align="right" th:text="${#numbers.formatInteger(list.longCnt,1,'COMMA')}"></td>
