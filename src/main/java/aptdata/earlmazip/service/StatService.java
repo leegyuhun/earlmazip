@@ -1,5 +1,6 @@
 package aptdata.earlmazip.service;
 
+import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.StatResponseDto;
 import aptdata.earlmazip.domain.RankYear;
 import aptdata.earlmazip.domain.StatAreaYYMM;
@@ -50,5 +51,13 @@ public class StatService {
 
     public List<RankYear> findGyunggiTopList(String year, String sidocode) {
         return statRepository.findGyungGiTop(year, sidocode);
+    }
+
+    public List<StatLeaseResponseDto> statLeaseSido(String sidoCode) {
+        return statRepository.statLeaseSido(sidoCode);
+    }
+
+    public List<StatLeaseResponseDto> statLeaseMonthlySido(String sidoCode) {
+        return statRepository.statLeaseMonthlySido(sidoCode);
     }
 }

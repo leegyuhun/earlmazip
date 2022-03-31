@@ -1,5 +1,6 @@
 package aptdata.earlmazip.controller;
 
+import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.StatResponseDto;
 import aptdata.earlmazip.domain.RankYear;
 import aptdata.earlmazip.domain.StatAreaYYMM;
@@ -134,5 +135,31 @@ public class StatController {
         model.addAttribute("list", tops);
         model.addAttribute("year", year);
         return "statistics/statGyunggiTop";
+    }
+
+    @GetMapping("/stat_lease/sido/{sidocode}")
+    public String statLeaseSido(@PathVariable String sidocode, Model model) {
+        log.info("/stat_lease/sido/" + sidocode);
+        List<StatLeaseResponseDto> stats;
+        if (StringUtils.hasText(sidocode)) {
+            stats = statService.statLeaseSido(sidocode);
+        } else{
+            stats = new ArrayList<>();
+        }
+        model.addAttribute("list", stats);
+        return "stat_lease/statSido";
+    }
+
+    @GetMapping("/stat_lease_monthly/sido/{sidocode}")
+    public String statLeaseMonthlySido(@PathVariable String sidocode, Model model) {
+        log.info("/stat_lease_monthly/sido/" + sidocode);
+        List<StatLeaseResponseDto> stats;
+        if (StringUtils.hasText(sidocode)) {
+            stats = statService.statLeaseMonthlySido(sidocode);
+        } else{
+            stats = new ArrayList<>();
+        }
+        model.addAttribute("list", stats);
+        return "stat_lease/statSido_monthly";
     }
 }

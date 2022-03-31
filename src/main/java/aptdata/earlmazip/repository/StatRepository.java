@@ -1,8 +1,10 @@
 package aptdata.earlmazip.repository;
 
+import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.StatResponseDto;
 import aptdata.earlmazip.domain.RankYear;
 import aptdata.earlmazip.domain.StatAreaYYMM;
+import aptdata.earlmazip.domain.StatSidoLease;
 import aptdata.earlmazip.domain.StatSidoYYMM;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -90,6 +92,22 @@ public class StatRepository {
                 .setParameter("dealYear", year)
                 .setMaxResults(100)
                 .getResultList();
+    }
+
+    public List<StatLeaseResponseDto> statLeaseSido(String sidoCode) {
+        return em.createQuery("select a from StatSidoLease a"
+        + " where a.sidoCode = :sidoCode and a.leaseType = '전세' "
+        + " order by a.dealYYMM desc", StatSidoLease.class)
+                .setParameter("sidoCode", sidoCode)
+                .getResultList().stream().map(StatLeaseResponseDto::new).collect(Collectors.toList());
+    }
+
+    public List<StatLeaseResponseDto> statLeaseMonthlySido(String sidoCode) {
+        return em.createQuery("select a from StatSidoLease a"
+                        + " where a.sidoCode = :sidoCode and a.leaseType = '월세' "
+                        + " order by a.dealYYMM desc", StatSidoLease.class)
+                .setParameter("sidoCode", sidoCode)
+                .getResultList().stream().map(StatLeaseResponseDto::new).collect(Collectors.toList());
     }
 
 }
