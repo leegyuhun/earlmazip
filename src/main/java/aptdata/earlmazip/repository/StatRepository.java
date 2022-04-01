@@ -94,6 +94,16 @@ public class StatRepository {
                 .getResultList();
     }
 
+    public List<RankYear> findIncheonTop(String year, String sigungucode){
+        return em.createQuery(" select a from RankYear a "
+                        + " where a.gubnCode = :sigungucode and a.dealYear = :dealYear "
+                        + " order by a.dealAmt desc", RankYear.class)
+                .setParameter("sigungucode", sigungucode)
+                .setParameter("dealYear", year)
+                .setMaxResults(100)
+                .getResultList();
+    }
+
     public List<StatLeaseResponseDto> statLeaseSido(String sidoCode) {
         return em.createQuery("select a from StatSidoLease a"
         + " where a.sidoCode = :sidoCode and a.leaseType = '전세' "

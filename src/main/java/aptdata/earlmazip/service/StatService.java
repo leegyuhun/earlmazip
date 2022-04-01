@@ -53,6 +53,10 @@ public class StatService {
         return statRepository.findGyungGiTop(year, sidocode);
     }
 
+    public List<RankYear> findIncheonTopList(String year, String sigungucode) {
+        return statRepository.findIncheonTop(year, sigungucode);
+    }
+
     public List<StatLeaseResponseDto> statLeaseSido(String sidoCode) {
         return statRepository.statLeaseSido(sidoCode);
     }

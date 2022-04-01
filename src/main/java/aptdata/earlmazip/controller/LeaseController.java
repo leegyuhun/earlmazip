@@ -25,11 +25,15 @@ public class LeaseController {
 
     @GetMapping("/leaselist/seoul/{sigungucode}")
     public String getLeaseList_Seoul(@PathVariable String sigungucode, Model model) {
-        log.info("/leaselist/seoul/" + sigungucode);
-        apiCallStatService.writeApiCallStat("LEASE", "SEOUL");
         List<AptLeaseResponseDto> trads;
-        if (StringUtils.hasText(sigungucode)) {
-            trads = leaseService.getLeaseList_SeoulSigungu(sigungucode);
+        if (!sigungucode.equals("0")) {
+            log.info("/leaselist/seoul/" + sigungucode);
+            apiCallStatService.writeApiCallStat("LEASE", "/leaselist/seoul/" + sigungucode);
+            if (StringUtils.hasText(sigungucode)) {
+                trads = leaseService.getLeaseList_SeoulSigungu(sigungucode);
+            } else {
+                trads = new ArrayList<>();
+            }
         } else {
             trads = new ArrayList<>();
         }
@@ -40,11 +44,15 @@ public class LeaseController {
 
     @GetMapping("/leaselist/gyunggi/{sidocode}")
     public String getLeaseList_Gyunggi(@PathVariable String sidocode, Model model) {
-        log.info("/leaselist/gyunggi/" + sidocode);
-        apiCallStatService.writeApiCallStat("LEASE", "GYUNGGI");
         List<AptLeaseResponseDto> trads;
-        if (StringUtils.hasText(sidocode)) {
-            trads = leaseService.getLeaseList_GyunggiSido(sidocode);
+        if (!sidocode.equals("0")) {
+            log.info("/leaselist/gyunggi/" + sidocode);
+            apiCallStatService.writeApiCallStat("LEASE", "/leaselist/gyunggi/" + sidocode);
+            if (StringUtils.hasText(sidocode)) {
+                trads = leaseService.getLeaseList_GyunggiSido(sidocode);
+            } else {
+                trads = new ArrayList<>();
+            }
         } else {
             trads = new ArrayList<>();
         }
@@ -55,11 +63,15 @@ public class LeaseController {
 
     @GetMapping("/leaselist/incheon/{sigungucode}")
     public String getLeaseList_Incheon(@PathVariable String sigungucode, Model model) {
-        log.info("/leaselist/incheon/" + sigungucode);
-        apiCallStatService.writeApiCallStat("LEASE", "INCHEON");
         List<AptLeaseResponseDto> trads;
-        if (StringUtils.hasText(sigungucode)) {
-            trads = leaseService.getLeaseList_IncheonSigungu(sigungucode);
+        if (!sigungucode.equals("0")) {
+            log.info("/leaselist/incheon/" + sigungucode);
+            apiCallStatService.writeApiCallStat("LEASE", "/leaselist/incheon/" + sigungucode);
+            if (StringUtils.hasText(sigungucode)) {
+                trads = leaseService.getLeaseList_IncheonSigungu(sigungucode);
+            } else {
+                trads = new ArrayList<>();
+            }
         } else {
             trads = new ArrayList<>();
         }

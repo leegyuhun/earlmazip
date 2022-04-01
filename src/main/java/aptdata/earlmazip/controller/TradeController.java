@@ -23,12 +23,16 @@ public class TradeController {
 
     @GetMapping("/tradelist/seoul/{sigungucode}")
     public String getTradeList_Seoul(@PathVariable String sigungucode, Model model) {
-        log.info("/tradelist/seoul/" + sigungucode);
-        apiCallStatService.writeApiCallStat("TRADE", "SEOUL");
         List<AptPriceResponseDto> trads;
-        if (StringUtils.hasText(sigungucode)) {
-            trads = tradeService.getTradeList_SeoulSigungu(sigungucode);
-        } else {
+        if (!sigungucode.equals("0")) {
+            log.info("/tradelist/seoul/" + sigungucode);
+            apiCallStatService.writeApiCallStat("TRADE", "/tradelist/seoul/" + sigungucode);
+            if (StringUtils.hasText(sigungucode)) {
+                trads = tradeService.getTradeList_SeoulSigungu(sigungucode);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else{
             trads = new ArrayList<>();
         }
         model.addAttribute("list", trads);
@@ -38,12 +42,16 @@ public class TradeController {
 
     @GetMapping("/tradelist/gyunggi/{sidocode}")
     public String getTradeList_Gyunggi(@PathVariable String sidocode, Model model) {
-        log.info("/tradelist/gyunggi/" + sidocode);
-        apiCallStatService.writeApiCallStat("TRADE", "GYUNGGI");
         List<AptPriceResponseDto> trads;
-        if (StringUtils.hasText(sidocode)) {
-            trads = tradeService.getTradeList_GyunggiSido(sidocode);
-        } else {
+        if (!sidocode.equals("0")) {
+            log.info("/tradelist/gyunggi/" + sidocode);
+            apiCallStatService.writeApiCallStat("TRADE", "/tradelist/gyunggi/" + sidocode);
+            if (StringUtils.hasText(sidocode)) {
+                trads = tradeService.getTradeList_GyunggiSido(sidocode);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else{
             trads = new ArrayList<>();
         }
         model.addAttribute("list", trads);
@@ -53,11 +61,16 @@ public class TradeController {
 
     @GetMapping("/tradelist/incheon/{sigungucode}")
     public String getTradeList_Incheon(@PathVariable String sigungucode, Model model) {
-        log.info("/tradelist/incheon/" + sigungucode);
-        apiCallStatService.writeApiCallStat("TRADE", "INCHEON");
         List<AptPriceResponseDto> trads;
-        if (StringUtils.hasText(sigungucode)) {
-            trads = tradeService.getTradeList_Incheon(sigungucode);
+        if (!sigungucode.equals("0")) {
+            log.info("/tradelist/incheon/" + sigungucode);
+            apiCallStatService.writeApiCallStat("TRADE", "/tradelist/incheon/" + sigungucode);
+
+            if (StringUtils.hasText(sigungucode)) {
+                trads = tradeService.getTradeList_Incheon(sigungucode);
+            } else {
+                trads = new ArrayList<>();
+            }
         } else {
             trads = new ArrayList<>();
         }

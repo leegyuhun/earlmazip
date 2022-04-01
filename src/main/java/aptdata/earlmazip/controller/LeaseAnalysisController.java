@@ -25,11 +25,15 @@ public class LeaseAnalysisController {
 
     @GetMapping("/lease_analysis/seoul/{gubncode}")
     public String getLeaseList_Seoul(@PathVariable String gubncode, Model model) {
-        log.info("/lease_analysis/seoul/" + gubncode);
-        apiCallStatService.writeApiCallStat("LEASE_ANAL", "SEOUL");
         List<StatLeaseAnalysisDto> anals;
-        if (StringUtils.hasText(gubncode)) {
-            anals = leaseAnalysisService.getLeaseAnalysisList(gubncode);
+        if (!gubncode.equals("0")) {
+            log.info("/lease_analysis/seoul/" + gubncode);
+            apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis/seoul/" + gubncode);
+            if (StringUtils.hasText(gubncode)) {
+                anals = leaseAnalysisService.getLeaseAnalysisList(gubncode);
+            } else {
+                anals = new ArrayList<>();
+            }
         } else {
             anals = new ArrayList<>();
         }
@@ -40,11 +44,15 @@ public class LeaseAnalysisController {
 
     @GetMapping("/lease_analysis/gyunggi/{gubncode}")
     public String getLeaseList_Gyunggi(@PathVariable String gubncode, Model model) {
-        log.info("/lease_analysis/gyunggi/" + gubncode);
-        apiCallStatService.writeApiCallStat("LEASE_ANAL", "GYUNGGI");
         List<StatLeaseAnalysisDto> anals;
-        if (StringUtils.hasText(gubncode)) {
-            anals = leaseAnalysisService.getLeaseAnalysisList(gubncode);
+        if (!gubncode.equals("0")) {
+            log.info("/lease_analysis/gyunggi/" + gubncode);
+            apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis/gyunggi/" + gubncode);
+            if (StringUtils.hasText(gubncode)) {
+                anals = leaseAnalysisService.getLeaseAnalysisList(gubncode);
+            } else {
+                anals = new ArrayList<>();
+            }
         } else {
             anals = new ArrayList<>();
         }
