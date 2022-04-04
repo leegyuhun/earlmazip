@@ -5,8 +5,10 @@
 
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
-    <!--    <a th:text="${year}"></a>-->
     <div>
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
         <div>
             <a href="/lease_analysis/seoul/11">전체</a>
         </div>
@@ -70,4 +72,38 @@
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 </body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+  const rates =  /*[[ ${rates.toArray()} ]]*/;
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: '월세 비율',
+      data: rates,
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      }
+    ]
+  };
+
+  const config = {
+    type: 'line',
+    data: data,
+    options: {
+        scales:{
+            y: {
+                suggestedMin: 0
+            }
+        }
+    }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
 </html>

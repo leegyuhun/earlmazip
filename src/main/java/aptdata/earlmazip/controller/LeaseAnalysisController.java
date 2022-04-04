@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
@@ -37,7 +39,13 @@ public class LeaseAnalysisController {
         } else {
             anals = new ArrayList<>();
         }
+        List<String> dates = anals.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Float> rates = anals.stream().map(o->new Float(o.getRate())).collect(Collectors.toList());
+        Collections.reverse(dates);
+        Collections.reverse(rates);
         model.addAttribute("list", anals);
+        model.addAttribute("dates", dates);
+        model.addAttribute("rates", rates);
 
         return "lease_analysis/seoul";
     }
@@ -56,7 +64,13 @@ public class LeaseAnalysisController {
         } else {
             anals = new ArrayList<>();
         }
+        List<String> dates = anals.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Float> rates = anals.stream().map(o->new Float(o.getRate())).collect(Collectors.toList());
+        Collections.reverse(dates);
+        Collections.reverse(rates);
         model.addAttribute("list", anals);
+        model.addAttribute("dates", dates);
+        model.addAttribute("rates", rates);
 
         return "lease_analysis/gyunggi";
     }

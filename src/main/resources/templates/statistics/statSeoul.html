@@ -5,9 +5,9 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
-<!--        <div>-->
-<!--            <canvas id="myChart"></canvas>-->
-<!--        </div>-->
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
 <!--        <div>-->
 <!--            <a>년도별</a>-->
 <!--            <a href="/statistics/seoul">전체</a>-->
@@ -92,7 +92,13 @@
   const config = {
     type: 'line',
     data: data,
-    options: {}
+    options: {
+        scales:{
+            y: {
+                suggestedMin: 0
+            }
+        }
+    }
   };
 </script>
 <script>
