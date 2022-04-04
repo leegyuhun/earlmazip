@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
@@ -32,7 +34,16 @@ public class StatController {
         log.info("/statistics/seoul");
         apiCallStatService.writeApiCallStat("STAT", "/statistics/seoul");
         List<StatResponseDto> areas = statService.findStatSeoulList();
+        List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+//        List<Integer> maxprc = areas.stream().map(o->new Integer(o.getMaxPrice())).collect(Collectors.toList());
+        Collections.reverse(dates);
+        Collections.reverse(avgprc);
+//        Collections.reverse(maxprc);
         model.addAttribute("list", areas);
+        model.addAttribute("dates", dates);
+        model.addAttribute("avgprc", avgprc);
+//        model.addAttribute("maxprc", maxprc);
         return "statistics/statSeoul";
     }
 
@@ -91,7 +102,16 @@ public class StatController {
         log.info("/statistics/gyunggi");
         apiCallStatService.writeApiCallStat("STAT", "/statistics/gyunggi");
         List<StatResponseDto> areas = statService.findStatGyunggiList();
+        List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+//        List<Integer> maxprc = areas.stream().map(o->new Integer(o.getMaxPrice())).collect(Collectors.toList());
+        Collections.reverse(dates);
+        Collections.reverse(avgprc);
+//        Collections.reverse(maxprc);
         model.addAttribute("list", areas);
+        model.addAttribute("dates", dates);
+        model.addAttribute("avgprc", avgprc);
+//        model.addAttribute("maxprc", maxprc);
         return "statistics/statGyunggi";
     }
 
@@ -137,6 +157,16 @@ public class StatController {
         } else {
             stats = new ArrayList<>();
         }
+        List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Integer> avgprc = stats.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+//        List<Integer> maxprc = areas.stream().map(o->new Integer(o.getMaxPrice())).collect(Collectors.toList());
+        Collections.reverse(dates);
+        Collections.reverse(avgprc);
+//        Collections.reverse(maxprc);
+
+        model.addAttribute("dates", dates);
+        model.addAttribute("avgprc", avgprc);
+//        model.addAttribute("maxprc", maxprc);
         model.addAttribute("list", stats);
         return "statistics/statGyunggiSi";
     }

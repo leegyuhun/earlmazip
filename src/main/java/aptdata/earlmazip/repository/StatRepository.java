@@ -21,6 +21,7 @@ public class StatRepository {
     public List<StatResponseDto> findSeoul(){
         return em.createQuery("select a from StatAreaYYMM a"
                         + " where a.areaCode = '11' and use_area_type = 'UA01'"
+                        + " and a.dealYear > 2019 "
                         + " order by a.dealYYMM desc", StatAreaYYMM.class)
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
@@ -55,6 +56,7 @@ public class StatRepository {
     public List<StatResponseDto> findGyungGi(){
         return em.createQuery("select a from StatAreaYYMM a"
                         + " where a.areaCode = '41' and useAreaType = 'UA01'"
+                        + " and a.dealYear > 2019 "
                         + " order by a.dealYYMM desc", StatAreaYYMM.class)
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
@@ -71,6 +73,7 @@ public class StatRepository {
     public List<StatResponseDto> findGyungGiUA(String ua){
         return em.createQuery("select a from StatAreaYYMM a"
                         + " where a.areaCode = '41' and a.useAreaType = :useAreaType"
+                        + " and a.dealYear > 2019 "
                         + " order by a.dealYYMM desc", StatAreaYYMM.class)
                 .setParameter("useAreaType", ua)
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
@@ -79,6 +82,7 @@ public class StatRepository {
     public List<StatResponseDto> findGyungGiSi(String sidoCode){
         return em.createQuery("select a from StatSidoYYMM a"
                         + " where a.sidoCode = :sidoCode and use_area_type = 'UA01'"
+                        + " and a.dealYear > 2019 "
                         + " order by a.dealYYMM desc", StatSidoYYMM.class)
                 .setParameter("sidoCode", sidoCode)
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());

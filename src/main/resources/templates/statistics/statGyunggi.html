@@ -6,6 +6,9 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
+<!--        <div>-->
+<!--            <canvas id="myChart"></canvas>-->
+<!--        </div>-->
 <!--        <div class="btn-group">-->
 <!--            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
 <!--                년도별-->
@@ -80,17 +83,31 @@
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 </body>
-<script>
-    function findSeoulYear(year){
-        var form = document.createElement("form");
-            form.setAttribute("method", "get");
-            form.setAttribute("action", "/statistics/seoul/" + year);
-            document.body.appendChild(form);
-            form.submit();
-    }
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+  const avgPrices =  /*[[ ${avgprc.toArray()} ]]*/;
 
-     $(document).ready(function(){
-        $('.dropdown-toggle').dropdown()
-    });
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: '평균 매매가',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: avgPrices,}
+    ]
+  };
+
+  const config = {
+    type: 'line',
+    data: data,
+    options: {}
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
 </script>
 </html>

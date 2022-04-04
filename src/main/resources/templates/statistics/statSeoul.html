@@ -6,6 +6,9 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
 <!--        <div>-->
+<!--            <canvas id="myChart"></canvas>-->
+<!--        </div>-->
+<!--        <div>-->
 <!--            <a>년도별</a>-->
 <!--            <a href="/statistics/seoul">전체</a>-->
 <!--            <a href="/statistics/seoul/2022">2022</a>-->
@@ -17,6 +20,7 @@
 <!--        </div>-->
         <div>
             <a>전용면적별</a>
+            <a href="/statistics/seoul/usearea/UA01">전체</a>
             <a href="/statistics/seoul/usearea/UA02">59미만</a>
             <a href="/statistics/seoul/usearea/UA03">59이상 85미만</a>
             <a href="/statistics/seoul/usearea/UA04">85이상 102미만</a>
@@ -70,8 +74,32 @@
 </div> <!-- /container -->
 </body>
 
-<script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+  const avgPrices =  /*[[ ${avgprc.toArray()} ]]*/;
 
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: '평균 매매가',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: avgPrices,}
+    ]
+  };
+
+  const config = {
+    type: 'line',
+    data: data,
+    options: {}
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
 </script>
 
 </html>

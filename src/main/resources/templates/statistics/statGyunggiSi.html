@@ -6,6 +6,9 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
+<!--        <div>-->
+<!--            <canvas id="myChart"></canvas>-->
+<!--        </div>-->
         <div>
             <a href="/statistics/gyunggisi/4182">가평군</a>
             <a href="/statistics/gyunggisi/4128">고양시</a>
@@ -76,4 +79,43 @@
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 </body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+  const avgPrices =  /*[[ ${avgprc.toArray()} ]]*/;
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      label: '평균 매매가',
+      data: avgPrices,
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      }
+    ]
+  };
+
+  const config = {
+    type: 'line',
+    data: data,
+    options: {
+        scales:{
+            yAxes: [{
+                display: true,
+                ticks:{
+                    min: 0,
+                    beginAtZero: true,
+                    stepsSize: 10000
+                }
+            }]
+        }
+    }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
 </html>
