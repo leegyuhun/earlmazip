@@ -67,7 +67,7 @@
                 <td align="center" th:text="${list.name}"></td>
                 <td align="center" th:text="${list.dealYYMM}"></td>
                 <td align="right" th:text="${#numbers.formatInteger(list.minPrice,1,'COMMA')}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.avgPrice,1,'COMMA')}"></td>
+                <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgPrice,1,'COMMA')}"></td>
                 <td align="right" th:text="${#numbers.formatInteger(list.maxPrice,1,'COMMA')}"></td>
                 <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
 <!--                <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>-->

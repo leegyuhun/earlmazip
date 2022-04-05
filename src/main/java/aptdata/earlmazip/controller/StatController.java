@@ -36,6 +36,7 @@ public class StatController {
         List<StatResponseDto> areas = statService.findStatSeoulList();
         List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
 //        List<Integer> maxprc = areas.stream().map(o->new Integer(o.getMaxPrice())).collect(Collectors.toList());
         Collections.reverse(dates);
         Collections.reverse(avgprc);
@@ -43,6 +44,7 @@ public class StatController {
         model.addAttribute("list", areas);
         model.addAttribute("dates", dates);
         model.addAttribute("avgprc", avgprc);
+        model.addAttribute("tradcnt", tradcnt);
 //        model.addAttribute("maxprc", maxprc);
         return "statistics/statSeoul";
     }

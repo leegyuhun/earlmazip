@@ -42,6 +42,16 @@ public class ApiCallStatRepository {
             item.setCnt(item.getCnt()+1);
             em.merge(item);
         }
+    }
 
+    public List<ApiCallStat> LoadTodayApiCallList() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        String date = simpleDateFormat.format(new Date());
+
+        return em.createQuery("select a from ApiCallStat a "
+                        + " where a.callDate = :date "
+                        + " order by a.cnt desc", ApiCallStat.class)
+                .setParameter("date", date)
+                .getResultList();
     }
 }
