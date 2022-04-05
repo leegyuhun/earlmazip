@@ -15,9 +15,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -37,15 +35,21 @@ public class StatController {
         List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-//        List<Integer> maxprc = areas.stream().map(o->new Integer(o.getMaxPrice())).collect(Collectors.toList());
+        Integer maxCnt = 0;
+        if (tradcnt.size() > 0) {
+            maxCnt = tradcnt.stream().max(Comparator.comparing(x -> x)).orElseThrow(NoSuchElementException::new);
+            maxCnt = maxCnt * 2;
+        }
+
         Collections.reverse(dates);
         Collections.reverse(avgprc);
-//        Collections.reverse(maxprc);
+        Collections.reverse(tradcnt);
+
         model.addAttribute("list", areas);
         model.addAttribute("dates", dates);
         model.addAttribute("avgprc", avgprc);
         model.addAttribute("tradcnt", tradcnt);
-//        model.addAttribute("maxprc", maxprc);
+        model.addAttribute("maxcnt", maxCnt);
         return "statistics/statSeoul";
     }
 
@@ -75,7 +79,24 @@ public class StatController {
         else{
             areas = new ArrayList<>();
         }
+        List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        Integer maxCnt = 0;
+        if (tradcnt.size() > 0) {
+            maxCnt = tradcnt.stream().max(Comparator.comparing(x -> x)).orElseThrow(NoSuchElementException::new);
+            maxCnt = maxCnt * 2;
+        }
+
+        Collections.reverse(dates);
+        Collections.reverse(avgprc);
+        Collections.reverse(tradcnt);
+
         model.addAttribute("list", areas);
+        model.addAttribute("dates", dates);
+        model.addAttribute("avgprc", avgprc);
+        model.addAttribute("tradcnt", tradcnt);
+        model.addAttribute("maxcnt", maxCnt);
         return "statistics/statSeoul";
     }
 
@@ -106,14 +127,22 @@ public class StatController {
         List<StatResponseDto> areas = statService.findStatGyunggiList();
         List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
-//        List<Integer> maxprc = areas.stream().map(o->new Integer(o.getMaxPrice())).collect(Collectors.toList());
+        List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        Integer maxCnt = 0;
+        if (tradcnt.size() > 0) {
+            maxCnt = tradcnt.stream().max(Comparator.comparing(x -> x)).orElseThrow(NoSuchElementException::new);
+            maxCnt = maxCnt * 2;
+        }
+
         Collections.reverse(dates);
         Collections.reverse(avgprc);
-//        Collections.reverse(maxprc);
+        Collections.reverse(tradcnt);
+
         model.addAttribute("list", areas);
         model.addAttribute("dates", dates);
         model.addAttribute("avgprc", avgprc);
-//        model.addAttribute("maxprc", maxprc);
+        model.addAttribute("tradcnt", tradcnt);
+        model.addAttribute("maxcnt", maxCnt);
         return "statistics/statGyunggi";
     }
 
@@ -161,15 +190,23 @@ public class StatController {
         }
         List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgprc = stats.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
-//        List<Integer> maxprc = areas.stream().map(o->new Integer(o.getMaxPrice())).collect(Collectors.toList());
+        List<Integer> tradcnt = stats.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        Integer maxCnt = 0;
+        if (tradcnt.size() > 0) {
+            maxCnt = tradcnt.stream().max(Comparator.comparing(x -> x)).orElseThrow(NoSuchElementException::new);
+            maxCnt = maxCnt * 2;
+        }
+
+
         Collections.reverse(dates);
         Collections.reverse(avgprc);
-//        Collections.reverse(maxprc);
+        Collections.reverse(tradcnt);
 
+        model.addAttribute("list", stats);
         model.addAttribute("dates", dates);
         model.addAttribute("avgprc", avgprc);
-//        model.addAttribute("maxprc", maxprc);
-        model.addAttribute("list", stats);
+        model.addAttribute("tradcnt", tradcnt);
+        model.addAttribute("maxcnt", maxCnt);
         return "statistics/statGyunggiSi";
     }
 

@@ -38,6 +38,7 @@ public class StatRepository {
     public List<StatResponseDto> findSeoulUA(String ua){
         return em.createQuery("select a from StatAreaYYMM a"
                         + " where a.areaCode = '11' and a.useAreaType = :useAreaType"
+                        + " and a.dealYear > 2019 "
                         + " order by a.dealYYMM desc", StatAreaYYMM.class)
                 .setParameter("useAreaType", ua)
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());

@@ -78,24 +78,55 @@
 <script type = "text/javascript" th:inline="javascript">
   const labels =  /*[[ ${dates.toArray()} ]]*/;
   const avgPrices =  /*[[ ${avgprc.toArray()} ]]*/;
+  const tradcnt =  /*[[ ${tradcnt.toArray()} ]]*/;
+  const maxCnt =  /*[[ ${maxCnt} ]]*/;
 
   const data = {
     labels: labels,
     datasets: [{
+      type: 'line',
       label: '평균 매매가',
+      yAxisID: 'y-line',
       backgroundColor: 'rgb(255, 99, 132)',
       borderColor: 'rgb(255, 99, 132)',
-      data: avgPrices}
+      data: avgPrices
+      },{
+        type: 'bar',
+        label: '거래건수',
+        yAxisID: 'y-bar',
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgb(54, 162, 235)',
+        data: tradcnt
+      }
     ]
   };
 
   const config = {
-    type: 'line',
     data: data,
     options: {
         scales:{
-            y: {
-                suggestedMin: 0
+            'y-line':{
+                position: 'left',
+                suggestedMin: 0,
+                ticks:{
+				    color: 'rgb(255, 99, 132)'
+				},
+                title: {
+                    display: true,
+                    text: '평균매매가'
+                }
+            },
+            'y-bar':{
+                position: 'right',
+                suggestedMin: 0,
+                suggestedMax: maxCnt,
+                ticks:{
+				    color: 'rgb(54, 162, 235)'
+				},
+                title: {
+                    display: true,
+                    text: '거래건수'
+                }
             }
         }
     }
