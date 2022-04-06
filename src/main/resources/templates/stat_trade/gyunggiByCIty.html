@@ -2,48 +2,54 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header" />
 <body>
+
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
         <div>
             <canvas id="myChart"></canvas>
         </div>
-<!--        <div>-->
-<!--            <a>년도별</a>-->
-<!--            <a href="/statistics/seoul">전체</a>-->
-<!--            <a href="/statistics/seoul/2022">2022</a>-->
-<!--            <a href="/statistics/seoul/2021">2021</a>-->
-<!--            <a href="/statistics/seoul/2020">2020</a>-->
-<!--            <a href="/statistics/seoul/2019">2019</a>-->
-<!--            <a href="/statistics/seoul/2018">2018</a>-->
-<!--            <a href="/statistics/seoul/2017">2017</a>-->
-<!--        </div>-->
         <div>
-            <a>전용면적별</a>
-            <a href="/statistics/seoul/usearea/UA01">전체</a>
-            <a href="/statistics/seoul/usearea/UA02">59미만</a>
-            <a href="/statistics/seoul/usearea/UA03">59이상 85미만</a>
-            <a href="/statistics/seoul/usearea/UA04">85이상 102미만</a>
-            <a href="/statistics/seoul/usearea/UA05">102이상 135이하</a>
-            <a href="/statistics/seoul/usearea/UA06">135초과</a>
-        </div>
-<!--        <div>-->
-<!--            <form th:object="${aptSearch}" class="form-inline">-->
-<!--                <div class="form-group mb-2">-->
-<!--                    <input type="text" th:field="*{aptName}" class="form-control" placeholder="아파트명"/>-->
-<!--                </div>-->
-<!--                <button type="submit" class="btn btn-primary mb-2">검색</button>-->
-<!--                &lt;!&ndash;                <div class="form-group mx-sm-1 mb-2">&ndash;&gt;-->
-<!--                &lt;!&ndash;                    <select th:field="*{orderStatus}" class="form-control">&ndash;&gt;-->
-<!--                &lt;!&ndash;                        <option value="">주문상태</option>&ndash;&gt;-->
-<!--                &lt;!&ndash;                        <option th:each="status : ${T(jpabook.jpashop.domain.OrderStatus).values()}"                                 th:value="${status}"&ndash;&gt;-->
-<!--                &lt;!&ndash;                                th:text="${status}">option&ndash;&gt;-->
-<!--                &lt;!&ndash;                        </option>&ndash;&gt;-->
-<!--                &lt;!&ndash;                    </select>&ndash;&gt;-->
-<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
+            <a href="/stat_trade/gyunggiByCity/4182">가평군</a>
+            <a href="/stat_trade/gyunggiByCity/4128">고양시</a>
+            <a href="/stat_trade/gyunggiByCity/4129">과천시</a>
+            <a href="/stat_trade/gyunggiByCity/4121">광명시</a>
+            <a href="/stat_trade/gyunggiByCity/4161">광주시</a>
 
-<!--            </form>-->
-<!--        </div>-->
+            <a href="/stat_trade/gyunggiByCity/4131">구리시</a>
+            <a href="/stat_trade/gyunggiByCity/4141">군포시</a>
+            <a href="/stat_trade/gyunggiByCity/4157">김포시</a>
+            <a href="/stat_trade/gyunggiByCity/4136">남양주</a>
+            <a href="/stat_trade/gyunggiByCity/4125">동두천</a>
+        </div>
+        <div>
+            <a href="/stat_trade/gyunggiByCity/4119">부천시</a>
+            <a href="/stat_trade/gyunggiByCity/4113">성남시</a>
+            <a href="/stat_trade/gyunggiByCity/4111">수원시</a>
+            <a href="/stat_trade/gyunggiByCity/4139">시흥시</a>
+            <a href="/stat_trade/gyunggiByCity/4127">안산시</a>
+
+            <a href="/stat_trade/gyunggiByCity/4155">안성시</a>
+            <a href="/stat_trade/gyunggiByCity/4117">안양시</a>
+            <a href="/stat_trade/gyunggiByCity/4163">양주시</a>
+            <a href="/stat_trade/gyunggiByCity/4183">양평군</a>
+            <a href="/stat_trade/gyunggiByCity/4167">여주시</a>
+        </div>
+
+        <div>
+            <a href="/stat_trade/gyunggiByCity/4180">연천군</a>
+            <a href="/stat_trade/gyunggiByCity/4137">오산시</a>
+            <a href="/stat_trade/gyunggiByCity/4146">용인시</a>
+            <a href="/stat_trade/gyunggiByCity/4143">의왕시</a>
+            <a href="/stat_trade/gyunggiByCity/4115">의정부</a>
+
+            <a href="/stat_trade/gyunggiByCity/4150">이천시</a>
+            <a href="/stat_trade/gyunggiByCity/4148">파주시</a>
+            <a href="/stat_trade/gyunggiByCity/4122">평택시</a>
+            <a href="/stat_trade/gyunggiByCity/4165">포천시</a>
+            <a href="/stat_trade/gyunggiByCity/4145">하남시</a>
+            <a href="/stat_trade/gyunggiByCity/4159">화성시</a>
+        </div>
         <table class="table table-striped">
             <thead>
             <tr class="table-dark" style="font-size:12px;" align="center">
@@ -73,7 +79,6 @@
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 </body>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type = "text/javascript" th:inline="javascript">
   const labels =  /*[[ ${dates.toArray()} ]]*/;
@@ -138,5 +143,4 @@
     config
   );
 </script>
-
 </html>
