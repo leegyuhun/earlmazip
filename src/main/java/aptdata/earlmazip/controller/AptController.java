@@ -3,6 +3,7 @@ package aptdata.earlmazip.controller;
 import aptdata.earlmazip.controller.dto.AptResponseDto;
 import aptdata.earlmazip.domain.AptInfo;
 import aptdata.earlmazip.repository.AptSearch;
+import aptdata.earlmazip.service.ApiCallStatService;
 import aptdata.earlmazip.service.AptService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,10 +21,12 @@ import java.util.List;
 public class AptController {
 
     private final AptService aptService;
+    private final ApiCallStatService apiCallStatService;
 
     @GetMapping("/apts")
     public String list(@ModelAttribute("aptSearch") AptSearch aptSearch, Model model) {
         log.info("aptSearh: " + aptSearch.getAptName());
+        apiCallStatService.writeApiCallStat("APT_SEARCH", aptSearch.getAptName());
         List<AptResponseDto> apts;
         if(aptSearch.getAptName() == null || aptSearch.getAptName().equals("")){
             apts = new ArrayList<>();
