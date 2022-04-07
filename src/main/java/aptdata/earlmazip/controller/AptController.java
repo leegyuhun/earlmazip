@@ -26,11 +26,11 @@ public class AptController {
     @GetMapping("/apts")
     public String list(@ModelAttribute("aptSearch") AptSearch aptSearch, Model model) {
         log.info("aptSearh: " + aptSearch.getAptName());
-        apiCallStatService.writeApiCallStat("APT_SEARCH", aptSearch.getAptName());
         List<AptResponseDto> apts;
         if(aptSearch.getAptName() == null || aptSearch.getAptName().equals("")){
             apts = new ArrayList<>();
         } else{
+            apiCallStatService.writeApiCallStat("APT_SEARCH", aptSearch.getAptName());
             apts = aptService.findAllByName(aptSearch);
         }
         model.addAttribute("apts", apts);

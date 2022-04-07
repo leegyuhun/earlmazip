@@ -8,60 +8,62 @@
     <!--    <a th:text="${year}"></a>-->
     <div>
         <div>
-            <a href="/stat_lease/seoul/11680">강남구</a>
-            <a href="/stat_lease/seoul/11740">강동구</a>
-            <a href="/stat_lease/seoul/11305">강북구</a>
-            <a href="/stat_lease/seoul/11500">강서구</a>
-            <a href="/stat_lease/seoul/11620">관악구</a>
-            <a href="/stat_lease/seoul/11215">광진구</a>
+            <a href="/stat_lease/seoul/11680">강남구&nbsp</a>
+            <a href="/stat_lease/seoul/11740">강동구&nbsp</a>
+            <a href="/stat_lease/seoul/11305">강북구&nbsp</a>
+            <a href="/stat_lease/seoul/11500">강서구&nbsp</a>
+            <a href="/stat_lease/seoul/11620">관악구&nbsp</a>
+            <a href="/stat_lease/seoul/11215">광진구&nbsp</a>
             <a href="/stat_lease/seoul/11530">구로구</a>
-            <a href="/stat_lease/seoul/11545">금천구</a>
-            <a href="/stat_lease/seoul/11350">노원구</a>
-            <a href="/stat_lease/seoul/11320">도봉구</a>
         </div>
         <div>
-            <a href="/stat_lease/seoul/11230">동대문</a>
-            <a href="/stat_lease/seoul/11590">동작구</a>
-            <a href="/stat_lease/seoul/11440">마포구</a>
+            <a href="/stat_lease/seoul/11545">금천구&nbsp</a>
+            <a href="/stat_lease/seoul/11350">노원구&nbsp</a>
+            <a href="/stat_lease/seoul/11320">도봉구&nbsp</a>
+            <a href="/stat_lease/seoul/11230">동대문&nbsp</a>
+            <a href="/stat_lease/seoul/11590">동작구&nbsp</a>
+            <a href="/stat_lease/seoul/11440">마포구&nbsp</a>
             <a href="/stat_lease/seoul/11410">서대문</a>
-            <a href="/stat_lease/seoul/11650">서초구</a>
-            <a href="/stat_lease/seoul/11200">성동구</a>
-            <a href="/stat_lease/seoul/11290">성북구</a>
-            <a href="/stat_lease/seoul/11710">송파구</a>
-            <a href="/stat_lease/seoul/11470">양천구</a>
-            <a href="/stat_lease/seoul/11560">영등포</a>
         </div>
 
         <div>
+            <a href="/stat_lease/seoul/11650">서초구&nbsp</a>
+            <a href="/stat_lease/seoul/11200">성동구&nbsp</a>
+            <a href="/stat_lease/seoul/11290">성북구&nbsp</a>
+            <a href="/stat_lease/seoul/11710">송파구&nbsp</a>
+            <a href="/stat_lease/seoul/11470">양천구&nbsp</a>
+            <a href="/stat_lease/seoul/11560">영등포&nbsp</a>
             <a href="/stat_lease/seoul/11170">용산구</a>
-            <a href="/stat_lease/seoul/11380">은평구</a>
-            <a href="/stat_lease/seoul/11110">종로구</a>
-            <a href="/stat_lease/seoul/11260">중랑구</a>
+        </div>
+        <div>
+            <a href="/stat_lease/seoul/11380">은평구&nbsp</a>
+            <a href="/stat_lease/seoul/11110">종로구&nbsp</a>
+            <a href="/stat_lease/seoul/11260">중랑구&nbsp</a>
             <a href="/stat_lease/seoul/11140">중구</a>
         </div>
 
         <table class="table table-striped">
-            <thead>
-            <tr class="table-dark" style="font-size:12px;" align="center">
-                <th>지역</th>
-                <th>년-월</th>
-                <th>최저<br/>보증금</th>
-                <th>평균<br/>보증금</th>
-                <th>최고<br/>보증금</th>
-                <th>거래건수</th>
-<!--                <th>신고가</th>-->
-            </tr>
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+                    <th>지역</th>
+                    <th>년-월</th>
+                    <th>최저<br/>보증금</th>
+                    <th>평균<br/>보증금</th>
+                    <th>최고<br/>보증금</th>
+                    <th>거래건수</th>
+    <!--                <th>신고가</th>-->
+                </tr>
             </thead>
             <tbody>
-            <tr style="font-size:12px;" th:each="list : ${list}">
-                <td align="center" th:text="${list.sigunguName}"></td>
-                <td align="center" th:text="${list.dealYYMM}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.minDeposit,1,'COMMA')}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.avgDeposit,1,'COMMA')}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.maxDeposit,1,'COMMA')}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
-<!--                <td align="right" th:text="${list.newHighest}"></td>-->
-            </tr>
+                <tr style="font-size:12px;" th:each="list : ${list}">
+                    <td align="center" th:text="${list.sigunguName}"></td>
+                    <td align="center" th:text="${list.dealYYMM}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.minDeposit,1,'COMMA')}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.avgDeposit,1,'COMMA')}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.maxDeposit,1,'COMMA')}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
+    <!--                <td align="right" th:text="${list.newHighest}"></td>-->
+                </tr>
             </tbody>
         </table>
     </div>

@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"> <div class="header" th:fragment="bodyHeader">
-    <ul class="nav nav-pills pull-right">
-        <li><a href="/">Home</a></li>
-    </ul>
-<!--    <a href="/"><h3 class="text-muted">얼마집?</h3></a>-->
-
+<!--    <ul class="nav nav-pills pull-right">-->
+<!--        <li><a href="/">Home</a></li>-->
+<!--    </ul>-->
     <div>
-<!--        <h6>※ 국토부 실거래가 기준 정보입니다, 매매가 단위는 "만원" <span class="badge bg-primary" style="width: 10rem;">update: 2022.03.23</span></h6>-->
         <h6>※ 국토부 실거래가 기준 정보입니다, 매매가 단위는 "만원" <span class="badge bg-primary" style="width: 10rem;" th:text="${udt}"></span></h6>
+    </div>
+    <div>
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link active" href="/">Home</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link disabled">준비중1</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">준비중2</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">준비중3</a>
+            </li>
+        </ul>
     </div>
     <div>
         <ins class="kakao_ad_area" style="display:none;"

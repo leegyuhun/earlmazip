@@ -20,42 +20,42 @@
 <!--            </div>-->
 <!--        </p>-->
         <div>
-            <a href="/tradelist/incheon/28710">강화군</a>
-            <a href="/tradelist/incheon/28245">계양구</a>
-            <a href="/tradelist/incheon/28200">남동구</a>
-            <a href="/tradelist/incheon/28140">동구</a>
-            <a href="/tradelist/incheon/28177">미추홀구</a>
-            <a href="/tradelist/incheon/28237">부평구</a>
-            <a href="/tradelist/incheon/28260">서구</a>
-            <a href="/tradelist/incheon/28185">연수구</a>
-            <a href="/tradelist/incheon/28720">옹진군</a>
+            <a href="/tradelist/incheon/28710">강화군&nbsp</a>
+            <a href="/tradelist/incheon/28245">계양구&nbsp</a>
+            <a href="/tradelist/incheon/28200">남동구&nbsp</a>
+            <a href="/tradelist/incheon/28140">동구&nbsp</a>
+            <a href="/tradelist/incheon/28177">미추홀구&nbsp</a>
+            <a href="/tradelist/incheon/28237">부평구&nbsp</a>
+            <a href="/tradelist/incheon/28260">서구&nbsp</a>
+            <a href="/tradelist/incheon/28185">연수구&nbsp</a>
+            <a href="/tradelist/incheon/28720">옹진군&nbsp</a>
             <a href="/tradelist/incheon/28110">중구</a>
         </div>
 
         <table class="table table-striped">
-            <thead>
-            <tr class="table-dark" style="font-size:12px;" align="center">
-                <th>계약일자</th>
-                <th>법정동</th>
-                <th>아파트명</th>
-                <th>건축년도</th>
-                <th>전용면적(m2)</th>
-                <th>거래금액</th>
-                <th>층수</th>
-<!--                <th>신고가</th>-->
-            </tr>
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+                    <th>계약일자</th>
+                    <th>법정동</th>
+                    <th>아파트명</th>
+                    <th>건축년도</th>
+                    <th>전용면적(m2)</th>
+                    <th>거래금액</th>
+                    <th>층수</th>
+    <!--                <th>신고가</th>-->
+                </tr>
             </thead>
             <tbody>
-            <tr style="font-size:12px;" th:each="list : ${list}">
-                <td align="center" th:text="${list.dealDate}"></td>
-                <td align="center" th:text="${list.landDong}"></td>
-                <td align="left" th:text="${list.aptName}"></td>
-                <td align="center" th:text="${list.buildYear}"></td>
-                <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,1,'POINT')}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.dealAmt,1,'COMMA')}"></td>
-                <td align="right" th:text="${list.floor}"></td>
-<!--                <td align="right" th:text="${list.newHighest}"></td>-->
-            </tr>
+                <tr style="font-size:12px;" th:each="list : ${list}">
+                    <td align="center" th:text="${list.dealDate}"></td>
+                    <td align="center" th:text="${list.landDong}"></td>
+                    <td align="left" th:text="${list.aptName}"></td>
+                    <td align="center" th:text="${list.buildYear}"></td>
+                    <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,1,'POINT')}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.dealAmt,1,'COMMA')}"></td>
+                    <td align="right" th:text="${list.floor}"></td>
+    <!--                <td align="right" th:text="${list.newHighest}"></td>-->
+                </tr>
             </tbody>
         </table>
     </div>

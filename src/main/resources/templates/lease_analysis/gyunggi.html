@@ -14,67 +14,63 @@
             <a href="/lease_analysis/gyunggi/41"> 경기 전체 </a>
         </div>
         <div>
-            <a href="/lease_analysis/gyunggi/4182"> 가평군 </a>
-            <a href="/lease_analysis/gyunggi/4128"> 고양시 </a>
-            <a href="/lease_analysis/gyunggi/4129"> 과천시 </a>
-            <a href="/lease_analysis/gyunggi/4121"> 광명시 </a>
-            <a href="/lease_analysis/gyunggi/4161"> 광주시 </a>
-
-            <a href="/lease_analysis/gyunggi/4131"> 구리시 </a>
-            <a href="/lease_analysis/gyunggi/4141"> 군포시 </a>
-            <a href="/lease_analysis/gyunggi/4157"> 김포시 </a>
-            <a href="/lease_analysis/gyunggi/4136"> 남양주 </a>
-            <a href="/lease_analysis/gyunggi/4125"> 동두천 </a>
+            <a href="/lease_analysis/gyunggi/4182">가평군&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4128">고양시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4129">과천시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4121">광명시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4161">광주시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4131">구리시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4141">군포시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4157">김포시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4136">남양주&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4125">동두천</a>
         </div>
         <div>
-            <a href="/lease_analysis/gyunggi/4119"> 부천시 </a>
-            <a href="/lease_analysis/gyunggi/4113"> 성남시 </a>
-            <a href="/lease_analysis/gyunggi/4111"> 수원시 </a>
-            <a href="/lease_analysis/gyunggi/4139"> 시흥시 </a>
-            <a href="/lease_analysis/gyunggi/4127"> 안산시 </a>
-
-            <a href="/lease_analysis/gyunggi/4155"> 안성시 </a>
-            <a href="/lease_analysis/gyunggi/4117"> 안양시 </a>
-            <a href="/lease_analysis/gyunggi/4163"> 양주시 </a>
-            <a href="/lease_analysis/gyunggi/4183"> 양평군 </a>
-            <a href="/lease_analysis/gyunggi/4167"> 여주시 </a>
+            <a href="/lease_analysis/gyunggi/4119">부천시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4113">성남시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4111">수원시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4139">시흥시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4127">안산시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4155">안성시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4117">안양시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4163">양주시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4183">양평군&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4167">여주시</a>
         </div>
-
         <div>
-            <a href="/lease_analysis/gyunggi/4180"> 연천군 </a>
-            <a href="/lease_analysis/gyunggi/4137"> 오산시 </a>
-            <a href="/lease_analysis/gyunggi/4146"> 용인시 </a>
-            <a href="/lease_analysis/gyunggi/4143"> 의왕시 </a>
-            <a href="/lease_analysis/gyunggi/4115"> 의정부 </a>
-
-            <a href="/lease_analysis/gyunggi/4150"> 이천시 </a>
-            <a href="/lease_analysis/gyunggi/4148"> 파주시 </a>
-            <a href="/lease_analysis/gyunggi/4122"> 평택시 </a>
-            <a href="/lease_analysis/gyunggi/4165"> 포천시 </a>
-            <a href="/lease_analysis/gyunggi/4145"> 하남시 </a>
-            <a href="/lease_analysis/gyunggi/4159"> 화성시 </a>
+            <a href="/lease_analysis/gyunggi/4180">연천군&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4137">오산시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4146">용인시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4143">의왕시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4115">의정부&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4150">이천시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4148">파주시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4122">평택시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4165">포천시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4145">하남시&nbsp</a>
+            <a href="/lease_analysis/gyunggi/4159">화성시</a>
         </div>
 
         <table class="table table-striped">
-            <thead>
-            <tr class="table-dark" style="font-size:12px;" align="center">
-                <th>지역명</th>
-                <th>년-월</th>
-                <th>월세 건수</th>
-                <th>전세 건수</th>
-                <th>전체 건수</th>
-                <th>월세 비율</th>
-            </tr>
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+                    <th>지역명</th>
+                    <th>년-월</th>
+                    <th>월세 건수</th>
+                    <th>전세 건수</th>
+                    <th>전체 건수</th>
+                    <th>월세 비율</th>
+                </tr>
             </thead>
             <tbody>
-            <tr style="font-size:12px;" th:each="list : ${list}">
-                <td align="left" th:text="${list.gubnName}"></td>
-                <td align="center" th:text="${list.dealYYMM}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.shortCnt,1,'COMMA')}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.longCnt,1,'COMMA')}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.sum,1,'COMMA')}"></td>
-                <td align="right" style="font-weight: bolder" th:text="${#numbers.formatDecimal(list.rate,1,1,'POINT')}"></td>
-            </tr>
+                <tr style="font-size:12px;" th:each="list : ${list}">
+                    <td align="left" th:text="${list.gubnName}"></td>
+                    <td align="center" th:text="${list.dealYYMM}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.shortCnt,1,'COMMA')}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.longCnt,1,'COMMA')}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.sum,1,'COMMA')}"></td>
+                    <td align="right" style="font-weight: bolder" th:text="${#numbers.formatDecimal(list.rate,1,1,'POINT')}"></td>
+                </tr>
             </tbody>
         </table>
     </div>

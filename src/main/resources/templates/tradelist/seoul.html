@@ -8,64 +8,65 @@
     <!--    <a th:text="${year}"></a>-->
     <div>
         <div>
-            <a href="/tradelist/seoul/11680">강남구</a>
-            <a href="/tradelist/seoul/11740">강동구</a>
-            <a href="/tradelist/seoul/11305">강북구</a>
-            <a href="/tradelist/seoul/11500">강서구</a>
-            <a href="/tradelist/seoul/11620">관악구</a>
-            <a href="/tradelist/seoul/11215">광진구</a>
+            <a href="/tradelist/seoul/11680">강남구&nbsp</a>
+            <a href="/tradelist/seoul/11740">강동구&nbsp</a>
+            <a href="/tradelist/seoul/11305">강북구&nbsp</a>
+            <a href="/tradelist/seoul/11500">강서구&nbsp</a>
+            <a href="/tradelist/seoul/11620">관악구&nbsp</a>
+            <a href="/tradelist/seoul/11215">광진구&nbsp</a>
             <a href="/tradelist/seoul/11530">구로구</a>
-            <a href="/tradelist/seoul/11545">금천구</a>
-            <a href="/tradelist/seoul/11350">노원구</a>
-            <a href="/tradelist/seoul/11320">도봉구</a>
         </div>
         <div>
-            <a href="/tradelist/seoul/11230">동대문</a>
-            <a href="/tradelist/seoul/11590">동작구</a>
-            <a href="/tradelist/seoul/11440">마포구</a>
+            <a href="/tradelist/seoul/11545">금천구&nbsp</a>
+            <a href="/tradelist/seoul/11350">노원구&nbsp</a>
+            <a href="/tradelist/seoul/11320">도봉구&nbsp</a>
+            <a href="/tradelist/seoul/11230">동대문&nbsp</a>
+            <a href="/tradelist/seoul/11590">동작구&nbsp</a>
+            <a href="/tradelist/seoul/11440">마포구&nbsp</a>
             <a href="/tradelist/seoul/11410">서대문</a>
-            <a href="/tradelist/seoul/11650">서초구</a>
-            <a href="/tradelist/seoul/11200">성동구</a>
-            <a href="/tradelist/seoul/11290">성북구</a>
-            <a href="/tradelist/seoul/11710">송파구</a>
-            <a href="/tradelist/seoul/11470">양천구</a>
-            <a href="/tradelist/seoul/11560">영등포</a>
         </div>
-
         <div>
+            <a href="/tradelist/seoul/11650">서초구&nbsp</a>
+            <a href="/tradelist/seoul/11200">성동구&nbsp</a>
+            <a href="/tradelist/seoul/11290">성북구&nbsp</a>
+            <a href="/tradelist/seoul/11710">송파구&nbsp</a>
+            <a href="/tradelist/seoul/11470">양천구&nbsp</a>
+            <a href="/tradelist/seoul/11560">영등포&nbsp</a>
             <a href="/tradelist/seoul/11170">용산구</a>
-            <a href="/tradelist/seoul/11380">은평구</a>
-            <a href="/tradelist/seoul/11110">종로구</a>
-            <a href="/tradelist/seoul/11260">중랑구</a>
+        </div>
+        <div>
+            <a href="/tradelist/seoul/11380">은평구&nbsp</a>
+            <a href="/tradelist/seoul/11110">종로구&nbsp</a>
+            <a href="/tradelist/seoul/11260">중랑구&nbsp</a>
             <a href="/tradelist/seoul/11140">중구</a>
         </div>
 
         <table class="table table-striped">
-            <thead>
-            <tr class="table-dark" style="font-size:12px;" align="center">
-                <th>계약일자</th>
-                <th>법정동</th>
-                <th>아파트명</th>
-                <th>건축년도</th>
-                <th>전용면적(m2)</th>
-                <th>거래금액</th>
-                <th>층수</th>
-                <th>거래유형</th>
-<!--                <th>신고가</th>-->
-            </tr>
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+                    <th>계약일자</th>
+                    <th>법정동</th>
+                    <th>아파트명</th>
+                    <th>건축년도</th>
+                    <th>전용면적(m2)</th>
+                    <th>거래금액</th>
+                    <th>층수</th>
+                    <th>거래유형</th>
+    <!--                <th>신고가</th>-->
+                </tr>
             </thead>
             <tbody>
-            <tr style="font-size:12px;" th:each="list : ${list}">
-                <td align="center" th:text="${list.dealDate}"></td>
-                <td align="center" th:text="${list.landDong}"></td>
-                <td align="left" th:text="${list.aptName}"></td>
-                <td align="center" th:text="${list.buildYear}"></td>
-                <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,1,'POINT')}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.dealAmt,1,'COMMA')}"></td>
-                <td align="right" th:text="${list.floor}"></td>
-                <td align="center" th:text="${list.dealType}"></td>
-<!--                <td align="right" th:text="${list.newHighest}"></td>-->
-            </tr>
+                <tr style="font-size:12px;" th:each="list : ${list}">
+                    <td align="center" th:text="${list.dealDate}"></td>
+                    <td align="center" th:text="${list.landDong}"></td>
+                    <td align="left" th:text="${list.aptName}"></td>
+                    <td align="center" th:text="${list.buildYear}"></td>
+                    <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,1,'POINT')}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.dealAmt,1,'COMMA')}"></td>
+                    <td align="right" th:text="${list.floor}"></td>
+                    <td align="center" th:text="${list.dealType}"></td>
+    <!--                <td align="right" th:text="${list.newHighest}"></td>-->
+                </tr>
             </tbody>
         </table>
     </div>

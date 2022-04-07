@@ -46,36 +46,41 @@
 <!--            <a href="/statistics/gyunggi/2017">2017</a>-->
 <!--        </div>-->
         <div>
-            <a>전용면적별</a>
-            <a href="/stat_trade/gyunggi/usearea/UA01">전체</a>
-            <a href="/stat_trade/gyunggi/usearea/UA02">59미만</a>
-            <a href="/stat_trade/gyunggi/usearea/UA03">59이상 85미만</a>
-            <a href="/stat_trade/gyunggi/usearea/UA04">85이상 102미만</a>
-            <a href="/stat_trade/gyunggi/usearea/UA05">102이상 135이하</a>
+            <a>[ 전용면적별 ]&nbsp</a>
+            <a href="/stat_trade/gyunggi/usearea/UA01">전체&nbsp</a>
+            <b>/&nbsp</b>
+            <a href="/stat_trade/gyunggi/usearea/UA02">59미만&nbsp</a>
+            <b>/&nbsp</b>
+            <a href="/stat_trade/gyunggi/usearea/UA03">59이상 85미만&nbsp</a>
+            <b>/&nbsp</b>
+            <a href="/stat_trade/gyunggi/usearea/UA04">85이상 102미만&nbsp</a>
+            <b>/&nbsp</b>
+            <a href="/stat_trade/gyunggi/usearea/UA05">102이상 135이하&nbsp</a>
+            <b>/&nbsp</b>
             <a href="/stat_trade/gyunggi/usearea/UA06">135초과</a>
         </div>
         <table class="table table-striped">
-            <thead>
-            <tr class="table-dark" style="font-size:12px;" align="center">
-                <th>지역</th>
-                <th>년-월</th>
-                <th>최저<br/>매매가</th>
-                <th>평균<br/>매매가</th>
-                <th>최고<br/>매매가</th>
-                <th>거래건수</th>
-<!--                <th>신고가율</th>-->
-            </tr>
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+                    <th>지역</th>
+                    <th>년-월</th>
+                    <th>최저<br/>매매가</th>
+                    <th>평균<br/>매매가</th>
+                    <th>최고<br/>매매가</th>
+                    <th>거래건수</th>
+    <!--                <th>신고가율</th>-->
+                </tr>
             </thead>
             <tbody>
-            <tr style="font-size:12px;" th:each="list : ${list}">
-                <td align="center" th:text="${list.name}"></td>
-                <td align="center" th:text="${list.dealYYMM}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.minPrice,1,'COMMA')}"></td>
-                <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgPrice,1,'COMMA')}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.maxPrice,1,'COMMA')}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
-<!--                <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>-->
-            </tr>
+                <tr style="font-size:12px;" th:each="list : ${list}">
+                    <td align="center" th:text="${list.name}"></td>
+                    <td align="center" th:text="${list.dealYYMM}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.minPrice,1,'COMMA')}"></td>
+                    <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgPrice,1,'COMMA')}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.maxPrice,1,'COMMA')}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
+    <!--                <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>-->
+                </tr>
             </tbody>
         </table>
     </div>

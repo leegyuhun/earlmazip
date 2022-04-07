@@ -13,58 +13,59 @@
             <a href="/lease_analysis/seoul/11">전체</a>
         </div>
         <div>
-            <a href="/lease_analysis/seoul/11680">강남구</a>
-            <a href="/lease_analysis/seoul/11740">강동구</a>
-            <a href="/lease_analysis/seoul/11305">강북구</a>
-            <a href="/lease_analysis/seoul/11500">강서구</a>
-            <a href="/lease_analysis/seoul/11620">관악구</a>
-            <a href="/lease_analysis/seoul/11215">광진구</a>
+            <a href="/lease_analysis/seoul/11680">강남구&nbsp</a>
+            <a href="/lease_analysis/seoul/11740">강동구&nbsp</a>
+            <a href="/lease_analysis/seoul/11305">강북구&nbsp</a>
+            <a href="/lease_analysis/seoul/11500">강서구&nbsp</a>
+            <a href="/lease_analysis/seoul/11620">관악구&nbsp</a>
+            <a href="/lease_analysis/seoul/11215">광진구&nbsp</a>
             <a href="/lease_analysis/seoul/11530">구로구</a>
-            <a href="/lease_analysis/seoul/11545">금천구</a>
-            <a href="/lease_analysis/seoul/11350">노원구</a>
-            <a href="/lease_analysis/seoul/11320">도봉구</a>
         </div>
         <div>
-            <a href="/lease_analysis/seoul/11230">동대문</a>
-            <a href="/lease_analysis/seoul/11590">동작구</a>
-            <a href="/lease_analysis/seoul/11440">마포구</a>
+            <a href="/lease_analysis/seoul/11545">금천구&nbsp</a>
+            <a href="/lease_analysis/seoul/11350">노원구&nbsp</a>
+            <a href="/lease_analysis/seoul/11320">도봉구&nbsp</a>
+            <a href="/lease_analysis/seoul/11230">동대문&nbsp</a>
+            <a href="/lease_analysis/seoul/11590">동작구&nbsp</a>
+            <a href="/lease_analysis/seoul/11440">마포구&nbsp</a>
             <a href="/lease_analysis/seoul/11410">서대문</a>
-            <a href="/lease_analysis/seoul/11650">서초구</a>
-            <a href="/lease_analysis/seoul/11200">성동구</a>
-            <a href="/lease_analysis/seoul/11290">성북구</a>
-            <a href="/lease_analysis/seoul/11710">송파구</a>
-            <a href="/lease_analysis/seoul/11470">양천구</a>
-            <a href="/lease_analysis/seoul/11560">영등포</a>
         </div>
-
         <div>
+            <a href="/lease_analysis/seoul/11650">서초구&nbsp</a>
+            <a href="/lease_analysis/seoul/11200">성동구&nbsp</a>
+            <a href="/lease_analysis/seoul/11290">성북구&nbsp</a>
+            <a href="/lease_analysis/seoul/11710">송파구&nbsp</a>
+            <a href="/lease_analysis/seoul/11470">양천구&nbsp</a>
+            <a href="/lease_analysis/seoul/11560">영등포&nbsp</a>
             <a href="/lease_analysis/seoul/11170">용산구</a>
-            <a href="/lease_analysis/seoul/11380">은평구</a>
-            <a href="/lease_analysis/seoul/11110">종로구</a>
-            <a href="/lease_analysis/seoul/11260">중랑구</a>
+        </div>
+        <div>
+            <a href="/lease_analysis/seoul/11380">은평구&nbsp</a>
+            <a href="/lease_analysis/seoul/11110">종로구&nbsp</a>
+            <a href="/lease_analysis/seoul/11260">중랑구&nbsp</a>
             <a href="/lease_analysis/seoul/11140">중구</a>
         </div>
 
         <table class="table table-striped">
-            <thead>
-            <tr class="table-dark" style="font-size:12px;" align="center">
-                <th>지역명</th>
-                <th>년-월</th>
-                <th>월세 건수</th>
-                <th>전세 건수</th>
-                <th>전체 건수</th>
-                <th>월세 비율</th>
-            </tr>
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+                    <th>지역명</th>
+                    <th>년-월</th>
+                    <th>월세 건수</th>
+                    <th>전세 건수</th>
+                    <th>전체 건수</th>
+                    <th>월세 비율</th>
+                </tr>
             </thead>
             <tbody>
-            <tr style="font-size:12px;" th:each="list : ${list}">
-                <td align="left" th:text="${list.gubnName}"></td>
-                <td align="center" th:text="${list.dealYYMM}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.shortCnt,1,'COMMA')}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.longCnt,1,'COMMA')}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.sum,1,'COMMA')}"></td>
-                <td align="right" style="font-weight: bolder" th:text="${#numbers.formatDecimal(list.rate,1,1,'POINT')}"></td>
-            </tr>
+                <tr style="font-size:12px;" th:each="list : ${list}">
+                    <td align="left" th:text="${list.gubnName}"></td>
+                    <td align="center" th:text="${list.dealYYMM}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.shortCnt,1,'COMMA')}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.longCnt,1,'COMMA')}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.sum,1,'COMMA')}"></td>
+                    <td align="right" style="font-weight: bolder" th:text="${#numbers.formatDecimal(list.rate,1,1,'POINT')}"></td>
+                </tr>
             </tbody>
         </table>
     </div>
