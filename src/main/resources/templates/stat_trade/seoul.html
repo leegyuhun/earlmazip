@@ -19,20 +19,33 @@
 <!--            <a href="/statistics/seoul/2017">2017</a>-->
 <!--        </div>-->
         <div>
-            <a>[전용면적별]&nbsp</a>
-            <a href="/stat_trade/seoul/usearea/UA01">전체&nbsp</a>
+            <a>[기간설정]&nbsp</a>
+            <a href="/stat_trade/seoul/1">1년&nbsp</a>
             <b>/&nbsp</b>
-            <a href="/stat_trade/seoul/usearea/UA02">59미만&nbsp</a>
+            <a href="/stat_trade/seoul/3">3년&nbsp</a>
             <b>/&nbsp</b>
-            <a href="/stat_trade/seoul/usearea/UA03">59이상 85미만&nbsp</a>
+            <a href="/stat_trade/seoul/5">5년&nbsp</a>
             <b>/&nbsp</b>
-            <a href="/stat_trade/seoul/usearea/UA04">85이상 102미만&nbsp</a>
+            <a href="/stat_trade/seoul/10">10년&nbsp</a>
+            <b>/&nbsp</b>
+            <a href="/stat_trade/seoul/20">전체&nbsp</a>
         </div>
-        <div>
-            <a href="/stat_trade/seoul/usearea/UA05">102이상 135이하&nbsp</a>
-            <b>/&nbsp</b>
-            <a href="/stat_trade/seoul/usearea/UA06">135초과</a>
-        </div>
+
+<!--        <div>-->
+<!--            <a>[전용면적별]&nbsp</a>-->
+<!--            <a href="/stat_trade/seoul/usearea/UA01">전체&nbsp</a>-->
+<!--            <b>/&nbsp</b>-->
+<!--            <a href="/stat_trade/seoul/usearea/UA02">59미만&nbsp</a>-->
+<!--            <b>/&nbsp</b>-->
+<!--            <a href="/stat_trade/seoul/usearea/UA03">59이상 85미만&nbsp</a>-->
+<!--            <b>/&nbsp</b>-->
+<!--            <a href="/stat_trade/seoul/usearea/UA04">85이상 102미만&nbsp</a>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <a href="/stat_trade/seoul/usearea/UA05">102이상 135이하&nbsp</a>-->
+<!--            <b>/&nbsp</b>-->
+<!--            <a href="/stat_trade/seoul/usearea/UA06">135초과</a>-->
+<!--        </div>-->
 <!--        <div>-->
 <!--            <form th:object="${aptSearch}" class="form-inline">-->
 <!--                <div class="form-group mb-2">-->
@@ -59,7 +72,7 @@
                     <th>평균<br/>매매가</th>
                     <th>최고<br/>매매가</th>
                     <th>거래건수</th>
-    <!--                <th>신고가율</th>-->
+                    <th>신고가율</th>
                 </tr>
             </thead>
             <tbody>
@@ -70,7 +83,7 @@
                     <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgPrice,1,'COMMA')}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.maxPrice,1,'COMMA')}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
-    <!--                <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>-->
+                    <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>
                 </tr>
             </tbody>
         </table>

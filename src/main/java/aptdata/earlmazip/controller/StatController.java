@@ -1,5 +1,6 @@
 package aptdata.earlmazip.controller;
 
+import aptdata.earlmazip.controller.dto.RankYearResponseDto;
 import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.StatResponseDto;
 import aptdata.earlmazip.domain.RankYear;
@@ -27,11 +28,11 @@ public class StatController {
 
     private final ApiCallStatService apiCallStatService;
 
-    @GetMapping("/stat_trade/seoul")
-    public String seoulList(Model model) {
-        log.info("/stat_trade/seoul");
-        apiCallStatService.writeApiCallStat("STAT", "/stat_trade/seoul");
-        List<StatResponseDto> areas = statService.findStatSeoulList();
+    @GetMapping("/stat_trade/seoul/{term}")
+    public String seoulList(@PathVariable String term, Model model) {
+        log.info("/stat_trade/seoul/" + term);
+        apiCallStatService.writeApiCallStat("STAT", "/stat_trade/seoul/" + term);
+        List<StatResponseDto> areas = statService.findStatSeoulList(term);
         List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
@@ -53,20 +54,20 @@ public class StatController {
         return "stat_trade/seoul";
     }
 
-    @GetMapping("/stat_trade/seoul/{year}")
-    public String seoulListYear(@PathVariable String year, Model model) {
-        log.info("/stat_trade/seoul/" + year);
-        apiCallStatService.writeApiCallStat("STAT", "/stat_trade/seoul/" + year);
-        List<StatResponseDto> areas;
-        if (StringUtils.hasText(year)) {
-            areas = statService.findStatSeoulListYear(year);
-        }
-        else{
-            areas = new ArrayList<>();
-        }
-        model.addAttribute("list", areas);
-        return "stat_trade/seoul";
-    }
+//    @GetMapping("/stat_trade/seoul/{year}")
+//    public String seoulListYear(@PathVariable String year, Model model) {
+//        log.info("/stat_trade/seoul/" + year);
+//        apiCallStatService.writeApiCallStat("STAT", "/stat_trade/seoul/" + year);
+//        List<StatResponseDto> areas;
+//        if (StringUtils.hasText(year)) {
+//            areas = statService.findStatSeoulListYear(year);
+//        }
+//        else{
+//            areas = new ArrayList<>();
+//        }
+//        model.addAttribute("list", areas);
+//        return "stat_trade/seoul";
+//    }
 
     @GetMapping("/stat_trade/seoul/usearea/{ua}")
     public String seoulListUA(@PathVariable String ua, Model model) {
@@ -103,7 +104,7 @@ public class StatController {
     @GetMapping("/stat_trade/seoul/top/{year}/{sigungucode}")
     public String seoulTopList(@PathVariable String year,
                                @PathVariable String sigungucode, Model model) {
-        List<RankYear> tops;
+        List<RankYearResponseDto> tops;
         if (!sigungucode.equals("0")) {
             log.info("/stat_trade/seoul/top/" + year + "/" +  sigungucode);
             apiCallStatService.writeApiCallStat("TOP", "/stat_trade/seoul/top/" + sigungucode);
@@ -120,11 +121,11 @@ public class StatController {
         return "stat_trade/seoulTop";
     }
 
-    @GetMapping("/stat_trade/gyunggi")
-    public String gyunggiList(Model model) {
-        log.info("/stat_trade/gyunggi");
-        apiCallStatService.writeApiCallStat("STAT", "/stat_trade/gyunggi");
-        List<StatResponseDto> areas = statService.findStatGyunggiList();
+    @GetMapping("/stat_trade/gyunggi/{term}")
+    public String gyunggiList(@PathVariable String term, Model model) {
+        log.info("/stat_trade/gyunggi/" + term);
+        apiCallStatService.writeApiCallStat("STAT", "/stat_trade/gyunggi/" + term);
+        List<StatResponseDto> areas = statService.findStatGyunggiList(term);
         List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
@@ -146,19 +147,19 @@ public class StatController {
         return "stat_trade/gyunggi";
     }
 
-    @GetMapping("/stat_trade/gyunggi/{year}")
-    public String gyunggiListYear(@PathVariable String year, Model model) {
-        log.info("/stat_trade/gyunggi/" + year);
-        apiCallStatService.writeApiCallStat("STAT", "/stat_trade/gyunggi/" + year);
-        List<StatResponseDto> areas;
-        if (StringUtils.hasText(year)) {
-            areas = statService.findStatGyunggiListYear(year);
-        } else{
-            areas = new ArrayList<>();
-        }
-        model.addAttribute("list", areas);
-        return "stat_trade/gyunggi";
-    }
+//    @GetMapping("/stat_trade/gyunggi/{year}")
+//    public String gyunggiListYear(@PathVariable String year, Model model) {
+//        log.info("/stat_trade/gyunggi/" + year);
+//        apiCallStatService.writeApiCallStat("STAT", "/stat_trade/gyunggi/" + year);
+//        List<StatResponseDto> areas;
+//        if (StringUtils.hasText(year)) {
+//            areas = statService.findStatGyunggiListYear(year);
+//        } else{
+//            areas = new ArrayList<>();
+//        }
+//        model.addAttribute("list", areas);
+//        return "stat_trade/gyunggi";
+//    }
 
     @GetMapping("/stat_trade/gyunggi/usearea/{ua}")
     public String gyunggiListUA(@PathVariable String ua, Model model) {
@@ -213,7 +214,7 @@ public class StatController {
     @GetMapping("/stat_trade/gyunggi/top/{year}/{sidocode}")
     public String gyunggiTopList(@PathVariable String year,
                                  @PathVariable String sidocode, Model model) {
-        List<RankYear> tops;
+        List<RankYearResponseDto> tops;
         if (!sidocode.equals("0")) {
             log.info("/stat_trade/gyunggi/top/" + year + "/" + sidocode);
             apiCallStatService.writeApiCallStat("TOP", "/stat_trade/gyunggi/top/" + sidocode);
@@ -233,7 +234,7 @@ public class StatController {
     @GetMapping("/stat_trade/incheon/top/{year}/{sigungucode}")
     public String incheonTopList(@PathVariable String year,
                                  @PathVariable String sigungucode, Model model) {
-        List<RankYear> tops;
+        List<RankYearResponseDto> tops;
         if (!sigungucode.equals("0")) {
             log.info("/stat_trade/incheon/top/" + year + "/" + sigungucode);
             apiCallStatService.writeApiCallStat("TOP", "/stat_trade/incheon/top/" + year + "/" + sigungucode);
@@ -284,5 +285,37 @@ public class StatController {
         }
         model.addAttribute("list", stats);
         return "stat_lease/statSido_monthly";
+    }
+
+    @GetMapping("/stat_trade/newHighestAndTradeCntByCity/{sidocode}")
+    public String getStatNewHighestAndTradeCount(@PathVariable String sidocode, Model model) {
+        List<StatResponseDto> stats;
+        if (!sidocode.equals("0")) {
+            log.info("/stat_trade/newHighestAndTradeCntByCity/" + sidocode);
+            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_lease_monthly/sido/" + sidocode);
+            if (StringUtils.hasText(sidocode)) {
+                stats = statService.getStatNewHighestAndTradeCount(sidocode);
+            } else {
+                stats = new ArrayList<>();
+            }
+        } else {
+            stats = new ArrayList<>();
+        }
+        List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Integer> avgPrices = stats.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Float> newHighests = stats.stream().map(o->new Float(o.getHighestRate())).collect(Collectors.toList());
+        List<Integer> tradcnt = stats.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+
+        Collections.reverse(dates);
+        Collections.reverse(avgPrices);
+        Collections.reverse(newHighests);
+        Collections.reverse(tradcnt);
+
+        model.addAttribute("dates", dates);
+        model.addAttribute("avgPrices", avgPrices);
+        model.addAttribute("tradcnt", tradcnt);
+        model.addAttribute("newHighests", newHighests);
+
+        return "stat_trade/newHighestAndTradeCntByCity";
     }
 }

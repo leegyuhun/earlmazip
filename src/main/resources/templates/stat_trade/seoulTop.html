@@ -51,6 +51,7 @@
                     <th>전용면적(m2)</th>
                     <th>거래금액</th>
                     <th>층수</th>
+                    <th>신고가</th>
                     <th>거래유형</th>
                 </tr>
             </thead>
@@ -63,6 +64,7 @@
                     <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,1,'POINT')}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.dealAmt,1,'COMMA')}"></td>
                     <td align="right" th:text="${list.floor}"></td>
+                    <td align="center" th:text="${list.newHighest}"></td>
                     <td align="center" th:text="${list.dealType}"></td>
                 </tr>
             </tbody>

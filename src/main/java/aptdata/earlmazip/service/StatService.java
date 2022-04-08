@@ -1,5 +1,6 @@
 package aptdata.earlmazip.service;
 
+import aptdata.earlmazip.controller.dto.RankYearResponseDto;
 import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.StatResponseDto;
 import aptdata.earlmazip.domain.RankYear;
@@ -17,8 +18,8 @@ public class StatService {
 
     private final StatRepository statRepository;
 
-    public List<StatResponseDto> findStatSeoulList() {
-        return statRepository.findSeoul();
+    public List<StatResponseDto> findStatSeoulList(String term) {
+        return statRepository.findSeoul(term);
     }
 
     public List<StatResponseDto> findStatSeoulListYear(String year) {
@@ -29,12 +30,12 @@ public class StatService {
         return statRepository.findSeoulUA(ua);
     }
 
-    public List<RankYear> findSeoulTopList(String year, String sigungucode) {
+    public List<RankYearResponseDto> findSeoulTopList(String year, String sigungucode) {
         return statRepository.findSeoulTop(year, sigungucode);
     }
 
-    public List<StatResponseDto> findStatGyunggiList() {
-        return statRepository.findGyungGi();
+    public List<StatResponseDto> findStatGyunggiList(String term) {
+        return statRepository.findGyungGi(term);
     }
 
     public List<StatResponseDto> findStatGyunggiListYear(String year) {
@@ -49,11 +50,11 @@ public class StatService {
         return statRepository.findGyungGiSi(sidoCode);
     }
 
-    public List<RankYear> findGyunggiTopList(String year, String sidocode) {
+    public List<RankYearResponseDto> findGyunggiTopList(String year, String sidocode) {
         return statRepository.findGyungGiTop(year, sidocode);
     }
 
-    public List<RankYear> findIncheonTopList(String year, String sigungucode) {
+    public List<RankYearResponseDto> findIncheonTopList(String year, String sigungucode) {
         return statRepository.findIncheonTop(year, sigungucode);
     }
 
@@ -63,5 +64,9 @@ public class StatService {
 
     public List<StatLeaseResponseDto> statLeaseMonthlySido(String sidoCode) {
         return statRepository.statLeaseMonthlySido(sidoCode);
+    }
+
+    public List<StatResponseDto> getStatNewHighestAndTradeCount(String sidoCode) {
+        return statRepository.getStatNewHighestAndTradeCount(sidoCode);
     }
 }
