@@ -2,6 +2,7 @@ package aptdata.earlmazip.controller;
 
 import aptdata.earlmazip.controller.dto.AptPriceResponseDto;
 import aptdata.earlmazip.service.ApiCallStatService;
+import aptdata.earlmazip.service.CodeInfoService;
 import aptdata.earlmazip.service.TradeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ import java.util.List;
 public class TradeController {
     private final TradeService tradeService;
     private final ApiCallStatService apiCallStatService;
+    private final CodeInfoService codeInfoService;
 
     @GetMapping("/tradelist/seoul/{sigungucode}")
     public String getTradeList_Seoul(@PathVariable String sigungucode, Model model) {
@@ -35,7 +37,10 @@ public class TradeController {
         } else{
             trads = new ArrayList<>();
         }
+        String title = codeInfoService.getCodeName(sigungucode);
+
         model.addAttribute("list", trads);
+        model.addAttribute("title",  "[ "+ title + " ]");
 
         return "tradelist/seoul";
     }
@@ -54,7 +59,10 @@ public class TradeController {
         } else{
             trads = new ArrayList<>();
         }
+        String title = codeInfoService.getCodeName(sidocode);
+
         model.addAttribute("list", trads);
+        model.addAttribute("title",  "[ "+ title + " ]");
 
         return "tradelist/gyunggi";
     }
@@ -74,7 +82,10 @@ public class TradeController {
         } else {
             trads = new ArrayList<>();
         }
+        String title = codeInfoService.getCodeName(sigungucode);
+
         model.addAttribute("list", trads);
+        model.addAttribute("title",  "[ "+ title + " ]");
 
         return "tradelist/incheon";
     }

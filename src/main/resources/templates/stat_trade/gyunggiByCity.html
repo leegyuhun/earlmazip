@@ -50,10 +50,13 @@
             <a href="/stat_trade/gyunggiByCity/4145">&nbsp하남시&nbsp</a>
             <a href="/stat_trade/gyunggiByCity/4159">&nbsp화성시</a>
         </div>
+        <p>
+            <h4 align="center" th:text="${title}"></h4>
+        </p>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
-                    <th>지역</th>
+<!--                    <th>지역</th>-->
                     <th>년-월</th>
                     <th>최저<br/>매매가</th>
                     <th>평균<br/>매매가</th>
@@ -64,7 +67,7 @@
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
-                    <td align="center" th:text="${list.name}"></td>
+<!--                    <td align="center" th:text="${list.name}"></td>-->
                     <td align="center" th:text="${list.dealYYMM}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.minPrice,1,'COMMA')}"></td>
                     <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgPrice,1,'COMMA')}"></td>

@@ -7,6 +7,7 @@ import aptdata.earlmazip.domain.RankYear;
 import aptdata.earlmazip.domain.StatAreaYYMM;
 import aptdata.earlmazip.domain.StatSidoYYMM;
 import aptdata.earlmazip.service.ApiCallStatService;
+import aptdata.earlmazip.service.CodeInfoService;
 import aptdata.earlmazip.service.StatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,8 @@ public class StatController {
     private final StatService statService;
 
     private final ApiCallStatService apiCallStatService;
+
+    private final CodeInfoService codeInfoService;
 
     @GetMapping("/stat_trade/seoul/{term}")
     public String seoulList(@PathVariable String term, Model model) {
@@ -116,8 +119,10 @@ public class StatController {
         } else {
             tops = new ArrayList<>();
         }
+        String title = codeInfoService.getCodeName(sigungucode);
         model.addAttribute("list", tops);
         model.addAttribute("year", year);
+        model.addAttribute("title",  "[ "+ title + " ]");
         return "stat_trade/seoulTop";
     }
 
@@ -197,7 +202,7 @@ public class StatController {
             maxCnt = tradcnt.stream().max(Comparator.comparing(x -> x)).orElseThrow(NoSuchElementException::new);
             maxCnt = maxCnt * 2;
         }
-
+        String title = codeInfoService.getCodeName(sidoCode);
 
         Collections.reverse(dates);
         Collections.reverse(avgprc);
@@ -208,6 +213,8 @@ public class StatController {
         model.addAttribute("avgprc", avgprc);
         model.addAttribute("tradcnt", tradcnt);
         model.addAttribute("maxcnt", maxCnt);
+        model.addAttribute("title",  "[ "+ title + " ]");
+
         return "stat_trade/gyunggiByCity";
     }
 
@@ -226,8 +233,11 @@ public class StatController {
         } else {
             tops = new ArrayList<>();
         }
+        String title = codeInfoService.getCodeName(sidocode);
+
         model.addAttribute("list", tops);
         model.addAttribute("year", year);
+        model.addAttribute("title",  "[ "+ title + " ]");
         return "stat_trade/gyunggiByCityTop";
     }
 
@@ -246,8 +256,10 @@ public class StatController {
         } else {
             tops = new ArrayList<>();
         }
+        String title = codeInfoService.getCodeName(sigungucode);
         model.addAttribute("list", tops);
         model.addAttribute("year", year);
+        model.addAttribute("title",  "[ "+ title + " ]");
         return "stat_trade/incheonTop";
     }
 
@@ -306,6 +318,8 @@ public class StatController {
         List<Float> newHighests = stats.stream().map(o->new Float(o.getHighestRate())).collect(Collectors.toList());
         List<Integer> tradcnt = stats.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
 
+        String title = codeInfoService.getCodeName(sidocode);
+
         Collections.reverse(dates);
         Collections.reverse(avgPrices);
         Collections.reverse(newHighests);
@@ -315,6 +329,7 @@ public class StatController {
         model.addAttribute("avgPrices", avgPrices);
         model.addAttribute("tradcnt", tradcnt);
         model.addAttribute("newHighests", newHighests);
+        model.addAttribute("title",  "[ "+ title + " ]");
 
         return "stat_trade/newHighestAndTradeCntByCity";
     }
