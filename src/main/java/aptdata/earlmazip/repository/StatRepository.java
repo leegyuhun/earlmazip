@@ -22,12 +22,15 @@ import java.util.stream.Collectors;
 public class StatRepository {
     private final EntityManager em;
 
-    public List<StatResponseDto> findSeoul(String term){
+    public List<StatResponseDto> getStatTradeList_Seoul(String term){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
         String date = simpleDateFormat.format(new Date());
         int termInt = Integer.parseInt(term);
         int nowInt = Integer.parseInt(date.substring(0,4));
+        // 현재날짜-term = 조회 기준일자
         String searchYear = Integer.toString(nowInt - termInt);
+        
         return em.createQuery("select a from StatAreaYYMM a"
                         + " where a.areaCode = '11' and use_area_type = 'UA01'"
                         + " and a.dealYear >= :searchYear "
@@ -45,7 +48,7 @@ public class StatRepository {
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
-    public List<StatResponseDto> findSeoulUA(String ua){
+    public List<StatResponseDto> getStatTradeByUseAreaList_Seoul(String ua){
         return em.createQuery("select a from StatAreaYYMM a"
                         + " where a.areaCode = '11' and a.useAreaType = :useAreaType"
                         + " and a.dealYear > 2019 "
@@ -54,7 +57,7 @@ public class StatRepository {
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
-    public List<RankYearResponseDto> findSeoulTop(String year, String sigungucode){
+    public List<RankYearResponseDto> getStatTradeTopSeoulByYear(String year, String sigungucode){
         return em.createQuery(" select a from RankYear a "
                             + " where a.gubnCode = :sigunguCode and a.dealYear = :dealYear"
                             + " order by a.dealAmt desc", RankYear.class)
@@ -64,7 +67,7 @@ public class StatRepository {
                 .getResultList().stream().map(RankYearResponseDto::new).collect(Collectors.toList());
     }
 
-    public List<StatResponseDto> findGyungGi(String term){
+    public List<StatResponseDto> getStatTradeGyunggi(String term){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         String date = simpleDateFormat.format(new Date());
         int termInt = Integer.parseInt(term);

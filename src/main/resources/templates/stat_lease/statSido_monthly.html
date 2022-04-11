@@ -7,6 +7,9 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <!--    <a th:text="${year}"></a>-->
     <div>
+        <p>
+            <canvas id="myChart"></canvas>
+        </p>
         <div>
             <a href="/stat_lease_monthly/sido/11">서울&nbsp</a>
             <a href="/stat_lease_monthly/sido/28">인천</a>
@@ -52,7 +55,9 @@
             <a href="/stat_lease_monthly/sido/4145">&nbsp하남시&nbsp</a>
             <a href="/stat_lease_monthly/sido/4159">&nbsp화성시</a>
         </div>
-
+        <p>
+            <h4 align="center" th:text="${title}"></h4>
+        </p>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
@@ -83,4 +88,67 @@
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 </body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+  const avgMonthlyRent =  /*[[ ${avgMonthlyRent.toArray()} ]]*/;
+  const tradcnt =  /*[[ ${tradcnt.toArray()} ]]*/;
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      type: 'line',
+      label: '평균월세',
+      yAxisID: 'y-line',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: avgMonthlyRent
+      },{
+        type: 'bar',
+        label: '거래건수',
+        yAxisID: 'y-bar',
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgb(54, 162, 235)',
+        data: tradcnt
+      }
+    ]
+  };
+
+  const config = {
+    data: data,
+    options: {
+        scales:{
+            'y-line':{
+                position: 'left',
+                suggestedMin: 0,
+                ticks:{
+				    color: 'rgb(255, 99, 132)'
+				},
+                title: {
+                    display: true,
+                    text: '평균월세'
+                }
+            },
+            'y-bar':{
+                position: 'right',
+                suggestedMin: 0,
+                suggestedMax: 100,
+                ticks:{
+				    color: 'rgb(54, 162, 235)'
+				},
+                title: {
+                    display: true,
+                    text: '거래건수'
+                }
+            }
+        }
+    }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
 </html>

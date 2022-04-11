@@ -18,24 +18,24 @@ public class StatService {
 
     private final StatRepository statRepository;
 
-    public List<StatResponseDto> findStatSeoulList(String term) {
-        return statRepository.findSeoul(term);
+    public List<StatResponseDto> getStatTradeList_Seoul(String term) {
+        return statRepository.getStatTradeList_Seoul(term);
     }
 
     public List<StatResponseDto> findStatSeoulListYear(String year) {
         return statRepository.findSeoulYear(year);
     }
 
-    public List<StatResponseDto> findStatSeoulListUA(String ua) {
-        return statRepository.findSeoulUA(ua);
+    public List<StatResponseDto> getStatTradeByUseAreaList_Seoul(String ua) {
+        return statRepository.getStatTradeByUseAreaList_Seoul(ua);
     }
 
-    public List<RankYearResponseDto> findSeoulTopList(String year, String sigungucode) {
-        return statRepository.findSeoulTop(year, sigungucode);
+    public List<RankYearResponseDto> getStatTradeTopSeoulByYear(String year, String sigungucode) {
+        return statRepository.getStatTradeTopSeoulByYear(year, sigungucode);
     }
 
-    public List<StatResponseDto> findStatGyunggiList(String term) {
-        return statRepository.findGyungGi(term);
+    public List<StatResponseDto> getStatTradeGyunggi(String term) {
+        return statRepository.getStatTradeGyunggi(term);
     }
 
     public List<StatResponseDto> findStatGyunggiListYear(String year) {

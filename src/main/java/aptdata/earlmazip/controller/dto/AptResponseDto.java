@@ -41,7 +41,6 @@ public class AptResponseDto {
     private String welfFclt; //부대,복리시설
     private String convFclt; //편의시설
     private String educFclt; //교육시설
-    private String bjdCode; //법정동코드
 
     public AptResponseDto(AptInfo entity) {
         this.aptCode = entity.getAptCode();
@@ -79,6 +78,5 @@ public class AptResponseDto {
         this.welfFclt = entity.getWelfFclt();
         this.convFclt = entity.getConvFclt();
         this.educFclt = entity.getEducFclt();
-        this.bjdCode = entity.getBjdCode();
     }
 }
