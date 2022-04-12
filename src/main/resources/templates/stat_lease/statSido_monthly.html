@@ -61,7 +61,7 @@
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
-                    <th>지역</th>
+<!--                    <th>지역</th>-->
                     <th>년-월</th>
                     <th>평균<br/>보증금</th>
                     <th>평균<br/>월세</th>
@@ -73,7 +73,7 @@
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
-                    <td align="center" th:text="${list.sidoName}"></td>
+<!--                    <td align="center" th:text="${list.sidoName}"></td>-->
                     <td align="center" th:text="${list.dealYYMM}"></td>
                     <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgDeposit,1,'COMMA')}"></td>
                     <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgMonthlyrent,1,'COMMA')}"></td>

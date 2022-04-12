@@ -45,11 +45,13 @@
             <a href="/lease_analysis/seoul/11260">&nbsp중랑구&nbsp</a>
             <a href="/lease_analysis/seoul/11140">&nbsp중구</a>
         </div>
-
+        <p>
+            <h4 align="center" th:text="${title}"></h4>
+        </p>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
-                    <th>지역명</th>
+<!--                    <th>지역명</th>-->
                     <th>년-월</th>
                     <th>월세 건수</th>
                     <th>전세 건수</th>
@@ -59,7 +61,7 @@
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
-                    <td align="left" th:text="${list.gubnName}"></td>
+<!--                    <td align="left" th:text="${list.gubnName}"></td>-->
                     <td align="center" th:text="${list.dealYYMM}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.shortCnt,1,'COMMA')}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.longCnt,1,'COMMA')}"></td>

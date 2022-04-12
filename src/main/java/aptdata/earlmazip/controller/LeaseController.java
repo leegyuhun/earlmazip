@@ -3,6 +3,7 @@ package aptdata.earlmazip.controller;
 import aptdata.earlmazip.controller.dto.AptLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.AptPriceResponseDto;
 import aptdata.earlmazip.service.ApiCallStatService;
+import aptdata.earlmazip.service.CodeInfoService;
 import aptdata.earlmazip.service.LeaseService;
 import aptdata.earlmazip.service.TradeService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import java.util.List;
 public class LeaseController {
     private final LeaseService leaseService;
     private final ApiCallStatService apiCallStatService;
+    private final CodeInfoService codeInfoService;
 
     @GetMapping("/leaselist/seoul/{sigungucode}")
     public String getLeaseList_Seoul(@PathVariable String sigungucode, Model model) {
@@ -37,6 +39,9 @@ public class LeaseController {
         } else {
             trads = new ArrayList<>();
         }
+        String title = codeInfoService.getCodeName(sigungucode);
+
+        model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", trads);
 
         return "leaselist/seoul";
@@ -56,6 +61,9 @@ public class LeaseController {
         } else {
             trads = new ArrayList<>();
         }
+        String title = codeInfoService.getCodeName(sidocode);
+
+        model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", trads);
 
         return "leaselist/gyunggi";
@@ -75,6 +83,9 @@ public class LeaseController {
         } else {
             trads = new ArrayList<>();
         }
+        String title = codeInfoService.getCodeName(sigungucode);
+
+        model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", trads);
 
         return "leaselist/incheon";

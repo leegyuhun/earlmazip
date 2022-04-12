@@ -3,6 +3,7 @@ package aptdata.earlmazip.controller;
 import aptdata.earlmazip.controller.dto.AptLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.StatLeaseAnalysisDto;
 import aptdata.earlmazip.service.ApiCallStatService;
+import aptdata.earlmazip.service.CodeInfoService;
 import aptdata.earlmazip.service.LeaseAnalysisService;
 import aptdata.earlmazip.service.LeaseService;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 public class LeaseAnalysisController {
     private final LeaseAnalysisService leaseAnalysisService;
     private final ApiCallStatService apiCallStatService;
+    private final CodeInfoService codeInfoService;
 
     @GetMapping("/lease_analysis/seoul/{gubncode}")
     public String getLeaseList_Seoul(@PathVariable String gubncode, Model model) {
@@ -43,6 +45,10 @@ public class LeaseAnalysisController {
         List<Float> rates = anals.stream().map(o->new Float(o.getRate())).collect(Collectors.toList());
         Collections.reverse(dates);
         Collections.reverse(rates);
+
+        String title = codeInfoService.getCodeName(gubncode);
+
+        model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", anals);
         model.addAttribute("dates", dates);
         model.addAttribute("rates", rates);
@@ -68,6 +74,9 @@ public class LeaseAnalysisController {
         List<Float> rates = anals.stream().map(o->new Float(o.getRate())).collect(Collectors.toList());
         Collections.reverse(dates);
         Collections.reverse(rates);
+        String title = codeInfoService.getCodeName(gubncode);
+
+        model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", anals);
         model.addAttribute("dates", dates);
         model.addAttribute("rates", rates);

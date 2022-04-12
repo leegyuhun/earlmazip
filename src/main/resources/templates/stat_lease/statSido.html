@@ -62,25 +62,22 @@
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
-                    <th>지역</th>
+<!--                    <th>지역</th>-->
                     <th>년-월</th>
                     <th>최저<br/>보증금</th>
                     <th>평균<br/>보증금</th>
                     <th>최고<br/>보증금</th>
                     <th>거래건수</th>
-    <!--                <th>층수</th>-->
-    <!--                <th>신고가</th>-->
                 </tr>
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
-                    <td align="center" th:text="${list.sidoName}"></td>
+<!--                    <td align="center" th:text="${list.sidoName}"></td>-->
                     <td align="center" th:text="${list.dealYYMM}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.minDeposit,1,'COMMA')}"></td>
                     <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgDeposit,1,'COMMA')}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.maxDeposit,1,'COMMA')}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
-    <!--                <td align="right" th:text="${list.newHighest}"></td>-->
                 </tr>
             </tbody>
         </table>

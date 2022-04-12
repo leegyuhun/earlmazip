@@ -84,8 +84,9 @@ public class TradeController {
         }
         String title = codeInfoService.getCodeName(sigungucode);
 
-        model.addAttribute("list", trads);
         model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("list", trads);
+
 
         return "tradelist/incheon";
     }
