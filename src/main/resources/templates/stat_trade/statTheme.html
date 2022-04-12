@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <!--    <a th:text="${year}"></a>-->
+    <div>
+        <p>
+            <h4 align="center" th:text="${title}"></h4>
+        </p>
+        <p>
+            <canvas id="myChart"></canvas>
+        </p>
+        <p>
+            <canvas id="myChart2"></canvas>
+        </p>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+  const newHighests =  /*[[ ${newHighests.toArray()} ]]*/;
+  const avgPrices =  /*[[ ${avgPrices.toArray()} ]]*/;
+  const tradcnt =  /*[[ ${tradcnt.toArray()} ]]*/;
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      type: 'line',
+      label: '거래량',
+      yAxisID: 'y-line',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: tradcnt
+      },{
+        type: 'bar',
+        label: '신고가율',
+        yAxisID: 'y-bar',
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgb(54, 162, 235)',
+        data: newHighests
+      }
+    ]
+  };
+
+  const data2 = {
+    labels: labels,
+    datasets: [{
+      type: 'line',
+      label: '평균매매가',
+      yAxisID: 'y-line2',
+      backgroundColor: 'rgb(255, 205, 86)',
+      borderColor: 'rgb(255, 205, 86)',
+      data: avgPrices
+      },{
+        type: 'bar',
+        label: '신고가율',
+        yAxisID: 'y-bar2',
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgb(54, 162, 235)',
+        data: newHighests
+      }
+    ]
+  };
+
+  const config = {
+    data: data,
+    options: {
+        scales:{
+            'y-line':{
+                position: 'left',
+                suggestedMin: 0,
+                ticks:{
+				    color: 'rgb(255, 99, 132)'
+				},
+                title: {
+                    display: true,
+                    text: '거래량'
+                }
+            },
+            'y-bar':{
+                position: 'right',
+                suggestedMin: 0,
+                suggestedMax: 100,
+                ticks:{
+				    color: 'rgb(54, 162, 235)'
+				},
+                title: {
+                    display: true,
+                    text: '신고가율'
+                }
+            }
+        }
+    }
+  };
+
+  const config2 = {
+    data: data2,
+    options: {
+        scales:{
+            'y-line2':{
+                position: 'left',
+                suggestedMin: 0,
+                ticks:{
+				    color: 'rgb(255, 205, 86)'
+				},
+                title: {
+                    display: true,
+                    text: '평균매매가'
+                }
+            },
+            'y-bar2':{
+                position: 'right',
+                suggestedMin: 0,
+                suggestedMax: 100,
+                ticks:{
+				    color: 'rgb(54, 162, 235)'
+				},
+                title: {
+                    display: true,
+                    text: '신고가율'
+                }
+            }
+        }
+    }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+
+  const myChart2 = new Chart(
+    document.getElementById('myChart2'),
+    config2
+  );
+</script>
+</html>

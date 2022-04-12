@@ -3,10 +3,7 @@ package aptdata.earlmazip.repository;
 import aptdata.earlmazip.controller.dto.RankYearResponseDto;
 import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.StatResponseDto;
-import aptdata.earlmazip.domain.RankYear;
-import aptdata.earlmazip.domain.StatAreaYYMM;
-import aptdata.earlmazip.domain.StatSidoLease;
-import aptdata.earlmazip.domain.StatSidoYYMM;
+import aptdata.earlmazip.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -163,7 +160,14 @@ public class StatRepository {
                     .getResultList().stream().map(StatResponseDto::new)
                     .collect(Collectors.toList());
         }
-
     }
 
+    public List<StatResponseDto> getStatTheme(String themeCode) {
+        return em.createQuery("select a from StatTheme a "
+                        + " where a.themeCode = :themeCode "
+                        + " order by a.date desc ", StatTheme.class)
+                .setParameter("themeCode", themeCode)
+                .getResultList().stream().map(StatResponseDto::new)
+                .collect(Collectors.toList());
+    }
 }

@@ -358,4 +358,39 @@ public class StatController {
 
         return "stat_trade/newHighestAndTradeCntByCity";
     }
+
+    @GetMapping("/stat_trade/theme/{themecode}")
+    public String getStatTheme(@PathVariable String themecode, Model model) {
+        List<StatResponseDto> stats;
+        if (!themecode.equals("0")) {
+            log.info("/stat_trade/theme/" + themecode);
+            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/theme/" + themecode);
+            if (StringUtils.hasText(themecode)) {
+                stats = statService.getStatTheme(themecode);
+            } else {
+                stats = new ArrayList<>();
+            }
+        } else {
+            stats = new ArrayList<>();
+        }
+
+        List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Integer> avgPrices = stats.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Float> newHighests = stats.stream().map(o->new Float(o.getHighestRate())).collect(Collectors.toList());
+        List<Integer> tradcnt = stats.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        String title = stats.get(0).getName();
+
+        Collections.reverse(dates);
+        Collections.reverse(avgPrices);
+        Collections.reverse(newHighests);
+        Collections.reverse(tradcnt);
+
+        model.addAttribute("dates", dates);
+        model.addAttribute("avgPrices", avgPrices);
+        model.addAttribute("tradcnt", tradcnt);
+        model.addAttribute("newHighests", newHighests);
+        model.addAttribute("title",  "[ "+ title + " ]");
+
+        return "stat_trade/statTheme";
+    }
 }
