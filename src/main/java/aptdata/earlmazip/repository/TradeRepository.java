@@ -25,12 +25,21 @@ public class TradeRepository {
     }
 
     public List<AptPriceResponseDto> getTradeList_GyunggiSido(String sidocode) {
-        return em.createQuery("select a from AptPriceRaw a"
-                        + " where a.dealYear >= 2021 and a.areaCode = '41' and a.sidoCode = :sidoCode"
-                        + " order by a.dealDate desc", AptPriceRaw.class)
-                .setParameter("sidoCode", sidocode)
-                .setMaxResults(100)
-                .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        if (sidocode.length() == 4) {
+            return em.createQuery("select a from AptPriceRaw a"
+                            + " where a.dealYear >= 2021 and a.areaCode = '41' and a.sidoCode = :sidoCode"
+                            + " order by a.dealDate desc", AptPriceRaw.class)
+                    .setParameter("sidoCode", sidocode)
+                    .setMaxResults(100)
+                    .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        } else {
+            return em.createQuery("select a from AptPriceRaw a"
+                            + " where a.dealYear >= 2021 and a.areaCode = '41' and a.sigunguCode = :sigunguCode"
+                            + " order by a.dealDate desc", AptPriceRaw.class)
+                    .setParameter("sigunguCode", sidocode)
+                    .setMaxResults(100)
+                    .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        }
     }
 
     public List<AptPriceResponseDto> getTradeList_Incheon(String sigungucode) {
