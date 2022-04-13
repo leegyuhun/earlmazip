@@ -22,6 +22,10 @@ public class StatService {
         return statRepository.getStatTradeList_Seoul(term);
     }
 
+    public List<StatResponseDto> getStatTradeList_SeoulBySigungu(String sigunguCode, String term) {
+        return statRepository.getStatTradeList_SeoulBySigungu(sigunguCode, term);
+    }
+
     public List<StatResponseDto> findStatSeoulListYear(String year) {
         return statRepository.findSeoulYear(year);
     }

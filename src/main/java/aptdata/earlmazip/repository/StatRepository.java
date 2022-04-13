@@ -36,6 +36,24 @@ public class StatRepository {
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
+    public List<StatResponseDto> getStatTradeList_SeoulBySigungu(String sigunguCode, String term){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        int termInt = Integer.parseInt(term);
+        int nowInt = Integer.parseInt(date.substring(0,4));
+        // 현재날짜-term = 조회 기준일자
+        String searchYear = Integer.toString(nowInt - termInt);
+
+        return em.createQuery("select a from StatSigunguYYMM a"
+                        + " where a.sigunguCode = :sigunguCode and use_area_type = 'UA01'"
+                        + " and a.dealYear >= :searchYear "
+                        + " order by a.dealYYMM desc", StatSigunguYYMM.class)
+                .setParameter("searchYear", searchYear)
+                .setParameter("sigunguCode", sigunguCode)
+                .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
+    }
+
     public List<StatResponseDto> findSeoulYear(String year){
         return em.createQuery("select a from StatAreaYYMM a"
                         + " where a.areaCode = '11' and use_area_type = 'UA01'"
