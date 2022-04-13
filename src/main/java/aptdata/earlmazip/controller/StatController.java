@@ -390,6 +390,7 @@ public class StatController {
         model.addAttribute("tradcnt", tradcnt);
         model.addAttribute("newHighests", newHighests);
         model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("list", stats);
 
         return "stat_trade/statTheme";
     }

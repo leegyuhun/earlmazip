@@ -17,6 +17,34 @@
             <canvas id="myChart2"></canvas>
         </p>
     </div>
+    <div>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3199694479750381"
+                crossorigin="anonymous"></script>
+    </div>
+    <div>
+        <table class="table table-striped">
+            <thead class="table-dark">
+            <tr style="font-size:12px;" align="center">
+                <th>년-월</th>
+                <th>최저<br/>매매가</th>
+                <th>평균<br/>매매가</th>
+                <th>최고<br/>매매가</th>
+                <th>거래건수</th>
+                <th>신고가율</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="font-size:12px;" th:each="list : ${list}">
+                <td align="center" th:text="${list.dealYYMM}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.minPrice,1,'COMMA')}"></td>
+                <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgPrice,1,'COMMA')}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.maxPrice,1,'COMMA')}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
+                <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
@@ -32,18 +60,18 @@
     labels: labels,
     datasets: [{
       type: 'line',
-      label: '거래량',
+      label: '신고가율',
       yAxisID: 'y-line',
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
-      data: tradcnt
+      backgroundColor: 'rgb(54, 162, 235)',
+      borderColor: 'rgb(54, 162, 235)',
+      data: newHighests
       },{
         type: 'bar',
-        label: '신고가율',
+        label: '거래량',
         yAxisID: 'y-bar',
-        backgroundColor: 'rgb(54, 162, 235)',
-        borderColor: 'rgb(54, 162, 235)',
-        data: newHighests
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: tradcnt
       }
     ]
   };
@@ -76,11 +104,11 @@
                 position: 'left',
                 suggestedMin: 0,
                 ticks:{
-				    color: 'rgb(255, 99, 132)'
+				    color: 'rgb(54, 162, 235)'
 				},
                 title: {
                     display: true,
-                    text: '거래량'
+                    text: '신고가율'
                 }
             },
             'y-bar':{
@@ -88,11 +116,11 @@
                 suggestedMin: 0,
                 suggestedMax: 100,
                 ticks:{
-				    color: 'rgb(54, 162, 235)'
+				    color: 'rgb(255, 99, 132)'
 				},
                 title: {
                     display: true,
-                    text: '신고가율'
+                    text: '거래량'
                 }
             }
         }

@@ -55,6 +55,10 @@
         <p>
             <h4 align="center" th:text="${title}"></h4>
         </p>
+        <div>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3199694479750381"
+                    crossorigin="anonymous"></script>
+        </div>
         <p>
             <canvas id="myChart"></canvas>
         </p>
@@ -77,18 +81,18 @@
     labels: labels,
     datasets: [{
       type: 'line',
-      label: '거래량',
+      label: '신고가율',
       yAxisID: 'y-line',
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
-      data: tradcnt
+      backgroundColor: 'rgb(54, 162, 235)',
+      borderColor: 'rgb(54, 162, 235)',
+      data: newHighests
       },{
         type: 'bar',
-        label: '신고가율',
+        label: '거래량',
         yAxisID: 'y-bar',
-        backgroundColor: 'rgb(54, 162, 235)',
-        borderColor: 'rgb(54, 162, 235)',
-        data: newHighests
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: tradcnt
       }
     ]
   };
@@ -121,11 +125,11 @@
                 position: 'left',
                 suggestedMin: 0,
                 ticks:{
-				    color: 'rgb(255, 99, 132)'
+				    color: 'rgb(54, 162, 235)'
 				},
                 title: {
                     display: true,
-                    text: '거래량'
+                    text: '신고가율'
                 }
             },
             'y-bar':{
@@ -133,11 +137,11 @@
                 suggestedMin: 0,
                 suggestedMax: 100,
                 ticks:{
-				    color: 'rgb(54, 162, 235)'
+				    color: 'rgb(255, 99, 132)'
 				},
                 title: {
                     display: true,
-                    text: '신고가율'
+                    text: '거래량'
                 }
             }
         }
