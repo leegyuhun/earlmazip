@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head th:replace="fragments/header :: header">
     <title>Hello</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -11,34 +11,37 @@
 
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
 
-    <div class="jumbotron">
-<!--    <div>-->
+<!--    <div class="jumbotron">-->
+    <div>
 <!--        <h1></h1>-->
-        <p class="lead">아파트 정보 검색</p>
+        <p>아파트 정보 검색</p>
         <p>
             <a class="btn btn-dark" href="/apts">아파트 검색</a>
         </p>
-        <p class="lead">수도권 매매 가격 통계 2006-2022</p>
-        <div>
+        <p>수도권 매매 가격 통계 2006-2022</p>
+        <p>
             <a class="btn btn-primary" href="/stat_trade/seoul/1">서울시</a>
-            <a class="btn btn-primary" href="/stat_trade/seoul/0/5">서울시 상세</a>
-            <a class="btn btn-primary" href="/stat_trade/gyunggi/1">경기도</a>
-            <a class="btn btn-primary" href="/stat_trade/gyunggiByCity/0">경기도 상세</a>
-        </div>
+            <a class="btn btn-primary" href="/stat_trade/seoul/0/5">구별</a>
+            </br>
+            </br>
+            <a class="btn btn-info" href="/stat_trade/gyunggi/1">경기도</a>
+            <a class="btn btn-info" href="/stat_trade/gyunggiByCity/0">시별</a>
+            <a class="btn btn-info" href="/stat_trade/gyunggiBySigungu/0/5">구별</a>
+        </p>
 
-        <p class="lead">테마</p>
-        <div>
+        <p>테마</p>
+        <p>
             <a class="btn btn-outline-primary" href="/stat_trade/newHighestAndTradeCntByCity/0">신고가</a>
             <a class="btn btn-outline-primary" href="/stat_trade/theme/001">강남3구</a>
-        </div>
+        </p>
 
-        <p class="lead">수도권 전/월세 가격 통계 2016-2022 </p>
+        <p>수도권 전/월세 가격 통계 2016-2022 </p>
         <p>
             <a class="btn btn-success" href="/stat_lease/sido/11">전세 통계</a>
             <a class="btn btn-outline-success" href="/stat_lease_monthly/sido/11">월세 통계</a>
         </p>
 
-        <p class="lead">수도권 전세->월세화 통계 2016-2022 </p>
+        <p>수도권 전세->월세화 통계 2016-2022 </p>
         <p>
             <a class="btn btn-warning" href="/lease_analysis/seoul/11">서울시</a>
             <a class="btn btn-outline-warning" href="/lease_analysis/gyunggi/41">경기도</a>
@@ -47,21 +50,21 @@
 <!--        <p>-->
 <!--            <a class="btn btn-success" href="/stat_lease_monthly/sido/11">수도권<br>통계</a>-->
 <!--        </p>-->
-        <p class="lead">매매가 최근 100</p>
+        <p>매매가 최근 100</p>
         <p>
             <a class="btn btn-info" href="/tradelist/seoul/0">서울시</a>
             <a class="btn btn-info" href="/tradelist/gyunggi/0">경기도</a>
             <a class="btn btn-info" href="/tradelist/incheon/0">인천</a>
         </p>
 
-        <p class="lead">전/월세 최근 100</p>
+        <p>전/월세 최근 100</p>
         <p>
             <a class="btn btn-secondary" href="/leaselist/seoul/0">서울시</a>
             <a class="btn btn-secondary" href="/leaselist/gyunggi/0">경기도</a>
             <a class="btn btn-secondary" href="/leaselist/incheon/0">인천</a>
         </p>
 
-        <p class="lead">2022 매매가 TOP 100</p>
+        <p>2022 매매가 TOP 100</p>
         <p>
             <a class="btn btn-danger" href="/stat_trade/seoul/top/2022/0">서울시</a>
             <a class="btn btn-danger" href="/stat_trade/gyunggi/top/2022/0">경기도</a>

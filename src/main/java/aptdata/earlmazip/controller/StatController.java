@@ -64,7 +64,7 @@ public class StatController {
     }
 
     /**
-     * 서울시 월별 매매가 통계
+     * 서울시 구별 월별 매매가 통계
      * @param term : 1인경우 현재년도 -1, 3인경우 현재년도 -3 부터 ~ 현재까지 조회
      * @param model
      * @return
@@ -77,7 +77,7 @@ public class StatController {
         if (!sigungucode.equals("0")) {
             log.info("/stat_trade/seoul/" + sigungucode + "/" + term);
             apiCallStatService.writeApiCallStat("STAT", "/stat_trade/seoul/" + sigungucode + "/" + term);
-            areas = statService.getStatTradeList_SeoulBySigungu(sigungucode, term);
+            areas = statService.getStatTradeList_BySigungu(sigungucode, term);
         } else {
             areas = new ArrayList<>();
         }
@@ -94,6 +94,9 @@ public class StatController {
         Collections.reverse(avgprc);
         Collections.reverse(tradcnt);
 
+        String title = codeInfoService.getCodeName(sigungucode);
+
+        model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", areas);
         model.addAttribute("dates", dates);
         model.addAttribute("avgprc", avgprc);
@@ -140,6 +143,12 @@ public class StatController {
         return "stat_trade/seoul";
     }
 
+    /**
+     * 서울시 구별 매매가 상위 100
+     * @param
+     * @param model
+     * @return
+     */
     @GetMapping("/stat_trade/seoul/top/{year}/{sigungucode}")
     public String getStatTradeTopSeoulByYear(@PathVariable String year,
                                @PathVariable String sigungucode, Model model) {
@@ -156,12 +165,20 @@ public class StatController {
             tops = new ArrayList<>();
         }
         String title = codeInfoService.getCodeName(sigungucode);
+
+        model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", tops);
         model.addAttribute("year", year);
-        model.addAttribute("title",  "[ "+ title + " ]");
+
         return "stat_trade/seoulTop";
     }
 
+    /**
+     * 경기도 월별 매매가 통계
+     * @param term : 1인경우 현재년도 -1, 3인경우 현재년도 -3 부터 ~ 현재까지 조회
+     * @param model
+     * @return
+     */
     @GetMapping("/stat_trade/gyunggi/{term}")
     public String getStatTradeGyunggi(@PathVariable String term, Model model) {
         log.info("/stat_trade/gyunggi/" + term);
@@ -432,5 +449,40 @@ public class StatController {
         model.addAttribute("list", stats);
 
         return "stat_trade/statTheme";
+    }
+
+    @GetMapping("/stat_trade/gyunggiBySigungu/{sigungucode}/{term}")
+    public String getStatTradeList_GyunggiBySigungu(@PathVariable String sigungucode,
+                                                  @PathVariable String term,
+                                                  Model model) {
+        List<StatResponseDto> areas;
+        if (!sigungucode.equals("0")) {
+            log.info("/stat_trade/gyunggiBySigungu/" + sigungucode + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/gyunggiBySigungu/" + sigungucode + "/" + term);
+            areas = statService.getStatTradeList_BySigungu(sigungucode, term);
+        } else {
+            areas = new ArrayList<>();
+        }
+        List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        Integer maxCnt = 0;
+        if (tradcnt.size() > 0) {
+            maxCnt = tradcnt.stream().max(Comparator.comparing(x -> x)).orElseThrow(NoSuchElementException::new);
+            maxCnt = maxCnt * 2;
+        }
+
+        Collections.reverse(dates);
+        Collections.reverse(avgprc);
+        Collections.reverse(tradcnt);
+        String title = codeInfoService.getCodeName(sigungucode);
+
+        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("list", areas);
+        model.addAttribute("dates", dates);
+        model.addAttribute("avgprc", avgprc);
+        model.addAttribute("tradcnt", tradcnt);
+        model.addAttribute("maxcnt", maxCnt);
+        return "stat_trade/gyunggiBySigungu";
     }
 }

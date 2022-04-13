@@ -6,34 +6,40 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
-<!--        <div>-->
-<!--            <a>[ 전용면적별 ]&nbsp</a>-->
-<!--            <a href="/stat_trade/gyunggi/usearea/UA01">전체&nbsp</a>-->
-<!--            <b>/&nbsp</b>-->
-<!--            <a href="/stat_trade/gyunggi/usearea/UA02">59미만&nbsp</a>-->
-<!--            <b>/&nbsp</b>-->
-<!--            <a href="/stat_trade/gyunggi/usearea/UA03">59이상 85미만&nbsp</a>-->
-<!--            <b>/&nbsp</b>-->
-<!--            <a href="/stat_trade/gyunggi/usearea/UA04">85이상 102미만&nbsp</a>-->
-<!--            <b>/&nbsp</b>-->
-<!--            <a href="/stat_trade/gyunggi/usearea/UA05">102이상 135이하&nbsp</a>-->
-<!--            <b>/&nbsp</b>-->
-<!--            <a href="/stat_trade/gyunggi/usearea/UA06">135초과</a>-->
-<!--        </div>-->
         <div>
-            <a>[기간설정]&nbsp</a>
-            <a href="/stat_trade/gyunggi/1">1년&nbsp</a>
+            <a>성남&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41131/5">수정구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41133/5">&nbsp중원구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41135/5">&nbsp분당구</a>
             <b>/&nbsp</b>
-            <a href="/stat_trade/gyunggi/3">3년&nbsp</a>
+            <a>고양&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41281/5">덕양구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41285/5">&nbsp일산동구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41287/5">&nbsp일산서구</a>
+        </div>
+        <div>
+            <a>용인&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41461/5">처인구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41463/5">&nbsp기흥구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41465/5">&nbsp수지구</a>
             <b>/&nbsp</b>
-            <a href="/stat_trade/gyunggi/5">5년&nbsp</a>
+            <a>수원&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41111/5">장안구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41113/5">&nbsp권선구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41115/5">&nbsp팔달구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41117/5">&nbsp영통구</a>
+        </div>
+        <div>
+            <a>안산&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41271/5">상록구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41273/5">&nbsp단원구</a>
             <b>/&nbsp</b>
-            <a href="/stat_trade/gyunggi/10">10년&nbsp</a>
-            <b>/&nbsp</b>
-            <a href="/stat_trade/gyunggi/20">전체&nbsp</a>
+            <a>안양&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41171/5">만안구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41173/5">&nbsp동안구</a>
         </div>
         <p>
-            <h4 align="center" th:text="경기도"></h4>
+            <h4 align="center" th:text="${title}"></h4>
         </p>
         <div>
             <canvas id="myChart"></canvas>
@@ -45,7 +51,7 @@
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
-                    <th>지역</th>
+<!--                    <th>지역</th>-->
                     <th>년-월</th>
                     <th>최저<br/>매매가</th>
                     <th>평균<br/>매매가</th>
@@ -56,7 +62,7 @@
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
-                    <td align="center" th:text="${list.name}"></td>
+<!--                    <td align="center" th:text="${list.name}"></td>-->
                     <td align="center" th:text="${list.dealYYMM}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.minPrice,1,'COMMA')}"></td>
                     <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgPrice,1,'COMMA')}"></td>
@@ -117,6 +123,9 @@
                 position: 'right',
                 suggestedMin: 0,
                 suggestedMax: maxCnt,
+                grid:{
+                    display: false
+                },
                 ticks:{
 				    color: 'rgb(54, 162, 235)'
 				},

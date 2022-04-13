@@ -5,9 +5,6 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
-        <div>
-            <canvas id="myChart"></canvas>
-        </div>
 <!--        <div>-->
 <!--            <a>년도별</a>-->
 <!--            <a href="/statistics/seoul">전체</a>-->
@@ -29,6 +26,12 @@
             <a href="/stat_trade/seoul/10">10년&nbsp</a>
             <b>/&nbsp</b>
             <a href="/stat_trade/seoul/20">전체&nbsp</a>
+        </div>
+        <p>
+        <h4 align="center" th:text="서울특별시"></h4>
+        </p>
+        <div>
+            <canvas id="myChart"></canvas>
         </div>
 
 <!--        <div>-->
@@ -70,7 +73,7 @@
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
-                    <th>지역</th>
+<!--                    <th>지역</th>-->
                     <th>년-월</th>
                     <th>최저<br/>매매가</th>
                     <th>평균<br/>매매가</th>
@@ -81,7 +84,7 @@
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
-                    <td align="center" th:text="${list.name}"></td>
+<!--                    <td align="center" th:text="${list.name}"></td>-->
                     <td align="center" th:text="${list.dealYYMM}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.minPrice,1,'COMMA')}"></td>
                     <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgPrice,1,'COMMA')}"></td>

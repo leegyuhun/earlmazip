@@ -36,7 +36,7 @@ public class StatRepository {
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
-    public List<StatResponseDto> getStatTradeList_SeoulBySigungu(String sigunguCode, String term){
+    public List<StatResponseDto> getStatTradeList_BySigungu(String sigunguCode, String term){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         // 현재날짜
         String date = simpleDateFormat.format(new Date());
