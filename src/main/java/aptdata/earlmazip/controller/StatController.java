@@ -1,5 +1,6 @@
 package aptdata.earlmazip.controller;
 
+import aptdata.earlmazip.controller.dto.EcosDataResponseDto;
 import aptdata.earlmazip.controller.dto.RankYearResponseDto;
 import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.StatResponseDto;
@@ -8,6 +9,7 @@ import aptdata.earlmazip.domain.StatAreaYYMM;
 import aptdata.earlmazip.domain.StatSidoYYMM;
 import aptdata.earlmazip.service.ApiCallStatService;
 import aptdata.earlmazip.service.CodeInfoService;
+import aptdata.earlmazip.service.EcosDataService;
 import aptdata.earlmazip.service.StatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +33,8 @@ public class StatController {
 
     private final CodeInfoService codeInfoService;
 
+    private final EcosDataService ecosDataService;
+
     /**
      * 서울시 월별 매매가 통계
      * @param term : 1인경우 현재년도 -1, 3인경우 현재년도 -3 부터 ~ 현재까지 조회
@@ -42,9 +46,12 @@ public class StatController {
         log.info("/stat_trade/seoul/" + term);
         apiCallStatService.writeApiCallStat("STAT", "/stat_trade/seoul/" + term);
         List<StatResponseDto> areas = statService.getStatTradeList_Seoul(term);
+        // 한국은행 기준금리
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", term);
         List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
         Integer maxCnt = 0;
         if (tradcnt.size() > 0) {
             maxCnt = tradcnt.stream().max(Comparator.comparing(x -> x)).orElseThrow(NoSuchElementException::new);
@@ -60,6 +67,7 @@ public class StatController {
         model.addAttribute("avgprc", avgprc);
         model.addAttribute("tradcnt", tradcnt);
         model.addAttribute("maxcnt", maxCnt);
+        model.addAttribute("interestRates", interestRates);
         return "stat_trade/seoul";
     }
 
