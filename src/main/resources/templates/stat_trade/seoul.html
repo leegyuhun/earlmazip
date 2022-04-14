@@ -105,7 +105,6 @@
   const labels =  /*[[ ${dates.toArray()} ]]*/;
   const avgPrices =  /*[[ ${avgprc.toArray()} ]]*/;
   const tradcnt =  /*[[ ${tradcnt.toArray()} ]]*/;
-  const maxCnt =  /*[[ ${maxCnt} ]]*/;
   const interestRates =  /*[[ ${interestRates.toArray()} ]]*/;
 
   const data = {
@@ -121,8 +120,8 @@
         type: 'line',
         label: '기준금리',
         yAxisID: 'y-line2',
-        backgroundColor: 'rgb(80, 194, 194)',
-        borderColor: 'rgb(80, 194, 194)',
+        backgroundColor: 'rgb(64, 64, 64)',
+        borderColor: 'rgb(64, 64, 64)',
         data: interestRates
       },{
         type: 'bar',
@@ -155,7 +154,7 @@
                 suggestedMin: 0,
                 suggestedMax: 7,
                 ticks:{
-				    color: 'rgb(80, 194, 194)'
+				    color: 'rgb(64, 64, 64)'
 				},
                 title: {
                     display: true,
@@ -165,7 +164,6 @@
             'y-bar':{
                 position: 'right',
                 suggestedMin: 0,
-                suggestedMax: maxCnt,
                 ticks:{
 				    color: 'rgb(54, 162, 235)'
 				},

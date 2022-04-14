@@ -1,9 +1,6 @@
 package aptdata.earlmazip.controller.dto;
 
-import aptdata.earlmazip.domain.StatAreaYYMM;
-import aptdata.earlmazip.domain.StatSidoYYMM;
-import aptdata.earlmazip.domain.StatSigunguYYMM;
-import aptdata.earlmazip.domain.StatTheme;
+import aptdata.earlmazip.domain.*;
 import lombok.Getter;
 
 import javax.persistence.Column;
@@ -78,5 +75,16 @@ public class StatResponseDto {
         this.cnt = entity.getCnt();
         this.highestCnt = entity.getHighestCnt();
         this.highestRate = entity.getHighestRate();
+    }
+
+    public StatResponseDto(StatBuildYear entity) {
+        this.seq = entity.getSeq();
+        this.code = entity.getRegnCode();
+        this.name = entity.getRegnName();
+        this.dealYYMM = entity.getDealYYMM();
+        this.minPrice = entity.getMinPrice();
+        this.avgPrice = entity.getAvgPrice();
+        this.maxPrice = entity.getMaxPrice();
+        this.cnt = entity.getCnt();
     }
 }

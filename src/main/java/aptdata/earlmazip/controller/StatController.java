@@ -46,17 +46,13 @@ public class StatController {
         log.info("/stat_trade/seoul/" + term);
         apiCallStatService.writeApiCallStat("STAT", "/stat_trade/seoul/" + term);
         List<StatResponseDto> areas = statService.getStatTradeList_Seoul(term);
-        // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", term);
         List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+
+        // 한국은행 기준금리
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
-        Integer maxCnt = 0;
-        if (tradcnt.size() > 0) {
-            maxCnt = tradcnt.stream().max(Comparator.comparing(x -> x)).orElseThrow(NoSuchElementException::new);
-            maxCnt = maxCnt * 2;
-        }
 
         Collections.reverse(dates);
         Collections.reverse(avgprc);
@@ -66,7 +62,6 @@ public class StatController {
         model.addAttribute("dates", dates);
         model.addAttribute("avgprc", avgprc);
         model.addAttribute("tradcnt", tradcnt);
-        model.addAttribute("maxcnt", maxCnt);
         model.addAttribute("interestRates", interestRates);
         return "stat_trade/seoul";
     }
@@ -92,11 +87,10 @@ public class StatController {
         List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-        Integer maxCnt = 0;
-        if (tradcnt.size() > 0) {
-            maxCnt = tradcnt.stream().max(Comparator.comparing(x -> x)).orElseThrow(NoSuchElementException::new);
-            maxCnt = maxCnt * 2;
-        }
+
+        // 한국은행 기준금리
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", term);
+        List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);
         Collections.reverse(avgprc);
@@ -109,7 +103,7 @@ public class StatController {
         model.addAttribute("dates", dates);
         model.addAttribute("avgprc", avgprc);
         model.addAttribute("tradcnt", tradcnt);
-        model.addAttribute("maxcnt", maxCnt);
+        model.addAttribute("interestRates", interestRates);
         return "stat_trade/seoulBySigungu";
     }
 
@@ -195,11 +189,9 @@ public class StatController {
         List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-        Integer maxCnt = 0;
-        if (tradcnt.size() > 0) {
-            maxCnt = tradcnt.stream().max(Comparator.comparing(x -> x)).orElseThrow(NoSuchElementException::new);
-            maxCnt = maxCnt * 2;
-        }
+        // 한국은행 기준금리
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", term);
+        List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);
         Collections.reverse(avgprc);
@@ -209,7 +201,7 @@ public class StatController {
         model.addAttribute("dates", dates);
         model.addAttribute("avgprc", avgprc);
         model.addAttribute("tradcnt", tradcnt);
-        model.addAttribute("maxcnt", maxCnt);
+        model.addAttribute("interestRates", interestRates);
         return "stat_trade/gyunggi";
     }
 
@@ -241,14 +233,15 @@ public class StatController {
         return "stat_trade/gyunggi";
     }
 
-    @GetMapping("/stat_trade/gyunggiByCity/{sidoCode}")
-    public String gyunggisiList(@PathVariable String sidoCode, Model model) {
+    @GetMapping("/stat_trade/gyunggiByCity/{sidoCode}/{term}")
+    public String getStatTradeList_ByCity(@PathVariable String sidoCode,
+                                @PathVariable String term,Model model) {
         List<StatResponseDto> stats;
         if (!sidoCode.equals("0")) {
-            log.info("/stat_trade/gyunggiByCity/" + sidoCode);
-            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/gyunggiByCity/" + sidoCode);
+            log.info("/stat_trade/gyunggiByCity/" + sidoCode + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/gyunggiByCity/" + sidoCode+ "/" + term);
             if (StringUtils.hasText(sidoCode)) {
-                stats = statService.findStatGyunggiSiList(sidoCode);
+                stats = statService.getStatTradeList_ByCity(sidoCode, term);
             } else {
                 stats = new ArrayList<>();
             }
@@ -258,11 +251,10 @@ public class StatController {
         List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgprc = stats.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> tradcnt = stats.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-        Integer maxCnt = 0;
-        if (tradcnt.size() > 0) {
-            maxCnt = tradcnt.stream().max(Comparator.comparing(x -> x)).orElseThrow(NoSuchElementException::new);
-            maxCnt = maxCnt * 2;
-        }
+        // 한국은행 기준금리
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", term);
+        List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+
         String title = codeInfoService.getCodeName(sidoCode);
 
         Collections.reverse(dates);
@@ -273,7 +265,7 @@ public class StatController {
         model.addAttribute("dates", dates);
         model.addAttribute("avgprc", avgprc);
         model.addAttribute("tradcnt", tradcnt);
-        model.addAttribute("maxcnt", maxCnt);
+        model.addAttribute("interestRates", interestRates);
         model.addAttribute("title",  "[ "+ title + " ]");
 
         return "stat_trade/gyunggiByCity";
@@ -474,11 +466,9 @@ public class StatController {
         List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-        Integer maxCnt = 0;
-        if (tradcnt.size() > 0) {
-            maxCnt = tradcnt.stream().max(Comparator.comparing(x -> x)).orElseThrow(NoSuchElementException::new);
-            maxCnt = maxCnt * 2;
-        }
+        // 한국은행 기준금리
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", term);
+        List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);
         Collections.reverse(avgprc);
@@ -490,7 +480,67 @@ public class StatController {
         model.addAttribute("dates", dates);
         model.addAttribute("avgprc", avgprc);
         model.addAttribute("tradcnt", tradcnt);
-        model.addAttribute("maxcnt", maxCnt);
+        model.addAttribute("interestRates", interestRates);
+
         return "stat_trade/gyunggiBySigungu";
     }
+
+    @GetMapping("/stat_trade/ByBuildYear/{regncode}/{term}")
+    public String getStatBuildYearList(@PathVariable String regncode,
+                                                    @PathVariable String term,
+                                                    Model model) {
+        List<StatResponseDto> stat1970;
+        List<StatResponseDto> stat1980;
+        List<StatResponseDto> stat1990;
+        List<StatResponseDto> stat2000;
+        List<StatResponseDto> stat2010;
+        List<StatResponseDto> stat2020;
+        if (!regncode.equals("0")) {
+            log.info("/stat_trade/ByBuildYear/" + regncode + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/ByBuildYear/" + regncode + "/" + term);
+            stat1970 = statService.getStatBuildYearList(regncode, "1970", term);
+            stat1980 = statService.getStatBuildYearList(regncode, "1980", term);
+            stat1990 = statService.getStatBuildYearList(regncode, "1990", term);
+            stat2000 = statService.getStatBuildYearList(regncode, "2000", term);
+            stat2010 = statService.getStatBuildYearList(regncode, "2010", term);
+            stat2020 = statService.getStatBuildYearList(regncode, "2020", term);
+
+        } else {
+            stat1970 = new ArrayList<>();
+            stat1980 = new ArrayList<>();
+            stat1990 = new ArrayList<>();
+            stat2000 = new ArrayList<>();
+            stat2010 = new ArrayList<>();
+            stat2020 = new ArrayList<>();
+        }
+        List<String> dates = stat1990.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Integer> avgprc1970 = stat1970.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> avgprc1980 = stat1980.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> avgprc1990 = stat1990.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> avgprc2000 = stat2000.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> avgprc2010 = stat2010.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> avgprc2020 = stat2020.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+
+        Collections.reverse(dates);
+        Collections.reverse(avgprc1970);
+        Collections.reverse(avgprc1980);
+        Collections.reverse(avgprc1990);
+        Collections.reverse(avgprc2000);
+        Collections.reverse(avgprc2010);
+        Collections.reverse(avgprc2020);
+
+        String title = codeInfoService.getCodeName(regncode);
+
+        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("dates", dates);
+        model.addAttribute("avgprc1970", avgprc1970);
+        model.addAttribute("avgprc1980", avgprc1980);
+        model.addAttribute("avgprc1990", avgprc1990);
+        model.addAttribute("avgprc2000", avgprc2000);
+        model.addAttribute("avgprc2010", avgprc2010);
+        model.addAttribute("avgprc2020", avgprc2020);
+
+        return "stat_trade/statByBuildYear";
+    }
+
 }

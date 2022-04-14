@@ -115,12 +115,21 @@ public class StatRepository {
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
-    public List<StatResponseDto> findGyungGiSi(String sidoCode){
+    public List<StatResponseDto> getStatTradeList_ByCity(String sidoCode, String term){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        int termInt = Integer.parseInt(term);
+        int nowInt = Integer.parseInt(date.substring(0,4));
+        // 현재날짜-term = 조회 기준일자
+        String searchYear = Integer.toString(nowInt - termInt);
+
         return em.createQuery("select a from StatSidoYYMM a"
                         + " where a.sidoCode = :sidoCode and use_area_type = 'UA01'"
-                        + " and a.dealYear > 2018 "
+                        + " and a.dealYear >= :searchYear "
                         + " order by a.dealYYMM desc", StatSidoYYMM.class)
                 .setParameter("sidoCode", sidoCode)
+                .setParameter("searchYear", searchYear)
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
@@ -185,6 +194,27 @@ public class StatRepository {
                         + " where a.themeCode = :themeCode "
                         + " order by a.date desc ", StatTheme.class)
                 .setParameter("themeCode", themeCode)
+                .getResultList().stream().map(StatResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<StatResponseDto> getStatBuildYearList(String regnCode, String buildYear, String term) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        int termInt = Integer.parseInt(term);
+        int nowInt = Integer.parseInt(date.substring(0,4));
+        // 현재날짜-term = 조회 기준일자
+        String searchYear = Integer.toString(nowInt - termInt);
+
+        return em.createQuery("select a from StatBuildYear a "
+                        + " where a.regnCode = :regnCode "
+                        + "   and a.buildYear = :buildYear "
+                        + "   and a.dealYear >= :searchYear "
+                        + " order by a.dealYear desc", StatBuildYear.class)
+                .setParameter("regnCode", regnCode)
+                .setParameter("buildYear", buildYear)
+                .setParameter("searchYear", searchYear)
                 .getResultList().stream().map(StatResponseDto::new)
                 .collect(Collectors.toList());
     }

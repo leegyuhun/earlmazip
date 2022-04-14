@@ -50,8 +50,8 @@ public class StatService {
         return statRepository.findGyungGiUA(ua);
     }
 
-    public List<StatResponseDto> findStatGyunggiSiList(String sidoCode) {
-        return statRepository.findGyungGiSi(sidoCode);
+    public List<StatResponseDto> getStatTradeList_ByCity(String sidoCode, String term) {
+        return statRepository.getStatTradeList_ByCity(sidoCode, term);
     }
 
     public List<RankYearResponseDto> findGyunggiTopList(String year, String sidocode) {
@@ -76,5 +76,9 @@ public class StatService {
 
     public List<StatResponseDto> getStatTheme(String themeCode) {
         return statRepository.getStatTheme(themeCode);
+    }
+
+    public List<StatResponseDto> getStatBuildYearList(String regnCode, String buildYear, String term) {
+        return statRepository.getStatBuildYearList(regnCode, buildYear, term);
     }
 }

@@ -8,37 +8,37 @@
     <div>
         <div>
             <a>성남&nbsp</a>
-            <a href="/stat_trade/gyunggiBySigungu/41131/5">수정구&nbsp</a>
-            <a href="/stat_trade/gyunggiBySigungu/41133/5">&nbsp중원구&nbsp</a>
-            <a href="/stat_trade/gyunggiBySigungu/41135/5">&nbsp분당구</a>
+            <a href="/stat_trade/gyunggiBySigungu/41131/6">수정구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41133/6">&nbsp중원구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41135/6">&nbsp분당구</a>
         </div>
         <div>
             <a>고양&nbsp</a>
-            <a href="/stat_trade/gyunggiBySigungu/41281/5">덕양구&nbsp</a>
-            <a href="/stat_trade/gyunggiBySigungu/41285/5">&nbsp일산동구&nbsp</a>
-            <a href="/stat_trade/gyunggiBySigungu/41287/5">&nbsp일산서구</a>
+            <a href="/stat_trade/gyunggiBySigungu/41281/6">덕양구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41285/6">&nbsp일산동구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41287/6">&nbsp일산서구</a>
         </div>
         <div>
             <a>수원&nbsp</a>
-            <a href="/stat_trade/gyunggiBySigungu/41111/5">장안구&nbsp</a>
-            <a href="/stat_trade/gyunggiBySigungu/41113/5">&nbsp권선구&nbsp</a>
-            <a href="/stat_trade/gyunggiBySigungu/41115/5">&nbsp팔달구&nbsp</a>
-            <a href="/stat_trade/gyunggiBySigungu/41117/5">&nbsp영통구</a>
+            <a href="/stat_trade/gyunggiBySigungu/41111/6">장안구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41113/6">&nbsp권선구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41115/6">&nbsp팔달구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41117/6">&nbsp영통구</a>
         </div>
         <div>
             <a>용인&nbsp</a>
-            <a href="/stat_trade/gyunggiBySigungu/41461/5">처인구&nbsp</a>
-            <a href="/stat_trade/gyunggiBySigungu/41463/5">&nbsp기흥구&nbsp</a>
-            <a href="/stat_trade/gyunggiBySigungu/41465/5">&nbsp수지구</a>
+            <a href="/stat_trade/gyunggiBySigungu/41461/6">처인구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41463/6">&nbsp기흥구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41465/6">&nbsp수지구</a>
         </div>
         <div>
             <a>안산&nbsp</a>
-            <a href="/stat_trade/gyunggiBySigungu/41271/5">상록구&nbsp</a>
-            <a href="/stat_trade/gyunggiBySigungu/41273/5">&nbsp단원구</a>
+            <a href="/stat_trade/gyunggiBySigungu/41271/6">상록구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41273/6">&nbsp단원구</a>
             <b>/&nbsp</b>
             <a>안양&nbsp</a>
-            <a href="/stat_trade/gyunggiBySigungu/41171/5">만안구&nbsp</a>
-            <a href="/stat_trade/gyunggiBySigungu/41173/5">&nbsp동안구</a>
+            <a href="/stat_trade/gyunggiBySigungu/41171/6">만안구&nbsp</a>
+            <a href="/stat_trade/gyunggiBySigungu/41173/6">&nbsp동안구</a>
         </div>
         <p>
             <h4 align="center" th:text="${title}"></h4>
@@ -85,6 +85,7 @@
   const avgPrices =  /*[[ ${avgprc.toArray()} ]]*/;
   const tradcnt =  /*[[ ${tradcnt.toArray()} ]]*/;
   const maxCnt =  /*[[ ${maxCnt} ]]*/;
+  const interestRates =  /*[[ ${interestRates.toArray()} ]]*/;
 
   const data = {
     labels: labels,
@@ -95,6 +96,13 @@
       backgroundColor: 'rgb(255, 99, 132)',
       borderColor: 'rgb(255, 99, 132)',
       data: avgPrices
+      },{
+        type: 'line',
+        label: '기준금리',
+        yAxisID: 'y-line2',
+        backgroundColor: 'rgb(64, 64, 64)',
+        borderColor: 'rgb(64, 64, 64)',
+        data: interestRates
       },{
         type: 'bar',
         label: '거래건수',
@@ -119,6 +127,18 @@
                 title: {
                     display: true,
                     text: '평균매매가'
+                }
+            },
+            'y-line2':{
+                position: 'left',
+                suggestedMin: 0,
+                suggestedMax: 7,
+                ticks:{
+				    color: 'rgb(64, 64, 64)'
+				},
+                title: {
+                    display: true,
+                    text: '한국은행 기준금리'
                 }
             },
             'y-bar':{
