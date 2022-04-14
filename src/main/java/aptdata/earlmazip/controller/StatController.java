@@ -521,6 +521,13 @@ public class StatController {
         List<Integer> avgprc2010 = stat2010.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> avgprc2020 = stat2020.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
 
+        List<Integer> tradCnt1970 = stat1970.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        List<Integer> tradCnt1980 = stat1980.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        List<Integer> tradCnt1990 = stat1990.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        List<Integer> tradCnt2000 = stat2000.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        List<Integer> tradCnt2010 = stat2010.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        List<Integer> tradCnt2020 = stat2020.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+
         Collections.reverse(dates);
         Collections.reverse(avgprc1970);
         Collections.reverse(avgprc1980);
@@ -528,6 +535,13 @@ public class StatController {
         Collections.reverse(avgprc2000);
         Collections.reverse(avgprc2010);
         Collections.reverse(avgprc2020);
+
+        Collections.reverse(tradCnt1970);
+        Collections.reverse(tradCnt1980);
+        Collections.reverse(tradCnt1990);
+        Collections.reverse(tradCnt2000);
+        Collections.reverse(tradCnt2010);
+        Collections.reverse(tradCnt2020);
 
         String title = codeInfoService.getCodeName(regncode);
 
@@ -539,6 +553,13 @@ public class StatController {
         model.addAttribute("avgprc2000", avgprc2000);
         model.addAttribute("avgprc2010", avgprc2010);
         model.addAttribute("avgprc2020", avgprc2020);
+
+        model.addAttribute("tradCnt1970", tradCnt1970);
+        model.addAttribute("tradCnt1980", tradCnt1980);
+        model.addAttribute("tradCnt1990", tradCnt1990);
+        model.addAttribute("tradCnt2000", tradCnt2000);
+        model.addAttribute("tradCnt2010", tradCnt2010);
+        model.addAttribute("tradCnt2020", tradCnt2020);
 
         return "stat_trade/statByBuildYear";
     }

@@ -87,7 +87,29 @@ public class TradeController {
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", trads);
 
-
         return "tradelist/incheon";
+    }
+
+    @GetMapping("/tradelist/cancelDeal/{regncode}")
+    public String getCancelDealList(@PathVariable String regncode, Model model) {
+        List<AptPriceResponseDto> trads;
+        if (!regncode.equals("0")) {
+            log.info("/tradelist/cancelDeal/" + regncode);
+            apiCallStatService.writeApiCallStat("TRADE", "/tradelist/cancelDeal/" + regncode);
+
+            if (StringUtils.hasText(regncode)) {
+                trads = tradeService.getCancelDealList(regncode);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else {
+            trads = new ArrayList<>();
+        }
+        String title = codeInfoService.getCodeName(regncode);
+
+        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("list", trads);
+
+        return "tradelist/cancelDeal";
     }
 }

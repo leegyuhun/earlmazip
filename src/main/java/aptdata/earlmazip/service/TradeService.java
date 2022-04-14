@@ -25,4 +25,8 @@ public class TradeService {
     public List<AptPriceResponseDto> getTradeList_Incheon(String sigungu) {
         return tradeRepository.getTradeList_Incheon(sigungu);
     }
+
+    public List<AptPriceResponseDto> getCancelDealList(String regncode) {
+        return tradeRepository.getCancelDealList(regncode);
+    }
 }

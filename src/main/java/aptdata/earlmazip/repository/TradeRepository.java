@@ -51,4 +51,21 @@ public class TradeRepository {
                 .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
 
+    public List<AptPriceResponseDto> getCancelDealList(String regncode) {
+        if (regncode.length() == 5) {
+            return em.createQuery(" select a from AptPriceRaw a "
+                            + " where  a.dealYear >= 2021 and a.sigunguCode = :regncode "
+                            + "   and a.cnclDealDate <> '' "
+                            + " order by a.cnclDealDate desc", AptPriceRaw.class)
+                    .setParameter("regncode", regncode)
+                    .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+
+        } else {
+            return em.createQuery(" select a from AptPriceRaw a "
+                            + " where  a.dealYear >= 2021 and a.sidoCode = :regncode "
+                            + " order by a.cnclDealDate desc", AptPriceRaw.class)
+                    .setParameter("regncode", regncode)
+                    .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        }
+    }
 }

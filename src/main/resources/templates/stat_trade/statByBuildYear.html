@@ -8,49 +8,40 @@
     <!--    <a th:text="${year}"></a>-->
     <div>
         <div>
-            <a href="/stat_trade/ByBuildYear/11/6">서울</a>
-            <a href="/stat_trade/ByBuildYear/28">인천</a>
+            <a href="/stat_trade/ByBuildYear/11/2">서울 전체</a>
         </div>
         <div>
-            <a href="/stat_trade/ByBuildYear/4182">가평군&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4128">&nbsp고양시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4129">&nbsp과천시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4121">&nbsp광명시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4161">&nbsp광주시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4131">&nbsp구리시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4141">&nbsp군포시</a>
+            <a href="/stat_trade/ByBuildYear/11680/2">강남구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11740/2">&nbsp강동구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11305/2">&nbsp강북구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11500/2">&nbsp강서구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11620/2">&nbsp관악구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11215/2">&nbsp광진구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11530/2">&nbsp구로구</a>
         </div>
         <div>
-            <a href="/stat_trade/ByBuildYear/4157">김포시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4136">&nbsp남양주&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4125">&nbsp동두천&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4119">&nbsp부천시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4113">&nbsp성남시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4111">&nbsp수원시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4139">&nbsp시흥시</a>
+            <a href="/stat_trade/ByBuildYear/11545/2">금천구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11350/2">&nbsp노원구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11320/2">&nbsp도봉구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11230/2">&nbsp동대문&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11590/2">&nbsp동작구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11440/2">&nbsp마포구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11410/2">&nbsp서대문</a>
         </div>
         <div>
-            <a href="/stat_trade/ByBuildYear/4127">안산시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4155">&nbsp안성시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4117">&nbsp안양시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4163">&nbsp양주시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4183">&nbsp양평군&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4167">&nbsp여주시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4180">&nbsp연천군</a>
+            <a href="/stat_trade/ByBuildYear/11650/2">서초구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11200/2">&nbsp성동구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11290/2">&nbsp성북구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11710/2">&nbsp송파구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11470/2">&nbsp양천구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11560/2">&nbsp영등포&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11170/2">&nbsp용산구</a>
         </div>
         <div>
-            <a href="/stat_trade/ByBuildYear/4137">오산시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4146">&nbsp용인시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4143">&nbsp의왕시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4115">&nbsp의정부&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4150">&nbsp이천시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4148">&nbsp파주시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4122">&nbsp평택시</a>
-        </div>
-        <div>
-            <a href="/stat_trade/ByBuildYear/4165">포천시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4145">&nbsp하남시&nbsp</a>
-            <a href="/stat_trade/ByBuildYear/4159">&nbsp화성시</a>
+            <a href="/stat_trade/ByBuildYear/11380/2">은평구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11110/2">&nbsp종로구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11260/2">&nbsp중랑구&nbsp</a>
+            <a href="/stat_trade/ByBuildYear/11140/2">&nbsp중구</a>
         </div>
         <p>
             <h4 align="center" th:text="${title}"></h4>
@@ -62,9 +53,9 @@
         <p>
             <canvas id="myChart"></canvas>
         </p>
-<!--        <p>-->
-<!--            <canvas id="myChart2"></canvas>-->
-<!--        </p>-->
+        <p>
+            <canvas id="myChart2"></canvas>
+        </p>
     </div>
 
     <div th:replace="fragments/footer :: footer" />
@@ -79,6 +70,13 @@
   const avgprc2000 =  /*[[ ${avgprc2000.toArray()} ]]*/;
   const avgprc2010 =  /*[[ ${avgprc2010.toArray()} ]]*/;
   const avgprc2020 =  /*[[ ${avgprc2020.toArray()} ]]*/;
+
+  const tradCnt1970 =  /*[[ ${tradCnt1970.toArray()} ]]*/;
+  const tradCnt1980 =  /*[[ ${tradCnt1980.toArray()} ]]*/;
+  const tradCnt1990 =  /*[[ ${tradCnt1990.toArray()} ]]*/;
+  const tradCnt2000 =  /*[[ ${tradCnt2000.toArray()} ]]*/;
+  const tradCnt2010 =  /*[[ ${tradCnt2010.toArray()} ]]*/;
+  const tradCnt2020 =  /*[[ ${tradCnt2020.toArray()} ]]*/;
 
   const data = {
     labels: labels,
@@ -133,6 +131,65 @@
             yAxisID: 'y-line2020',
             fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
             data: avgprc2020,
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            borderWidth: 1 //경계선 굵기
+        }
+    ]
+  };
+  const data2 = {
+    labels: labels,
+    datasets: [{
+            type: 'line', // 차트의 형태
+            label: '1970',
+            yAxisID: 'y-line1970_2',
+            fill: false,
+            data: tradCnt1970,
+            backgroundColor: 'rgb(54, 162, 235)',
+            borderColor: 'rgb(54, 162, 235)',
+            borderWidth: 1 //경계선 굵기
+        },{
+            type: 'line', // 차트의 형태
+            label: '1980',
+            yAxisID: 'y-line1980_2',
+            fill: false,
+            data: tradCnt1980,
+            backgroundColor: 'rgb(95,67,175)',
+            borderColor: 'rgb(95,67,175)',
+            borderWidth: 1 //경계선 굵기
+        },{
+            type: 'line', // 차트의 형태
+            label: '1990',
+            yAxisID: 'y-line1990_2',
+            fill: false,
+            data: tradCnt1990,
+            backgroundColor: 'rgb(167,215,113)',
+            borderColor: 'rgb(167,215,113)',
+            borderWidth: 1 //경계선 굵기
+        },{
+            type: 'line', // 차트의 형태
+            label: '2000',
+            yAxisID: 'y-line2000_2',
+            fill: false,
+            data: tradCnt2000,
+            backgroundColor: 'rgb(255,195,0)',
+            borderColor: 'rgb(255,195,0)',
+            borderWidth: 1 //경계선 굵기
+        },{
+            type: 'line', // 차트의 형태
+            label: '2010',
+            yAxisID: 'y-line2010_2',
+            fill: false,
+            data: tradCnt2010,
+            backgroundColor: 'rgb(190,79,176)',
+            borderColor: 'rgb(190,79,176)',
+            borderWidth: 1 //경계선 굵기
+        },{ //데이터
+            type: 'line', // 차트의 형태
+            label: '2020', //차트 제목
+            yAxisID: 'y-line2020_2',
+            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+            data: tradCnt2020,
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
             borderWidth: 1 //경계선 굵기
@@ -207,6 +264,74 @@
         }
     }
   };
+
+  const config2 = {
+    data: data2,
+    options: {
+        scales:{
+            'y-line2020_2':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: 10000,
+            },
+            'y-line1970_2':{
+                position: 'left',
+                suggestedMin: 0,
+                suggestedMax: 10000,
+                grid:{
+                    display: true
+                },
+                ticks:{
+                    color: 'rgb(0,0,0)'
+                },
+                title: {
+                    display: true,
+                    text: '거래건수'
+                }
+            },
+            'y-line1980_2':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: 10000
+            },
+            'y-line1990_2':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: 10000
+            },
+            'y-line2000_2':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: 10000
+            },
+            'y-line2010_2':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: 10000
+            }
+        }
+    }
+  };
 </script>
 <script>
   const myChart = new Chart(
@@ -214,9 +339,9 @@
     config
   );
 
-<!--  const myChart2 = new Chart(-->
-<!--    document.getElementById('myChart2'),-->
-<!--    config2-->
-<!--  );-->
+  const myChart2 = new Chart(
+    document.getElementById('myChart2'),
+    config2
+  );
 </script>
 </html>
