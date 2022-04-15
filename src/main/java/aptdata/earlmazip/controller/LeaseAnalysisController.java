@@ -83,4 +83,32 @@ public class LeaseAnalysisController {
 
         return "lease_analysis/gyunggi";
     }
+
+    @GetMapping("/lease_analysis/incheon/{gubncode}")
+    public String getLeaseanalysis_Incheon(@PathVariable String gubncode, Model model) {
+        List<StatLeaseAnalysisDto> anals;
+        if (!gubncode.equals("0")) {
+            log.info("/lease_analysis/incheon/" + gubncode);
+            apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis/incheon/" + gubncode);
+            if (StringUtils.hasText(gubncode)) {
+                anals = leaseAnalysisService.getLeaseAnalysisList(gubncode);
+            } else {
+                anals = new ArrayList<>();
+            }
+        } else {
+            anals = new ArrayList<>();
+        }
+        List<String> dates = anals.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Float> rates = anals.stream().map(o->new Float(o.getRate())).collect(Collectors.toList());
+        Collections.reverse(dates);
+        Collections.reverse(rates);
+        String title = codeInfoService.getCodeName(gubncode);
+
+        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("list", anals);
+        model.addAttribute("dates", dates);
+        model.addAttribute("rates", rates);
+
+        return "lease_analysis/incheon";
+    }
 }
