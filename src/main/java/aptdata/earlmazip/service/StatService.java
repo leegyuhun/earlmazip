@@ -19,7 +19,7 @@ public class StatService {
     private final StatRepository statRepository;
 
     public List<StatResponseDto> getStatTradeList_Seoul(String term) {
-        return statRepository.getStatTradeList_Seoul(term);
+        return statRepository.getStatTradeList("11", term);
     }
 
     public List<StatResponseDto> getStatTradeList_BySigungu(String sigunguCode, String term) {
@@ -38,8 +38,11 @@ public class StatService {
         return statRepository.getStatTradeTopSeoulByYear(year, sigungucode);
     }
 
-    public List<StatResponseDto> getStatTradeGyunggi(String term) {
-        return statRepository.getStatTradeGyunggi(term);
+    public List<StatResponseDto> getStatTradeList_Gyunggi(String term) {
+        return statRepository.getStatTradeList("41", term);
+    }
+    public List<StatResponseDto> getStatTradeList_Incheon(String term) {
+        return statRepository.getStatTradeList("28", term);
     }
 
     public List<StatResponseDto> findStatGyunggiListYear(String year) {

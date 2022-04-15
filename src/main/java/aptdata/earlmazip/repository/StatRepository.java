@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class StatRepository {
     private final EntityManager em;
 
-    public List<StatResponseDto> getStatTradeList_Seoul(String term){
+    public List<StatResponseDto> getStatTradeList(String areaCode, String term){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         // 현재날짜
         String date = simpleDateFormat.format(new Date());
@@ -29,9 +29,10 @@ public class StatRepository {
         String searchYear = Integer.toString(nowInt - termInt);
         
         return em.createQuery("select a from StatAreaYYMM a"
-                        + " where a.areaCode = '11' and use_area_type = 'UA01'"
+                        + " where a.areaCode = :areaCode and use_area_type = 'UA01'"
                         + " and a.dealYear >= :searchYear "
                         + " order by a.dealYYMM desc", StatAreaYYMM.class)
+                .setParameter("areaCode", areaCode)
                 .setParameter("searchYear", searchYear)
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }

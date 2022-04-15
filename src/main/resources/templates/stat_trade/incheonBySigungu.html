@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <div>
+            <a href="/stat_trade/incheonBySigungu/28710/5">강화군&nbsp</a>
+            <a href="/stat_trade/incheonBySigungu/28245/5">&nbsp계양구&nbsp</a>
+            <a href="/stat_trade/incheonBySigungu/28200/5">&nbsp남동구&nbsp</a>
+            <a href="/stat_trade/incheonBySigungu/28140/5">&nbsp동구&nbsp</a>
+            <a href="/stat_trade/incheonBySigungu/28177/5">&nbsp미추홀구</a>
+        </div>
+        <div>
+            <a href="/stat_trade/incheonBySigungu/28237/5">부평구&nbsp</a>
+            <a href="/stat_trade/incheonBySigungu/28260/5">&nbsp서구&nbsp</a>
+            <a href="/stat_trade/incheonBySigungu/28185/5">&nbsp연수구&nbsp</a>
+            <a href="/stat_trade/incheonBySigungu/28720/5">&nbsp옹진군&nbsp</a>
+            <a href="/stat_trade/incheonBySigungu/28110/5">중구</a>
+        </div>
+        <p>
+            <h4 align="center" th:text="${title}"></h4>
+        </p>
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+        <div>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3199694479750381"
+                    crossorigin="anonymous"></script>
+        </div>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+                    <th>년-월</th>
+                    <th>최저<br/>매매가</th>
+                    <th>평균<br/>매매가</th>
+                    <th>최고<br/>매매가</th>
+                    <th>거래건수</th>
+                    <th>신고가율</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="font-size:12px;" th:each="list : ${list}">
+                    <td align="center" th:text="${list.dealYYMM}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.minPrice,1,'COMMA')}"></td>
+                    <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgPrice,1,'COMMA')}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.maxPrice,1,'COMMA')}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
+                    <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+  const avgPrices =  /*[[ ${avgprc.toArray()} ]]*/;
+  const tradcnt =  /*[[ ${tradcnt.toArray()} ]]*/;
+  const interestRates =  /*[[ ${interestRates.toArray()} ]]*/;
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      type: 'line',
+      label: '평균 매매가',
+      yAxisID: 'y-line',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      data: avgPrices
+      },{
+        type: 'line',
+        label: '기준금리',
+        yAxisID: 'y-line2',
+        backgroundColor: 'rgb(64, 64, 64)',
+        borderColor: 'rgb(64, 64, 64)',
+        data: interestRates
+      },{
+        type: 'bar',
+        label: '거래건수',
+        yAxisID: 'y-bar',
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgb(54, 162, 235)',
+        data: tradcnt
+      }
+    ]
+  };
+
+  const config = {
+    data: data,
+    options: {
+        scales:{
+            'y-line':{
+                position: 'left',
+                suggestedMin: 0,
+                ticks:{
+				    color: 'rgb(255, 99, 132)'
+				},
+                title: {
+                    display: true,
+                    text: '평균매매가'
+                }
+            },
+            'y-line2':{
+                position: 'left',
+                suggestedMin: 0,
+                suggestedMax: 7,
+                ticks:{
+				    color: 'rgb(64, 64, 64)'
+				},
+                title: {
+                    display: true,
+                    text: '한국은행 기준금리'
+                }
+            },
+            'y-bar':{
+                position: 'right',
+                suggestedMin: 0,
+                grid:{
+                    display: false
+                },
+                ticks:{
+				    color: 'rgb(54, 162, 235)'
+				},
+                title: {
+                    display: true,
+                    text: '거래건수'
+                }
+            }
+        }
+    }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+
+</html>

@@ -185,7 +185,7 @@ public class StatController {
     public String getStatTradeGyunggi(@PathVariable String term, Model model) {
         log.info("/stat_trade/gyunggi/" + term);
         apiCallStatService.writeApiCallStat("STAT", "/stat_trade/gyunggi/" + term);
-        List<StatResponseDto> areas = statService.getStatTradeGyunggi(term);
+        List<StatResponseDto> areas = statService.getStatTradeList_Gyunggi(term);
         List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
@@ -204,20 +204,6 @@ public class StatController {
         model.addAttribute("interestRates", interestRates);
         return "stat_trade/gyunggi";
     }
-
-//    @GetMapping("/stat_trade/gyunggi/{year}")
-//    public String gyunggiListYear(@PathVariable String year, Model model) {
-//        log.info("/stat_trade/gyunggi/" + year);
-//        apiCallStatService.writeApiCallStat("STAT", "/stat_trade/gyunggi/" + year);
-//        List<StatResponseDto> areas;
-//        if (StringUtils.hasText(year)) {
-//            areas = statService.findStatGyunggiListYear(year);
-//        } else{
-//            areas = new ArrayList<>();
-//        }
-//        model.addAttribute("list", areas);
-//        return "stat_trade/gyunggi";
-//    }
 
     @GetMapping("/stat_trade/gyunggi/usearea/{ua}")
     public String gyunggiListUA(@PathVariable String ua, Model model) {
@@ -483,6 +469,65 @@ public class StatController {
         model.addAttribute("interestRates", interestRates);
 
         return "stat_trade/gyunggiBySigungu";
+    }
+
+    @GetMapping("/stat_trade/incheon/{term}")
+    public String getStatTradeList_Incheon(@PathVariable String term, Model model) {
+        log.info("/stat_trade/incheon/" + term);
+        apiCallStatService.writeApiCallStat("STAT", "/stat_trade/incheon/" + term);
+        List<StatResponseDto> areas = statService.getStatTradeList_Incheon(term);
+        List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+
+        // 한국은행 기준금리
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", term);
+        List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+
+        Collections.reverse(dates);
+        Collections.reverse(avgprc);
+        Collections.reverse(tradcnt);
+
+        model.addAttribute("list", areas);
+        model.addAttribute("dates", dates);
+        model.addAttribute("avgprc", avgprc);
+        model.addAttribute("tradcnt", tradcnt);
+        model.addAttribute("interestRates", interestRates);
+        return "stat_trade/incheon";
+    }
+
+    @GetMapping("/stat_trade/incheonBySigungu/{sigungucode}/{term}")
+    public String getStatTradeList_IncheonBySigungu(@PathVariable String sigungucode,
+                                                    @PathVariable String term,
+                                                    Model model) {
+        List<StatResponseDto> areas;
+        if (!sigungucode.equals("0")) {
+            log.info("/stat_trade/incheonBySigungu/" + sigungucode + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/incheonBySigungu/" + sigungucode + "/" + term);
+            areas = statService.getStatTradeList_BySigungu(sigungucode, term);
+        } else {
+            areas = new ArrayList<>();
+        }
+        List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        // 한국은행 기준금리
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", term);
+        List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+
+        Collections.reverse(dates);
+        Collections.reverse(avgprc);
+        Collections.reverse(tradcnt);
+        String title = codeInfoService.getCodeName(sigungucode);
+
+        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("list", areas);
+        model.addAttribute("dates", dates);
+        model.addAttribute("avgprc", avgprc);
+        model.addAttribute("tradcnt", tradcnt);
+        model.addAttribute("interestRates", interestRates);
+
+        return "stat_trade/incheonBySigungu";
     }
 
     @GetMapping("/stat_trade/ByBuildYear/{regncode}/{term}")
