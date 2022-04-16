@@ -19,38 +19,22 @@ import java.util.stream.Collectors;
 public class StatRepository {
     private final EntityManager em;
 
-    public List<StatResponseDto> getStatTradeList(String areaCode, String term){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        // 현재날짜
-        String date = simpleDateFormat.format(new Date());
-        int termInt = Integer.parseInt(term);
-        int nowInt = Integer.parseInt(date.substring(0,4));
-        // 현재날짜-term = 조회 기준일자
-        String searchYear = Integer.toString(nowInt - termInt);
-        
+    public List<StatResponseDto> getStatTradeList(String areaCode, String term){        
         return em.createQuery("select a from StatAreaYYMM a"
                         + " where a.areaCode = :areaCode and use_area_type = 'UA01'"
                         + " and a.dealYear >= :searchYear "
                         + " order by a.dealYYMM desc", StatAreaYYMM.class)
                 .setParameter("areaCode", areaCode)
-                .setParameter("searchYear", searchYear)
+                .setParameter("searchYear", calcYearByTerm(term))
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
     public List<StatResponseDto> getStatTradeList_BySigungu(String sigunguCode, String term){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        // 현재날짜
-        String date = simpleDateFormat.format(new Date());
-        int termInt = Integer.parseInt(term);
-        int nowInt = Integer.parseInt(date.substring(0,4));
-        // 현재날짜-term = 조회 기준일자
-        String searchYear = Integer.toString(nowInt - termInt);
-
         return em.createQuery("select a from StatSigunguYYMM a"
                         + " where a.sigunguCode = :sigunguCode and use_area_type = 'UA01'"
                         + " and a.dealYear >= :searchYear "
                         + " order by a.dealYYMM desc", StatSigunguYYMM.class)
-                .setParameter("searchYear", searchYear)
+                .setParameter("searchYear", calcYearByTerm(term))
                 .setParameter("sigunguCode", sigunguCode)
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
@@ -64,13 +48,42 @@ public class StatRepository {
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
-    public List<StatResponseDto> getStatTradeByUseAreaList_Seoul(String ua){
-        return em.createQuery("select a from StatAreaYYMM a"
-                        + " where a.areaCode = '11' and a.useAreaType = :useAreaType"
-                        + " and a.dealYear > 2019 "
-                        + " order by a.dealYYMM desc", StatAreaYYMM.class)
-                .setParameter("useAreaType", ua)
-                .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
+    /**
+     * 평형별 매매가 통계 조회
+     * @param regnCode: 지역코드
+     * @param ua: UA01(전체), UA02(~59), UA03(59-85), UA04(85-102), UA05(102-135), UA06(135~)
+     * @param term
+     * @return
+     */
+    public List<StatResponseDto> getStatTradeByUseAreaList(String regnCode, String ua, String term){
+        if (regnCode.length() == 2) {
+            return em.createQuery("select a from StatAreaYYMM a"
+                            + " where a.areaCode = :regnCode and a.useAreaType = :useAreaType"
+                            + " and a.dealYear >= :searchYear "
+                            + " order by a.dealYYMM desc", StatAreaYYMM.class)
+                    .setParameter("regnCode", regnCode)
+                    .setParameter("useAreaType", ua)
+                    .setParameter("searchYear", calcYearByTerm(term))
+                    .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
+        } else if (regnCode.length() == 4) {
+            return em.createQuery("select a from StatSidoYYMM a"
+                            + " where a.sidoCode = :regnCode and a.useAreaType = :useAreaType"
+                            + " and a.dealYear >= :searchYear "
+                            + " order by a.dealYYMM desc", StatSidoYYMM.class)
+                    .setParameter("regnCode", regnCode)
+                    .setParameter("useAreaType", ua)
+                    .setParameter("searchYear", calcYearByTerm(term))
+                    .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
+        } else {
+            return em.createQuery("select a from StatSigunguYYMM a"
+                            + " where a.sigunguCode = :regnCode and a.useAreaType = :useAreaType"
+                            + " and a.dealYear >= :searchYear "
+                            + " order by a.dealYYMM desc", StatSigunguYYMM.class)
+                    .setParameter("regnCode", regnCode)
+                    .setParameter("useAreaType", ua)
+                    .setParameter("searchYear", calcYearByTerm(term))
+                    .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
+        }
     }
 
     public List<RankYearResponseDto> getStatTradeTopSeoulByYear(String year, String sigungucode){
@@ -84,53 +97,21 @@ public class StatRepository {
     }
 
     public List<StatResponseDto> getStatTradeGyunggi(String term){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        String date = simpleDateFormat.format(new Date());
-        int termInt = Integer.parseInt(term);
-        int nowInt = Integer.parseInt(date.substring(0,4));
-        String searchYear = Integer.toString(nowInt - termInt);
-
         return em.createQuery("select a from StatAreaYYMM a"
                         + " where a.areaCode = '41' and useAreaType = 'UA01'"
                         + " and a.dealYear >= :searchYear "
                         + " order by a.dealYYMM desc", StatAreaYYMM.class)
-                .setParameter("searchYear", searchYear)
-                .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
-    }
-
-    public List<StatResponseDto> findGyungGiYear(String year){
-        return em.createQuery("select a from StatAreaYYMM a"
-                        + " where a.areaCode = '41' and useAreaType = 'UA01'"
-                        + "    and a.dealYear = :dealYear"
-                        + " order by a.dealYYMM desc", StatAreaYYMM.class)
-                .setParameter("dealYear", year)
-                .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
-    }
-
-    public List<StatResponseDto> findGyungGiUA(String ua){
-        return em.createQuery("select a from StatAreaYYMM a"
-                        + " where a.areaCode = '41' and a.useAreaType = :useAreaType"
-                        + " and a.dealYear > 2019 "
-                        + " order by a.dealYYMM desc", StatAreaYYMM.class)
-                .setParameter("useAreaType", ua)
+                .setParameter("searchYear", calcYearByTerm(term))
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
     public List<StatResponseDto> getStatTradeList_ByCity(String sidoCode, String term){
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        // 현재날짜
-        String date = simpleDateFormat.format(new Date());
-        int termInt = Integer.parseInt(term);
-        int nowInt = Integer.parseInt(date.substring(0,4));
-        // 현재날짜-term = 조회 기준일자
-        String searchYear = Integer.toString(nowInt - termInt);
-
         return em.createQuery("select a from StatSidoYYMM a"
                         + " where a.sidoCode = :sidoCode and use_area_type = 'UA01'"
                         + " and a.dealYear >= :searchYear "
                         + " order by a.dealYYMM desc", StatSidoYYMM.class)
                 .setParameter("sidoCode", sidoCode)
-                .setParameter("searchYear", searchYear)
+                .setParameter("searchYear", calcYearByTerm(term))
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
@@ -200,14 +181,6 @@ public class StatRepository {
     }
 
     public List<StatResponseDto> getStatBuildYearList(String regnCode, String buildYear, String term) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        // 현재날짜
-        String date = simpleDateFormat.format(new Date());
-        int termInt = Integer.parseInt(term);
-        int nowInt = Integer.parseInt(date.substring(0,4));
-        // 현재날짜-term = 조회 기준일자
-        String searchYear = Integer.toString(nowInt - termInt);
-
         return em.createQuery("select a from StatBuildYear a "
                         + " where a.regnCode = :regnCode "
                         + "   and a.buildYear = :buildYear "
@@ -215,8 +188,18 @@ public class StatRepository {
                         + " order by a.dealYear desc", StatBuildYear.class)
                 .setParameter("regnCode", regnCode)
                 .setParameter("buildYear", buildYear)
-                .setParameter("searchYear", searchYear)
+                .setParameter("searchYear", calcYearByTerm(term))
                 .getResultList().stream().map(StatResponseDto::new)
                 .collect(Collectors.toList());
+    }
+
+    private String calcYearByTerm(String term) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        int termInt = Integer.parseInt(term);
+        int nowInt = Integer.parseInt(date.substring(0,4));
+        // 현재날짜-term = 조회 기준일자
+        return Integer.toString(nowInt - termInt);
     }
 }

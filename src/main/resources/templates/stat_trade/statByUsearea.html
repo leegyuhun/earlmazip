@@ -1,0 +1,271 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <!--    <a th:text="${year}"></a>-->
+    <div>
+        <div>
+            <a href="/stat_trade/ByUsearea/11/6">서울</a>
+            <a href="/stat_trade/ByUsearea/28/6">인천</a>
+            <a href="/stat_trade/ByUsearea/41/6">경기</a>
+        </div>
+        <p>
+            <h4 align="center" th:text="${title}"></h4>
+        </p>
+        <div>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3199694479750381"
+                    crossorigin="anonymous"></script>
+        </div>
+        <p>
+            <canvas id="myChart"></canvas>
+        </p>
+        <p>
+            <canvas id="myChart2"></canvas>
+        </p>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+  const avgPricesUA02 =  /*[[ ${avgPricesUA02.toArray()} ]]*/;
+  const avgPricesUA03 =  /*[[ ${avgPricesUA03.toArray()} ]]*/;
+  const avgPricesUA04 =  /*[[ ${avgPricesUA04.toArray()} ]]*/;
+  const avgPricesUA05 =  /*[[ ${avgPricesUA05.toArray()} ]]*/;
+  const avgPricesUA06 =  /*[[ ${avgPricesUA06.toArray()} ]]*/;
+
+  const tradCntUA02 =  /*[[ ${tradCntUA02.toArray()} ]]*/;
+  const tradCntUA03 =  /*[[ ${tradCntUA03.toArray()} ]]*/;
+  const tradCntUA04 =  /*[[ ${tradCntUA04.toArray()} ]]*/;
+  const tradCntUA05 =  /*[[ ${tradCntUA05.toArray()} ]]*/;
+  const tradCntUA06 =  /*[[ ${tradCntUA06.toArray()} ]]*/;
+
+  const maxAmt = /*[[ ${maxAmt} ]]*/;
+  const maxCnt = /*[[ ${maxCnt} ]]*/;
+
+  const data = {
+    labels: labels,
+    datasets: [{
+          type: 'line',
+          label: '59미만',
+          yAxisID: 'y-lineUA02',
+          backgroundColor: 'rgb(255,195,0)',
+          borderColor: 'rgb(255,195,0)',
+          pointRadius:1,
+          data: avgPricesUA02
+      },{
+          type: 'line',
+          label: '59이상-85미만',
+          yAxisID: 'y-lineUA03',
+          backgroundColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgb(255, 99, 132)',
+          pointRadius:1,
+          data: avgPricesUA03
+      },{
+          type: 'line',
+          label: '85이상-102미만',
+          yAxisID: 'y-lineUA04',
+          backgroundColor: 'rgb(54, 162, 235)',
+          borderColor: 'rgb(54, 162, 235)',
+          pointRadius:1,
+          data: avgPricesUA04
+      },{
+          type: 'line',
+          label: '102이상-135이하',
+          yAxisID: 'y-lineUA05',
+          backgroundColor: 'rgb(95,67,175)',
+          borderColor: 'rgb(95,67,175)',
+          pointRadius:1,
+          data: avgPricesUA05
+      },{
+          type: 'line',
+          label: '135초과',
+          yAxisID: 'y-lineUA06',
+          backgroundColor: 'rgb(167,215,113)',
+          borderColor: 'rgb(167,215,113)',
+          pointRadius:1,
+          data: avgPricesUA06
+      }
+    ]
+  };
+
+  const data2 = {
+    labels: labels,
+    datasets: [{
+          type: 'line',
+          label: '59미만',
+          yAxisID: 'y-lineUA02_2',
+          backgroundColor: 'rgb(255,195,0)',
+          borderColor: 'rgb(255,195,0)',
+          pointRadius:1,
+          data: tradCntUA02
+      },{
+          type: 'line',
+          label: '59이상-85미만',
+          yAxisID: 'y-lineUA03_2',
+          backgroundColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgb(255, 99, 132)',
+          pointRadius:1,
+          data: tradCntUA03
+      },{
+          type: 'line',
+          label: '85이상-102미만',
+          yAxisID: 'y-lineUA04_2',
+          backgroundColor: 'rgb(54, 162, 235)',
+          borderColor: 'rgb(54, 162, 235)',
+          pointRadius:1,
+          data: tradCntUA04
+      },{
+          type: 'line',
+          label: '102이상-135이하',
+          yAxisID: 'y-lineUA05_2',
+          backgroundColor: 'rgb(95,67,175)',
+          borderColor: 'rgb(95,67,175)',
+          pointRadius:1,
+          data: tradCntUA05
+      },{
+          type: 'line',
+          label: '135초과',
+          yAxisID: 'y-lineUA06_2',
+          backgroundColor: 'rgb(167,215,113)',
+          borderColor: 'rgb(167,215,113)',
+          pointRadius:1,
+          data: tradCntUA06
+      }
+    ]
+  };
+
+  const config = {
+    data: data,
+    options: {
+        scales:{
+            'y-lineUA02':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: maxAmt,
+            },
+            'y-lineUA03':{
+                position: 'left',
+                suggestedMin: 0,
+                suggestedMax: maxAmt,
+                grid:{
+                    display: true
+                },
+                ticks:{
+                    color: 'rgb(0,0,0)'
+                },
+                title: {
+                    display: true,
+                    text: '평균매매가'
+                }
+            },
+            'y-lineUA04':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: maxAmt
+            },
+            'y-lineUA05':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: maxAmt
+            },
+            'y-lineUA06':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: maxAmt
+            }
+        }
+    }
+  };
+
+  const config2 = {
+    data: data2,
+    options: {
+        scales:{
+            'y-lineUA02_2':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: maxCnt,
+            },
+            'y-lineUA03_2':{
+                position: 'left',
+                suggestedMin: 0,
+                suggestedMax: maxCnt,
+                grid:{
+                    display: true
+                },
+                ticks:{
+                    color: 'rgb(0,0,0)'
+                },
+                title: {
+                    display: true,
+                    text: '거래건수'
+                }
+            },
+            'y-lineUA04_2':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: maxCnt
+            },
+            'y-lineUA05_2':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: maxCnt
+            },
+            'y-lineUA06_2':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: maxCnt
+            }
+        }
+    }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+  const myChart2 = new Chart(
+    document.getElementById('myChart2'),
+    config2
+  );
+</script>
+</html>

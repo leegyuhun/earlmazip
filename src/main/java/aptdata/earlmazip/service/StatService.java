@@ -30,8 +30,8 @@ public class StatService {
         return statRepository.findSeoulYear(year);
     }
 
-    public List<StatResponseDto> getStatTradeByUseAreaList_Seoul(String ua) {
-        return statRepository.getStatTradeByUseAreaList_Seoul(ua);
+    public List<StatResponseDto> getStatTradeByUseAreaList(String regnCode, String ua, String term) {
+        return statRepository.getStatTradeByUseAreaList(regnCode, ua, term);
     }
 
     public List<RankYearResponseDto> getStatTradeTopSeoulByYear(String year, String sigungucode) {
@@ -43,14 +43,6 @@ public class StatService {
     }
     public List<StatResponseDto> getStatTradeList_Incheon(String term) {
         return statRepository.getStatTradeList("28", term);
-    }
-
-    public List<StatResponseDto> findStatGyunggiListYear(String year) {
-        return statRepository.findGyungGiYear(year);
-    }
-
-    public List<StatResponseDto> findStatGyunggiListUA(String ua) {
-        return statRepository.findGyungGiUA(ua);
     }
 
     public List<StatResponseDto> getStatTradeList_ByCity(String sidoCode, String term) {

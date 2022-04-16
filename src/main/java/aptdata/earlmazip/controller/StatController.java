@@ -96,9 +96,7 @@ public class StatController {
         Collections.reverse(avgprc);
         Collections.reverse(tradcnt);
 
-        String title = codeInfoService.getCodeName(sigungucode);
-
-        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("title",  "[ "+ codeInfoService.getCodeName(sigungucode) + " ]");
         model.addAttribute("list", areas);
         model.addAttribute("dates", dates);
         model.addAttribute("avgprc", avgprc);
@@ -109,40 +107,98 @@ public class StatController {
 
     /**
      * 서울시 월별,전용면적별 매매가 통계
-     * @param ua : UA01(전체), UA02(~59), UA03(59-85), UA04(85-102), UA05(102-135), UA06(135~)
      * @param model
      * @return
      */
-    @GetMapping("/stat_trade/seoul/usearea/{ua}")
-    public String getStatTradeByUseAreaList_Seoul(@PathVariable String ua, Model model) {
-        log.info("/stat_trade/seoul/usearea/" + ua);
-        apiCallStatService.writeApiCallStat("STAT", "/stat_trade/seoul/usearea/" + ua);
-        List<StatResponseDto> areas;
-        if (StringUtils.hasText(ua)) {
-            areas = statService.getStatTradeByUseAreaList_Seoul(ua);
+    @GetMapping("/stat_trade/ByUsearea/{regnCode}/{term}")
+    public String getStatTradeByUseAreaList_Seoul(@PathVariable String regnCode, @PathVariable String term, Model model) {
+        log.info("/stat_trade/ByUsearea/" + regnCode + "/" + term);
+        List<StatResponseDto> listUA02;
+        List<StatResponseDto> listUA03;
+        List<StatResponseDto> listUA04;
+        List<StatResponseDto> listUA05;
+        List<StatResponseDto> listUA06;
+        if (!regnCode.equals("0")) {
+            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/ByUsearea/" + regnCode + "/" + term);
+            listUA02 = statService.getStatTradeByUseAreaList(regnCode,"UA02", term);
+            listUA03 = statService.getStatTradeByUseAreaList(regnCode,"UA03", term);
+            listUA04 = statService.getStatTradeByUseAreaList(regnCode,"UA04", term);
+            listUA05 = statService.getStatTradeByUseAreaList(regnCode,"UA05", term);
+            listUA06 = statService.getStatTradeByUseAreaList(regnCode,"UA06", term);
         }
         else{
-            areas = new ArrayList<>();
+            listUA02 = new ArrayList<>();
+            listUA03 = new ArrayList<>();
+            listUA04 = new ArrayList<>();
+            listUA05 = new ArrayList<>();
+            listUA06 = new ArrayList<>();
         }
-        List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
-        List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
-        List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-        Integer maxCnt = 0;
-        if (tradcnt.size() > 0) {
-            maxCnt = tradcnt.stream().max(Comparator.comparing(x -> x)).orElseThrow(NoSuchElementException::new);
-            maxCnt = maxCnt * 2;
-        }
+        List<String> dates = listUA02.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Integer> avgPricesUA02 = listUA02.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> avgPricesUA03 = listUA03.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> avgPricesUA04 = listUA04.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> avgPricesUA05 = listUA05.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> avgPricesUA06 = listUA06.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+
+        List<Integer> tradCntUA02 = listUA02.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        List<Integer> tradCntUA03 = listUA03.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        List<Integer> tradCntUA04 = listUA04.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        List<Integer> tradCntUA05 = listUA05.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        List<Integer> tradCntUA06 = listUA06.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
 
         Collections.reverse(dates);
-        Collections.reverse(avgprc);
-        Collections.reverse(tradcnt);
+        Collections.reverse(avgPricesUA02);
+        Collections.reverse(avgPricesUA03);
+        Collections.reverse(avgPricesUA04);
+        Collections.reverse(avgPricesUA05);
+        Collections.reverse(avgPricesUA06);
 
-        model.addAttribute("list", areas);
+        Collections.reverse(tradCntUA02);
+        Collections.reverse(tradCntUA03);
+        Collections.reverse(tradCntUA04);
+        Collections.reverse(tradCntUA05);
+        Collections.reverse(tradCntUA06);
+
+        int maxAmt = 0;
+        if (avgPricesUA06.size() > 0) {
+            maxAmt = Collections.max(avgPricesUA06);
+        }
+
+        int maxCnt = 0;
+        if (tradCntUA02.size() > 0) {
+            maxCnt = Collections.max(tradCntUA02);
+            if (Collections.max(tradCntUA03) > maxCnt) {
+                maxCnt = Collections.max(tradCntUA03);
+            }
+            if (Collections.max(tradCntUA04) > maxCnt) {
+                maxCnt = Collections.max(tradCntUA04);
+            }
+            if (Collections.max(tradCntUA05) > maxCnt) {
+                maxCnt = Collections.max(tradCntUA05);
+            }
+            if (Collections.max(tradCntUA06) > maxCnt) {
+                maxCnt = Collections.max(tradCntUA06);
+            }
+        }
+
+        model.addAttribute("title",  "[ "+  codeInfoService.getCodeName(regnCode) + " ]");
+
         model.addAttribute("dates", dates);
-        model.addAttribute("avgprc", avgprc);
-        model.addAttribute("tradcnt", tradcnt);
-        model.addAttribute("maxcnt", maxCnt);
-        return "stat_trade/seoul";
+        model.addAttribute("maxAmt", maxAmt);
+        model.addAttribute("maxCnt", maxCnt);
+        model.addAttribute("avgPricesUA02", avgPricesUA02);
+        model.addAttribute("avgPricesUA03", avgPricesUA03);
+        model.addAttribute("avgPricesUA04", avgPricesUA04);
+        model.addAttribute("avgPricesUA05", avgPricesUA05);
+        model.addAttribute("avgPricesUA06", avgPricesUA06);
+
+        model.addAttribute("tradCntUA02", tradCntUA02);
+        model.addAttribute("tradCntUA03", tradCntUA03);
+        model.addAttribute("tradCntUA04", tradCntUA04);
+        model.addAttribute("tradCntUA05", tradCntUA05);
+        model.addAttribute("tradCntUA06", tradCntUA06);
+
+        return "stat_trade/statByUsearea";
     }
 
     /**
@@ -202,20 +258,6 @@ public class StatController {
         model.addAttribute("avgprc", avgprc);
         model.addAttribute("tradcnt", tradcnt);
         model.addAttribute("interestRates", interestRates);
-        return "stat_trade/gyunggi";
-    }
-
-    @GetMapping("/stat_trade/gyunggi/usearea/{ua}")
-    public String gyunggiListUA(@PathVariable String ua, Model model) {
-        log.info("/stat_trade/gyunggi/usearea/" + ua);
-        apiCallStatService.writeApiCallStat("STAT", "/stat_trade/gyunggi/usearea/" + ua);
-        List<StatResponseDto> areas;
-        if (StringUtils.hasText(ua)) {
-            areas = statService.findStatGyunggiListUA(ua);
-        } else{
-            areas = new ArrayList<>();
-        }
-        model.addAttribute("list", areas);
         return "stat_trade/gyunggi";
     }
 
