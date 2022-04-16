@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +29,17 @@ public class ApiCallStatController {
 
         List<String> names = apiCalls.stream().map(o->new String(o.getApiName())).collect(Collectors.toList());
         List<Integer> cnts = apiCalls.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+
+        if (cnts.size() > 0) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+            // 현재날짜
+            String date = simpleDateFormat.format(new Date());
+            ApiCallStat sum = new ApiCallStat();
+            sum.setApiName("SUM");
+            sum.setCallDate(date);
+            sum.setCnt(cnts.stream().mapToInt(Integer::intValue).sum());
+            apiCalls.add(0, sum);
+        }
 
         model.addAttribute("list", apiCalls);
         model.addAttribute("names", names);
