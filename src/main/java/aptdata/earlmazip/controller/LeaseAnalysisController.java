@@ -30,9 +30,11 @@ public class LeaseAnalysisController {
     @GetMapping("/lease_analysis/seoul/{gubncode}")
     public String getLeaseList_Seoul(@PathVariable String gubncode, Model model) {
         List<StatLeaseAnalysisDto> anals;
+        String title = "-";
         if (!gubncode.equals("0")) {
             log.info("/lease_analysis/seoul/" + gubncode);
-            apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis/seoul/" + gubncode);
+            title = codeInfoService.getCodeName(gubncode);
+            apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis/seoul/" + title);
             if (StringUtils.hasText(gubncode)) {
                 anals = leaseAnalysisService.getLeaseAnalysisList(gubncode);
             } else {
@@ -45,8 +47,6 @@ public class LeaseAnalysisController {
         List<Float> rates = anals.stream().map(o->new Float(o.getRate())).collect(Collectors.toList());
         Collections.reverse(dates);
         Collections.reverse(rates);
-
-        String title = codeInfoService.getCodeName(gubncode);
 
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", anals);
@@ -59,9 +59,11 @@ public class LeaseAnalysisController {
     @GetMapping("/lease_analysis/gyunggi/{gubncode}")
     public String getLeaseList_Gyunggi(@PathVariable String gubncode, Model model) {
         List<StatLeaseAnalysisDto> anals;
+        String title = "-";
         if (!gubncode.equals("0")) {
+            title = codeInfoService.getCodeName(gubncode);
             log.info("/lease_analysis/gyunggi/" + gubncode);
-            apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis/gyunggi/" + gubncode);
+            apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis/gyunggi/" + title);
             if (StringUtils.hasText(gubncode)) {
                 anals = leaseAnalysisService.getLeaseAnalysisList(gubncode);
             } else {
@@ -74,7 +76,6 @@ public class LeaseAnalysisController {
         List<Float> rates = anals.stream().map(o->new Float(o.getRate())).collect(Collectors.toList());
         Collections.reverse(dates);
         Collections.reverse(rates);
-        String title = codeInfoService.getCodeName(gubncode);
 
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", anals);
@@ -87,9 +88,11 @@ public class LeaseAnalysisController {
     @GetMapping("/lease_analysis/incheon/{gubncode}")
     public String getLeaseanalysis_Incheon(@PathVariable String gubncode, Model model) {
         List<StatLeaseAnalysisDto> anals;
+        String title = "-";
         if (!gubncode.equals("0")) {
             log.info("/lease_analysis/incheon/" + gubncode);
-            apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis/incheon/" + gubncode);
+            title = codeInfoService.getCodeName(gubncode);
+            apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis/incheon/" + title);
             if (StringUtils.hasText(gubncode)) {
                 anals = leaseAnalysisService.getLeaseAnalysisList(gubncode);
             } else {
@@ -102,7 +105,6 @@ public class LeaseAnalysisController {
         List<Float> rates = anals.stream().map(o->new Float(o.getRate())).collect(Collectors.toList());
         Collections.reverse(dates);
         Collections.reverse(rates);
-        String title = codeInfoService.getCodeName(gubncode);
 
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", anals);

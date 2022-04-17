@@ -27,10 +27,12 @@ public class LeaseController {
 
     @GetMapping("/leaselist/seoul/{sigungucode}")
     public String getLeaseList_Seoul(@PathVariable String sigungucode, Model model) {
+        String title = "-";
         List<AptLeaseResponseDto> trads;
         if (!sigungucode.equals("0")) {
             log.info("/leaselist/seoul/" + sigungucode);
-            apiCallStatService.writeApiCallStat("LEASE", "/leaselist/seoul/" + sigungucode);
+            title = codeInfoService.getCodeName(sigungucode);
+            apiCallStatService.writeApiCallStat("LEASE", "/leaselist/seoul/" + title);
             if (StringUtils.hasText(sigungucode)) {
                 trads = leaseService.getLeaseList_SeoulSigungu(sigungucode);
             } else {
@@ -39,7 +41,6 @@ public class LeaseController {
         } else {
             trads = new ArrayList<>();
         }
-        String title = codeInfoService.getCodeName(sigungucode);
 
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", trads);
@@ -50,9 +51,11 @@ public class LeaseController {
     @GetMapping("/leaselist/gyunggi/{sidocode}")
     public String getLeaseList_Gyunggi(@PathVariable String sidocode, Model model) {
         List<AptLeaseResponseDto> trads;
+        String title = "-";
         if (!sidocode.equals("0")) {
             log.info("/leaselist/gyunggi/" + sidocode);
-            apiCallStatService.writeApiCallStat("LEASE", "/leaselist/gyunggi/" + sidocode);
+            title = codeInfoService.getCodeName(sidocode);
+            apiCallStatService.writeApiCallStat("LEASE", "/leaselist/gyunggi/" + title);
             if (StringUtils.hasText(sidocode)) {
                 trads = leaseService.getLeaseList_GyunggiSido(sidocode);
             } else {
@@ -61,7 +64,6 @@ public class LeaseController {
         } else {
             trads = new ArrayList<>();
         }
-        String title = codeInfoService.getCodeName(sidocode);
 
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", trads);
@@ -72,9 +74,11 @@ public class LeaseController {
     @GetMapping("/leaselist/incheon/{sigungucode}")
     public String getLeaseList_Incheon(@PathVariable String sigungucode, Model model) {
         List<AptLeaseResponseDto> trads;
+        String title = "-";
         if (!sigungucode.equals("0")) {
             log.info("/leaselist/incheon/" + sigungucode);
-            apiCallStatService.writeApiCallStat("LEASE", "/leaselist/incheon/" + sigungucode);
+            title = codeInfoService.getCodeName(sigungucode);
+            apiCallStatService.writeApiCallStat("LEASE", "/leaselist/incheon/" + title);
             if (StringUtils.hasText(sigungucode)) {
                 trads = leaseService.getLeaseList_IncheonSigungu(sigungucode);
             } else {
@@ -83,7 +87,6 @@ public class LeaseController {
         } else {
             trads = new ArrayList<>();
         }
-        String title = codeInfoService.getCodeName(sigungucode);
 
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", trads);

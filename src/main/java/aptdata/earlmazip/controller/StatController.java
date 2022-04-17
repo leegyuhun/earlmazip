@@ -77,9 +77,11 @@ public class StatController {
                                                   @PathVariable String term,
                                                   Model model) {
         List<StatResponseDto> areas;
+        String title = "-";
         if (!sigungucode.equals("0")) {
+            title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_trade/seoul/" + sigungucode + "/" + term);
-            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/seoul/" + sigungucode + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/seoul/" + title + "/" + term);
             areas = statService.getStatTradeList_BySigungu(sigungucode, term);
         } else {
             areas = new ArrayList<>();
@@ -96,7 +98,7 @@ public class StatController {
         Collections.reverse(avgprc);
         Collections.reverse(tradcnt);
 
-        model.addAttribute("title",  "[ "+ codeInfoService.getCodeName(sigungucode) + " ]");
+        model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", areas);
         model.addAttribute("dates", dates);
         model.addAttribute("avgprc", avgprc);
@@ -118,13 +120,17 @@ public class StatController {
         List<StatResponseDto> listUA04;
         List<StatResponseDto> listUA05;
         List<StatResponseDto> listUA06;
+        List<StatResponseDto> listUA07;
+        String title = "-";
         if (!regnCode.equals("0")) {
-            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/ByUsearea/" + regnCode + "/" + term);
+            title = codeInfoService.getCodeName(regnCode);
+            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/ByUsearea/" + title + "/" + term);
             listUA02 = statService.getStatTradeByUseAreaList(regnCode,"UA02", term);
             listUA03 = statService.getStatTradeByUseAreaList(regnCode,"UA03", term);
             listUA04 = statService.getStatTradeByUseAreaList(regnCode,"UA04", term);
             listUA05 = statService.getStatTradeByUseAreaList(regnCode,"UA05", term);
             listUA06 = statService.getStatTradeByUseAreaList(regnCode,"UA06", term);
+            listUA07 = statService.getStatTradeByUseAreaList(regnCode,"UA07", term);
         }
         else{
             listUA02 = new ArrayList<>();
@@ -132,6 +138,7 @@ public class StatController {
             listUA04 = new ArrayList<>();
             listUA05 = new ArrayList<>();
             listUA06 = new ArrayList<>();
+            listUA07 = new ArrayList<>();
         }
         List<String> dates = listUA02.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgPricesUA02 = listUA02.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
@@ -139,12 +146,14 @@ public class StatController {
         List<Integer> avgPricesUA04 = listUA04.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> avgPricesUA05 = listUA05.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> avgPricesUA06 = listUA06.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> avgPricesUA07 = listUA07.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
 
         List<Integer> tradCntUA02 = listUA02.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
         List<Integer> tradCntUA03 = listUA03.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
         List<Integer> tradCntUA04 = listUA04.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
         List<Integer> tradCntUA05 = listUA05.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
         List<Integer> tradCntUA06 = listUA06.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        List<Integer> tradCntUA07 = listUA07.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
 
         Collections.reverse(dates);
         Collections.reverse(avgPricesUA02);
@@ -152,12 +161,14 @@ public class StatController {
         Collections.reverse(avgPricesUA04);
         Collections.reverse(avgPricesUA05);
         Collections.reverse(avgPricesUA06);
+        Collections.reverse(avgPricesUA07);
 
         Collections.reverse(tradCntUA02);
         Collections.reverse(tradCntUA03);
         Collections.reverse(tradCntUA04);
         Collections.reverse(tradCntUA05);
         Collections.reverse(tradCntUA06);
+        Collections.reverse(tradCntUA07);
 
         int maxAmt = 0;
         if (avgPricesUA06.size() > 0) {
@@ -179,9 +190,12 @@ public class StatController {
             if (Collections.max(tradCntUA06) > maxCnt) {
                 maxCnt = Collections.max(tradCntUA06);
             }
+            if (Collections.max(tradCntUA07) > maxCnt) {
+                maxCnt = Collections.max(tradCntUA07);
+            }
         }
 
-        model.addAttribute("title",  "[ "+  codeInfoService.getCodeName(regnCode) + " ]");
+        model.addAttribute("title",  "[ "+  title + " ]");
 
         model.addAttribute("dates", dates);
         model.addAttribute("maxAmt", maxAmt);
@@ -191,12 +205,14 @@ public class StatController {
         model.addAttribute("avgPricesUA04", avgPricesUA04);
         model.addAttribute("avgPricesUA05", avgPricesUA05);
         model.addAttribute("avgPricesUA06", avgPricesUA06);
+        model.addAttribute("avgPricesUA07", avgPricesUA07);
 
         model.addAttribute("tradCntUA02", tradCntUA02);
         model.addAttribute("tradCntUA03", tradCntUA03);
         model.addAttribute("tradCntUA04", tradCntUA04);
         model.addAttribute("tradCntUA05", tradCntUA05);
         model.addAttribute("tradCntUA06", tradCntUA06);
+        model.addAttribute("tradCntUA07", tradCntUA07);
 
         return "stat_trade/statByUsearea";
     }
@@ -211,9 +227,11 @@ public class StatController {
     public String getStatTradeTopSeoulByYear(@PathVariable String year,
                                @PathVariable String sigungucode, Model model) {
         List<RankYearResponseDto> tops;
+        String title = "-";
         if (!sigungucode.equals("0")) {
+            title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_trade/seoul/top/" + year + "/" +  sigungucode);
-            apiCallStatService.writeApiCallStat("TOP", "/stat_trade/seoul/top/" + sigungucode);
+            apiCallStatService.writeApiCallStat("TOP", "/stat_trade/seoul/top/" + title);
             if (StringUtils.hasText(sigungucode)) {
                 tops = statService.getStatTradeTopSeoulByYear(year, sigungucode);
             } else {
@@ -222,7 +240,6 @@ public class StatController {
         } else {
             tops = new ArrayList<>();
         }
-        String title = codeInfoService.getCodeName(sigungucode);
 
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", tops);
@@ -265,9 +282,11 @@ public class StatController {
     public String getStatTradeList_ByCity(@PathVariable String sidoCode,
                                 @PathVariable String term,Model model) {
         List<StatResponseDto> stats;
+        String title = "-";
         if (!sidoCode.equals("0")) {
+            title = codeInfoService.getCodeName(sidoCode);
             log.info("/stat_trade/gyunggiByCity/" + sidoCode + "/" + term);
-            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/gyunggiByCity/" + sidoCode+ "/" + term);
+            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/gyunggiByCity/" + title+ "/" + term);
             if (StringUtils.hasText(sidoCode)) {
                 stats = statService.getStatTradeList_ByCity(sidoCode, term);
             } else {
@@ -282,8 +301,6 @@ public class StatController {
         // 한국은행 기준금리
         List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
-
-        String title = codeInfoService.getCodeName(sidoCode);
 
         Collections.reverse(dates);
         Collections.reverse(avgprc);
@@ -303,9 +320,11 @@ public class StatController {
     public String gyunggiTopList(@PathVariable String year,
                                  @PathVariable String sidocode, Model model) {
         List<RankYearResponseDto> tops;
+        String title = "-";
         if (!sidocode.equals("0")) {
+            title = codeInfoService.getCodeName(sidocode);
             log.info("/stat_trade/gyunggi/top/" + year + "/" + sidocode);
-            apiCallStatService.writeApiCallStat("TOP", "/stat_trade/gyunggi/top/" + sidocode);
+            apiCallStatService.writeApiCallStat("TOP", "/stat_trade/gyunggi/top/" + title);
             if (StringUtils.hasText(sidocode)) {
                 tops = statService.findGyunggiTopList(year, sidocode);
             } else {
@@ -314,7 +333,6 @@ public class StatController {
         } else {
             tops = new ArrayList<>();
         }
-        String title = codeInfoService.getCodeName(sidocode);
 
         model.addAttribute("list", tops);
         model.addAttribute("year", year);
@@ -326,9 +344,11 @@ public class StatController {
     public String incheonTopList(@PathVariable String year,
                                  @PathVariable String sigungucode, Model model) {
         List<RankYearResponseDto> tops;
+        String title = "-";
         if (!sigungucode.equals("0")) {
+            title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_trade/incheon/top/" + year + "/" + sigungucode);
-            apiCallStatService.writeApiCallStat("TOP", "/stat_trade/incheon/top/" + year + "/" + sigungucode);
+            apiCallStatService.writeApiCallStat("TOP", "/stat_trade/incheon/top/" + year + "/" + title);
             if (StringUtils.hasText(sigungucode)) {
                 tops = statService.findIncheonTopList(year, sigungucode);
             } else {
@@ -337,7 +357,6 @@ public class StatController {
         } else {
             tops = new ArrayList<>();
         }
-        String title = codeInfoService.getCodeName(sigungucode);
         model.addAttribute("list", tops);
         model.addAttribute("year", year);
         model.addAttribute("title",  "[ "+ title + " ]");
@@ -347,9 +366,11 @@ public class StatController {
     @GetMapping("/stat_lease/sido/{sidocode}")
     public String statLeaseSido(@PathVariable String sidocode, Model model) {
         List<StatLeaseResponseDto> stats;
+        String title = "-";
         if (!sidocode.equals("0")) {
+            title = codeInfoService.getCodeName(sidocode);
             log.info("/stat_lease/sido/" + sidocode);
-            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease/sido/" + sidocode);
+            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease/sido/" + title);
             if (StringUtils.hasText(sidocode)) {
                 stats = statService.statLeaseSido(sidocode);
             } else {
@@ -361,8 +382,6 @@ public class StatController {
         List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgDeposits = stats.stream().map(o->new Integer(o.getAvgDeposit())).collect(Collectors.toList());
         List<Integer> tradcnt = stats.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-
-        String title = codeInfoService.getCodeName(sidocode);
 
         Collections.reverse(dates);
         Collections.reverse(avgDeposits);
@@ -379,9 +398,11 @@ public class StatController {
     @GetMapping("/stat_lease_monthly/sido/{sidocode}")
     public String statLeaseMonthlySido(@PathVariable String sidocode, Model model) {
         List<StatLeaseResponseDto> stats;
+        String title = "-";
         if (!sidocode.equals("0")) {
+            title = codeInfoService.getCodeName(sidocode);
             log.info("/stat_lease_monthly/sido/" + sidocode);
-            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease_monthly/sido/" + sidocode);
+            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease_monthly/sido/" + title);
             if (StringUtils.hasText(sidocode)) {
                 stats = statService.statLeaseMonthlySido(sidocode);
             } else {
@@ -393,8 +414,6 @@ public class StatController {
         List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgMonthlyRent = stats.stream().map(o->new Integer(o.getAvgMonthlyrent())).collect(Collectors.toList());
         List<Integer> tradcnt = stats.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-
-        String title = codeInfoService.getCodeName(sidocode);
 
         Collections.reverse(dates);
         Collections.reverse(avgMonthlyRent);
@@ -411,9 +430,11 @@ public class StatController {
     @GetMapping("/stat_trade/newHighestAndTradeCntByCity/{sidocode}")
     public String getStatNewHighestAndTradeCount(@PathVariable String sidocode, Model model) {
         List<StatResponseDto> stats;
+        String title = "-";
         if (!sidocode.equals("0")) {
+            title = codeInfoService.getCodeName(sidocode);
             log.info("/stat_trade/newHighestAndTradeCntByCity/" + sidocode);
-            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/newHighestAndTradeCntByCity/" + sidocode);
+            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/newHighestAndTradeCntByCity/" + title);
             if (StringUtils.hasText(sidocode)) {
                 stats = statService.getStatNewHighestAndTradeCount(sidocode);
             } else {
@@ -426,8 +447,6 @@ public class StatController {
         List<Integer> avgPrices = stats.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Float> newHighests = stats.stream().map(o->new Float(o.getHighestRate())).collect(Collectors.toList());
         List<Integer> tradcnt = stats.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-
-        String title = codeInfoService.getCodeName(sidocode);
 
         Collections.reverse(dates);
         Collections.reverse(avgPrices);
@@ -484,9 +503,11 @@ public class StatController {
                                                   @PathVariable String term,
                                                   Model model) {
         List<StatResponseDto> areas;
+        String title = "-";
         if (!sigungucode.equals("0")) {
+            title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_trade/gyunggiBySigungu/" + sigungucode + "/" + term);
-            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/gyunggiBySigungu/" + sigungucode + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/gyunggiBySigungu/" + title + "/" + term);
             areas = statService.getStatTradeList_BySigungu(sigungucode, term);
         } else {
             areas = new ArrayList<>();
@@ -501,7 +522,6 @@ public class StatController {
         Collections.reverse(dates);
         Collections.reverse(avgprc);
         Collections.reverse(tradcnt);
-        String title = codeInfoService.getCodeName(sigungucode);
 
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", areas);
@@ -543,9 +563,11 @@ public class StatController {
                                                     @PathVariable String term,
                                                     Model model) {
         List<StatResponseDto> areas;
+        String title = "-";
         if (!sigungucode.equals("0")) {
+            title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_trade/incheonBySigungu/" + sigungucode + "/" + term);
-            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/incheonBySigungu/" + sigungucode + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/incheonBySigungu/" + title + "/" + term);
             areas = statService.getStatTradeList_BySigungu(sigungucode, term);
         } else {
             areas = new ArrayList<>();
@@ -560,7 +582,6 @@ public class StatController {
         Collections.reverse(dates);
         Collections.reverse(avgprc);
         Collections.reverse(tradcnt);
-        String title = codeInfoService.getCodeName(sigungucode);
 
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", areas);

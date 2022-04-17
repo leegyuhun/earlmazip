@@ -26,9 +26,11 @@ public class TradeController {
     @GetMapping("/tradelist/seoul/{sigungucode}")
     public String getTradeList_Seoul(@PathVariable String sigungucode, Model model) {
         List<AptPriceResponseDto> trads;
+        String title = "-";
         if (!sigungucode.equals("0")) {
+            title = codeInfoService.getCodeName(sigungucode);
             log.info("/tradelist/seoul/" + sigungucode);
-            apiCallStatService.writeApiCallStat("TRADE", "/tradelist/seoul/" + sigungucode);
+            apiCallStatService.writeApiCallStat("TRADE", "/tradelist/seoul/" + title);
             if (StringUtils.hasText(sigungucode)) {
                 trads = tradeService.getTradeList_SeoulSigungu(sigungucode);
             } else {
@@ -37,7 +39,6 @@ public class TradeController {
         } else{
             trads = new ArrayList<>();
         }
-        String title = codeInfoService.getCodeName(sigungucode);
 
         model.addAttribute("list", trads);
         model.addAttribute("title",  "[ "+ title + " ]");
@@ -48,9 +49,11 @@ public class TradeController {
     @GetMapping("/tradelist/gyunggi/{sidocode}")
     public String getTradeList_Gyunggi(@PathVariable String sidocode, Model model) {
         List<AptPriceResponseDto> trads;
+        String title = "-";
         if (!sidocode.equals("0")) {
+            title = codeInfoService.getCodeName(sidocode);
             log.info("/tradelist/gyunggi/" + sidocode);
-            apiCallStatService.writeApiCallStat("TRADE", "/tradelist/gyunggi/" + sidocode);
+            apiCallStatService.writeApiCallStat("TRADE", "/tradelist/gyunggi/" + title);
             if (StringUtils.hasText(sidocode)) {
                 trads = tradeService.getTradeList_GyunggiSido(sidocode);
             } else {
@@ -59,7 +62,6 @@ public class TradeController {
         } else{
             trads = new ArrayList<>();
         }
-        String title = codeInfoService.getCodeName(sidocode);
 
         model.addAttribute("list", trads);
         model.addAttribute("title",  "[ "+ title + " ]");
@@ -70,9 +72,11 @@ public class TradeController {
     @GetMapping("/tradelist/incheon/{sigungucode}")
     public String getTradeList_Incheon(@PathVariable String sigungucode, Model model) {
         List<AptPriceResponseDto> trads;
+        String title = "-";
         if (!sigungucode.equals("0")) {
             log.info("/tradelist/incheon/" + sigungucode);
-            apiCallStatService.writeApiCallStat("TRADE", "/tradelist/incheon/" + sigungucode);
+            title = codeInfoService.getCodeName(sigungucode);
+            apiCallStatService.writeApiCallStat("TRADE", "/tradelist/incheon/" + title);
 
             if (StringUtils.hasText(sigungucode)) {
                 trads = tradeService.getTradeList_Incheon(sigungucode);
@@ -82,7 +86,6 @@ public class TradeController {
         } else {
             trads = new ArrayList<>();
         }
-        String title = codeInfoService.getCodeName(sigungucode);
 
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", trads);
@@ -93,9 +96,11 @@ public class TradeController {
     @GetMapping("/tradelist/cancelDeal/{regncode}")
     public String getCancelDealList(@PathVariable String regncode, Model model) {
         List<AptPriceResponseDto> trads;
+        String title = "-";
         if (!regncode.equals("0")) {
             log.info("/tradelist/cancelDeal/" + regncode);
-            apiCallStatService.writeApiCallStat("TRADE", "/tradelist/cancelDeal/" + regncode);
+            title = codeInfoService.getCodeName(regncode);
+            apiCallStatService.writeApiCallStat("TRADE", "/tradelist/cancelDeal/" + title);
 
             if (StringUtils.hasText(regncode)) {
                 trads = tradeService.getCancelDealList(regncode);
@@ -105,7 +110,6 @@ public class TradeController {
         } else {
             trads = new ArrayList<>();
         }
-        String title = codeInfoService.getCodeName(regncode);
 
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", trads);

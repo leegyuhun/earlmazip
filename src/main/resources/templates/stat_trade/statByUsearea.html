@@ -38,12 +38,14 @@
   const avgPricesUA04 =  /*[[ ${avgPricesUA04.toArray()} ]]*/;
   const avgPricesUA05 =  /*[[ ${avgPricesUA05.toArray()} ]]*/;
   const avgPricesUA06 =  /*[[ ${avgPricesUA06.toArray()} ]]*/;
+  const avgPricesUA07 =  /*[[ ${avgPricesUA07.toArray()} ]]*/;
 
   const tradCntUA02 =  /*[[ ${tradCntUA02.toArray()} ]]*/;
   const tradCntUA03 =  /*[[ ${tradCntUA03.toArray()} ]]*/;
   const tradCntUA04 =  /*[[ ${tradCntUA04.toArray()} ]]*/;
   const tradCntUA05 =  /*[[ ${tradCntUA05.toArray()} ]]*/;
   const tradCntUA06 =  /*[[ ${tradCntUA06.toArray()} ]]*/;
+  const tradCntUA07 =  /*[[ ${tradCntUA07.toArray()} ]]*/;
 
   const maxAmt = /*[[ ${maxAmt} ]]*/;
   const maxCnt = /*[[ ${maxCnt} ]]*/;
@@ -60,12 +62,20 @@
           data: avgPricesUA02
       },{
           type: 'line',
-          label: '59이상-85미만',
+          label: '59이상-84미만',
           yAxisID: 'y-lineUA03',
+          backgroundColor: 'rgb(63, 59, 56)',
+          borderColor: 'rgb(63, 59, 56)',
+          pointRadius:1,
+          data: avgPricesUA03
+      },{
+          type: 'line',
+          label: '국평(84이상-85미만)',
+          yAxisID: 'y-lineUA07',
           backgroundColor: 'rgb(255, 99, 132)',
           borderColor: 'rgb(255, 99, 132)',
           pointRadius:1,
-          data: avgPricesUA03
+          data: avgPricesUA07
       },{
           type: 'line',
           label: '85이상-102미만',
@@ -78,16 +88,16 @@
           type: 'line',
           label: '102이상-135이하',
           yAxisID: 'y-lineUA05',
-          backgroundColor: 'rgb(95,67,175)',
-          borderColor: 'rgb(95,67,175)',
+          backgroundColor: 'rgb(167,215,113)',
+          borderColor: 'rgb(167,215,113)',
           pointRadius:1,
           data: avgPricesUA05
       },{
           type: 'line',
           label: '135초과',
           yAxisID: 'y-lineUA06',
-          backgroundColor: 'rgb(167,215,113)',
-          borderColor: 'rgb(167,215,113)',
+          backgroundColor: 'rgb(95,67,175)',
+          borderColor: 'rgb(95,67,175)',
           pointRadius:1,
           data: avgPricesUA06
       }
@@ -108,10 +118,18 @@
           type: 'line',
           label: '59이상-85미만',
           yAxisID: 'y-lineUA03_2',
+          backgroundColor: 'rgb(63, 59, 56)',
+          borderColor: 'rgb(63, 59, 56)',
+          pointRadius:1,
+          data: tradCntUA03
+      },{
+          type: 'line',
+          label: '국평(84이상-85미만)',
+          yAxisID: 'y-lineUA07_2',
           backgroundColor: 'rgb(255, 99, 132)',
           borderColor: 'rgb(255, 99, 132)',
           pointRadius:1,
-          data: tradCntUA03
+          data: tradCntUA07
       },{
           type: 'line',
           label: '85이상-102미만',
@@ -124,16 +142,16 @@
           type: 'line',
           label: '102이상-135이하',
           yAxisID: 'y-lineUA05_2',
-          backgroundColor: 'rgb(95,67,175)',
-          borderColor: 'rgb(95,67,175)',
+          backgroundColor: 'rgb(167,215,113)',
+          borderColor: 'rgb(167,215,113)',
           pointRadius:1,
           data: tradCntUA05
       },{
           type: 'line',
           label: '135초과',
           yAxisID: 'y-lineUA06_2',
-          backgroundColor: 'rgb(167,215,113)',
-          borderColor: 'rgb(167,215,113)',
+          backgroundColor: 'rgb(95,67,175)',
+          borderColor: 'rgb(95,67,175)',
           pointRadius:1,
           data: tradCntUA06
       }
@@ -167,6 +185,15 @@
                     display: true,
                     text: '평균매매가'
                 }
+            },
+            'y-lineUA07':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: maxAmt
             },
             'y-lineUA04':{
                 position: 'left',
@@ -226,6 +253,15 @@
                     display: true,
                     text: '거래건수'
                 }
+            },
+            'y-lineUA07_2':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: maxCnt
             },
             'y-lineUA04_2':{
                 position: 'left',
