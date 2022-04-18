@@ -434,6 +434,72 @@ public class StatController {
         return "stat_trade/statTheme";
     }
 
+    @GetMapping("/stat_trade/theme02")
+    public String getStatTheme02(Model model) {
+        List<StatResponseDto> stats002;
+        List<StatResponseDto> stats003;
+        List<StatResponseDto> stats004;
+        List<StatResponseDto> stats005;
+        log.info("/stat_trade/theme02");
+        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/theme02");
+        stats002 = statService.getStatTheme("002");
+        stats003 = statService.getStatTheme("003");
+        stats004 = statService.getStatTheme("004");
+        stats005 = statService.getStatTheme("005");
+
+        List<String> dates = stats002.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Integer> avgPrices002 = stats002.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> avgPrices003 = stats003.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> avgPrices004 = stats004.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> avgPrices005 = stats005.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+
+        List<Float> newHighests002 = stats002.stream().map(o->new Float(o.getHighestRate())).collect(Collectors.toList());
+        List<Float> newHighests003 = stats003.stream().map(o->new Float(o.getHighestRate())).collect(Collectors.toList());
+        List<Float> newHighests004 = stats004.stream().map(o->new Float(o.getHighestRate())).collect(Collectors.toList());
+        List<Float> newHighests005 = stats005.stream().map(o->new Float(o.getHighestRate())).collect(Collectors.toList());
+
+        List<Integer> tradcnt002 = stats002.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        List<Integer> tradcnt003 = stats003.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        List<Integer> tradcnt004 = stats004.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        List<Integer> tradcnt005 = stats005.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+
+        Collections.reverse(dates);
+        Collections.reverse(avgPrices002);
+        Collections.reverse(avgPrices003);
+        Collections.reverse(avgPrices004);
+        Collections.reverse(avgPrices005);
+
+        Collections.reverse(newHighests002);
+        Collections.reverse(newHighests003);
+        Collections.reverse(newHighests004);
+        Collections.reverse(newHighests005);
+
+        Collections.reverse(tradcnt002);
+        Collections.reverse(tradcnt003);
+        Collections.reverse(tradcnt004);
+        Collections.reverse(tradcnt005);
+
+        model.addAttribute("dates", dates);
+        model.addAttribute("avgPrices002", avgPrices002);
+        model.addAttribute("avgPrices003", avgPrices003);
+        model.addAttribute("avgPrices004", avgPrices004);
+        model.addAttribute("avgPrices005", avgPrices005);
+
+        model.addAttribute("tradcnt002", tradcnt002);
+        model.addAttribute("tradcnt003", tradcnt003);
+        model.addAttribute("tradcnt004", tradcnt004);
+        model.addAttribute("tradcnt005", tradcnt005);
+
+        model.addAttribute("newHighests002", newHighests002);
+        model.addAttribute("newHighests003", newHighests003);
+        model.addAttribute("newHighests004", newHighests004);
+        model.addAttribute("newHighests005", newHighests005);
+        model.addAttribute("title",  "[ 서울 4구역 통계 ]");
+//        model.addAttribute("list", stats);
+
+        return "stat_trade/statTheme02";
+    }
+
     @GetMapping("/stat_trade/gyunggiBySigungu/{sigungucode}/{term}")
     public String getStatTradeList_GyunggiBySigungu(@PathVariable String sigungucode,
                                                   @PathVariable String term,

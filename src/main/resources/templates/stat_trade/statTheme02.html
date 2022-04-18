@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <!--    <a th:text="${year}"></a>-->
+    <div>
+        <p>
+            <h4 align="center" th:text="${title}"></h4>
+        </p>
+        <div>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3199694479750381"
+                    crossorigin="anonymous"></script>
+        </div>
+        <p>
+            <canvas id="myChart"></canvas>
+        </p>
+<!--        <p>-->
+<!--            <canvas id="myChart2"></canvas>-->
+<!--        </p>-->
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+  const avgPrices002 =  /*[[ ${avgPrices002.toArray()} ]]*/;
+  const avgPrices003 =  /*[[ ${avgPrices003.toArray()} ]]*/;
+  const avgPrices004 =  /*[[ ${avgPrices004.toArray()} ]]*/;
+  const avgPrices005 =  /*[[ ${avgPrices005.toArray()} ]]*/;
+
+  const tradcnt002 =  /*[[ ${tradcnt002.toArray()} ]]*/;
+  const tradcnt003 =  /*[[ ${tradcnt003.toArray()} ]]*/;
+  const tradcnt004 =  /*[[ ${tradcnt004.toArray()} ]]*/;
+  const tradcnt005 =  /*[[ ${tradcnt005.toArray()} ]]*/;
+
+  const newHighests002 =  /*[[ ${newHighests002.toArray()} ]]*/;
+  const newHighests003 =  /*[[ ${newHighests003.toArray()} ]]*/;
+  const newHighests004 =  /*[[ ${newHighests004.toArray()} ]]*/;
+  const newHighests005 =  /*[[ ${newHighests005.toArray()} ]]*/;
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      type: 'line',
+      label: '강남3구',
+      yAxisID: 'y-line002',
+      backgroundColor: 'rgb(54, 162, 235)',
+      borderColor: 'rgb(54, 162, 235)',
+      pointRadius:1,
+      data: avgPrices002
+      },{
+      type: 'line',
+      label: '마용성',
+      yAxisID: 'y-line003',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      pointRadius:1,
+      data: avgPrices003
+      },{
+      type: 'line',
+      label: '노도강',
+      yAxisID: 'y-line004',
+      backgroundColor: 'rgb(95,67,175)',
+      borderColor: 'rgb(95,67,175)',
+      pointRadius:1,
+      data: avgPrices004
+      },{
+      type: 'line',
+      label: '금관구',
+      yAxisID: 'y-line005',
+      backgroundColor: 'rgb(167,215,113)',
+      borderColor: 'rgb(167,215,113)',
+      pointRadius:1,
+      data: avgPrices005
+      }
+    ]
+  };
+
+  const config = {
+    data: data,
+    options: {
+        scales:{
+            'y-line002':{
+                position: 'left',
+                suggestedMin: 0,
+                suggestedMax: 300000,
+                grid:{
+                    display: true
+                },
+                ticks:{
+                    color: 'rgb(0,0,0)'
+                },
+                title: {
+                    display: true,
+                    text: '평균매매가'
+                }
+            },
+            'y-line003':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: 300000,
+            },
+            'y-line004':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: 300000,
+            },
+            'y-line005':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: 300000,
+            }
+
+        }
+    }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+
+<!--  const myChart2 = new Chart(-->
+<!--    document.getElementById('myChart2'),-->
+<!--    config2-->
+<!--  );-->
+</script>
+</html>
