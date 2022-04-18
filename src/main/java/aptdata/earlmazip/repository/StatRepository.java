@@ -135,22 +135,6 @@ public class StatRepository {
                 .getResultList().stream().map(RankYearResponseDto::new).collect(Collectors.toList());
     }
 
-    public List<StatLeaseResponseDto> statLeaseSido(String sidoCode) {
-        return em.createQuery("select a from StatSidoLease a"
-        + " where a.sidoCode = :sidoCode and a.leaseType = '전세' "
-        + " order by a.dealYYMM desc", StatSidoLease.class)
-                .setParameter("sidoCode", sidoCode)
-                .getResultList().stream().map(StatLeaseResponseDto::new).collect(Collectors.toList());
-    }
-
-    public List<StatLeaseResponseDto> statLeaseMonthlySido(String sidoCode) {
-        return em.createQuery("select a from StatSidoLease a"
-                        + " where a.sidoCode = :sidoCode and a.leaseType = '월세' "
-                        + " order by a.dealYYMM desc", StatSidoLease.class)
-                .setParameter("sidoCode", sidoCode)
-                .getResultList().stream().map(StatLeaseResponseDto::new).collect(Collectors.toList());
-    }
-
     public List<StatResponseDto> getStatNewHighestAndTradeCount(String sidoCode) {
         if (sidoCode.length() == 4) {
             return em.createQuery("select a from StatSidoYYMM a "

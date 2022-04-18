@@ -57,14 +57,6 @@ public class StatService {
         return statRepository.findIncheonTop(year, sigungucode);
     }
 
-    public List<StatLeaseResponseDto> statLeaseSido(String sidoCode) {
-        return statRepository.statLeaseSido(sidoCode);
-    }
-
-    public List<StatLeaseResponseDto> statLeaseMonthlySido(String sidoCode) {
-        return statRepository.statLeaseMonthlySido(sidoCode);
-    }
-
     public List<StatResponseDto> getStatNewHighestAndTradeCount(String sidoCode) {
         return statRepository.getStatNewHighestAndTradeCount(sidoCode);
     }
