@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @Slf4j
@@ -115,5 +117,37 @@ public class TradeController {
         model.addAttribute("list", trads);
 
         return "tradelist/cancelDeal";
+    }
+
+    @GetMapping("/tradelist/ByName/{regncode}/{aptName}/{ua}/{term}")
+    public String getCancelDealList(@PathVariable String regncode,
+                                    @PathVariable String aptName,
+                                    @PathVariable int ua,
+                                    @PathVariable int term,
+                                    Model model) {
+        List<AptPriceResponseDto> trads;
+        if (!regncode.equals("0")) {
+            log.info("/tradelist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
+            apiCallStatService.writeApiCallStat("TRADE", "/tradelist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
+
+            if (StringUtils.hasText(regncode)) {
+                trads = tradeService.getAptTradeList_ByName(regncode, aptName, ua, term);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else {
+            trads = new ArrayList<>();
+        }
+
+        List<String> dates = trads.stream().map(o->new String(o.getDealDate())).collect(Collectors.toList());
+        List<Integer> dealAmts = trads.stream().map(o->new Integer(o.getDealAmt())).collect(Collectors.toList());
+        Collections.reverse(dates);
+        Collections.reverse(dealAmts);
+
+        model.addAttribute("dates", dates);
+        model.addAttribute("dealAmts", dealAmts);
+        model.addAttribute("list", trads);
+
+        return "tradelist/aptTradeList";
     }
 }

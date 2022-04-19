@@ -29,4 +29,8 @@ public class TradeService {
     public List<AptPriceResponseDto> getCancelDealList(String regncode) {
         return tradeRepository.getCancelDealList(regncode);
     }
+
+    public List<AptPriceResponseDto> getAptTradeList_ByName(String regncode, String aptName, int ua, int term) {
+        return tradeRepository.getAptTradeList_ByName(regncode, aptName, ua, term);
+    }
 }
