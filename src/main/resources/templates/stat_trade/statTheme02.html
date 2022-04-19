@@ -29,9 +29,9 @@
         <p>
             <canvas id="myChart"></canvas>
         </p>
-<!--        <p>-->
-<!--            <canvas id="myChart2"></canvas>-->
-<!--        </p>-->
+        <p>
+            <canvas id="myChart2"></canvas>
+        </p>
     </div>
 
     <div th:replace="fragments/footer :: footer" />
@@ -93,6 +93,44 @@
     ]
   };
 
+  const data2 = {
+    labels: labels,
+    datasets: [{
+      type: 'line',
+      label: '강남3구',
+      yAxisID: 'y-line002_2',
+      backgroundColor: 'rgb(54, 162, 235)',
+      borderColor: 'rgb(54, 162, 235)',
+      pointRadius:1,
+      data: newHighests002
+      },{
+      type: 'line',
+      label: '마용성',
+      yAxisID: 'y-line003_2',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      pointRadius:1,
+      data: newHighests003
+      },{
+      type: 'line',
+      label: '노도강',
+      yAxisID: 'y-line004_2',
+      backgroundColor: 'rgb(95,67,175)',
+      borderColor: 'rgb(95,67,175)',
+      pointRadius:1,
+      data: newHighests004
+      },{
+      type: 'line',
+      label: '금관구',
+      yAxisID: 'y-line005_2',
+      backgroundColor: 'rgb(167,215,113)',
+      borderColor: 'rgb(167,215,113)',
+      pointRadius:1,
+      data: newHighests005
+      }
+    ]
+  };
+
   const config = {
     data: data,
     options: {
@@ -143,6 +181,56 @@
         }
     }
   };
+  const config2 = {
+    data: data2,
+    options: {
+        scales:{
+            'y-line002_2':{
+                position: 'left',
+                suggestedMin: 0,
+                suggestedMax: 100,
+                grid:{
+                    display: true
+                },
+                ticks:{
+                    color: 'rgb(0,0,0)'
+                },
+                title: {
+                    display: true,
+                    text: '신고가율'
+                }
+            },
+            'y-line003_2':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: 100,
+            },
+            'y-line004_2':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: 100,
+            },
+            'y-line005_2':{
+                position: 'left',
+                display: false,
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: 100,
+            }
+
+        }
+    }
+  };
 </script>
 <script>
   const myChart = new Chart(
@@ -150,9 +238,9 @@
     config
   );
 
-<!--  const myChart2 = new Chart(-->
-<!--    document.getElementById('myChart2'),-->
-<!--    config2-->
-<!--  );-->
+  const myChart2 = new Chart(
+    document.getElementById('myChart2'),
+    config2
+  );
 </script>
 </html>
