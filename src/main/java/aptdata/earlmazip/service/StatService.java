@@ -61,8 +61,8 @@ public class StatService {
         return statRepository.getStatNewHighestAndTradeCount(sidoCode);
     }
 
-    public List<StatResponseDto> getStatTheme(String themeCode) {
-        return statRepository.getStatTheme(themeCode);
+    public List<StatResponseDto> getStatTheme(String themeCode, String term) {
+        return statRepository.getStatTheme(themeCode, term);
     }
 
     public List<StatResponseDto> getStatBuildYearList(String regnCode, String buildYear, String term) {

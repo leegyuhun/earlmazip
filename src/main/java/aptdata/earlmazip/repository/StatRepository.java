@@ -155,11 +155,13 @@ public class StatRepository {
         }
     }
 
-    public List<StatResponseDto> getStatTheme(String themeCode) {
+    public List<StatResponseDto> getStatTheme(String themeCode, String term) {
         return em.createQuery("select a from StatTheme a "
                         + " where a.themeCode = :themeCode "
+                        + "   and a.date >= :searchYear "
                         + " order by a.date desc ", StatTheme.class)
                 .setParameter("themeCode", themeCode)
+                .setParameter("searchYear", calcYearByTerm(term))
                 .getResultList().stream().map(StatResponseDto::new)
                 .collect(Collectors.toList());
     }

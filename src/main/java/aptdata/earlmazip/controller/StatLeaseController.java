@@ -105,14 +105,14 @@ public class StatLeaseController {
         return "stat_lease/statSeoul_Sigungu";
     }
 
-    @GetMapping("/stat_lease/sigungu/{sigungucode}")
+    @GetMapping("/stat_lease_monthly/seoul/sigungu/{sigungucode}")
     public String getStatLeaseMonthlySigungu(@PathVariable String sigungucode, Model model) {
         List<StatLeaseResponseDto> stats;
         String title = "-";
         if (!sigungucode.equals("0")) {
             title = codeInfoService.getCodeName(sigungucode);
-            log.info("/stat_lease/sido/" + sigungucode);
-            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease_monthly/sigungu/" + title);
+            log.info("/stat_lease_monthly/seoul/sigungu/" + sigungucode);
+            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease_monthly/seoul/sigungu/" + title);
             if (StringUtils.hasText(sigungucode)) {
                 stats = statLeaseService.getStatLeaseMonthlySigungu(sigungucode);
             } else {
@@ -122,19 +122,24 @@ public class StatLeaseController {
             stats = new ArrayList<>();
         }
         List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
-        List<Integer> avgDeposits = stats.stream().map(o->new Integer(o.getAvgDeposit())).collect(Collectors.toList());
+        List<Integer> avgMonthlyrent = stats.stream().map(o->new Integer(o.getAvgMonthlyrent())).collect(Collectors.toList());
         List<Integer> tradcnt = stats.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
 
         Collections.reverse(dates);
-        Collections.reverse(avgDeposits);
+        Collections.reverse(avgMonthlyrent);
         Collections.reverse(tradcnt);
 
+        // 한국은행 기준금리
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "6");
+        List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+
         model.addAttribute("dates", dates);
-        model.addAttribute("avgDeposits", avgDeposits);
+        model.addAttribute("avgMonthlyrent", avgMonthlyrent);
         model.addAttribute("tradcnt", tradcnt);
         model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("interestRates", interestRates);
         model.addAttribute("list", stats);
-        return "stat_lease/statSido";
+        return "stat_lease/statMonthlySeoul_Sigungu";
     }
 
     @GetMapping("/stat_lease_monthly/sido/{sidocode}")

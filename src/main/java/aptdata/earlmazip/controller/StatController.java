@@ -398,20 +398,12 @@ public class StatController {
         return "stat_trade/newHighestAndTradeCntByCity";
     }
 
-    @GetMapping("/stat_trade/theme/{themecode}")
-    public String getStatTheme(@PathVariable String themecode, Model model) {
+    @GetMapping("/stat_trade/theme01/{term}")
+    public String getStatTheme(@PathVariable String term, Model model) {
         List<StatResponseDto> stats;
-        if (!themecode.equals("0")) {
-            log.info("/stat_trade/theme/" + themecode);
-            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/theme/" + themecode);
-            if (StringUtils.hasText(themecode)) {
-                stats = statService.getStatTheme(themecode);
-            } else {
-                stats = new ArrayList<>();
-            }
-        } else {
-            stats = new ArrayList<>();
-        }
+        log.info("/stat_trade/theme01/" + term);
+        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/theme01/" + term);
+        stats = statService.getStatTheme("001", term);
 
         List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgPrices = stats.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
@@ -434,18 +426,18 @@ public class StatController {
         return "stat_trade/statTheme";
     }
 
-    @GetMapping("/stat_trade/theme02")
-    public String getStatTheme02(Model model) {
+    @GetMapping("/stat_trade/theme02/{term}")
+    public String getStatTheme02(@PathVariable String term, Model model) {
         List<StatResponseDto> stats002;
         List<StatResponseDto> stats003;
         List<StatResponseDto> stats004;
         List<StatResponseDto> stats005;
-        log.info("/stat_trade/theme02");
-        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/theme02");
-        stats002 = statService.getStatTheme("002");
-        stats003 = statService.getStatTheme("003");
-        stats004 = statService.getStatTheme("004");
-        stats005 = statService.getStatTheme("005");
+        log.info("/stat_trade/theme02/" + term);
+        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/theme02/" + term);
+        stats002 = statService.getStatTheme("002", term);
+        stats003 = statService.getStatTheme("003", term);
+        stats004 = statService.getStatTheme("004", term);
+        stats005 = statService.getStatTheme("005", term);
 
         List<String> dates = stats002.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgPrices002 = stats002.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
