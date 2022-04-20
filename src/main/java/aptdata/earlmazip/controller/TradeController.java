@@ -144,6 +144,12 @@ public class TradeController {
         Collections.reverse(dates);
         Collections.reverse(dealAmts);
 
+        String title = "-";
+        if (trads.size() > 0) {
+            title = trads.get(0).getLandDong() + " " + aptName;
+        }
+
+        model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("dates", dates);
         model.addAttribute("dealAmts", dealAmts);
         model.addAttribute("list", trads);

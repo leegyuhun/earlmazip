@@ -11,6 +11,9 @@
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3199694479750381"
                     crossorigin="anonymous"></script>
         </div>
+        <p>
+            <h4 align="center" th:text="${title}"></h4>
+        </p>
         <div>
             <canvas id="myChart"></canvas>
         </div>
@@ -18,9 +21,9 @@
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
                     <th>계약일자</th>
-                    <th>취소일자</th>
-                    <th>법정동</th>
-                    <th>아파트명</th>
+<!--                    <th>취소일자</th>-->
+<!--                    <th>법정동</th>-->
+<!--                    <th>아파트명</th>-->
                     <th>전용면적(m2)</th>
                     <th>거래금액</th>
                     <th>층수</th>
@@ -31,9 +34,9 @@
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
                     <td align="center" th:text="${list.dealDate}"></td>
-                    <td align="center" th:text="${list.cnclDealDate}"></td>
-                    <td align="center" th:text="${list.landDong}"></td>
-                    <td align="left" th:text="${list.aptName}"></td>
+<!--                    <td align="center" th:text="${list.cnclDealDate}"></td>-->
+<!--                    <td align="center" th:text="${list.landDong}"></td>-->
+<!--                    <td align="left" th:text="${list.aptName}"></td>-->
                     <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.dealAmt,1,'COMMA')}"></td>
                     <td align="right" th:text="${list.floor}"></td>
