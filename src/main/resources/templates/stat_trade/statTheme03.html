@@ -7,29 +7,57 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <!--    <a th:text="${year}"></a>-->
     <div>
-<!--        <div>-->
-<!--            <a>[기간설정]&nbsp</a>-->
-<!--            <a href="/stat_trade/theme03/11/1">1년&nbsp</a>-->
-<!--            <b>/&nbsp</b>-->
-<!--            <a href="/stat_trade/theme03/11/3">3년&nbsp</a>-->
-<!--            <b>/&nbsp</b>-->
-<!--            <a href="/stat_trade/theme03/11/5">5년&nbsp</a>-->
-<!--            <b>/&nbsp</b>-->
-<!--            <a href="/stat_trade/theme03/11/10">10년&nbsp</a>-->
-<!--        </div>-->
+        <div>
+            <a>[기간설정]&nbsp</a>
+            <a href="/stat_trade/theme03/11/1">1년&nbsp</a>
+            <b>/&nbsp</b>
+            <a href="/stat_trade/theme03/11/3">3년&nbsp</a>
+            <b>/&nbsp</b>
+            <a href="/stat_trade/theme03/11/5">5년&nbsp</a>
+            <b>/&nbsp</b>
+            <a href="/stat_trade/theme03/11/10">10년&nbsp</a>
+        </div>
         <p>
             <h4 align="center" th:text="${title}"></h4>
         </p>
-        <div>
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3199694479750381"
-                    crossorigin="anonymous"></script>
-        </div>
+
         <p>
             <canvas id="myChart"></canvas>
         </p>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
         <p>
-            <canvas id="myChart2"></canvas>
+            <h6 align="center" th:text="${subtitle}"></h6>
         </p>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+                    <th>년월</th>
+                    <th>구분</th>
+                    <th>금액</th>
+                    <th>단위</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="font-size:12px;" th:each="list : ${list}">
+                    <td align="center" th:text="${list.date}"></td>
+                    <td align="center" th:text="${list.itemName1}"></td>
+                    <td align="right" th:text="${list.dataValue}"></td>
+                    <td align="center" th:text="${list.unitName}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <h7>※ 대출관련 데이터출처: 한국은행 경제통계시스템 (ecos.bok.or.kr)</h7>
+        </div>
+<!--        <p>-->
+<!--            <canvas id="myChart2"></canvas>-->
+<!--        </p>-->
     </div>
 
     <div th:replace="fragments/footer :: footer" />
@@ -99,10 +127,10 @@
                 },
                 title: {
                     display: true,
-                    text: '주담대, 기타대출 (단위: 10억)'
+                    text: '주담대, 기타대출 (단위: 조)'
                 },
                 suggestedMin: 0,
-                suggestedMax: 280000
+                suggestedMax: 300
             },
             'y-line03':{
                 position: 'right',
@@ -114,7 +142,7 @@
                     display: false
                 },
                 suggestedMin: 0,
-                suggestedMax: 280000
+                suggestedMax: 300
             }
         }
     }

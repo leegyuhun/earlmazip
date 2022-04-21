@@ -528,7 +528,7 @@ public class StatController {
         } else {
             houseDebt = new ArrayList<>();
         }
-        List<String> houseDebts = houseDebt.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+        List<Float> houseDebts = houseDebt.stream().map(o->new Float(o.getValue())).collect(Collectors.toList());
 
         // 기타대출
         List<EcosDataResponseDto> etcDebt;
@@ -541,15 +541,21 @@ public class StatController {
         } else {
             etcDebt = new ArrayList<>();
         }
-        List<String> etcDebts = etcDebt.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+        List<Float> etcDebts = etcDebt.stream().map(o->new Float(o.getValue())).collect(Collectors.toList());
+        String subtitle = "-";
+        if (houseDebt.size() > 0){
+            subtitle = houseDebt.get(0).getStatName();
+        }
 
         Collections.reverse(dates);
         Collections.reverse(avgprc);
+        Collections.reverse(houseDebt);
 
-//        model.addAttribute("list", areas);
+        model.addAttribute("list", houseDebt);
         model.addAttribute("dates", dates);
         model.addAttribute("avgprc", avgprc);
-        model.addAttribute("title", title);
+        model.addAttribute("title", "[ " + title + " ]");
+        model.addAttribute("subtitle", "[ " + subtitle + " ]");
         model.addAttribute("etcDebts", etcDebts);
         model.addAttribute("houseDebts", houseDebts);
 

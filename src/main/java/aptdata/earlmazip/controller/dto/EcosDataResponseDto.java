@@ -15,7 +15,11 @@ public class EcosDataResponseDto {
     private String itemName1;
 
     private String date;
+    public String getDate() {
+        return date.substring(0, 4) + "-" + date.substring(4, 6);
+    }
     private String dataValue;
+    private float value;
     private String unitName;
 
     public EcosDataResponseDto(EcosData entity) {
@@ -27,5 +31,6 @@ public class EcosDataResponseDto {
         this.date = entity.getDate();
         this.dataValue = entity.getDataValue();
         this.unitName = entity.getUnitName();
+        this.value = Float.parseFloat(this.dataValue) / 1000;
     }
 }
