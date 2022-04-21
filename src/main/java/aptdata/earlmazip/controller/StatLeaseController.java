@@ -56,7 +56,7 @@ public class StatLeaseController {
         Collections.reverse(tradcnt);
 
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "6");
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "",  "6");
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         model.addAttribute("dates", dates);
@@ -93,7 +93,7 @@ public class StatLeaseController {
         Collections.reverse(tradcnt);
 
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "6");
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", "6");
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         model.addAttribute("dates", dates);
@@ -130,7 +130,7 @@ public class StatLeaseController {
         Collections.reverse(tradcnt);
 
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "6");
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", "6");
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         model.addAttribute("dates", dates);

@@ -14,8 +14,8 @@ public class EcosDataService {
 
     private final EcosDataRepository ecosDataRepository;
 
-    public List<EcosDataResponseDto> getEcosData(String statCode, String itemCode, String term) {
-        return ecosDataRepository.getEcosData(statCode, itemCode, term);
+    public List<EcosDataResponseDto> getEcosData(String statCode, String itemCode1, String itemCode2, String term) {
+        return ecosDataRepository.getEcosData(statCode, itemCode1, itemCode2, term);
     }
 
 }

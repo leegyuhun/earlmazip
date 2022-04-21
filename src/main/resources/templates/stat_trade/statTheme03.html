@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <!--    <a th:text="${year}"></a>-->
+    <div>
+<!--        <div>-->
+<!--            <a>[기간설정]&nbsp</a>-->
+<!--            <a href="/stat_trade/theme03/11/1">1년&nbsp</a>-->
+<!--            <b>/&nbsp</b>-->
+<!--            <a href="/stat_trade/theme03/11/3">3년&nbsp</a>-->
+<!--            <b>/&nbsp</b>-->
+<!--            <a href="/stat_trade/theme03/11/5">5년&nbsp</a>-->
+<!--            <b>/&nbsp</b>-->
+<!--            <a href="/stat_trade/theme03/11/10">10년&nbsp</a>-->
+<!--        </div>-->
+        <p>
+            <h4 align="center" th:text="${title}"></h4>
+        </p>
+        <div>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3199694479750381"
+                    crossorigin="anonymous"></script>
+        </div>
+        <p>
+            <canvas id="myChart"></canvas>
+        </p>
+        <p>
+            <canvas id="myChart2"></canvas>
+        </p>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+  const avgprc =  /*[[ ${avgprc.toArray()} ]]*/;
+  const etcDebts =  /*[[ ${etcDebts.toArray()} ]]*/;
+  const houseDebts =  /*[[ ${houseDebts.toArray()} ]]*/;
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      type: 'line',
+      label: '평균매매가',
+      yAxisID: 'y-line01',
+      backgroundColor: 'rgb(54, 162, 235)',
+      borderColor: 'rgb(54, 162, 235)',
+      pointRadius:1,
+      data: avgprc
+      },{
+      type: 'line',
+      label: '주담대 대출',
+      yAxisID: 'y-line02',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      pointRadius:1,
+      data: houseDebts
+      },{
+      type: 'line',
+      label: '기타 대출',
+      yAxisID: 'y-line03',
+      backgroundColor: 'rgb(95,67,175)',
+      borderColor: 'rgb(95,67,175)',
+      pointRadius:1,
+      data: etcDebts
+      }
+    ]
+  };
+
+  const config = {
+    data: data,
+    options: {
+        scales:{
+            'y-line01':{
+                position: 'left',
+                suggestedMin: 0,
+<!--                suggestedMax: 300000,-->
+                grid:{
+                    display: true
+                },
+                ticks:{
+                    color: 'rgb(54, 162, 235)'
+                },
+                title: {
+                    display: true,
+                    text: '평균매매가 (단위: 만)'
+                }
+            },
+            'y-line02':{
+                position: 'right',
+                display: true,
+                grid:{
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: '주담대, 기타대출 (단위: 10억)'
+                },
+                suggestedMin: 0,
+                suggestedMax: 280000
+            },
+            'y-line03':{
+                position: 'right',
+                display: true,
+                grid:{
+                    display: false
+                },
+                ticks:{
+                    display: false
+                },
+                suggestedMin: 0,
+                suggestedMax: 280000
+            }
+        }
+    }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+</html>

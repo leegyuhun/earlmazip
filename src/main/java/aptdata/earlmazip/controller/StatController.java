@@ -51,7 +51,7 @@ public class StatController {
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
 
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", term);
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);
@@ -91,7 +91,7 @@ public class StatController {
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
 
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", term);
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);
@@ -263,7 +263,7 @@ public class StatController {
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", term);
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);
@@ -299,7 +299,7 @@ public class StatController {
         List<Integer> avgprc = stats.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> tradcnt = stats.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", term);
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);
@@ -492,6 +492,71 @@ public class StatController {
         return "stat_trade/statTheme02";
     }
 
+    @GetMapping("/stat_trade/theme03/{areacode}/{term}")
+    public String getStatTheme03(@PathVariable String areacode,
+                                 @PathVariable String term, Model model) {
+        log.info("/stat_trade/theme03/" + areacode + "/" + term);
+        apiCallStatService.writeApiCallStat("STAT", "/stat_trade/stheme03/" + areacode + "/" + term);
+        List<StatResponseDto> areas;
+        String title = "-";
+        title = codeInfoService.getCodeName(areacode);
+        if (areacode.equals("11")) {
+            areas = statService.getStatTradeList_Seoul(term);
+        } else if (areacode.equals("41")) {
+            areas = statService.getStatTradeList_Gyunggi(term);
+        } else if (areacode.equals("28")) {
+            areas = statService.getStatTradeList_Incheon(term);
+        } else {
+            areas = new ArrayList<>();
+        }
+
+        List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+
+        // 한국은행 기준금리
+//        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", term);
+//        List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+
+        // 주담대
+        List<EcosDataResponseDto> houseDebt;
+        if (areacode.equals("11")) {
+            houseDebt = ecosDataService.getEcosData("008Y003", "11100A0", "A", term);
+        } else if (areacode.equals("41")) {
+            houseDebt = ecosDataService.getEcosData("008Y003", "11100A0", "L", term);
+        } else if (areacode.equals("28")) {
+            houseDebt = ecosDataService.getEcosData("008Y003", "11100A0", "D", term);
+        } else {
+            houseDebt = new ArrayList<>();
+        }
+        List<String> houseDebts = houseDebt.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+
+        // 기타대출
+        List<EcosDataResponseDto> etcDebt;
+        if (areacode.equals("11")) {
+            etcDebt = ecosDataService.getEcosData("008Y003", "11100B0", "A", term);
+        } else if (areacode.equals("41")) {
+            etcDebt = ecosDataService.getEcosData("008Y003", "11100B0", "L", term);
+        } else if (areacode.equals("28")) {
+            etcDebt = ecosDataService.getEcosData("008Y003", "11100B0", "D", term);
+        } else {
+            etcDebt = new ArrayList<>();
+        }
+        List<String> etcDebts = etcDebt.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+
+        Collections.reverse(dates);
+        Collections.reverse(avgprc);
+
+//        model.addAttribute("list", areas);
+        model.addAttribute("dates", dates);
+        model.addAttribute("avgprc", avgprc);
+        model.addAttribute("title", title);
+        model.addAttribute("etcDebts", etcDebts);
+        model.addAttribute("houseDebts", houseDebts);
+
+//        model.addAttribute("interestRates", interestRates);
+        return "stat_trade/statTheme03";
+    }
+
     @GetMapping("/stat_trade/gyunggiBySigungu/{sigungucode}/{term}")
     public String getStatTradeList_GyunggiBySigungu(@PathVariable String sigungucode,
                                                   @PathVariable String term,
@@ -510,7 +575,7 @@ public class StatController {
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", term);
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);
@@ -537,7 +602,7 @@ public class StatController {
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
 
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", term);
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);
@@ -570,7 +635,7 @@ public class StatController {
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", term);
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);

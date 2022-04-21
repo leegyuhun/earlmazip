@@ -16,6 +16,7 @@ public class EcosData {
     private String statName;
 
     private String itemCode1;
+    private String itemCode2;
     private String itemName1;
 
     private String year;

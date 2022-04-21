@@ -20,7 +20,7 @@ public class EcosDataRepository {
 
     private final EntityManager em;
 
-    public List<EcosDataResponseDto> getEcosData(String statCode, String itemCode, String term) {
+    public List<EcosDataResponseDto> getEcosData(String statCode, String itemCode1, String itemCode2, String term) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         // 현재날짜
         String date = simpleDateFormat.format(new Date());
@@ -30,11 +30,14 @@ public class EcosDataRepository {
         String searchYear = Integer.toString(nowInt - termInt);
 
         return em.createQuery(" select a from EcosData a "
-                        + " where a.statCode = :statCode and itemCode1 = :itemCode "
+                        + " where a.statCode = :statCode "
+                        + "   and itemCode1 = :itemCode1 "
+                        + "   and itemCode2 = :itemCode2 "
                         + "   and a.year >= :searchYear "
                         + " order by a.date asc ", EcosData.class)
                 .setParameter("statCode", statCode)
-                .setParameter("itemCode", itemCode)
+                .setParameter("itemCode1", itemCode1)
+                .setParameter("itemCode2", itemCode2)
                 .setParameter("searchYear", searchYear)
                 .getResultList().stream().map(EcosDataResponseDto::new).collect(Collectors.toList());
     }
