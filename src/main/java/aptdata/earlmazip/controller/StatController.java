@@ -107,6 +107,42 @@ public class StatController {
         return "stat_trade/seoulBySigungu";
     }
 
+    @GetMapping("/stat_trade/useareaType/{sigungucode}/{ua}/{term}")
+    public String getStatUseareaType_BySigungu(@PathVariable String sigungucode,
+                                                  @PathVariable String ua,
+                                                  @PathVariable String term,
+                                                  Model model) {
+        List<StatResponseDto> areas;
+        String title = "-";
+        if (!sigungucode.equals("0")) {
+            title = codeInfoService.getCodeName(sigungucode);
+            log.info("/stat_trade/useareaType/" + sigungucode + "/" + ua + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/useareaType/" + sigungucode + "/" + ua + "/" + term);
+            areas = statService.getStatTradeByUseAreaList(sigungucode,ua, term);
+        } else {
+            areas = new ArrayList<>();
+        }
+        List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+
+        // 한국은행 기준금리
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", term);
+        List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+
+        Collections.reverse(dates);
+        Collections.reverse(avgprc);
+        Collections.reverse(tradcnt);
+
+        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("list", areas);
+        model.addAttribute("dates", dates);
+        model.addAttribute("avgprc", avgprc);
+        model.addAttribute("tradcnt", tradcnt);
+        model.addAttribute("interestRates", interestRates);
+        return "stat_trade/useareaTypeBySigungu";
+    }
+
     /**
      * 서울시 월별,전용면적별 매매가 통계
      * @param model
