@@ -20,10 +20,15 @@ public class AptLeaseRaw {
     private String dealMon;
     private String dealDay;
     private String dealDate;
+    private String dealType;
+    private String dealTerm;
+    private String renewalUse;
     private String aptName;
     private float useArea;
     private int useAreaTrunc;
+    private int befDeposit;
     private int deposit;
+    private int befMonthlyRent;
     private int monthlyRent;
     private int floor;
     private String buildYear;

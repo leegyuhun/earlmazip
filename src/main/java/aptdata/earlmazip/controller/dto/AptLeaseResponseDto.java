@@ -5,6 +5,9 @@ import lombok.Getter;
 
 @Getter
 public class AptLeaseResponseDto {
+    private String dealType;
+    private String dealTerm;
+    private String renewalUse;
     private String dealDate;
     public String getDealDate() {
         return dealDate.substring(2,4) + "." + dealDate.substring(4,6) + "." + dealDate.substring(6,8);
@@ -19,7 +22,9 @@ public class AptLeaseResponseDto {
     }
     private float useArea;
     private int useAreaTrunc;
+    private int befDeposit;
     private int deposit;
+    private String befMonthlyRentStr;
     private String monthlyRentStr;
     private int floor;
     private String buildYear;
@@ -41,7 +46,14 @@ public class AptLeaseResponseDto {
         this.floor = entity.getFloor();
         this.buildYear = entity.getBuildYear();
         this.landDong = entity.getLandDong();
+
+        this.dealType = entity.getDealType();
+        this.dealTerm = entity.getDealTerm();
+        this.renewalUse = entity.getRenewalUse();
+        this.befDeposit = entity.getBefDeposit();
         if (entity.getMonthlyRent() == 0) { this.monthlyRentStr = "-"; }
         else { this.monthlyRentStr = Integer.toString(entity.getMonthlyRent()); }
+        if (entity.getBefMonthlyRent() == 0) { this.befMonthlyRentStr = "-"; }
+        else { this.befMonthlyRentStr = Integer.toString(entity.getBefMonthlyRent()); }
     }
 }
