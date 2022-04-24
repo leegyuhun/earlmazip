@@ -154,6 +154,6 @@ public class TradeController {
         model.addAttribute("dealAmts", dealAmts);
         model.addAttribute("list", trads);
 
-        return "tradelist/aptTradeList";
+        return "tradelist/aptTradeList_ByUA";
     }
 }

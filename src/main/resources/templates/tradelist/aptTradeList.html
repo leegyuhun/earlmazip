@@ -11,9 +11,6 @@
             <h4 align="center" th:text="${title}"></h4>
         </p>
         <div>
-            <canvas id="myChart"></canvas>
-        </div>
-        <div>
             <ins class="kakao_ad_area" style="display:none;"
                  data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
                  data-ad-width   = "320"
@@ -53,48 +50,4 @@
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 </body>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script type = "text/javascript" th:inline="javascript">
-  const labels =  /*[[ ${dates.toArray()} ]]*/;
-  const dealAmts =  /*[[ ${dealAmts.toArray()} ]]*/;
-
-  const data = {
-    labels: labels,
-    datasets: [{
-      type: 'line',
-      label: '매매가',
-      yAxisID: 'y-line',
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
-      pointRadius:1,
-      data: dealAmts
-      }
-    ]
-  };
-
-  const config = {
-    data: data,
-    options: {
-        scales:{
-            'y-line':{
-                position: 'left',
-                suggestedMin: 0,
-                ticks:{
-				    color: 'rgb(255, 99, 132)'
-				},
-                title: {
-                    display: true,
-                    text: '매매가'
-                }
-            }
-        }
-    }
-  };
-</script>
-<script>
-  const myChart = new Chart(
-    document.getElementById('myChart'),
-    config
-  );
-</script>
 </html>
