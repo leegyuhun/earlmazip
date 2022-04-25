@@ -3,6 +3,8 @@ package aptdata.earlmazip.controller.dto;
 import aptdata.earlmazip.domain.AptPriceRaw;
 import lombok.Getter;
 
+import java.text.DecimalFormat;
+
 @Getter
 public class AptPriceResponseDto {
     public String getDealDate() {
@@ -18,6 +20,8 @@ public class AptPriceResponseDto {
         }
     }
     private float useArea;
+
+    private String useAreaStr;
     private int useAreaTrunc;
     private int dealAmt;
     private int floor;
