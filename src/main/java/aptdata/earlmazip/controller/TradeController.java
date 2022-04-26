@@ -120,7 +120,7 @@ public class TradeController {
     }
 
     @GetMapping("/tradelist/ByName/{regncode}/{aptName}/{ua}/{term}")
-    public String getCancelDealList(@PathVariable String regncode,
+    public String getTradeListByName(@PathVariable String regncode,
                                     @PathVariable String aptName,
                                     @PathVariable int ua,
                                     @PathVariable int term,

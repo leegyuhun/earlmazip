@@ -27,4 +27,8 @@ public class LeaseService {
     public List<AptLeaseResponseDto> getLeaseList_IncheonSigungu(String sigungu) {
         return leaseRepository.getLeaseList_IncheonSigungu(sigungu);
     }
+
+    public List<AptLeaseResponseDto> getLeaseList_ByName(String regncode, String aptName, int ua, int term) {
+        return leaseRepository.getLeaseList_ByName(regncode, aptName, ua, term);
+    }
 }

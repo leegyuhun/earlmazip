@@ -1,11 +1,15 @@
 package aptdata.earlmazip.repository;
 
 import aptdata.earlmazip.controller.dto.AptLeaseResponseDto;
+import aptdata.earlmazip.controller.dto.AptPriceResponseDto;
 import aptdata.earlmazip.domain.AptLeaseRaw;
+import aptdata.earlmazip.domain.AptPriceRaw;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,5 +44,42 @@ public class LeaseRepository {
                 .setParameter("sigunguCode", sigungucode)
                 .setMaxResults(100)
                 .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+    }
+
+    public List<AptLeaseResponseDto> getLeaseList_ByName(String regnCode, String aptName, int ua, int term) {
+        if (ua == 0) {
+            return em.createQuery(" select a from AptLeaseRaw a "
+                            + " where a.sigunguCode = :regncode "
+                            + "   and a.dealYear >= :searchYear "
+                            + "   and a.aptName = :aptname "
+                            + "   and a.monthlyRent = 0 "
+                            + " order by a.dealDate desc", AptLeaseRaw.class)
+                    .setParameter("regncode", regnCode)
+                    .setParameter("searchYear", calcYearByTerm(term))
+                    .setParameter("aptname", aptName)
+                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+        } else {
+            return em.createQuery(" select a from AptLeaseRaw a "
+                            + " where a.sigunguCode = :regncode "
+                            + "   and a.dealYear >= :searchYear "
+                            + "   and a.aptName = :aptname "
+                            + "   and a.monthlyRent = 0 "
+                            + "   and a.useAreaTrunc = :ua "
+                            + " order by a.dealDate desc", AptLeaseRaw.class)
+                    .setParameter("regncode", regnCode)
+                    .setParameter("searchYear", calcYearByTerm(term))
+                    .setParameter("aptname", aptName)
+                    .setParameter("ua", ua)
+                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+        }
+    }
+
+    private String calcYearByTerm(int term) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        int nowInt = Integer.parseInt(date.substring(0,4));
+        // 현재날짜-term = 조회 기준일자
+        return Integer.toString(nowInt - term);
     }
 }
