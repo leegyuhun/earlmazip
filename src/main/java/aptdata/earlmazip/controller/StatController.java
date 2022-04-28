@@ -44,7 +44,7 @@ public class StatController {
     @GetMapping("/stat_trade/seoul/{term}")
     public String getStatTradeList_Seoul(@PathVariable String term, Model model) {
         log.info("/stat_trade/seoul/" + term);
-        apiCallStatService.writeApiCallStat("STAT", "/stat_trade/seoul/" + term);
+        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/seoul/" + term);
         List<StatResponseDto> areas = statService.getStatTradeList_Seoul(term);
         List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
@@ -81,7 +81,7 @@ public class StatController {
         if (!sigungucode.equals("0")) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_trade/seoul/" + sigungucode + "/" + term);
-            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/seoul/" + title + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/seoul/" + title + "/" + term);
             areas = statService.getStatTradeList_BySigungu(sigungucode, term);
         } else {
             areas = new ArrayList<>();
@@ -117,7 +117,7 @@ public class StatController {
         if (!sigungucode.equals("0")) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_trade/useareaType/" + sigungucode + "/" + ua + "/" + term);
-            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/useareaType/" + sigungucode + "/" + ua + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/useareaType/" + sigungucode + "/" + ua + "/" + term);
             areas = statService.getStatTradeByUseAreaList(sigungucode,ua, term);
         } else {
             areas = new ArrayList<>();
@@ -160,7 +160,7 @@ public class StatController {
         String title = "-";
         if (!regnCode.equals("0")) {
             title = codeInfoService.getCodeName(regnCode);
-            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/ByUsearea/" + title + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT_UA", "/stat_trade/ByUsearea/" + title + "/" + term);
             listUA02 = statService.getStatTradeByUseAreaList(regnCode,"UA02", term);
             listUA03 = statService.getStatTradeByUseAreaList(regnCode,"UA03", term);
             listUA04 = statService.getStatTradeByUseAreaList(regnCode,"UA04", term);
@@ -267,7 +267,7 @@ public class StatController {
         if (!sigungucode.equals("0")) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_trade/seoul/top/" + year + "/" +  sigungucode);
-            apiCallStatService.writeApiCallStat("TOP", "/stat_trade/seoul/top/" + title);
+            apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/seoul/top/" + title);
             if (StringUtils.hasText(sigungucode)) {
                 tops = statService.getStatTradeTopSeoulByYear(year, sigungucode);
             } else {
@@ -293,7 +293,7 @@ public class StatController {
     @GetMapping("/stat_trade/gyunggi/{term}")
     public String getStatTradeGyunggi(@PathVariable String term, Model model) {
         log.info("/stat_trade/gyunggi/" + term);
-        apiCallStatService.writeApiCallStat("STAT", "/stat_trade/gyunggi/" + term);
+        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/gyunggi/" + term);
         List<StatResponseDto> areas = statService.getStatTradeList_Gyunggi(term);
         List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
@@ -322,7 +322,7 @@ public class StatController {
         if (!sidoCode.equals("0")) {
             title = codeInfoService.getCodeName(sidoCode);
             log.info("/stat_trade/gyunggiByCity/" + sidoCode + "/" + term);
-            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/gyunggiByCity/" + title+ "/" + term);
+            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/gyunggiByCity/" + title+ "/" + term);
             if (StringUtils.hasText(sidoCode)) {
                 stats = statService.getStatTradeList_ByCity(sidoCode, term);
             } else {
@@ -360,7 +360,7 @@ public class StatController {
         if (!sidocode.equals("0")) {
             title = codeInfoService.getCodeName(sidocode);
             log.info("/stat_trade/gyunggi/top/" + year + "/" + sidocode);
-            apiCallStatService.writeApiCallStat("TOP", "/stat_trade/gyunggi/top/" + title);
+            apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/gyunggi/top/" + title);
             if (StringUtils.hasText(sidocode)) {
                 tops = statService.findGyunggiTopList(year, sidocode);
             } else {
@@ -384,7 +384,7 @@ public class StatController {
         if (!sigungucode.equals("0")) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_trade/incheon/top/" + year + "/" + sigungucode);
-            apiCallStatService.writeApiCallStat("TOP", "/stat_trade/incheon/top/" + year + "/" + title);
+            apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/incheon/top/" + year + "/" + title);
             if (StringUtils.hasText(sigungucode)) {
                 tops = statService.findIncheonTopList(year, sigungucode);
             } else {
@@ -406,7 +406,7 @@ public class StatController {
         if (!sidocode.equals("0")) {
             title = codeInfoService.getCodeName(sidocode);
             log.info("/stat_trade/newHighestAndTradeCntByCity/" + sidocode);
-            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/newHighestAndTradeCntByCity/" + title);
+            apiCallStatService.writeApiCallStat("STAT_THEME", "/stat_trade/newHighestAndTradeCntByCity/" + title);
             if (StringUtils.hasText(sidocode)) {
                 stats = statService.getStatNewHighestAndTradeCount(sidocode);
             } else {
@@ -438,7 +438,7 @@ public class StatController {
     public String getStatTheme(@PathVariable String term, Model model) {
         List<StatResponseDto> stats;
         log.info("/stat_trade/theme01/" + term);
-        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/theme01/" + term);
+        apiCallStatService.writeApiCallStat("STAT_THEME", "/stat_trade/theme01/" + term);
         stats = statService.getStatTheme("001", term);
 
         List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
@@ -469,7 +469,7 @@ public class StatController {
         List<StatResponseDto> stats004;
         List<StatResponseDto> stats005;
         log.info("/stat_trade/theme02/" + term);
-        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/theme02/" + term);
+        apiCallStatService.writeApiCallStat("STAT_THEME", "/stat_trade/theme02/" + term);
         stats002 = statService.getStatTheme("002", term);
         stats003 = statService.getStatTheme("003", term);
         stats004 = statService.getStatTheme("004", term);
@@ -532,7 +532,7 @@ public class StatController {
     public String getStatTheme03(@PathVariable String areacode,
                                  @PathVariable String term, Model model) {
         log.info("/stat_trade/theme03/" + areacode + "/" + term);
-        apiCallStatService.writeApiCallStat("STAT", "/stat_trade/stheme03/" + areacode + "/" + term);
+        apiCallStatService.writeApiCallStat("STAT_THEME", "/stat_trade/stheme03/" + areacode + "/" + term);
         List<StatResponseDto> areas;
         String title = "-";
         title = codeInfoService.getCodeName(areacode);
@@ -608,7 +608,7 @@ public class StatController {
         if (!sigungucode.equals("0")) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_trade/gyunggiBySigungu/" + sigungucode + "/" + term);
-            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/gyunggiBySigungu/" + title + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/gyunggiBySigungu/" + title + "/" + term);
             areas = statService.getStatTradeList_BySigungu(sigungucode, term);
         } else {
             areas = new ArrayList<>();
@@ -637,7 +637,7 @@ public class StatController {
     @GetMapping("/stat_trade/incheon/{term}")
     public String getStatTradeList_Incheon(@PathVariable String term, Model model) {
         log.info("/stat_trade/incheon/" + term);
-        apiCallStatService.writeApiCallStat("STAT", "/stat_trade/incheon/" + term);
+        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/incheon/" + term);
         List<StatResponseDto> areas = statService.getStatTradeList_Incheon(term);
         List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
@@ -668,7 +668,7 @@ public class StatController {
         if (!sigungucode.equals("0")) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_trade/incheonBySigungu/" + sigungucode + "/" + term);
-            apiCallStatService.writeApiCallStat("STAT", "/stat_trade/incheonBySigungu/" + title + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/incheonBySigungu/" + title + "/" + term);
             areas = statService.getStatTradeList_BySigungu(sigungucode, term);
         } else {
             areas = new ArrayList<>();

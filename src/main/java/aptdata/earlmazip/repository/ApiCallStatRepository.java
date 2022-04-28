@@ -44,14 +44,23 @@ public class ApiCallStatRepository {
         }
     }
 
-    public List<ApiCallStat> LoadTodayApiCallList() {
+    public List<ApiCallStat> LoadTodayApiCallList(String gubn) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         String date = simpleDateFormat.format(new Date());
-
-        return em.createQuery("select a from ApiCallStat a "
-                        + " where a.callDate = :date "
-                        + " order by a.cnt desc", ApiCallStat.class)
-                .setParameter("date", date)
-                .getResultList();
+        if (gubn.equals("TOTAL")) {
+            return em.createQuery("select a from ApiCallStat a "
+                            + " where a.callDate = :date "
+                            + " order by a.cnt desc", ApiCallStat.class)
+                    .setParameter("date", date)
+                    .getResultList();
+        } else {
+            return em.createQuery("select a from ApiCallStat a "
+                            + " where a.callDate = :date "
+                            + "   and a.apiGubn = :gubn "
+                            + " order by a.cnt desc", ApiCallStat.class)
+                    .setParameter("gubn", gubn)
+                    .setParameter("date", date)
+                    .getResultList();
+        }
     }
 }

@@ -20,18 +20,6 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
-        <div>
-            <a>[기간설정]&nbsp</a>
-            <a href="/stat_etc/population/5">5년&nbsp</a>
-            <b>/&nbsp</b>
-            <a href="/stat_etc/population/10">10년&nbsp</a>
-            <b>/&nbsp</b>
-            <a href="/stat_etc/population/15">15년&nbsp</a>
-            <b>/&nbsp</b>
-            <a href="/stat_etc/population/30">30년&nbsp</a>
-            <b>/&nbsp</b>
-            <a href="/stat_etc/population/50">50년&nbsp</a>
-        </div>
         <p>
             <canvas id="myChart"></canvas>
         </p>
@@ -42,36 +30,37 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type = "text/javascript" th:inline="javascript">
-  const population =  /*[[ ${population.toArray()} ]]*/;
-  const agingPopulation =  /*[[ ${agingPopulation.toArray()} ]]*/;
-  const birthRate =  /*[[ ${birthRate.toArray()} ]]*/;
+  const halfIncomes =  /*[[ ${halfIncomes.toArray()} ]]*/;
+  const avgIncomes =  /*[[ ${avgIncomes.toArray()} ]]*/;
+  const topIncomes =  /*[[ ${topIncomes.toArray()} ]]*/;
   const labels =  /*[[ ${dates.toArray()} ]]*/;
 
   const data = {
     labels: labels,
     datasets: [{
       type: 'line',
-      label: '추계인구(만)',
+      label: '중위소득',
       yAxisID: 'y-line1',
       backgroundColor: 'rgb(255, 99, 132)',
       borderColor: 'rgb(255, 99, 132)',
       pointRadius:1,
-      data: population
+      data: halfIncomes
       },{
       type: 'line',
-      label: '합계출산율',
+      label: '평균소득',
       yAxisID: 'y-line2',
       backgroundColor: 'rgb(95,67,175)',
       borderColor: 'rgb(95,67,175)',
       pointRadius:1,
-      data: birthRate
+      data: avgIncomes
       },{
-        type: 'bar',
-        label: '고령인구비율(65~)',
-        yAxisID: 'y-bar',
+        type: 'line',
+        label: '5분위소득',
+        yAxisID: 'y-line3',
         backgroundColor: 'rgb(54, 162, 235)',
-        borderColor: 'rgb(255, 99, 132)',
-        data: agingPopulation
+        borderColor: 'rgb(54, 162, 235)',
+        pointRadius:1,
+        data: topIncomes
       }
     ]
   };
@@ -81,43 +70,47 @@
     options: {
         scales:{
             'y-line1':{
-                position: 'left',
-<!--                suggestedMin: 0,-->
+                position: 'right',
+                suggestedMin: 0,
+                suggestedMax: 10000,
                 ticks:{
+                    display: false,
 				    color: 'rgb(255, 99, 132)'
 				},
                 title: {
-                    display: true,
-                    text: '추계인구'
+                    display: false,
+                    text: '중위소득'
                 }
             },
             'y-line2':{
                 position: 'right',
                 suggestedMin: 0,
+                suggestedMax: 10000,
                 grid:{
                     display: false
                 },
                 ticks:{
+                    display: false,
 				    color: 'rgb(95,67,175)'
 				},
                 title: {
-                    display: true,
-                    text: '합계출산율'
+                    display: false,
+                    text: '평균소득'
                 }
             },
-            'y-bar':{
+            'y-line3':{
                 position: 'right',
                 suggestedMin: 0,
-                suggestedMax: 50,
+                suggestedMax: 10000,
                 grid:{
                     display: false
                 },
                 ticks:{
-				    color: 'rgb(54, 162, 235)'
+				    color: 'rgb(0, 0, 0)'
 				},
                 title: {
-                    display: true,
-                    text: '고령인구비율(65~)'
+                    display: false,
+                    text: '5분위소득'
                 }
             }
         }

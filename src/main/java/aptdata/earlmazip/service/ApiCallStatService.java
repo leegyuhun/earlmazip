@@ -20,8 +20,8 @@ public class ApiCallStatService {
         apiCallStatRepository.WriteApiCallStat(gubn, name);
     }
 
-    public List<ApiCallStat> LoadTodayApiCallList() {
-        return apiCallStatRepository.LoadTodayApiCallList();
+    public List<ApiCallStat> LoadTodayApiCallList(String gubn) {
+        return apiCallStatRepository.LoadTodayApiCallList(gubn);
     }
 
 }

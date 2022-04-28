@@ -32,7 +32,7 @@ public class TradeController {
         if (!sigungucode.equals("0")) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/tradelist/seoul/" + sigungucode);
-            apiCallStatService.writeApiCallStat("TRADE", "/tradelist/seoul/" + title);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/seoul/" + title);
             if (StringUtils.hasText(sigungucode)) {
                 trads = tradeService.getTradeList_SeoulSigungu(sigungucode);
             } else {
@@ -55,7 +55,7 @@ public class TradeController {
         if (!sidocode.equals("0")) {
             title = codeInfoService.getCodeName(sidocode);
             log.info("/tradelist/gyunggi/" + sidocode);
-            apiCallStatService.writeApiCallStat("TRADE", "/tradelist/gyunggi/" + title);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/gyunggi/" + title);
             if (StringUtils.hasText(sidocode)) {
                 trads = tradeService.getTradeList_GyunggiSido(sidocode);
             } else {
@@ -78,7 +78,7 @@ public class TradeController {
         if (!sigungucode.equals("0")) {
             log.info("/tradelist/incheon/" + sigungucode);
             title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("TRADE", "/tradelist/incheon/" + title);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/incheon/" + title);
 
             if (StringUtils.hasText(sigungucode)) {
                 trads = tradeService.getTradeList_Incheon(sigungucode);
@@ -102,7 +102,7 @@ public class TradeController {
         if (!regncode.equals("0")) {
             log.info("/tradelist/cancelDeal/" + regncode);
             title = codeInfoService.getCodeName(regncode);
-            apiCallStatService.writeApiCallStat("TRADE", "/tradelist/cancelDeal/" + title);
+            apiCallStatService.writeApiCallStat("TRADE_CANCEL", "/tradelist/cancelDeal/" + title);
 
             if (StringUtils.hasText(regncode)) {
                 trads = tradeService.getCancelDealList(regncode);
@@ -128,7 +128,7 @@ public class TradeController {
         List<AptPriceResponseDto> trads;
         if (!regncode.equals("0")) {
             log.info("/tradelist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
-            apiCallStatService.writeApiCallStat("TRADE", "/tradelist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
+            apiCallStatService.writeApiCallStat("TRADE_LIST_NAME", "/tradelist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
 
             if (StringUtils.hasText(regncode)) {
                 trads = tradeService.getAptTradeList_ByName(regncode, aptName, ua, term);

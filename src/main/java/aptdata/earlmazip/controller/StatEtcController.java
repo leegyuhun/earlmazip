@@ -51,4 +51,32 @@ public class StatEtcController {
 
         return "stat_etc/statPopulation";
     }
+
+    @GetMapping("/stat_etc/income")
+    public String getStatEtcIncome(Model model) {
+        apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/income");
+
+        // 중위소득
+        List<EcosDataResponseDto> halfIncome = ecosDataService.getEcosData("080Y038", "I38A", "30", "15");
+
+        // 평균소득
+        List<EcosDataResponseDto> avgIncome = ecosDataService.getEcosData("080Y038", "I38A", "40", "15");
+
+        // 5분위
+        List<EcosDataResponseDto> topIncome = ecosDataService.getEcosData("080Y038", "I38A", "405", "15");
+        List<String> dates = halfIncome.stream().map(o->new String(o.getDate())).collect(Collectors.toList());
+        List<String> halfIncomes = halfIncome.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+        List<String> avgIncomes = avgIncome.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+        List<String> topIncomes = topIncome.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+
+        String title = "균등화 중위/평균/5분위 소득";
+
+        model.addAttribute("halfIncomes", halfIncomes);
+        model.addAttribute("avgIncomes", avgIncomes);
+        model.addAttribute("topIncomes", topIncomes);
+        model.addAttribute("dates", dates);
+        model.addAttribute("title", title);
+
+        return "stat_etc/statIncome";
+    }
 }

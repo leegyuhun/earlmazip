@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -21,11 +22,11 @@ public class ApiCallStatController {
 
     private final ApiCallStatService apiCallStatService;
 
-    @GetMapping("/admin/apicallstat")
-    public String LoadTodayApiCallList(Model model) {
+    @GetMapping("/admin/apicallstat/{gubn}")
+    public String LoadTodayApiCallList(@PathVariable String gubn, Model model) {
         List<ApiCallStat> apiCalls;
 
-        apiCalls = apiCallStatService.LoadTodayApiCallList();
+        apiCalls = apiCallStatService.LoadTodayApiCallList(gubn);
 
         List<String> names = apiCalls.stream().map(o->new String(o.getApiName())).collect(Collectors.toList());
         List<Integer> cnts = apiCalls.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());

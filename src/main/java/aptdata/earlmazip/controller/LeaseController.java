@@ -34,7 +34,7 @@ public class LeaseController {
         if (!sigungucode.equals("0")) {
             log.info("/leaselist/seoul/" + sigungucode);
             title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("LEASE", "/leaselist/seoul/" + title);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/seoul/" + title);
             if (StringUtils.hasText(sigungucode)) {
                 trads = leaseService.getLeaseList_SeoulSigungu(sigungucode);
             } else {
@@ -57,7 +57,7 @@ public class LeaseController {
         if (!sidocode.equals("0")) {
             log.info("/leaselist/gyunggi/" + sidocode);
             title = codeInfoService.getCodeName(sidocode);
-            apiCallStatService.writeApiCallStat("LEASE", "/leaselist/gyunggi/" + title);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/gyunggi/" + title);
             if (StringUtils.hasText(sidocode)) {
                 trads = leaseService.getLeaseList_GyunggiSido(sidocode);
             } else {
@@ -80,7 +80,7 @@ public class LeaseController {
         if (!sigungucode.equals("0")) {
             log.info("/leaselist/incheon/" + sigungucode);
             title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("LEASE", "/leaselist/incheon/" + title);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/incheon/" + title);
             if (StringUtils.hasText(sigungucode)) {
                 trads = leaseService.getLeaseList_IncheonSigungu(sigungucode);
             } else {
@@ -105,7 +105,7 @@ public class LeaseController {
         List<AptLeaseResponseDto> trads;
         if (!regncode.equals("0")) {
             log.info("/leaselist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
-            apiCallStatService.writeApiCallStat("LEASE", "/leaselist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
+            apiCallStatService.writeApiCallStat("LEASE_LIST_NAME", "/leaselist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
             if (StringUtils.hasText(regncode)) {
                 trads = leaseService.getLeaseList_ByName(regncode, aptName, ua, term);
             } else {
