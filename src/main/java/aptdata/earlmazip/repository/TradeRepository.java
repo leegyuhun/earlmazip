@@ -2,6 +2,7 @@ package aptdata.earlmazip.repository;
 
 import aptdata.earlmazip.controller.dto.AptPriceResponseDto;
 import aptdata.earlmazip.domain.AptPriceRaw;
+import aptdata.earlmazip.domain.CancelDealData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -55,18 +56,18 @@ public class TradeRepository {
 
     public List<AptPriceResponseDto> getCancelDealList(String regncode) {
         if (regncode.length() == 5) {
-            return em.createQuery(" select a from AptPriceRaw a "
+            return em.createQuery(" select a from CancelDealData a "
                             + " where  a.dealYear >= 2021 and a.sigunguCode = :regncode "
                             + "   and a.cnclDealDate <> '' "
-                            + " order by a.cnclDealDate desc", AptPriceRaw.class)
+                            + " order by a.cnclDealDate desc", CancelDealData.class)
                     .setParameter("regncode", regncode)
                     .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
 
         } else {
-            return em.createQuery(" select a from AptPriceRaw a "
+            return em.createQuery(" select a from CancelDealData a "
                             + " where  a.dealYear >= 2021 and a.sidoCode = :regncode "
                             + "   and a.cnclDealDate <> '' "
-                            + " order by a.cnclDealDate desc", AptPriceRaw.class)
+                            + " order by a.cnclDealDate desc", CancelDealData.class)
                     .setParameter("regncode", regncode)
                     .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
         }

@@ -1,6 +1,7 @@
 package aptdata.earlmazip.controller.dto;
 
 import aptdata.earlmazip.domain.AptPriceRaw;
+import aptdata.earlmazip.domain.CancelDealData;
 import lombok.Getter;
 
 import java.text.DecimalFormat;
@@ -46,6 +47,23 @@ public class AptPriceResponseDto {
         this.aptName = entity.getAptName();
         this.useArea = entity.getUseArea();
         this.useAreaTrunc = entity.getUseAreaTrunc();
+        this.dealAmt = entity.getDealAmt();
+        this.floor = entity.getFloor();
+        this.buildYear = entity.getBuildYear();
+        this.landDong = entity.getLandDong();
+        this.cnclDealType = entity.getCnclDealType();
+        this.cnclDealDate = entity.getCnclDealDate();
+        this.dealType = entity.getDealType();
+        this.dealLoc = entity.getDealLoc();
+        this.newHighestPrice = entity.getNewHighestPrice();
+        if (entity.getNewHighestPrice() == 0) { this.newHighest = "-"; }
+        else { this.newHighest = "O"; }
+    }
+
+    public AptPriceResponseDto(CancelDealData entity) {
+        this.dealDate = entity.getDealDate();
+        this.aptName = entity.getAptName();
+        this.useArea = entity.getUseArea();
         this.dealAmt = entity.getDealAmt();
         this.floor = entity.getFloor();
         this.buildYear = entity.getBuildYear();
