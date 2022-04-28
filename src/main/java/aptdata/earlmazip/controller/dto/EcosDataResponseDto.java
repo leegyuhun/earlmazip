@@ -16,7 +16,11 @@ public class EcosDataResponseDto {
 
     private String date;
     public String getDate() {
-        return date.substring(0, 4) + "-" + date.substring(4, 6);
+        if (date.length() == 6) {
+            return date.substring(0, 4) + "-" + date.substring(4, 6);
+        } else {
+            return date;
+        }
     }
     private String dataValue;
     private float value;
