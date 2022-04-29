@@ -3,13 +3,16 @@ package aptdata.earlmazip.controller;
 import aptdata.earlmazip.controller.dto.EcosDataResponseDto;
 import aptdata.earlmazip.service.ApiCallStatService;
 import aptdata.earlmazip.service.EcosDataService;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,7 +71,11 @@ public class StatEtcController {
         List<String> halfIncomes = halfIncome.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
         List<String> avgIncomes = avgIncome.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
         List<String> topIncomes = topIncome.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
-
+        List<ItemDto> list = new ArrayList<>();
+        for (int i = dates.size() - 1; i > -1; i--) {
+            ItemDto item = new ItemDto(dates.get(i), halfIncomes.get(i), avgIncomes.get(i), topIncomes.get(i));
+            list.add(item);
+        }
         String title = "균등화 중위/평균/5분위 소득";
 
         model.addAttribute("halfIncomes", halfIncomes);
@@ -76,7 +83,24 @@ public class StatEtcController {
         model.addAttribute("topIncomes", topIncomes);
         model.addAttribute("dates", dates);
         model.addAttribute("title", title);
+        model.addAttribute("list", list);
 
         return "stat_etc/statIncome";
+    }
+
+    @Data
+    static class ItemDto {
+
+        private String date;
+        private String halfIncome;
+        private String avgIncome;
+        private String topIncome;
+
+        public ItemDto(String date, String half, String avg, String top) {
+            this.date = date;
+            this.halfIncome = half;
+            this.avgIncome = avg;
+            this.topIncome = top;
+        }
     }
 }

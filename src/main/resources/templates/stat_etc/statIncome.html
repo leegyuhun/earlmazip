@@ -23,6 +23,24 @@
         <p>
             <canvas id="myChart"></canvas>
         </p>
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-dark" style="font-size:12px;" align="center">
+                <th>년도</th>
+                <th>중위소득</th>
+                <th>평균소득</th>
+                <th>5분위소득</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="font-size:12px;" th:each="list : ${list}">
+                <td align="center" th:text="${list.date}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.halfIncome,1,'COMMA')}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.avgIncome,1,'COMMA')}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.topIncome,1,'COMMA')}"></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 
     <div th:replace="fragments/footer :: footer" />
