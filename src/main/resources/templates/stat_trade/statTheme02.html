@@ -37,6 +37,29 @@
         </p>
     </div>
 
+    <div>
+        <table class="table table-striped">
+            <thead class="table-dark">
+            <tr style="font-size:12px;" align="center">
+                <th>년-월</th>
+                <th>강남3구</th>
+                <th>마용성</th>
+                <th>노도강</th>
+                <th>금관구</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="font-size:12px;" th:each="list : ${list}">
+                <td align="center" th:text="${list.date}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.item1,1,'COMMA')}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.item2,1,'COMMA')}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.item3,1,'COMMA')}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.item4,1,'COMMA')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 </body>

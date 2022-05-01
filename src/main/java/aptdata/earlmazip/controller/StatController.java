@@ -11,6 +11,7 @@ import aptdata.earlmazip.service.ApiCallStatService;
 import aptdata.earlmazip.service.CodeInfoService;
 import aptdata.earlmazip.service.EcosDataService;
 import aptdata.earlmazip.service.StatService;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -490,7 +491,11 @@ public class StatController {
         List<Integer> tradcnt003 = stats003.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
         List<Integer> tradcnt004 = stats004.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
         List<Integer> tradcnt005 = stats005.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-
+        List<theme02Dto> list = new ArrayList<>();
+        for (int i = 0; i < dates.size() - 1; i++) {
+            theme02Dto item = new theme02Dto(dates.get(i), avgPrices002.get(i), avgPrices003.get(i), avgPrices004.get(i), avgPrices005.get(i));
+            list.add(item);
+        }
         Collections.reverse(dates);
         Collections.reverse(avgPrices002);
         Collections.reverse(avgPrices003);
@@ -508,6 +513,7 @@ public class StatController {
         Collections.reverse(tradcnt005);
 
         model.addAttribute("dates", dates);
+        model.addAttribute("list", list);
         model.addAttribute("avgPrices002", avgPrices002);
         model.addAttribute("avgPrices003", avgPrices003);
         model.addAttribute("avgPrices004", avgPrices004);
@@ -526,6 +532,23 @@ public class StatController {
 //        model.addAttribute("list", stats);
 
         return "stat_trade/statTheme02";
+    }
+
+    @Data
+    static class theme02Dto{
+        private String date;
+        private int item1;
+        private int item2;
+        private int item3;
+        private int item4;
+
+        public theme02Dto(String date, int item1, int item2, int item3, int item4) {
+            this.date = date;
+            this.item1 = item1;
+            this.item2 = item2;
+            this.item3 = item3;
+            this.item4 = item4;
+        }
     }
 
     @GetMapping("/stat_trade/theme03/{areacode}/{term}")

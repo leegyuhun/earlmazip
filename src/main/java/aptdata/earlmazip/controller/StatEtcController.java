@@ -67,13 +67,17 @@ public class StatEtcController {
 
         // 5분위
         List<EcosDataResponseDto> topIncome = ecosDataService.getEcosData("080Y038", "I38A", "405", "15");
+
+        // 1분위
+        List<EcosDataResponseDto> botIncome = ecosDataService.getEcosData("080Y038", "I38A", "401", "15");
         List<String> dates = halfIncome.stream().map(o->new String(o.getDate())).collect(Collectors.toList());
         List<String> halfIncomes = halfIncome.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
         List<String> avgIncomes = avgIncome.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
         List<String> topIncomes = topIncome.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+        List<String> botIncomes = botIncome.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
         List<ItemDto> list = new ArrayList<>();
         for (int i = dates.size() - 1; i > -1; i--) {
-            ItemDto item = new ItemDto(dates.get(i), halfIncomes.get(i), avgIncomes.get(i), topIncomes.get(i));
+            ItemDto item = new ItemDto(dates.get(i), halfIncomes.get(i), avgIncomes.get(i), topIncomes.get(i), botIncomes.get(i));
             list.add(item);
         }
         String title = "균등화 중위/평균/5분위 소득";
@@ -81,6 +85,7 @@ public class StatEtcController {
         model.addAttribute("halfIncomes", halfIncomes);
         model.addAttribute("avgIncomes", avgIncomes);
         model.addAttribute("topIncomes", topIncomes);
+        model.addAttribute("botIncomes", botIncomes);
         model.addAttribute("dates", dates);
         model.addAttribute("title", title);
         model.addAttribute("list", list);
@@ -95,12 +100,14 @@ public class StatEtcController {
         private String halfIncome;
         private String avgIncome;
         private String topIncome;
+        private String botIncome;
 
-        public ItemDto(String date, String half, String avg, String top) {
+        public ItemDto(String date, String half, String avg, String top, String bot) {
             this.date = date;
             this.halfIncome = half;
             this.avgIncome = avg;
             this.topIncome = top;
+            this.botIncome = bot;
         }
     }
 }

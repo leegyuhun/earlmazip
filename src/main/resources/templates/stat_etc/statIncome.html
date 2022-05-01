@@ -27,6 +27,7 @@
             <thead>
             <tr class="table-dark" style="font-size:12px;" align="center">
                 <th>년도</th>
+                <th>1분위소득</th>
                 <th>중위소득</th>
                 <th>평균소득</th>
                 <th>5분위소득</th>
@@ -35,12 +36,16 @@
             <tbody>
             <tr style="font-size:12px;" th:each="list : ${list}">
                 <td align="center" th:text="${list.date}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.botIncome,1,'COMMA')}"></td>
                 <td align="right" th:text="${#numbers.formatInteger(list.halfIncome,1,'COMMA')}"></td>
                 <td align="right" th:text="${#numbers.formatInteger(list.avgIncome,1,'COMMA')}"></td>
                 <td align="right" th:text="${#numbers.formatInteger(list.topIncome,1,'COMMA')}"></td>
             </tr>
             </tbody>
         </table>
+        <div>
+            <h7>※ 출처: 한국은행 경제통계시스템 (ecos.bok.or.kr)</h7>
+        </div>
     </div>
 
     <div th:replace="fragments/footer :: footer" />
@@ -51,11 +56,20 @@
   const halfIncomes =  /*[[ ${halfIncomes.toArray()} ]]*/;
   const avgIncomes =  /*[[ ${avgIncomes.toArray()} ]]*/;
   const topIncomes =  /*[[ ${topIncomes.toArray()} ]]*/;
+  const botIncomes =  /*[[ ${botIncomes.toArray()} ]]*/;
   const labels =  /*[[ ${dates.toArray()} ]]*/;
 
   const data = {
     labels: labels,
     datasets: [{
+      type: 'line',
+      label: '1분위',
+      yAxisID: 'y-line4',
+      backgroundColor: 'rgb(167,215,113)',
+      borderColor: 'rgb(167,215,113)',
+      pointRadius:1,
+      data: botIncomes
+      },{
       type: 'line',
       label: '중위소득',
       yAxisID: 'y-line1',
@@ -129,6 +143,22 @@
                 title: {
                     display: false,
                     text: '5분위소득'
+                }
+            },
+            'y-line4':{
+                position: 'right',
+                suggestedMin: 0,
+                suggestedMax: 10000,
+                grid:{
+                    display: false
+                },
+                ticks:{
+                    display: false,
+				    color: 'rgb(0, 0, 0)'
+				},
+                title: {
+                    display: false,
+                    text: '1분위소득'
                 }
             }
         }
