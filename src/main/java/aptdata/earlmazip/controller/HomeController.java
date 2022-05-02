@@ -19,7 +19,7 @@ public class HomeController {
     @RequestMapping("/")
     public String home(Model modal) {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
-        apiCallStatService.writeApiCallStat("MENU", "Home");
+//        apiCallStatService.writeApiCallStat("MENU", "Home");
         modal.addAttribute("udt", udt);
         return "home";
     }
