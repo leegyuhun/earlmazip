@@ -1,9 +1,6 @@
 package aptdata.earlmazip.controller.dto;
 
-import aptdata.earlmazip.domain.StatAreaYYMM;
-import aptdata.earlmazip.domain.StatSidoLease;
-import aptdata.earlmazip.domain.StatSidoYYMM;
-import aptdata.earlmazip.domain.StatSigunguLease;
+import aptdata.earlmazip.domain.*;
 import lombok.Getter;
 
 @Getter
@@ -22,6 +19,9 @@ public class StatLeaseResponseDto {
     private int minMonthlyrent;
     private int avgMonthlyrent;
     private int maxMonthlyrent;
+
+    private int totDeposit;
+    private int totMonthlyrent;
 
     private int cnt;
 
@@ -53,5 +53,23 @@ public class StatLeaseResponseDto {
         this.avgMonthlyrent = entity.getAvgMonthlyrent();
         this.maxMonthlyrent = entity.getMaxMonthlyrent();
         this.cnt = entity.getCnt();
+    }
+
+    public StatLeaseResponseDto(StatSigunguLease84 entity) {
+        this.sidoName = entity.getSigunguName();
+        this.dealYear = entity.getDealYear();
+        this.dealYYMM = entity.getDealYYMM();
+        this.leaseType = entity.getLeaseType();
+        this.minDeposit = entity.getMinDeposit();
+        this.avgDeposit = entity.getAvgDeposit();
+        this.maxDeposit = entity.getMaxDeposit();
+
+        this.minMonthlyrent = entity.getMinMonthlyrent();
+        this.avgMonthlyrent = entity.getAvgMonthlyrent();
+        this.maxMonthlyrent = entity.getMaxMonthlyrent();
+        this.cnt = entity.getCnt();
+
+        this.totDeposit = entity.getTotDeposit();
+        this.totMonthlyrent = entity.getTotMonthlyrent();
     }
 }

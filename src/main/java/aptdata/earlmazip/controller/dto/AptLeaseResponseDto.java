@@ -13,13 +13,13 @@ public class AptLeaseResponseDto {
         return dealDate.substring(2,4) + "." + dealDate.substring(4,6) + "." + dealDate.substring(6,8);
     }
     private String aptName;
-    public String getAptName() {
-        if (this.aptName.length() > 8) {
-            return this.aptName.substring(0, 8) + "..";
-        } else {
-            return this.aptName;
-        }
-    }
+//    public String getAptName() {
+//        if (this.aptName.length() > 8) {
+//            return this.aptName.substring(0, 8) + "..";
+//        } else {
+//            return this.aptName;
+//        }
+//    }
     private float useArea;
     private int useAreaTrunc;
     private int befDeposit;

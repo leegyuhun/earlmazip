@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+<div class="container">
+
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+
+    <div>
+        <p>테마</p>
+        <p>
+            <a class="btn btn-outline-primary" href="/stat_trade/newHighestAndTradeCntByCity/0">신고가</a>
+            <a class="btn btn-outline-primary" href="/stat_trade/theme01/1">강남3구(15억~)</a>
+            <a class="btn btn-outline-primary" href="/tradelist/cancelDeal/0">취소건(2021~)</a>
+            </br>
+            </br>
+            <a class="btn btn-outline-primary" href="/stat_trade/theme02/1">서울 4구역 통계</a>
+            <a class="btn btn-outline-primary" href="/stat_trade/ByUsearea/11/3">전용면적별</a>
+            <a class="btn btn-outline-primary" href="/stat_trade/theme03/11/14">가계대출</a>
+<!--            <a class="btn btn-outline-primary" href="/stat_trade/statTheme02">건축년도별</a>-->
+        </p>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+
+</div> <!-- /container -->
+<script>
+</script>
+</body>
+</html>

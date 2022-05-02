@@ -16,16 +16,20 @@ public class StatLeaseService {
 
     private final StatLeaseRepository statRepository;
 
-    public List<StatLeaseResponseDto> statLeaseSido(String sidoCode) {
-        return statRepository.statLeaseSido(sidoCode);
+    public List<StatLeaseResponseDto> getStatLeaseList_Gyunggi(String sidoCode, int term) {
+        return statRepository.getStatLeaseList_Gyunggi(sidoCode, term);
     }
 
     public List<StatLeaseResponseDto> statLeaseMonthlySido(String sidoCode) {
         return statRepository.statLeaseMonthlySido(sidoCode);
     }
 
-    public List<StatLeaseResponseDto> getStatLeaseSigungu(String sigunguCode) {
-        return statRepository.getStatLeaseSigungu(sigunguCode);
+    public List<StatLeaseResponseDto> getStatLeaseList_Seoul(String sigunguCode, int term) {
+        return statRepository.getStatLeaseList_Seoul(sigunguCode, term);
+    }
+
+    public List<StatLeaseResponseDto> getStatLeaseList_Seoul84(String sigunguCode, int term) {
+        return statRepository.getStatLeaseList_Seoul84(sigunguCode, term);
     }
 
     public List<StatLeaseResponseDto> getStatLeaseMonthlySigungu(String sigunguCode) {

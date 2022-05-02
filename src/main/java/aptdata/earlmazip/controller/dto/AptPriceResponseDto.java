@@ -13,13 +13,13 @@ public class AptPriceResponseDto {
     }
     private String dealDate;
     private String aptName;
-    public String getAptName() {
-        if (this.aptName.length() > 8) {
-            return this.aptName.substring(0, 8) + "..";
-        } else {
-            return this.aptName;
-        }
-    }
+//    public String getAptName() {
+//        if (this.aptName.length() > 8) {
+//            return this.aptName.substring(0, 8) + "..";
+//        } else {
+//            return this.aptName;
+//        }
+//    }
     private float useArea;
 
     private String useAreaStr;

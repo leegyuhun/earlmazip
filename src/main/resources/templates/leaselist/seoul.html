@@ -41,7 +41,7 @@
             <a href="/leaselist/seoul/11140">중구</a>
         </div>
         <p>
-            <h4 align="center" th:text="${title}"></h4>
+            <h5 align="center" th:text="${title}"></h5>
         </p>
         <div>
             <ins class="kakao_ad_area" style="display:none;"
@@ -55,6 +55,8 @@
                 <tr style="font-size:12px;" align="center">
                     <th>일자</th>
                     <th>법정동</th>
+                    <th>계약구분</th>
+                    <th>계약기간</th>
                     <th>아파트명</th>
                     <th>전용면적(m2)</th>
                     <th>보증금</th>
@@ -66,6 +68,8 @@
                 <tr style="font-size:12px;" th:each="list : ${list}">
                     <td align="center" th:text="${list.dealDate}"></td>
                     <td align="center" th:text="${list.landDong}"></td>
+                    <td align="center" th:text="${list.dealType}"></td>
+                    <td align="center" th:text="${list.dealTerm}"></td>
                     <td align="left" th:text="${list.aptName}"></td>
                     <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,1,'POINT')}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.deposit,1,'COMMA')}"></td>
