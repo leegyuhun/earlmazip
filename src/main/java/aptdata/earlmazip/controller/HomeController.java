@@ -19,6 +19,19 @@ public class HomeController {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
         modal.addAttribute("udt", udt);
         return "home";
+    }
 
+    @RequestMapping("/home_lease")
+    public String home_lease(Model modal) {
+        String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        modal.addAttribute("udt", udt);
+        return "home_lease";
+    }
+
+    @RequestMapping("/home_etc")
+    public String home_etc(Model modal) {
+        String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        modal.addAttribute("udt", udt);
+        return "home_etc";
     }
 }

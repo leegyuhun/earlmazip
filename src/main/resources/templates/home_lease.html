@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+<div class="container">
+
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+
+    <div>
+        <p>전/월세 최근 100</p>
+        <p>
+            <a class="btn btn-secondary" href="/leaselist/seoul/0">서울시</a>
+            <a class="btn btn-secondary" href="/leaselist/gyunggi/0">경기도</a>
+            <a class="btn btn-secondary" href="/leaselist/incheon/0">인천</a>
+        </p>
+
+        <p>수도권 전세 가격 통계 2016-2022 </p>
+        <p>
+            <a class="btn btn-success" href="/stat_lease/sido/11">시별</a>
+            <a class="btn btn-success" href="/stat_lease/seoul/sigungu/0">서울 구별</a>
+        </p>
+
+        <p>수도권 월세 가격 통계 2016-2022 </p>
+        <p>
+            <a class="btn btn-outline-success" href="/stat_lease_monthly/sido/11">시별</a>
+            <a class="btn btn-outline-success" href="/stat_lease_monthly/seoul/sigungu/0">서울 구별</a>
+        </p>
+
+        <p>수도권 전세->월세화 통계 2016-2022 </p>
+        <p>
+            <a class="btn btn-warning" href="/lease_analysis/seoul/11">서울시</a>
+            <a class="btn btn-warning" href="/lease_analysis/gyunggi/41">경기도</a>
+            <a class="btn btn-warning" href="/lease_analysis/incheon/28">인천시</a>
+        </p>
+<!--        <p class="lead">부동산 월세 가격 통계</p>-->
+<!--        <p>-->
+<!--            <a class="btn btn-success" href="/stat_lease_monthly/sido/11">수도권<br>통계</a>-->
+<!--        </p>-->
+
+<!--        <p>기타</p>-->
+<!--        <p>-->
+<!--            <a class="btn btn-outline-info" href="/stat_etc/population/10">인구통계</a>-->
+<!--            <a class="btn btn-outline-info" href="/stat_etc/income">소득통계</a>-->
+<!--        </p>-->
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+
+</div> <!-- /container -->
+<script>
+</script>
+</body>
+</html>

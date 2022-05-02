@@ -40,7 +40,13 @@ public class StatEtcController {
         List<String> birthRates = birthRate.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
         List<String> agingPopulations = agingPopulation.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
         List<String> populations = population.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
-
+        birthRates.add("0");
+        List<PopulationDto> list = new ArrayList<>();
+        for (int i = dates.size() - 1; i > -1; i--) {
+            PopulationDto item = new PopulationDto(dates.get(i), populations.get(i), agingPopulations.get(i), birthRates.get(i));
+            list.add(item);
+        }
+        birthRates.remove(birthRates.size()-1);
         String title = "-";
         if (population.size() > 0) {
             title = population.get(0).getStatName();
@@ -51,6 +57,7 @@ public class StatEtcController {
         model.addAttribute("birthRate", birthRates);
         model.addAttribute("dates", dates);
         model.addAttribute("title", title);
+        model.addAttribute("list", list);
 
         return "stat_etc/statPopulation";
     }
@@ -93,6 +100,21 @@ public class StatEtcController {
         return "stat_etc/statIncome";
     }
 
+    @Data
+    static class PopulationDto {
+
+        private String date;
+        private String population;
+        private String agingPopulation;
+        private String birthRate;
+
+        public PopulationDto(String date, String population, String agingPopulation, String birthRate) {
+            this.date = date;
+            this.population = population;
+            this.agingPopulation = agingPopulation;
+            this.birthRate = birthRate;
+        }
+    }
     @Data
     static class ItemDto {
 
