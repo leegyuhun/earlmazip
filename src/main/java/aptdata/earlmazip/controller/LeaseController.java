@@ -44,10 +44,56 @@ public class LeaseController {
             trads = new ArrayList<>();
         }
 
-        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("title",  "[ "+ title + " - 최근 전세]");
         model.addAttribute("list", trads);
 
         return "leaselist/seoul";
+    }
+
+    @GetMapping("/leaselist/renewal/seoul/{sigungucode}")
+    public String getLeaseRenewalList_Seoul(@PathVariable String sigungucode, Model model) {
+        String title = "-";
+        List<AptLeaseResponseDto> trads;
+        if (!sigungucode.equals("0")) {
+            log.info("/leaselist/renewal/seoul/" + sigungucode);
+            title = codeInfoService.getCodeName(sigungucode);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/renewal/seoul/" + title);
+            if (StringUtils.hasText(sigungucode)) {
+                trads = leaseService.getLeaseRenewalList_SeoulSigungu(sigungucode);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else {
+            trads = new ArrayList<>();
+        }
+
+        model.addAttribute("title",  "[ "+ title + " - 최근 갱신내역 ]");
+        model.addAttribute("list", trads);
+
+        return "leaselist/seoulRenewal";
+    }
+
+    @GetMapping("/leaselist/monthly/seoul/{sigungucode}")
+    public String getLeaseMonthlyList_Seoul(@PathVariable String sigungucode, Model model) {
+        String title = "-";
+        List<AptLeaseResponseDto> trads;
+        if (!sigungucode.equals("0")) {
+            log.info("/leaselist/monthly/seoul/" + sigungucode);
+            title = codeInfoService.getCodeName(sigungucode);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/monthly/seoul/" + title);
+            if (StringUtils.hasText(sigungucode)) {
+                trads = leaseService.getLeaseMonthlyList_SeoulSigungu(sigungucode);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else {
+            trads = new ArrayList<>();
+        }
+
+        model.addAttribute("title",  "[ "+ title + " - 최근 월세 ]");
+        model.addAttribute("list", trads);
+
+        return "leaselist/seoulMonthly";
     }
 
     @GetMapping("/leaselist/gyunggi/{sidocode}")
@@ -67,10 +113,33 @@ public class LeaseController {
             trads = new ArrayList<>();
         }
 
-        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("title",  "[ "+ title + " - 최근 전세 ]");
         model.addAttribute("list", trads);
 
         return "leaselist/gyunggi";
+    }
+
+    @GetMapping("/leaselist/monthly/gyunggi/{sidocode}")
+    public String getLeaseMonthlyList_Gyunggi(@PathVariable String sidocode, Model model) {
+        List<AptLeaseResponseDto> trads;
+        String title = "-";
+        if (!sidocode.equals("0")) {
+            log.info("/leaselist/monthly/gyunggi/" + sidocode);
+            title = codeInfoService.getCodeName(sidocode);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/monthly/gyunggi/" + title);
+            if (StringUtils.hasText(sidocode)) {
+                trads = leaseService.getLeaseMonthlyList_GyunggiSido(sidocode);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else {
+            trads = new ArrayList<>();
+        }
+
+        model.addAttribute("title",  "[ "+ title + " - 최근 월세 ]");
+        model.addAttribute("list", trads);
+
+        return "leaselist/gyunggiMonthly";
     }
 
     @GetMapping("/leaselist/incheon/{sigungucode}")
@@ -90,10 +159,33 @@ public class LeaseController {
             trads = new ArrayList<>();
         }
 
-        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("title",  "[ "+ title + " - 최근 전세 ]");
         model.addAttribute("list", trads);
 
         return "leaselist/incheon";
+    }
+
+    @GetMapping("/leaselist/monthly/incheon/{sigungucode}")
+    public String getLeaseMonthlyList_Incheon(@PathVariable String sigungucode, Model model) {
+        List<AptLeaseResponseDto> trads;
+        String title = "-";
+        if (!sigungucode.equals("0")) {
+            log.info("/leaselist/monthly/incheon/" + sigungucode);
+            title = codeInfoService.getCodeName(sigungucode);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/monthly/incheon/" + title);
+            if (StringUtils.hasText(sigungucode)) {
+                trads = leaseService.getLeaseMonthlyList_IncheonSigungu(sigungucode);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else {
+            trads = new ArrayList<>();
+        }
+
+        model.addAttribute("title",  "[ "+ title + " - 최근 월세 ]");
+        model.addAttribute("list", trads);
+
+        return "leaselist/incheonMonthly";
     }
 
     @GetMapping("/leaselist/ByName/{regncode}/{aptName}/{ua}/{term}")

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <!--    <a th:text="${year}"></a>-->
+    <div>
+        <div>
+            <a href="/leaselist/monthly/gyunggi/4182">가평군&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4128">&nbsp고양시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4129">&nbsp과천시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4121">&nbsp광명시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4161">&nbsp광주시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4131">&nbsp구리시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4141">&nbsp군포시</a>
+        </div>
+        <div>
+            <a href="/leaselist/monthly/gyunggi/4157">김포시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4136">&nbsp남양주&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4125">&nbsp동두천&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4119">&nbsp부천시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4113">&nbsp성남시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4111">&nbsp수원시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4139">&nbsp시흥시</a>
+        </div>
+        <div>
+            <a href="/leaselist/monthly/gyunggi/4127">안산시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4155">&nbsp안성시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4117">&nbsp안양시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4163">&nbsp양주시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4183">&nbsp양평군&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4167">&nbsp여주시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4180">&nbsp연천군</a>
+        </div>
+        <div>
+            <a href="/leaselist/monthly/gyunggi/4137">오산시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4146">&nbsp용인시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4143">&nbsp의왕시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4115">&nbsp의정부&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4150">&nbsp이천시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4148">&nbsp파주시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4122">&nbsp평택시</a>
+        </div>
+        <div>
+            <a href="/leaselist/monthly/gyunggi/4165">포천시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4145">&nbsp하남시&nbsp</a>
+            <a href="/leaselist/monthly/gyunggi/4159">&nbsp화성시</a>
+        </div>
+        <p>
+            <h5 align="center" th:text="${title}"></h5>
+        </p>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+                    <th>일자</th>
+                    <th>법정동</th>
+                    <th>아파트명</th>
+                    <th>전용면적(m2)</th>
+                    <th>보증금</th>
+                    <th>월세</th>
+                    <th>층수</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="font-size:12px;" th:each="list : ${list}">
+                    <td align="center" th:text="${list.dealDate}"></td>
+                    <td align="center" th:text="${list.landDong}"></td>
+                    <td align="left" th:text="${list.aptName}"></td>
+                    <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,1,'POINT')}"></td>
+                    <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.deposit,1,'COMMA')}"></td>
+                    <td align="right" style="font-weight: bolder" th:text="${list.monthlyRentStr}"></td>
+    <!--                <td align="right" th:text="${#numbers.formatInteger(list.monthlyRent,1,'COMMA')}"></td>-->
+                    <td align="right" th:text="${list.floor}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>

@@ -20,12 +20,30 @@ public class LeaseService {
         return leaseRepository.getLeaseList_SeoulSigungu(sigungucode);
     }
 
+    public List<AptLeaseResponseDto> getLeaseRenewalList_SeoulSigungu(String sigungucode)
+    {
+        return leaseRepository.getLeaseRenewalList_SeoulSigungu(sigungucode);
+    }
+
+    public List<AptLeaseResponseDto> getLeaseMonthlyList_SeoulSigungu(String sigungucode)
+    {
+        return leaseRepository.getLeaseMonthlyList_SeoulSigungu(sigungucode);
+    }
+
     public List<AptLeaseResponseDto> getLeaseList_GyunggiSido(String sidocode) {
         return leaseRepository.getLeaseList_GyunggiSido(sidocode);
     }
 
+    public List<AptLeaseResponseDto> getLeaseMonthlyList_GyunggiSido(String sidocode) {
+        return leaseRepository.getLeaseMonthlyList_GyunggiSido(sidocode);
+    }
+
     public List<AptLeaseResponseDto> getLeaseList_IncheonSigungu(String sigungu) {
         return leaseRepository.getLeaseList_IncheonSigungu(sigungu);
+    }
+
+    public List<AptLeaseResponseDto> getLeaseMonthlyList_IncheonSigungu(String sigungu) {
+        return leaseRepository.getLeaseMonthlyList_IncheonSigungu(sigungu);
     }
 
     public List<AptLeaseResponseDto> getLeaseList_ByName(String regncode, String aptName, int ua, int term) {

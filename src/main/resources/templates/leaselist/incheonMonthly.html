@@ -20,16 +20,16 @@
 <!--            </div>-->
 <!--        </p>-->
         <div>
-            <a href="/leaselist/incheon/28710">강화군&nbsp</a>
-            <a href="/leaselist/incheon/28245">&nbsp계양구&nbsp</a>
-            <a href="/leaselist/incheon/28200">&nbsp남동구&nbsp</a>
-            <a href="/leaselist/incheon/28140">&nbsp동구&nbsp</a>
-            <a href="/leaselist/incheon/28177">&nbsp미추홀구&nbsp</a>
-            <a href="/leaselist/incheon/28237">&nbsp부평구&nbsp</a>
-            <a href="/leaselist/incheon/28260">&nbsp서구&nbsp</a>
-            <a href="/leaselist/incheon/28185">&nbsp연수구&nbsp</a>
-            <a href="/leaselist/incheon/28720">&nbsp옹진군&nbsp</a>
-            <a href="/leaselist/incheon/28110">중구</a>
+            <a href="/leaselist/monthly/incheon/28710">강화군&nbsp</a>
+            <a href="/leaselist/monthly/incheon/28245">&nbsp계양구&nbsp</a>
+            <a href="/leaselist/monthly/incheon/28200">&nbsp남동구&nbsp</a>
+            <a href="/leaselist/monthly/incheon/28140">&nbsp동구&nbsp</a>
+            <a href="/leaselist/monthly/incheon/28177">&nbsp미추홀구&nbsp</a>
+            <a href="/leaselist/monthly/incheon/28237">&nbsp부평구&nbsp</a>
+            <a href="/leaselist/monthly/incheon/28260">&nbsp서구&nbsp</a>
+            <a href="/leaselist/monthly/incheon/28185">&nbsp연수구&nbsp</a>
+            <a href="/leaselist/monthly/incheon/28720">&nbsp옹진군&nbsp</a>
+            <a href="/leaselist/monthly/incheon/28110">중구</a>
         </div>
         <p>
             <h5 align="center" th:text="${title}"></h5>
@@ -51,7 +51,7 @@
                     <th>아파트명</th>
                     <th>전용면적(m2)</th>
                     <th>보증금</th>
-<!--                    <th>월세</th>-->
+                    <th>월세</th>
                     <th>층수</th>
                 </tr>
             </thead>
@@ -64,7 +64,7 @@
                     <td align="left" th:text="${list.aptName}"></td>
                     <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,1,'POINT')}"></td>
                     <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.deposit,1,'COMMA')}"></td>
-<!--                    <td align="right" style="font-weight: bolder" th:text="${list.monthlyRentStr}"></td>-->
+                    <td align="right" style="font-weight: bolder" th:text="${list.monthlyRentStr}"></td>
     <!--                <td align="right" th:text="${#numbers.formatInteger(list.monthlyRent,1,'COMMA')}"></td>-->
                     <td align="right" th:text="${list.floor}"></td>
                 </tr>

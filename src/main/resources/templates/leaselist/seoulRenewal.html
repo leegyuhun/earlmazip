@@ -8,37 +8,37 @@
     <!--    <a th:text="${year}"></a>-->
     <div>
         <div>
-            <a href="/leaselist/seoul/11680">강남구&nbsp</a>
-            <a href="/leaselist/seoul/11740">&nbsp강동구&nbsp</a>
-            <a href="/leaselist/seoul/11305">&nbsp강북구&nbsp</a>
-            <a href="/leaselist/seoul/11500">&nbsp강서구&nbsp</a>
-            <a href="/leaselist/seoul/11620">&nbsp관악구&nbsp</a>
-            <a href="/leaselist/seoul/11215">&nbsp광진구&nbsp</a>
-            <a href="/leaselist/seoul/11530">구로구</a>
+            <a href="/leaselist/renewal/seoul/11680">강남구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11740">&nbsp강동구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11305">&nbsp강북구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11500">&nbsp강서구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11620">&nbsp관악구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11215">&nbsp광진구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11530">구로구</a>
         </div>
         <div>
-            <a href="/leaselist/seoul/11545">금천구&nbsp</a>
-            <a href="/leaselist/seoul/11350">&nbsp노원구&nbsp</a>
-            <a href="/leaselist/seoul/11320">&nbsp도봉구&nbsp</a>
-            <a href="/leaselist/seoul/11230">&nbsp동대문&nbsp</a>
-            <a href="/leaselist/seoul/11590">&nbsp동작구&nbsp</a>
-            <a href="/leaselist/seoul/11440">&nbsp마포구&nbsp</a>
-            <a href="/leaselist/seoul/11410">서대문</a>
+            <a href="/leaselist/renewal/seoul/11545">금천구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11350">&nbsp노원구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11320">&nbsp도봉구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11230">&nbsp동대문&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11590">&nbsp동작구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11440">&nbsp마포구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11410">서대문</a>
         </div>
         <div>
-            <a href="/leaselist/seoul/11650">서초구&nbsp</a>
-            <a href="/leaselist/seoul/11200">&nbsp성동구&nbsp</a>
-            <a href="/leaselist/seoul/11290">&nbsp성북구&nbsp</a>
-            <a href="/leaselist/seoul/11710">&nbsp송파구&nbsp</a>
-            <a href="/leaselist/seoul/11470">&nbsp양천구&nbsp</a>
-            <a href="/leaselist/seoul/11560">&nbsp영등포&nbsp</a>
-            <a href="/leaselist/seoul/11170">용산구</a>
+            <a href="/leaselist/renewal/seoul/11650">서초구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11200">&nbsp성동구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11290">&nbsp성북구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11710">&nbsp송파구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11470">&nbsp양천구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11560">&nbsp영등포&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11170">용산구</a>
         </div>
         <div>
-            <a href="/leaselist/seoul/11380">은평구&nbsp</a>
-            <a href="/leaselist/seoul/11110">&nbsp종로구&nbsp</a>
-            <a href="/leaselist/seoul/11260">&nbsp중랑구&nbsp</a>
-            <a href="/leaselist/seoul/11140">중구</a>
+            <a href="/leaselist/renewal/seoul/11380">은평구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11110">&nbsp종로구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11260">&nbsp중랑구&nbsp</a>
+            <a href="/leaselist/renewal/seoul/11140">중구</a>
         </div>
         <p>
             <h5 align="center" th:text="${title}"></h5>
@@ -61,7 +61,8 @@
                     <th>전용면적(m2)</th>
                     <th>보증금</th>
                     <th>이전</br>보증금</th>
-<!--                    <th>월세</th>-->
+                    <th>월세</th>
+                    <th>이전</br>월세</th>
                     <th>층수</th>
                 </tr>
             </thead>
@@ -75,7 +76,8 @@
                     <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,1,'POINT')}"></td>
                     <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.deposit,1,'COMMA')}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.befDeposit,1,'COMMA')}"></td>
-<!--                    <td align="right" th:text="${list.monthlyRentStr}"></td>-->
+                    <td align="right" th:text="${list.monthlyRentStr}"></td>
+                    <td align="right" th:text="${list.befMonthlyRentStr}"></td>
     <!--                <td align="right" th:text="${#numbers.formatInteger(list.monthlyRentStr,1,'COMMA')}"></td>-->
                     <td align="right" th:text="${list.floor}"></td>
                 </tr>

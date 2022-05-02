@@ -12,11 +12,19 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
 
     <div>
-        <p>전/월세 최근 100</p>
+        <p>전세 최근 100</p>
         <p>
-            <a class="btn btn-secondary" href="/leaselist/seoul/0">서울시</a>
-            <a class="btn btn-secondary" href="/leaselist/gyunggi/0">경기도</a>
-            <a class="btn btn-secondary" href="/leaselist/incheon/0">인천</a>
+            <a class="btn btn-primary" href="/leaselist/seoul/0">서울시</a>
+            <a class="btn btn-primary" href="/leaselist/renewal/seoul/0">갱신현황</a>
+            <a class="btn btn-primary" href="/leaselist/gyunggi/0">경기도</a>
+            <a class="btn btn-primary" href="/leaselist/incheon/0">인천</a>
+        </p>
+
+        <p>월세 최근 100</p>
+        <p>
+            <a class="btn btn-outline-primary" href="/leaselist/monthly/seoul/0">서울시</a>
+            <a class="btn btn-outline-primary" href="/leaselist/monthly/gyunggi/0">경기도</a>
+            <a class="btn btn-outline-primary" href="/leaselist/monthly/incheon/0">인천</a>
         </p>
 
         <p>수도권 전세 가격 통계</p>
