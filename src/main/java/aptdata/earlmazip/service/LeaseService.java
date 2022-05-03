@@ -34,6 +34,10 @@ public class LeaseService {
         return leaseRepository.getLeaseList_GyunggiSido(sidocode);
     }
 
+    public List<AptLeaseResponseDto> getLeaseRenewalList_GyunggiSigungu(String sigungucode) {
+        return leaseRepository.getLeaseRenewalList_GyunggiSigungu(sigungucode);
+    }
+
     public List<AptLeaseResponseDto> getLeaseMonthlyList_GyunggiSido(String sidocode) {
         return leaseRepository.getLeaseMonthlyList_GyunggiSido(sidocode);
     }

@@ -36,6 +36,7 @@ public class LeaseRepository {
         return em.createQuery("select a from AptLeaseRaw a"
                         + " where a.dealYear = 2022 and a.areaCode = '11' "
                         + "   and a.sigunguCode = :sigunguCode "
+                        + "   and a.befMonthlyRent = 0 "
                         + "   and a.dealType = '갱신' "
                         + " order by a.dealDate desc", AptLeaseRaw.class)
                 .setParameter("sigunguCode", sigungucode)
@@ -64,6 +65,32 @@ public class LeaseRepository {
                 .setParameter("sidoCode", sidocode)
                 .setMaxResults(100)
                 .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+    }
+
+    public List<AptLeaseResponseDto> getLeaseRenewalList_GyunggiSigungu(String sigungucode) {
+        if (sigungucode.length() == 4) {
+            return em.createQuery("select a from AptLeaseRaw a"
+                            + " where a.dealYear = 2022 and a.areaCode = '41' "
+                            + "   and a.sidoCode = :sigunguCode "
+                            + "   and a.befMonthlyRent = 0 "
+                            + "   and a.dealType = '갱신' "
+                            + " order by a.dealDate desc", AptLeaseRaw.class)
+                    .setParameter("sidoCode", sigungucode)
+                    .setMaxResults(100)
+                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+
+        } else {
+            return em.createQuery("select a from AptLeaseRaw a"
+                            + " where a.dealYear = 2022 and a.areaCode = '41' "
+                            + "   and a.sigunguCode = :sigunguCode "
+                            + "   and a.befMonthlyRent = 0 "
+                            + "   and a.dealType = '갱신' "
+                            + " order by a.dealDate desc", AptLeaseRaw.class)
+                    .setParameter("sigunguCode", sigungucode)
+                    .setMaxResults(100)
+                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+        }
+
     }
 
     public List<AptLeaseResponseDto> getLeaseMonthlyList_GyunggiSido(String sidocode) {

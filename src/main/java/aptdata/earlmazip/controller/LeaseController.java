@@ -119,6 +119,29 @@ public class LeaseController {
         return "leaselist/gyunggi";
     }
 
+    @GetMapping("/leaselist/renewal/gyunggi/{sigungucode}")
+    public String getLeaseRenewalList_GyunggiSigungu(@PathVariable String sigungucode, Model model) {
+        String title = "-";
+        List<AptLeaseResponseDto> trads;
+        if (!sigungucode.equals("0")) {
+            log.info("/leaselist/renewal/gyunggi/" + sigungucode);
+            title = codeInfoService.getCodeName(sigungucode);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/renewal/gyunggi/" + title);
+            if (StringUtils.hasText(sigungucode)) {
+                trads = leaseService.getLeaseRenewalList_GyunggiSigungu(sigungucode);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else {
+            trads = new ArrayList<>();
+        }
+
+        model.addAttribute("title",  "[ "+ title + " - 최근 갱신내역 ]");
+        model.addAttribute("list", trads);
+
+        return "leaselist/gyunggiRenewal";
+    }
+
     @GetMapping("/leaselist/monthly/gyunggi/{sidocode}")
     public String getLeaseMonthlyList_Gyunggi(@PathVariable String sidocode, Model model) {
         List<AptLeaseResponseDto> trads;

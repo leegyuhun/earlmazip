@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <!--    <a th:text="${year}"></a>-->
+    <div>
+        <div>
+            <a>성남&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/41131">수정&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/41133">중원&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/41135">분당</a>
+            <b>/&nbsp</b>
+            <a>고양&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/41281">덕양&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/41285">일산동&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/41287">일산서</a>
+        </div>
+        <div>
+            <a>용인&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/41461">처인&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/41463">기흥&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/41465">수지</a>
+            <b>/&nbsp</b>
+            <a>수원&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/41111">장안&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/41113">권선&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/41115">팔달&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/41117">영통</a>
+        </div>
+        <div>
+            <a>안산&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/41271">상록&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/41273">단원</a>
+            <b>/&nbsp</b>
+            <a>안양&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/41171">만안&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/41173">동안</a>
+        </div>
+        <div>
+            <a href="/leaselist/renewal/gyunggi/4182">가평군&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4129">&nbsp과천시&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4121">&nbsp광명시&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4161">&nbsp광주시&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4131">&nbsp구리시&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4141">&nbsp군포시&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4157">&nbsp김포시</a>
+        </div>
+        <div>
+            <a href="/leaselist/renewal/gyunggi/4136">남양주&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4125">&nbsp동두천&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4119">&nbsp부천시&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4139">&nbsp시흥시&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4155">&nbsp안성시&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4163">&nbsp양주시&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4183">&nbsp양평군</a>
+        </div>
+        <div>
+            <a href="/leaselist/renewal/gyunggi/4167">여주시&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4180">&nbsp연천군&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4137">&nbsp오산시&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4143">&nbsp의왕시&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4115">&nbsp의정부&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4150">&nbsp이천시&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4148">&nbsp파주시</a>
+        </div>
+
+        <div>
+            <a href="/leaselist/renewal/gyunggi/4122">평택시&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4165">&nbsp포천시&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4145">&nbsp하남시&nbsp</a>
+            <a href="/leaselist/renewal/gyunggi/4159">&nbsp화성시</a>
+        </div>
+        <p>
+            <h5 align="center" th:text="${title}"></h5>
+        </p>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+                    <th>일자</th>
+                    <th>법정동</th>
+                    <th>계약구분</th>
+                    <th>계약기간</th>
+                    <th>아파트명</th>
+                    <th>전용면적(m2)</th>
+                    <th>보증금</th>
+                    <th>이전</br>보증금</th>
+                    <th>월세</th>
+                    <th>이전</br>월세</th>
+                    <th>층수</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="font-size:12px;" th:each="list : ${list}">
+                    <td align="center" th:text="${list.dealDate}"></td>
+                    <td align="center" th:text="${list.landDong}"></td>
+                    <td align="center" th:text="${list.dealType}"></td>
+                    <td align="center" th:text="${list.dealTerm}"></td>
+                    <td align="left" th:text="${list.aptName}"></td>
+                    <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,1,'POINT')}"></td>
+                    <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.deposit,1,'COMMA')}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.befDeposit,1,'COMMA')}"></td>
+                    <td align="right" style="font-weight: bolder" th:text="${list.monthlyRentStr}"></td>
+                    <td align="right" th:text="${list.befMonthlyRentStr}"></td>
+    <!--                <td align="right" th:text="${#numbers.formatInteger(list.monthlyRentStr,1,'COMMA')}"></td>-->
+                    <td align="right" th:text="${list.floor}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>
