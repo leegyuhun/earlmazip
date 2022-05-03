@@ -50,6 +50,7 @@ public class ApiCallStatRepository {
         if (gubn.equals("TOTAL")) {
             return em.createQuery("select a from ApiCallStat a "
                             + " where a.callDate = :date "
+                            + "   and a.apiGubn <> 'MENU' "
                             + " order by a.cnt desc", ApiCallStat.class)
                     .setParameter("date", date)
                     .getResultList();

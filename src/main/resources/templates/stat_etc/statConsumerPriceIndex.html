@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <!--    <a th:text="${year}"></a>-->
+    <div>
+        <p>
+            <h5 align="center" th:text="${title}"></h5>
+        </p>
+        <p>
+            <canvas id="myChart"></canvas>
+        </p>
+        <div>
+            <a>[기간설정]&nbsp</a>
+            <a href="/stat_etc/population/5">5년&nbsp</a>
+            <b>/&nbsp</b>
+            <a href="/stat_etc/population/10">10년&nbsp</a>
+            <b>/&nbsp</b>
+            <a href="/stat_etc/population/15">15년&nbsp</a>
+            <b>/&nbsp</b>
+            <a href="/stat_etc/population/30">30년&nbsp</a>
+            <b>/&nbsp</b>
+            <a href="/stat_etc/population/50">50년&nbsp</a>
+        </div>
+<!--        <p>-->
+<!--            <canvas id="myChart"></canvas>-->
+<!--        </p>-->
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-dark" style="font-size:12px;" align="center">
+                <th>년도</th>
+                <th>총 지수</th>
+                <th>전세 지수</th>
+                <th>월세 지수</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="font-size:12px;" th:each="list : ${list}">
+                <td align="center" th:text="${list.date}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.population,1,'COMMA')}"></td>
+                <td align="right" th:text="${#numbers.formatDecimal(list.birthRate,1,2,'POINT')}"></td>
+                <td align="right" th:text="${#numbers.formatDecimal(list.agingPopulation,1,2,'POINT')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h7>※ 출처: 한국은행 경제통계시스템 (ecos.bok.or.kr)</h7>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const population =  /*[[ ${population.toArray()} ]]*/;
+  const agingPopulation =  /*[[ ${agingPopulation.toArray()} ]]*/;
+  const birthRate =  /*[[ ${birthRate.toArray()} ]]*/;
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      type: 'line',
+      label: '추계인구(만)',
+      yAxisID: 'y-line1',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      pointRadius:1,
+      data: population
+      },{
+      type: 'line',
+      label: '합계출산율',
+      yAxisID: 'y-line2',
+      backgroundColor: 'rgb(95,67,175)',
+      borderColor: 'rgb(95,67,175)',
+      pointRadius:1,
+      data: birthRate
+      },{
+        type: 'bar',
+        label: '고령인구비율(65~)',
+        yAxisID: 'y-bar',
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: agingPopulation
+      }
+    ]
+  };
+
+  const config = {
+    data: data,
+    options: {
+        scales:{
+            'y-line1':{
+                position: 'left',
+<!--                suggestedMin: 0,-->
+                ticks:{
+				    color: 'rgb(255, 99, 132)'
+				},
+                title: {
+                    display: true,
+                    text: '추계인구'
+                }
+            },
+            'y-line2':{
+                position: 'right',
+                suggestedMin: 0,
+                grid:{
+                    display: false
+                },
+                ticks:{
+				    color: 'rgb(95,67,175)'
+				},
+                title: {
+                    display: true,
+                    text: '합계출산율'
+                }
+            },
+            'y-bar':{
+                position: 'right',
+                suggestedMin: 0,
+                suggestedMax: 50,
+                grid:{
+                    display: false
+                },
+                ticks:{
+				    color: 'rgb(54, 162, 235)'
+				},
+                title: {
+                    display: true,
+                    text: '고령인구비율(65~)'
+                }
+            }
+        }
+    }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+</html>

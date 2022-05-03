@@ -23,6 +23,12 @@ public class StatEtcController {
     private final EcosDataService ecosDataService;
     private final ApiCallStatService apiCallStatService;
 
+    /**
+     * 인구통계 (추계인구, 고령인구비율, 합계 출산율)
+     * @param term
+     * @param model
+     * @return
+     */
     @GetMapping("/stat_etc/population/{term}")
     public String getStatEtcPopulation(@PathVariable String term, Model model) {
         apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/population/" + term);
@@ -62,6 +68,11 @@ public class StatEtcController {
         return "stat_etc/statPopulation";
     }
 
+    /**
+     * 소득통계 (1분위,중위,평균,5분위소득)
+     * @param model
+     * @return
+     */
     @GetMapping("/stat_etc/income")
     public String getStatEtcIncome(Model model) {
         apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/income");
@@ -98,6 +109,40 @@ public class StatEtcController {
         model.addAttribute("list", list);
 
         return "stat_etc/statIncome";
+    }
+
+    @GetMapping("/stat_etc/consumerPriceIndex")
+    public String getStatEtcConsumerPriceIndex(Model model) {
+        apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/consumerPriceIndex");
+
+        // 소비자물가지수(총 지수)
+        List<EcosDataResponseDto> totIndex = ecosDataService.getEcosData("021Y125", "0", "", "15");
+
+        // 소비자물가지수(전세)
+        List<EcosDataResponseDto> leaseIndex = ecosDataService.getEcosData("021Y125", "D01101", "", "15");
+
+        // 소비자물가지수(월세)
+        List<EcosDataResponseDto> monthlyIndex = ecosDataService.getEcosData("021Y125", "D01102", "", "15");
+
+        List<String> dates = totIndex.stream().map(o->new String(o.getDate())).collect(Collectors.toList());
+        List<String> totIndexes = totIndex.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+        List<String> leaseIndexes = leaseIndex.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+        List<String> monthlyIndexes = monthlyIndex.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+        List<ItemDto> list = new ArrayList<>();
+        for (int i = dates.size() - 1; i > -1; i--) {
+//            ItemDto item = new ItemDto(dates.get(i), halfIncomes.get(i), avgIncomes.get(i), topIncomes.get(i), botIncomes.get(i));
+//            list.add(item);
+        }
+        String title = "소비자물가지수(총지수,전세,월세)";
+
+        model.addAttribute("totIndexes", totIndexes);
+        model.addAttribute("leaseIndexes", leaseIndexes);
+        model.addAttribute("monthlyIndexes", monthlyIndexes);
+        model.addAttribute("dates", dates);
+        model.addAttribute("title", title);
+        model.addAttribute("list", list);
+
+        return "stat_etc/statConsumerPriceIndex";
     }
 
     @Data
