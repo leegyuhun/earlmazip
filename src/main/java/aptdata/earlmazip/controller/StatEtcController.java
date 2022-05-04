@@ -150,7 +150,14 @@ public class StatEtcController {
             CreditCardUseDto item = new CreditCardUseDto(dates.get(i), totalUses.get(i), departmentUses.get(i), medicalUses.get(i), furnitureUses.get(i), clothUses.get(i));
             list.add(item);
         }
-        String title = "개인신용카드사용현황";
+        String title = "-";
+        if (areacode.equals("11")) {
+            title = "개인신용카드사용현황 (서울)";
+        } else if (areacode.equals("41")) {
+            title = "개인신용카드사용현황 (경기)";
+        } else {
+            title = "개인신용카드사용현황 (인천)";
+        }
 
         model.addAttribute("totalUses", totalUses);
         model.addAttribute("departmentUses", departmentUses);
