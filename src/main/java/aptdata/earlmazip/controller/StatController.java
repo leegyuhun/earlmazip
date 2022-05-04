@@ -118,7 +118,7 @@ public class StatController {
         if (!sigungucode.equals("0")) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_trade/useareaType/" + sigungucode + "/" + ua + "/" + term);
-            apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/useareaType/" + sigungucode + "/" + ua + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/useareaType/" + sigungucode + "/" + ua + "/" + term);
             areas = statService.getStatTradeByUseAreaList(sigungucode,ua, term);
         } else {
             areas = new ArrayList<>();

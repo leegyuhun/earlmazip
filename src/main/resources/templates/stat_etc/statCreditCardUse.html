@@ -1,0 +1,177 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <!--    <a th:text="${year}"></a>-->
+    <div>
+        <p>
+            <h5 align="center" th:text="${title}"></h5>
+        </p>
+<!--        <p>-->
+<!--            <canvas id="myChart"></canvas>-->
+<!--        </p>-->
+        <p>
+            <canvas id="myChart"></canvas>
+        </p>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-dark" style="font-size:12px;" align="center">
+                <th>년월</th>
+                <th>백화점</th>
+                <th>의료/보건</th>
+                <th>가구/가전</th>
+                <th>의류/잡화</th>
+                <th>전체</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="font-size:12px;" th:each="list : ${list}">
+                <td align="center" th:text="${list.date}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.value2,1,'COMMA')}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.value3,1,'COMMA')}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.value4,1,'COMMA')}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.value5,1,'COMMA')}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.value1,1,'COMMA')}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+            <h7>※ 출처: 한국은행 경제통계시스템 (ecos.bok.or.kr)</h7>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const totalUses =  /*[[ ${totalUses.toArray()} ]]*/;
+  const departmentUses =  /*[[ ${departmentUses.toArray()} ]]*/;
+  const medicalUses =  /*[[ ${medicalUses.toArray()} ]]*/;
+  const furnitureUses =  /*[[ ${furnitureUses.toArray()} ]]*/;
+  const clothUses =  /*[[ ${clothUses.toArray()} ]]*/;
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+
+  const data = {
+    labels: labels,
+    datasets: [
+      {
+      type: 'line',
+      label: '백화점',
+      yAxisID: 'y-line1',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      pointRadius:1,
+      data: departmentUses
+      },{
+      type: 'line',
+      label: '의료/보건',
+      yAxisID: 'y-line2',
+      backgroundColor: 'rgb(95,67,175)',
+      borderColor: 'rgb(95,67,175)',
+      pointRadius:1,
+      data: medicalUses
+      },{
+        type: 'line',
+        label: '가구/가전',
+        yAxisID: 'y-line3',
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgb(54, 162, 235)',
+        pointRadius:1,
+        data: furnitureUses
+      },{
+        type: 'line',
+        label: '의류/잡화',
+        yAxisID: 'y-line4',
+        backgroundColor: 'rgb(167,215,113)',
+        borderColor: 'rgb(167,215,113)',
+        pointRadius:1,
+        data: clothUses
+      }
+    ]
+  };
+
+  const config = {
+    data: data,
+    options: {
+        scales:{
+            'y-line1':{
+                position: 'right',
+                suggestedMax: 1500000,
+                grid:{
+                    display: false
+                },
+                ticks:{
+                    display: false,
+				    color: 'rgb(95,67,175)'
+				},
+                title: {
+                    display: false,
+                    text: '백화점'
+                }
+            },
+            'y-line2':{
+                position: 'right',
+                suggestedMax: 1500000,
+                grid:{
+                    display: false
+                },
+                ticks:{
+				    color: 'rgb(0, 0, 0)'
+				},
+                title: {
+                    display: false,
+                    text: '의류/보건'
+                }
+            },
+            'y-line3':{
+                position: 'right',
+                suggestedMax: 1500000,
+                grid:{
+                    display: false
+                },
+                ticks:{
+                    display: false,
+				    color: 'rgb(0, 0, 0)'
+				},
+                title: {
+                    display: false,
+                    text: '가구/가전'
+                }
+            },
+            'y-line4':{
+                position: 'right',
+                suggestedMax: 1500000,
+                grid:{
+                    display: false
+                },
+                ticks:{
+                    display: false,
+				    color: 'rgb(0, 0, 0)'
+				},
+                title: {
+                    display: false,
+                    text: '의류/잡화'
+                }
+            }
+        }
+    }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+</html>

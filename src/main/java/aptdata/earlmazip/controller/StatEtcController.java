@@ -111,6 +111,59 @@ public class StatEtcController {
         return "stat_etc/statIncome";
     }
 
+    @GetMapping("/stat_etc/creditCardUse/{areacode}")
+    public String getStatEtcCreditCardUse(@PathVariable String areacode, Model model) {
+        apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/creditCardUse/" + areacode);
+
+        String code = "";
+        if (areacode.equals("11")) {
+            code = "A";
+        } else if (areacode.equals("41")) {
+            code = "L";
+        } else {
+            code = "D";
+        }
+
+        // 개인신용_서울_전체
+        List<EcosDataResponseDto> totalUse = ecosDataService.getEcosData("043Y070", "A", "1000", "10");
+
+        // 개인신용_서울_백화점
+        List<EcosDataResponseDto> departmentUse = ecosDataService.getEcosData("043Y070", "A", "1110", "15");
+
+        // 개인신용_서울_의료보건
+        List<EcosDataResponseDto> medicalUse = ecosDataService.getEcosData("043Y070", "A", "1700", "15");
+
+        // 개인신용_서울_의류잡화
+        List<EcosDataResponseDto> clothUse = ecosDataService.getEcosData("043Y070", "A", "1400", "15");
+
+        // 개인신용_서울_가구가전
+        List<EcosDataResponseDto> furnitureUse = ecosDataService.getEcosData("043Y070", "A", "1600", "15");
+
+        List<String> dates = totalUse.stream().map(o->new String(o.getDate())).collect(Collectors.toList());
+        List<String> totalUses = totalUse.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+        List<String> departmentUses = departmentUse.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+        List<String> medicalUses = medicalUse.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+        List<String> furnitureUses = furnitureUse.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+        List<String> clothUses = clothUse.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+        List<CreditCardUseDto> list = new ArrayList<>();
+        for (int i = dates.size() - 1; i > -1; i--) {
+            CreditCardUseDto item = new CreditCardUseDto(dates.get(i), totalUses.get(i), departmentUses.get(i), medicalUses.get(i), furnitureUses.get(i), clothUses.get(i));
+            list.add(item);
+        }
+        String title = "개인신용카드사용현황";
+
+        model.addAttribute("totalUses", totalUses);
+        model.addAttribute("departmentUses", departmentUses);
+        model.addAttribute("medicalUses", medicalUses);
+        model.addAttribute("furnitureUses", furnitureUses);
+        model.addAttribute("clothUses", clothUses);
+        model.addAttribute("dates", dates);
+        model.addAttribute("title", title);
+        model.addAttribute("list", list);
+
+        return "stat_etc/statCreditCardUse";
+    }
+
     @GetMapping("/stat_etc/consumerPriceIndex")
     public String getStatEtcConsumerPriceIndex(Model model) {
         apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/consumerPriceIndex");
@@ -144,7 +197,25 @@ public class StatEtcController {
 
         return "stat_etc/statConsumerPriceIndex";
     }
+    @Data
+    static class CreditCardUseDto {
 
+        private String date;
+        private String value1;
+        private String value2;
+        private String value3;
+        private String value4;
+        private String value5;
+
+        public CreditCardUseDto(String date, String value1, String value2, String value3, String value4, String value5) {
+            this.date = date;
+            this.value1 = value1;
+            this.value2 = value2;
+            this.value3 = value3;
+            this.value4 = value4;
+            this.value5 = value5;
+        }
+    }
     @Data
     static class PopulationDto {
 
