@@ -4,6 +4,8 @@ import aptdata.earlmazip.domain.RankUaSigungu;
 import aptdata.earlmazip.domain.RankYear;
 import lombok.Getter;
 
+import java.text.DecimalFormat;
+
 @Getter
 public class RankUaSigunguResponseDto {
     private int rankGubn;
@@ -21,8 +23,24 @@ public class RankUaSigunguResponseDto {
     private String buildYear;
     private int tradeCnt;
     private int minAmt;
+    private String minAmtStr;
+
+    public String getMinAmtStr() {
+        return new DecimalFormat("#.00").format((float)this.minAmt / 10000) + " 억";
+    }
+
+    public String getAvgAmtStr() {
+        return new DecimalFormat("#.00").format((float)this.avgAmt / 10000) + " 억";
+    }
+
+    public String getMaxAmtStr() {
+        return new DecimalFormat("#.00").format((float)this.maxAmt / 10000) + " 억";
+    }
+
     private int avgAmt;
+    private String avgAmtStr;
     private int maxAmt;
+    private String maxAmtStr;
     private int highestCnt;
     private float highestRate;
 
