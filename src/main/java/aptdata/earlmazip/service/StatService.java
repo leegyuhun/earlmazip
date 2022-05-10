@@ -1,5 +1,6 @@
 package aptdata.earlmazip.service;
 
+import aptdata.earlmazip.controller.dto.RankUaSigunguResponseDto;
 import aptdata.earlmazip.controller.dto.RankYearResponseDto;
 import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.StatResponseDto;
@@ -67,5 +68,9 @@ public class StatService {
 
     public List<StatResponseDto> getStatBuildYearList(String regnCode, String buildYear, String term) {
         return statRepository.getStatBuildYearList(regnCode, buildYear, term);
+    }
+
+    public List<RankUaSigunguResponseDto> getStatRankUaList_Seoul(int rankGubn, String sigunguCode, int ua) {
+        return statRepository.getStatRankUaList_Seoul(rankGubn, sigunguCode, ua);
     }
 }

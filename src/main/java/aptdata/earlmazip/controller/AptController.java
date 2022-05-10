@@ -33,6 +33,9 @@ public class AptController {
             apiCallStatService.writeApiCallStat("APT_SEARCH", aptSearch.getAptName());
             apts = aptService.findAllByName(aptSearch);
         }
+        for (AptResponseDto apt: apts) {
+            apt.setTradeUrl("tradelist/ByName/" + apt.getSigunguCode() + "/" + apt.getAptName() + "/0/1");
+        }
         model.addAttribute("apts", apts);
         return "apts/aptList";
     }

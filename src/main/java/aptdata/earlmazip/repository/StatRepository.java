@@ -1,5 +1,6 @@
 package aptdata.earlmazip.repository;
 
+import aptdata.earlmazip.controller.dto.RankUaSigunguResponseDto;
 import aptdata.earlmazip.controller.dto.RankYearResponseDto;
 import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.StatResponseDto;
@@ -177,6 +178,32 @@ public class StatRepository {
                 .setParameter("searchYear", calcYearByTerm(term))
                 .getResultList().stream().map(StatResponseDto::new)
                 .collect(Collectors.toList());
+    }
+
+    public List<RankUaSigunguResponseDto> getStatRankUaList_Seoul(int rankGubn, String sigunguCode, int ua) {
+        if (rankGubn == 0) {
+            return em.createQuery("select a from RankUaSigungu a "
+                            + " where a.sigunguCode = :sigunguCode "
+                            + "   and a.rankGubn = :rankGubn "
+                            + "   and a.useAreaTrunc = :ua "
+                            + " order by a.avgAmt desc ", RankUaSigungu.class)
+                    .setParameter("sigunguCode", sigunguCode)
+                    .setParameter("rankGubn", rankGubn)
+                    .setParameter("ua", ua)
+                    .getResultList().stream().map(RankUaSigunguResponseDto::new)
+                    .collect(Collectors.toList());
+        } else {
+            return em.createQuery("select a from RankUaSigungu a "
+                            + " where a.sigunguCode = :sigunguCode "
+                            + "   and a.rankGubn = :rankGubn "
+                            + "   and a.useAreaTrunc = :ua "
+                            + " order by a.tradeCnt desc ", RankUaSigungu.class)
+                    .setParameter("sigunguCode", sigunguCode)
+                    .setParameter("rankGubn", rankGubn)
+                    .setParameter("ua", ua)
+                    .getResultList().stream().map(RankUaSigunguResponseDto::new)
+                    .collect(Collectors.toList());
+        }
     }
 
     private String calcYearByTerm(String term) {
