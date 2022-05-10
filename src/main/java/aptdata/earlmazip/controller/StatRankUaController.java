@@ -50,6 +50,7 @@ public class StatRankUaController {
         for (RankUaSigunguResponseDto item: list) {
             item.setRank(idx);
             item.setTradeUrl("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/1");
+            item.setTradeUrl2("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/3");
             idx++;
         }
         String title = "-";

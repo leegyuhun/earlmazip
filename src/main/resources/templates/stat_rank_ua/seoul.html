@@ -20,7 +20,7 @@
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
-                    <th>Rank</th>
+<!--                    <th>Rank</th>-->
 <!--                    <th>취소일자</th>-->
 <!--                    <th>법정동</th>-->
 <!--                    <th>아파트명</th>-->
@@ -32,12 +32,13 @@
                     <th>평균</br>매매가</th>
                     <th>최고</br>매매가</th>
                     <th>신고가율</th>
-                    <th>매매</br>내역</th>
+                    <th>매매</th>
+                    <th>내역</th>
                 </tr>
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
-                    <td align="center" th:text="${list.rank}"></td>
+<!--                    <td align="center" th:text="${list.rank}"></td>-->
                     <td align="center" th:text="${list.landDong}"></td>
                     <td align="left" th:text="|${list.aptName} [${list.buildYear}]|"></td>
 <!--                    <td align="left" th:text="${list.buildYear}"></td>-->
@@ -49,7 +50,8 @@
 <!--                    <td align="right" th:text="${#numbers.formatInteger(list.avgAmt,1,'COMMA')}"></td>-->
 <!--                    <td align="right" th:text="${#numbers.formatInteger(list.maxAmt,1,'COMMA')}"></td>-->
                     <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>
-                    <td><a th:href="@{https://www.earlmazip.co.kr/{add}(add=${list.tradeUrl})}"><button>보기</button></a> </td>
+                    <td><a th:href="@{https://www.earlmazip.co.kr/{add}(add=${list.tradeUrl})}"><button>2021~</button></a> </td>
+                    <td><a th:href="@{https://www.earlmazip.co.kr/{add}(add=${list.tradeUrl2})}"><button>2019~</button></a> </td>
                 </tr>
             </tbody>
         </table>

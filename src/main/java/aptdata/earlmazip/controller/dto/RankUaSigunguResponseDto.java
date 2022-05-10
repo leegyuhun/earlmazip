@@ -50,6 +50,12 @@ public class RankUaSigunguResponseDto {
         this.tradeUrl = tradeUrl;
     }
 
+    private String tradeUrl2;
+
+    public void setTradeUrl2(String tradeUrl2) {
+        this.tradeUrl2 = tradeUrl2;
+    }
+
     public RankUaSigunguResponseDto(RankUaSigungu entity) {
         this.rankGubn = entity.getRankGubn();
         this.sigunguCode = entity.getSigunguCode();
