@@ -6,21 +6,19 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
-        <h5 align="center">[ 강 남 권 ]</h5>
+        <h5 align="center">[ 경 기 서 남 권 ]</h5>
         <div>
-            <a href="/stat_rank_ua/seoul/0/11680/59">강남구&nbsp</a>
-            <a href="/stat_rank_ua/seoul/0/11740/59">&nbsp강동구&nbsp</a>
-            <a href="/stat_rank_ua/seoul/0/11500/59">&nbsp강서구&nbsp</a>
-            <a href="/stat_rank_ua/seoul/0/11620/59">&nbsp관악구&nbsp</a>
-            <a href="/stat_rank_ua/seoul/0/11530/59">&nbsp구로구</a>
+            <a>수원&nbsp</a>
+            <a th:href="@{/stat_rank_ua/gyunggi/{rankgubn}/41111/{ua}(ua=${ua},rankgubn=${rankgubn})}">장안&nbsp</a>
+            <a th:href="@{/stat_rank_ua/gyunggi/{rankgubn}/41113/{ua}(ua=${ua},rankgubn=${rankgubn})}">권선&nbsp</a>
+            <a th:href="@{/stat_rank_ua/gyunggi/{rankgubn}/41115/{ua}(ua=${ua},rankgubn=${rankgubn})}">팔달&nbsp</a>
+            <a th:href="@{/stat_rank_ua/gyunggi/{rankgubn}/41117/{ua}(ua=${ua},rankgubn=${rankgubn})}">영통</a>
         </div>
         <div>
-            <a href="/stat_rank_ua/seoul/0/11545/59">금천구&nbsp</a>
-            <a href="/stat_rank_ua/seoul/0/11590/59">&nbsp동작구&nbsp</a>
-            <a href="/stat_rank_ua/seoul/0/11650/59">&nbsp서초구&nbsp</a>
-            <a href="/stat_rank_ua/seoul/0/11710/59">&nbsp송파구&nbsp</a>
-            <a href="/stat_rank_ua/seoul/0/11470/59">&nbsp양천구&nbsp</a>
-            <a href="/stat_rank_ua/seoul/0/11560/59">&nbsp영등포</a>
+            <a th:href="@{/stat_rank_ua/gyunggi/{rankgubn}/41550/{ua}(ua=${ua},rankgubn=${rankgubn})}">안성시&nbsp</a>
+            <a th:href="@{/stat_rank_ua/gyunggi/{rankgubn}/41370/{ua}(ua=${ua},rankgubn=${rankgubn})}">&nbsp오산시&nbsp</a>
+            <a th:href="@{/stat_rank_ua/gyunggi/{rankgubn}/41220/{ua}(ua=${ua},rankgubn=${rankgubn})}">&nbsp평택시&nbsp</a>
+            <a th:href="@{/stat_rank_ua/gyunggi/{rankgubn}/41590/{ua}(ua=${ua},rankgubn=${rankgubn})}">&nbsp화성시</a>
         </div>
         <p>
             <h4 align="center" th:text="${title}"></h4>

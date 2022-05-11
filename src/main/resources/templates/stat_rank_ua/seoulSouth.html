@@ -6,23 +6,21 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
-        <h5 align="center">[ 경 기 중 서 권 ]</h5>
+        <h5 align="center">[ 강 남 권 ]</h5>
         <div>
-            <a>안산&nbsp</a>
-            <a href="/stat_rank_ua/gyunggi/0/41271/84">상록&nbsp</a>
-            <a href="/stat_rank_ua/gyunggi/0/41273/84">단원</a>
-            <b>/&nbsp</b>
-            <a>안양&nbsp</a>
-            <a href="/stat_rank_ua/gyunggi/0/41171/84">만안&nbsp</a>
-            <a href="/stat_rank_ua/gyunggi/0/41173/84">동안</a>
+            <a th:href="@{/stat_rank_ua/seoul/{rankgubn}/11680/{ua}(ua=${ua},rankgubn=${rankgubn})}">강남구&nbsp</a>
+            <a th:href="@{/stat_rank_ua/seoul/{rankgubn}/11740/{ua}(ua=${ua},rankgubn=${rankgubn})}">&nbsp강동구&nbsp</a>
+            <a th:href="@{/stat_rank_ua/seoul/{rankgubn}/11500/{ua}(ua=${ua},rankgubn=${rankgubn})}">&nbsp강서구&nbsp</a>
+            <a th:href="@{/stat_rank_ua/seoul/{rankgubn}/11620/{ua}(ua=${ua},rankgubn=${rankgubn})}">&nbsp관악구&nbsp</a>
+            <a th:href="@{/stat_rank_ua/seoul/{rankgubn}/11530/{ua}(ua=${ua},rankgubn=${rankgubn})}">&nbsp구로구</a>
         </div>
         <div>
-            <a href="/stat_rank_ua/gyunggi/0/41290/84">&nbsp과천시&nbsp</a>
-            <a href="/stat_rank_ua/gyunggi/0/41210/84">&nbsp광명시&nbsp</a>
-            <a href="/stat_rank_ua/gyunggi/0/41410/84">&nbsp군포시&nbsp</a>
-            <a href="/stat_rank_ua/gyunggi/0/41190/84">&nbsp부천시&nbsp</a>
-            <a href="/stat_rank_ua/gyunggi/0/41390/84">&nbsp시흥시&nbsp</a>
-            <a href="/stat_rank_ua/gyunggi/0/41430/84">&nbsp의왕시&nbsp</a>
+            <a th:href="@{/stat_rank_ua/seoul/{rankgubn}/11545/{ua}(ua=${ua},rankgubn=${rankgubn})}">금천구&nbsp</a>
+            <a th:href="@{/stat_rank_ua/seoul/{rankgubn}/11590/{ua}(ua=${ua},rankgubn=${rankgubn})}">&nbsp동작구&nbsp</a>
+            <a th:href="@{/stat_rank_ua/seoul/{rankgubn}/11650/{ua}(ua=${ua},rankgubn=${rankgubn})}">&nbsp서초구&nbsp</a>
+            <a th:href="@{/stat_rank_ua/seoul/{rankgubn}/11710/{ua}(ua=${ua},rankgubn=${rankgubn})}">&nbsp송파구&nbsp</a>
+            <a th:href="@{/stat_rank_ua/seoul/{rankgubn}/11470/{ua}(ua=${ua},rankgubn=${rankgubn})}">&nbsp양천구&nbsp</a>
+            <a th:href="@{/stat_rank_ua/seoul/{rankgubn}/11560/{ua}(ua=${ua},rankgubn=${rankgubn})}">&nbsp영등포</a>
         </div>
         <p>
             <h4 align="center" th:text="${title}"></h4>

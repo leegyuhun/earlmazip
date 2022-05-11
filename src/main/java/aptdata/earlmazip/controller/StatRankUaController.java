@@ -72,21 +72,15 @@ public class StatRankUaController {
         model.addAttribute("list", list);
         model.addAttribute("title", "[ " + title + " ]");
         model.addAttribute("subtitle", subTitle);
+        model.addAttribute("ua", ua);
+        model.addAttribute("rankgubn", rankgubn);
 
         if (sigungucode.equals("11680") || sigungucode.equals("11740") || sigungucode.equals("11500") || sigungucode.equals("11620") || sigungucode.equals("11530") ||
                 sigungucode.equals("11545") || sigungucode.equals("11590") || sigungucode.equals("11650") || sigungucode.equals("11710") || sigungucode.equals("11470") ||
                 sigungucode.equals("11560") || sigungucode.equals("0")) {
-            if (ua == 84) {
-                return "stat_rank_ua/seoulSouth84";
-            } else {
-                return "stat_rank_ua/seoulSouth59";
-            }
+            return "stat_rank_ua/seoulSouth";
         } else {
-            if (ua == 84) {
-                return "stat_rank_ua/seoulNorth84";
-            } else {
-                return "stat_rank_ua/seoulNorth59";
-            }
+            return "stat_rank_ua/seoulNorth";
 
         }
     }
@@ -133,22 +127,15 @@ public class StatRankUaController {
         model.addAttribute("list", list);
         model.addAttribute("title", "[ " + title + " ]");
         model.addAttribute("subtitle", subTitle);
+        model.addAttribute("ua", ua);
+        model.addAttribute("rankgubn", rankgubn);
 
         if (sigungucode.equals("11680") || sigungucode.equals("11740") || sigungucode.equals("11500") || sigungucode.equals("11620") || sigungucode.equals("11530") ||
                 sigungucode.equals("11545") || sigungucode.equals("11590") || sigungucode.equals("11650") || sigungucode.equals("11710") || sigungucode.equals("11470") ||
                 sigungucode.equals("11560") || sigungucode.equals("0")) {
-            if (ua == 84) {
-                return "stat_rank_ua/seoulSouth84";
-            } else {
-                return "stat_rank_ua/seoulSouth59";
-            }
+            return "stat_rank_ua/seoulSouth";
         } else {
-            if (ua == 84) {
-                return "stat_rank_ua/seoulNorth84";
-            } else {
-                return "stat_rank_ua/seoulNorth59";
-            }
-
+            return "stat_rank_ua/seoulNorth";
         }
     }
 
@@ -194,26 +181,20 @@ public class StatRankUaController {
         model.addAttribute("list", list);
         model.addAttribute("title", "[ " + title + " ]");
         model.addAttribute("subtitle", subTitle);
+        model.addAttribute("ua", ua);
+        model.addAttribute("rankgubn", rankgubn);
 
         if (sigungucode.equals("41271") || sigungucode.equals("41273") || sigungucode.equals("41171")
             || sigungucode.equals("41173") || sigungucode.equals("41290") || sigungucode.equals("41210")
             || sigungucode.equals("41410") || sigungucode.equals("41190") || sigungucode.equals("41390")
             || sigungucode.equals("41430") || sigungucode.equals("0")) {
-            if (ua == 84) {
-                return "stat_rank_ua/gyunggiCenterWest84";
-            } else {
-                return "stat_rank_ua/gyunggiCenterWest59";
-            }
+            return "stat_rank_ua/gyunggiCenterWest";
         } else if (sigungucode.equals("41111") || sigungucode.equals("41113") || sigungucode.equals("41115")
                 || sigungucode.equals("41117") || sigungucode.equals("41550") || sigungucode.equals("41370")
                 || sigungucode.equals("41220") || sigungucode.equals("41590") || sigungucode.equals("1")) {
-            if (ua == 84) {
-                return "stat_rank_ua/gyunggiWestSouth84";
-            } else {
-                return "stat_rank_ua/gyunggiWestSouth59";
-            }
+            return "stat_rank_ua/gyunggiWestSouth";
         } else {
-            return "stat_rank_ua/gyunggiWestSouth59";
+            return "stat_rank_ua/gyunggiWestSouth";
         }
     }
 }
