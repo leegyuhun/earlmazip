@@ -38,12 +38,14 @@ public class StatRankUaController {
      * @param model
      * @return
      */
-    @GetMapping("/stat_rank_ua/seoul/{rankgubn}/{sigungucode}/{ua}")
+    @GetMapping("/stat_rank_ua/{rankgubn}/{sigungucode}/{ua}")
     public String getStatRankUaList_Seoul(@PathVariable int rankgubn,
                                           @PathVariable String sigungucode,
                                           @PathVariable int ua,Model model) {
-        log.info("/stat_rank_ua/seoul/" + rankgubn + "/" + sigungucode + "/" + ua);
-        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_rank_ua/seoul/" + rankgubn + "/" + sigungucode + "/" + ua);
+        String title = "-";
+        log.info("/stat_rank_ua/" + rankgubn + "/" + sigungucode + "/" + ua);
+        title = codeInfoService.getCodeName(sigungucode);
+        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_rank_ua/" + rankgubn + "/" + title + "/" + ua);
         List<RankUaSigunguResponseDto> list = statService.getStatRankUaList_Seoul(rankgubn, sigungucode, ua);
 
         int idx = 1;
@@ -53,18 +55,18 @@ public class StatRankUaController {
             item.setTradeUrl2("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/3");
             idx++;
         }
-        String title = "-";
+
         if (list.size() > 0) {
             if (rankgubn == 0) {
-                title = list.get(0).getSigunguName() + " 평균매매가 TOP 10";
+                title = title + " 평균매매가 TOP 10";
             } else if (rankgubn == 1) {
-                title = list.get(0).getSigunguName() + " 매매건수 TOP 10";
+                title = title + " 매매건수 TOP 10";
             }
         }
 
         model.addAttribute("list", list);
         model.addAttribute("title", "[ " + title + " ]");
 
-        return "stat_rank_ua/seoul";
+        return "stat_rank_ua/sigungu";
     }
 }
