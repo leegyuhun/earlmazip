@@ -12,8 +12,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -146,14 +148,27 @@ public class TradeController {
 
         String title = "-";
         if (trads.size() > 0) {
-            title = trads.get(0).getLandDong() + " " + aptName;
+            title = trads.get(0).getLandDong() + " " + aptName + "(" + trads.get(0).getBuildYear() + ")";
         }
 
         model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("regncode", regncode);
+        model.addAttribute("aptName", aptName);
+        model.addAttribute("ua", ua);
         model.addAttribute("dates", dates);
         model.addAttribute("dealAmts", dealAmts);
         model.addAttribute("list", trads);
 
         return "tradelist/aptTradeList_ByUA";
+    }
+
+    private String makeTermString(String term) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        int termInt = Integer.parseInt(term);
+        int nowInt = Integer.parseInt(date.substring(0,4));
+        // 현재날짜-term = 조회 기준일자
+        return Integer.toString(nowInt - termInt) + " ~ " + nowInt;
     }
 }

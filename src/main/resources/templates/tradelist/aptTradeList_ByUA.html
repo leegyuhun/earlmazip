@@ -8,7 +8,7 @@
     <!--    <a th:text="${year}"></a>-->
     <div>
         <p>
-            <h4 align="center" th:text="${title}"></h4>
+            <h6 align="center" th:text="${title}"></h6>
         </p>
         <div>
             <canvas id="myChart"></canvas>
@@ -20,6 +20,16 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
+        <a>[기간설정]&nbsp</a>
+        <a th:href="@{/tradelist/ByName/{regncode}/{aptName}/{ua}/0 (regncode=${regncode}, aptName=${aptName}, ua=${ua})}">올해&nbsp</a>
+        <b>/&nbsp</b>
+        <a th:href="@{/tradelist/ByName/{regncode}/{aptName}/{ua}/1 (regncode=${regncode}, aptName=${aptName}, ua=${ua})}">2년&nbsp</a>
+        <b>/&nbsp</b>
+        <a th:href="@{/tradelist/ByName/{regncode}/{aptName}/{ua}/2 (regncode=${regncode}, aptName=${aptName}, ua=${ua})}">3년&nbsp</a>
+        <b>/&nbsp</b>
+        <a th:href="@{/tradelist/ByName/{regncode}/{aptName}/{ua}/3 (regncode=${regncode}, aptName=${aptName}, ua=${ua})}">4년&nbsp</a>
+        <b>/&nbsp</b>
+        <a th:href="@{/tradelist/ByName/{regncode}/{aptName}/{ua}/4 (regncode=${regncode}, aptName=${aptName}, ua=${ua})}">5년&nbsp</a>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">

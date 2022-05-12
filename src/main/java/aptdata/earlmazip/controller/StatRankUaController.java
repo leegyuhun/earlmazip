@@ -39,7 +39,7 @@ public class StatRankUaController {
         if (!sigungucode.equals("0")) {
             log.info("/stat_rank_ua/" + rankgubn + "/" + sigungucode + "/" + ua);
             title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_rank_ua/" + rankgubn + "/" + title + "/" + ua);
+            apiCallStatService.writeApiCallStat("STAT_RANK_UA", "/stat_rank_ua/" + rankgubn + "/" + title + "/" + ua);
             list = statService.getStatRankUaList_Seoul(rankgubn, sigungucode, ua);
         } else {
             list = new ArrayList<>();
@@ -55,9 +55,9 @@ public class StatRankUaController {
 
         if (list.size() > 0) {
             if (rankgubn == 0) {
-                title = title + " 평균매매가 TOP 10";
+                title = title + " 평균매매가 TOP 20";
             } else if (rankgubn == 1) {
-                title = title + " 매매건수 TOP 10";
+                title = title + " 매매건수 TOP 20";
             }
         }
 
@@ -94,7 +94,7 @@ public class StatRankUaController {
         if (!sigungucode.equals("0")) {
             log.info("/stat_rank_ua/seoul/" + rankgubn + "/" + sigungucode + "/" + ua);
             title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_rank_ua/seoul/" + rankgubn + "/" + title + "/" + ua);
+            apiCallStatService.writeApiCallStat("STAT_RANK_UA", "/stat_rank_ua/seoul/" + rankgubn + "/" + title + "/" + ua);
             list = statService.getStatRankUaList_Seoul(rankgubn, sigungucode, ua);
         } else {
             list = new ArrayList<>();
@@ -110,9 +110,9 @@ public class StatRankUaController {
 
         if (list.size() > 0) {
             if (rankgubn == 0) {
-                title = title + " 평균매매가 TOP 10";
+                title = title + " 평균매매가 TOP 20";
             } else if (rankgubn == 1) {
-                title = title + " 매매건수 TOP 10";
+                title = title + " 매매건수 TOP 20";
             }
         }
 
@@ -148,7 +148,7 @@ public class StatRankUaController {
         if (!sigungucode.equals("0")) {
             log.info("/stat_rank_ua/gyunggi/" + rankgubn + "/" + sigungucode + "/" + ua);
             title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_rank_ua/gyunggi/" + rankgubn + "/" + title + "/" + ua);
+            apiCallStatService.writeApiCallStat("STAT_RANK_UA", "/stat_rank_ua/gyunggi/" + rankgubn + "/" + title + "/" + ua);
             list = statService.getStatRankUaList_Seoul(rankgubn, sigungucode, ua);
         } else {
             list = new ArrayList<>();
@@ -164,9 +164,9 @@ public class StatRankUaController {
 
         if (list.size() > 0) {
             if (rankgubn == 0) {
-                title = title + " 평균매매가 TOP 10";
+                title = title + " 평균매매가 TOP 20";
             } else if (rankgubn == 1) {
-                title = title + " 매매건수 TOP 10";
+                title = title + " 매매건수 TOP 20";
             }
         }
 

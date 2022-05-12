@@ -20,6 +20,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -99,8 +100,11 @@ public class StatController {
         Collections.reverse(avgprc);
         Collections.reverse(tradcnt);
 
-        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("title",  title);
+        model.addAttribute("termStr",  makeTermString(term));
         model.addAttribute("list", areas);
+        model.addAttribute("term", term);
+        model.addAttribute("sigungucode", sigungucode);
         model.addAttribute("dates", dates);
         model.addAttribute("avgprc", avgprc);
         model.addAttribute("tradcnt", tradcnt);
@@ -135,7 +139,10 @@ public class StatController {
         Collections.reverse(avgprc);
         Collections.reverse(tradcnt);
 
-        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("title",  title);
+        model.addAttribute("sigungucode",  sigungucode);
+        model.addAttribute("term",  term);
+        model.addAttribute("termStr", makeTermString(term));
         model.addAttribute("list", areas);
         model.addAttribute("dates", dates);
         model.addAttribute("avgprc", avgprc);
@@ -278,9 +285,10 @@ public class StatController {
             tops = new ArrayList<>();
         }
 
-        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("title",  title);
         model.addAttribute("list", tops);
         model.addAttribute("year", year);
+        model.addAttribute("sigungucode", sigungucode);
 
         return "stat_trade/seoulTop";
     }
@@ -348,7 +356,10 @@ public class StatController {
         model.addAttribute("avgprc", avgprc);
         model.addAttribute("tradcnt", tradcnt);
         model.addAttribute("interestRates", interestRates);
-        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("title",  title);
+        model.addAttribute("sidocode",  sidoCode);
+        model.addAttribute("term",  term);
+        model.addAttribute("termStr", makeTermString(term));
 
         return "stat_trade/gyunggiByCity";
     }
@@ -373,7 +384,8 @@ public class StatController {
 
         model.addAttribute("list", tops);
         model.addAttribute("year", year);
-        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("sidocode", sidocode);
+        model.addAttribute("title",  title);
         return "stat_trade/gyunggiByCityTop";
     }
 
@@ -647,7 +659,10 @@ public class StatController {
         Collections.reverse(avgprc);
         Collections.reverse(tradcnt);
 
-        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("title",  title);
+        model.addAttribute("term",  term);
+        model.addAttribute("termStr", makeTermString(term));
+        model.addAttribute("sigungucode",  sigungucode);
         model.addAttribute("list", areas);
         model.addAttribute("dates", dates);
         model.addAttribute("avgprc", avgprc);
@@ -796,4 +811,17 @@ public class StatController {
         return "stat_trade/statByBuildYear";
     }
 
+    private String makeTermString(String term) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        int termInt = Integer.parseInt(term);
+        int nowInt = Integer.parseInt(date.substring(0,4));
+        int prevInt = nowInt - termInt;
+        if (nowInt == prevInt) {
+            return Integer.toString(nowInt);
+        } else {
+            return prevInt + " ~ " + nowInt;
+        }
+    }
 }

@@ -5,41 +5,42 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
+<!--        <a th:href="@{/tradelist/ByName/{regncode}/{aptName}/{ua}/0 (regncode=${regncode}, aptName=${aptName}, ua=${ua})}">올해&nbsp</a>-->
         <div>
-            <a href="/stat_trade/seoul/11680/6">강남구&nbsp</a>
-            <a href="/stat_trade/seoul/11740/6">&nbsp강동구&nbsp</a>
-            <a href="/stat_trade/seoul/11305/6">&nbsp강북구&nbsp</a>
-            <a href="/stat_trade/seoul/11500/6">&nbsp강서구&nbsp</a>
-            <a href="/stat_trade/seoul/11620/6">&nbsp관악구&nbsp</a>
-            <a href="/stat_trade/seoul/11215/6">&nbsp광진구&nbsp</a>
-            <a href="/stat_trade/seoul/11530/6">&nbsp구로구</a>
+            <a th:href="@{/stat_trade/seoul/11680/{term} (term=${term})}">강남구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11740/{term} (term=${term})}">&nbsp강동구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11305/{term} (term=${term})}">&nbsp강북구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11500/{term} (term=${term})}">&nbsp강서구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11620/{term} (term=${term})}">&nbsp관악구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11215/{term} (term=${term})}">&nbsp광진구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11530/{term} (term=${term})}">&nbsp구로구</a>
         </div>
         <div>
-            <a href="/stat_trade/seoul/11545/6">금천구&nbsp</a>
-            <a href="/stat_trade/seoul/11350/6">&nbsp노원구&nbsp</a>
-            <a href="/stat_trade/seoul/11320/6">&nbsp도봉구&nbsp</a>
-            <a href="/stat_trade/seoul/11230/6">&nbsp동대문&nbsp</a>
-            <a href="/stat_trade/seoul/11590/6">&nbsp동작구&nbsp</a>
-            <a href="/stat_trade/seoul/11440/6">&nbsp마포구&nbsp</a>
-            <a href="/stat_trade/seoul/11410/6">&nbsp서대문</a>
+            <a th:href="@{/stat_trade/seoul/11545/{term} (term=${term})}">금천구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11350/{term} (term=${term})}">&nbsp노원구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11320/{term} (term=${term})}">&nbsp도봉구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11230/{term} (term=${term})}">&nbsp동대문&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11590/{term} (term=${term})}">&nbsp동작구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11440/{term} (term=${term})}">&nbsp마포구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11410/{term} (term=${term})}">&nbsp서대문</a>
         </div>
         <div>
-            <a href="/stat_trade/seoul/11650/6">서초구&nbsp</a>
-            <a href="/stat_trade/seoul/11200/6">&nbsp성동구&nbsp</a>
-            <a href="/stat_trade/seoul/11290/6">&nbsp성북구&nbsp</a>
-            <a href="/stat_trade/seoul/11710/6">&nbsp송파구&nbsp</a>
-            <a href="/stat_trade/seoul/11470/6">&nbsp양천구&nbsp</a>
-            <a href="/stat_trade/seoul/11560/6">&nbsp영등포&nbsp</a>
-            <a href="/stat_trade/seoul/11170/6">&nbsp용산구</a>
+            <a th:href="@{/stat_trade/seoul/11650/{term} (term=${term})}">서초구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11200/{term} (term=${term})}">&nbsp성동구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11290/{term} (term=${term})}">&nbsp성북구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11710/{term} (term=${term})}">&nbsp송파구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11470/{term} (term=${term})}">&nbsp양천구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11560/{term} (term=${term})}">&nbsp영등포&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11170/{term} (term=${term})}">&nbsp용산구</a>
         </div>
         <div>
-            <a href="/stat_trade/seoul/11380/6">은평구&nbsp</a>
-            <a href="/stat_trade/seoul/11110/6">&nbsp종로구&nbsp</a>
-            <a href="/stat_trade/seoul/11260/6">&nbsp중랑구&nbsp</a>
-            <a href="/stat_trade/seoul/11140/6">&nbsp중구</a>
+            <a th:href="@{/stat_trade/seoul/11380/{term} (term=${term})}">은평구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11110/{term} (term=${term})}">&nbsp종로구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11260/{term} (term=${term})}">&nbsp중랑구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/11140/{term} (term=${term})}">&nbsp중구</a>
         </div>
         <p>
-            <h5 align="center" th:text="${title}"></h5>
+            <h6 align="center" th:text="|[ ${title} ${termStr} ]|"></h6>
         </p>
         <div>
             <canvas id="myChart"></canvas>
@@ -51,7 +52,18 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
-
+        <a>[기간]&nbsp</a>
+        <a th:href="@{/stat_trade/seoul/{sigungucode}/0 (sigungucode=${sigungucode})}">올해</a>
+        <b>&nbsp/&nbsp</b>
+        <a th:href="@{/stat_trade/seoul/{sigungucode}/1 (sigungucode=${sigungucode})}">2년</a>
+        <b>&nbsp/&nbsp</b>
+        <a th:href="@{/stat_trade/seoul/{sigungucode}/4 (sigungucode=${sigungucode})}">5년</a>
+        <b>&nbsp/&nbsp</b>
+        <a th:href="@{/stat_trade/seoul/{sigungucode}/6 (sigungucode=${sigungucode})}">7년</a>
+        <b>&nbsp/&nbsp</b>
+        <a th:href="@{/stat_trade/seoul/{sigungucode}/9 (sigungucode=${sigungucode})}">10년</a>
+        <b>&nbsp/&nbsp</b>
+        <a th:href="@{/stat_trade/seoul/{sigungucode}/16 (sigungucode=${sigungucode})}">전체</a>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">

@@ -8,40 +8,40 @@
 <!--    <a th:text="${year}"></a>-->
     <div>
         <div>
-            <a href="/stat_trade/seoul/top/2022/11680">강남구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11740">&nbsp강동구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11305">&nbsp강북구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11500">&nbsp강서구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11620">&nbsp관악구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11215">&nbsp광진구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11530">&nbsp구로구</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11680 (year=${year})}">강남구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11740 (year=${year})}">&nbsp강동구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11305 (year=${year})}">&nbsp강북구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11500 (year=${year})}">&nbsp강서구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11620 (year=${year})}">&nbsp관악구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11215 (year=${year})}">&nbsp광진구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11530 (year=${year})}">&nbsp구로구</a>
         </div>
         <div>
-            <a href="/stat_trade/seoul/top/2022/11545">금천구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11350">&nbsp노원구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11320">&nbsp도봉구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11230">&nbsp동대문&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11590">&nbsp동작구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11440">&nbsp마포구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11410">&nbsp서대문</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11545 (year=${year})}">금천구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11350 (year=${year})}">&nbsp노원구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11320 (year=${year})}">&nbsp도봉구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11230 (year=${year})}">&nbsp동대문&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11590 (year=${year})}">&nbsp동작구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11440 (year=${year})}">&nbsp마포구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11410 (year=${year})}">&nbsp서대문</a>
         </div>
         <div>
-            <a href="/stat_trade/seoul/top/2022/11650">서초구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11200">&nbsp성동구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11290">&nbsp성북구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11710">&nbsp송파구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11470">&nbsp양천구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11560">&nbsp영등포&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11170">&nbsp용산구</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11650 (year=${year})}">서초구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11200 (year=${year})}">&nbsp성동구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11290 (year=${year})}">&nbsp성북구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11710 (year=${year})}">&nbsp송파구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11470 (year=${year})}">&nbsp양천구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11560 (year=${year})}">&nbsp영등포&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11170 (year=${year})}">&nbsp용산구</a>
         </div>
         <div>
-            <a href="/stat_trade/seoul/top/2022/11380">은평구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11110">&nbsp종로구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11260">&nbsp중랑구&nbsp</a>
-            <a href="/stat_trade/seoul/top/2022/11140">&nbsp중구</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11380 (year=${year})}">은평구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11110 (year=${year})}">&nbsp종로구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11260 (year=${year})}">&nbsp중랑구&nbsp</a>
+            <a th:href="@{/stat_trade/seoul/top/{year}/11140 (year=${year})}">&nbsp중구</a>
         </div>
         <p>
-            <h5 align="center" th:text="${title}"></h5>
+            <h5 align="center" th:text="|[ ${year} ${title} TOP 100 ]|"></h5>
         </p>
         <div>
             <ins class="kakao_ad_area" style="display:none;"
@@ -50,6 +50,10 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
+        <a>[년도]&nbsp</a>
+        <a th:href="@{/stat_trade/seoul/top/2022/{sigungucode} (sigungucode=${sigungucode})}">2022&nbsp</a>
+        <a th:href="@{/stat_trade/seoul/top/2021/{sigungucode} (sigungucode=${sigungucode})}">2021&nbsp</a>
+        <a th:href="@{/stat_trade/seoul/top/2020/{sigungucode} (sigungucode=${sigungucode})}">2020</a>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
