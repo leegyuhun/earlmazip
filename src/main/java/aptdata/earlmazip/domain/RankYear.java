@@ -21,6 +21,7 @@ public class RankYear {
     private String dealDate;
     private String aptName;
     private float useArea;
+    private int useAreaTrunc;
     private int dealAmt;
     private int floor;
     private String buildYear;

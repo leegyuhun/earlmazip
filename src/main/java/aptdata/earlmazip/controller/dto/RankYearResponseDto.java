@@ -24,6 +24,7 @@ public class RankYearResponseDto {
     private String dealDate;
     private String aptName;
     private float useArea;
+    private int useAreaTrunc;
     private int dealAmt;
     private int floor;
     private String buildYear;
@@ -42,6 +43,7 @@ public class RankYearResponseDto {
         this.dealDate = entity.getDealDate();
         this.aptName = entity.getAptName();
         this.useArea = entity.getUseArea();
+        this.useArea = entity.getUseAreaTrunc();
         this.dealAmt = entity.getDealAmt();
         this.floor = entity.getFloor();
         this.buildYear = entity.getBuildYear();

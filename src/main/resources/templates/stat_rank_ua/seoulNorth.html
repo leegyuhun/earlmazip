@@ -60,8 +60,10 @@
                     <td align="right" style="font-weight: bolder" th:text="${list.avgAmtStr}"></td>
 <!--                    <td align="right" th:text="${list.maxAmtStr}"></td>-->
                     <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>
-                    <td align="center"><a th:href="@{https://www.earlmazip.co.kr/{add}(add=${list.tradeUrl})}"><button>21~</button></a> </td>
-                    <td align="center"><a th:href="@{https://www.earlmazip.co.kr/{add}(add=${list.tradeUrl2})}"><button>19~</button></a> </td>
+                    <td align="center"><a th:href="@{https://www.earlmazip.co.kr/{add}(add=${list.tradeUrl})}">21~</a></td>
+                    <td align="center"><a th:href="@{https://www.earlmazip.co.kr/{add}(add=${list.tradeUrl2})}">19~</a></td>
+<!--                    <td align="center"><a th:href="@{https://www.earlmazip.co.kr/{add}(add=${list.tradeUrl})}"><button>21~</button></a> </td>-->
+<!--                    <td align="center"><a th:href="@{https://www.earlmazip.co.kr/{add}(add=${list.tradeUrl2})}"><button>19~</button></a> </td>-->
                 </tr>
             </tbody>
         </table>

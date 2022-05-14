@@ -8,6 +8,7 @@ import java.text.DecimalFormat;
 
 @Getter
 public class AptPriceResponseDto {
+    private String sigunguCode;
     public String getDealDate() {
         return dealDate.substring(2,4) + "." + dealDate.substring(4,6) + "." + dealDate.substring(6,8);
     }
@@ -43,6 +44,7 @@ public class AptPriceResponseDto {
     private int newHighestPrice;
 
     public AptPriceResponseDto(AptPriceRaw entity) {
+        this.sigunguCode = entity.getSigunguCode();
         this.dealDate = entity.getDealDate();
         this.aptName = entity.getAptName();
         this.useArea = entity.getUseArea();

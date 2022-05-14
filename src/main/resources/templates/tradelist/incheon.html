@@ -55,6 +55,7 @@
                     <th>층수</th>
                     <th>신고가</th>
                     <th>거래유형</th>
+                    <th>내역</th>
                 </tr>
             </thead>
             <tbody>
@@ -68,6 +69,7 @@
                     <td align="right" th:text="${list.floor}"></td>
                     <td align="center" th:text="${list.newHighest}"></td>
                     <td align="center" th:text="${list.dealType}"></td>
+                    <td align="center"><a th:href="@{/tradelist/ByName/{sigungucode}/{aptname}/{uatrunc}/1 (sigungucode=${list.sigunguCode}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc})}">내역</a></td>
                 </tr>
             </tbody>
         </table>
