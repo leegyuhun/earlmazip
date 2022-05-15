@@ -7,7 +7,8 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
         <p>
-            <h4 align="center" th:text="${title}"></h4>
+            <h6 align="center" th:text="${title}"></h6>
+            <h6 align="center" th:text="|( 기간: ${termStr} )|"></h6>
         </p>
         <div>
             <canvas id="myChart"></canvas>

@@ -14,8 +14,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -242,10 +244,20 @@ public class LeaseController {
         }
 
         model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("termStr", makeTermString(term));
         model.addAttribute("dates", dates);
         model.addAttribute("deposits", deposits);
         model.addAttribute("list", trads);
 
         return "leaselist/aptLeaseList_ByUA";
+    }
+
+    private String makeTermString(int term) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        int nowInt = Integer.parseInt(date.substring(0,4));
+        // 현재날짜-term = 조회 기준일자
+        return Integer.toString(nowInt - term) + " ~ " + nowInt;
     }
 }
