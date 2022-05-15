@@ -211,8 +211,9 @@ public class LeaseController {
         return "leaselist/incheonMonthly";
     }
 
-    @GetMapping("/leaselist/ByName/{regncode}/{aptName}/{ua}/{term}")
+    @GetMapping("/leaselist/ByName/{regncode}/{dong}/{aptName}/{ua}/{term}")
     public String getLeaseListByName(@PathVariable String regncode,
+                                     @PathVariable String dong,
                                      @PathVariable String aptName,
                                      @PathVariable int ua,
                                      @PathVariable int term,
@@ -222,7 +223,7 @@ public class LeaseController {
             log.info("/leaselist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
             apiCallStatService.writeApiCallStat("LEASE_LIST_NAME", "/leaselist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
             if (StringUtils.hasText(regncode)) {
-                trads = leaseService.getLeaseList_ByName(regncode, aptName, ua, term);
+                trads = leaseService.getLeaseList_ByName(regncode, dong, aptName, ua, term);
             } else {
                 trads = new ArrayList<>();
             }

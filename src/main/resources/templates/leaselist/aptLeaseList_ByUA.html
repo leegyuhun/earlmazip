@@ -28,6 +28,9 @@
 <!--                    <th>갱신권<br/>사용</th>-->
                     <th>전용면적(m2)</th>
                     <th>전세가</th>
+                    <th>이전</br>전세가</th>
+                    <th>월세</th>
+                    <th>이전</br>월세</th>
                     <th>층수</th>
                 </tr>
             </thead>
@@ -38,7 +41,10 @@
                     <td align="center" th:text="${list.dealTerm}"></td>
 <!--                    <td align="center" th:text="${list.renewalUse}"></td>-->
                     <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>
-                    <td align="right" th:text="${#numbers.formatInteger(list.deposit,1,'COMMA')}"></td>
+                    <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.deposit,1,'COMMA')}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.befDeposit,1,'COMMA')}"></td>
+                    <td align="right" style="font-weight: bolder" th:text="${list.monthlyRentStr}"></td>
+                    <td align="right" th:text="${list.befMonthlyRentStr}"></td>
                     <td align="right" th:text="${list.floor}"></td>
                 </tr>
             </tbody>

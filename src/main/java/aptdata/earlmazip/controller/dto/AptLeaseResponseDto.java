@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class AptLeaseResponseDto {
+    private String sigunguCode;
     private String dealType;
     private String dealTerm;
     private String renewalUse;
@@ -29,15 +30,16 @@ public class AptLeaseResponseDto {
     private int floor;
     private String buildYear;
     private String landDong;
-    public String getLandDong(){
-        if (this.landDong.length() > 2 && this.landDong.contains("동")) {
-            return this.landDong.replace("동", "");
-        } else {
-            return this.landDong;
-        }
-    }
+//    public String getLandDong(){
+//        if (this.landDong.length() > 2 && this.landDong.contains("동")) {
+//            return this.landDong.replace("동", "");
+//        } else {
+//            return this.landDong;
+//        }
+//    }
 
     public AptLeaseResponseDto(AptLeaseRaw entity) {
+        this.sigunguCode = entity.getSigunguCode();
         this.dealDate = entity.getDealDate();
         this.aptName = entity.getAptName();
         this.useArea = entity.getUseArea();

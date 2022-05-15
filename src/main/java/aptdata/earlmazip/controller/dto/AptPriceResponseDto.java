@@ -33,13 +33,13 @@ public class AptPriceResponseDto {
     private int floor;
     private String buildYear;
     private String landDong;
-    public String getLandDong(){
-        if (this.landDong.length() > 2 && this.landDong.contains("동")) {
-            return this.landDong.replace("동", "");
-        } else {
-            return this.landDong;
-        }
-    }
+//    public String getLandDong(){
+//        if (this.landDong.length() > 2 && this.landDong.contains("동")) {
+//            return this.landDong.replace("동", "");
+//        } else {
+//            return this.landDong;
+//        }
+//    }
     private String cnclDealType;
     private String cnclDealDate;
     private String dealType;

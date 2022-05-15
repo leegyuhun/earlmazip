@@ -50,7 +50,7 @@ public class LeaseService {
         return leaseRepository.getLeaseMonthlyList_IncheonSigungu(sigungu);
     }
 
-    public List<AptLeaseResponseDto> getLeaseList_ByName(String regncode, String aptName, int ua, int term) {
-        return leaseRepository.getLeaseList_ByName(regncode, aptName, ua, term);
+    public List<AptLeaseResponseDto> getLeaseList_ByName(String regncode, String dong, String aptName, int ua, int term) {
+        return leaseRepository.getLeaseList_ByName(regncode, dong, aptName, ua, term);
     }
 }
