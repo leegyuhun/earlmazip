@@ -41,21 +41,21 @@
                     <th>평균</th>
 <!--                    <th>최고</th>-->
                     <th>신고가율</th>
-                    <th>매매</th>
-                    <th>내역</th>
+<!--                    <th>매매</th>-->
+<!--                    <th>내역</th>-->
                 </tr>
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
                     <td align="center" th:text="${list.landDong}"></td>
-                    <td align="left" th:text="|${list.aptName}[${list.buildYear}]|"></td>
+                    <td align="left"><a th:text="|${list.aptName}[${list.buildYear}]|" th:href="@{/{add}(add=${list.tradeUrl})}"></a></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.tradeCnt,1,'COMMA')}"></td>
 <!--                    <td align="right" th:text="${list.minAmtStr}"></td>-->
                     <td align="right" style="font-weight: bolder" th:text="${list.avgAmtStr}"></td>
 <!--                    <td align="right" th:text="${list.maxAmtStr}"></td>-->
                     <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>
-                    <td align="center"><a th:href="@{https://www.earlmazip.co.kr/{add}(add=${list.tradeUrl})}">21~</a> </td>
-                    <td align="center"><a th:href="@{https://www.earlmazip.co.kr/{add}(add=${list.tradeUrl2})}">19~</a> </td>
+<!--                    <td align="center"><a th:href="@{https://www.earlmazip.co.kr/{add}(add=${list.tradeUrl})}">21~</a> </td>-->
+<!--                    <td align="center"><a th:href="@{https://www.earlmazip.co.kr/{add}(add=${list.tradeUrl2})}">19~</a> </td>-->
                 </tr>
             </tbody>
         </table>
