@@ -95,21 +95,22 @@
                     <th>층수</th>
                     <th>신고가</th>
                     <th>거래</br>유형</th>
-                    <th>내역</th>
+<!--                    <th>내역</th>-->
                 </tr>
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
                     <td align="center" th:text="${list.dealDate}"></td>
                     <td align="center" th:text="${list.landDong}"></td>
-                    <td align="left" th:text="${list.aptName}"></td>
+                    <td align="left"><a th:text="${list.aptName}" th:href="@{/tradelist/ByName/{sigungucode}/{aptname}/{uatrunc}/1 (sigungucode=${list.sigunguCode}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc})}"></a></td>
                     <td align="center" th:text="${list.buildYear}"></td>
                     <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>
-                    <td align="right" th:text="${#numbers.formatInteger(list.dealAmt,1,'COMMA')}"></td>
+<!--                    <td align="right" th:text="${#numbers.formatInteger(list.dealAmt,1,'COMMA')}"></td>-->
+                    <td align="right" th:text="${list.dealAmtStr}"></td>
                     <td align="right" th:text="${list.floor}"></td>
                     <td align="center" th:text="${list.newHighest}"></td>
                     <td align="center" th:text="${list.dealType}"></td>
-                    <td align="center"><a th:href="@{/tradelist/ByName/{sigungucode}/{aptname}/{uatrunc}/1 (sigungucode=${list.sigunguCode}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc})}">내역</a></td>
+<!--                    <td align="center"><a th:href="@{/tradelist/ByName/{sigungucode}/{aptname}/{uatrunc}/1 (sigungucode=${list.sigunguCode}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc})}">내역</a></td>-->
                 </tr>
             </tbody>
         </table>

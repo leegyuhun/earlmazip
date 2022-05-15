@@ -151,12 +151,13 @@ public class TradeController {
             title = trads.get(0).getLandDong() + " " + aptName + "(" + trads.get(0).getBuildYear() + ")";
         }
 
-        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("title",  title);
         model.addAttribute("regncode", regncode);
         model.addAttribute("aptName", aptName);
         model.addAttribute("ua", ua);
         model.addAttribute("dates", dates);
         model.addAttribute("dealAmts", dealAmts);
+        model.addAttribute("termStr", makeTermString(Integer.toString(term)));
         model.addAttribute("list", trads);
 
         return "tradelist/aptTradeList_ByUA";

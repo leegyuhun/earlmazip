@@ -3,6 +3,8 @@ package aptdata.earlmazip.controller.dto;
 import aptdata.earlmazip.domain.RankYear;
 import lombok.Getter;
 
+import java.text.DecimalFormat;
+
 @Getter
 public class RankYearResponseDto {
     private int seq;
@@ -26,6 +28,10 @@ public class RankYearResponseDto {
     private float useArea;
     private int useAreaTrunc;
     private int dealAmt;
+    private String dealAmtStr;
+    public String getDealAmtStr() {
+        return new DecimalFormat("#.0#").format((float)this.dealAmt / 10000) + "억";
+    }
     private int floor;
     private String buildYear;
     private String dealType;
@@ -43,7 +49,7 @@ public class RankYearResponseDto {
         this.dealDate = entity.getDealDate();
         this.aptName = entity.getAptName();
         this.useArea = entity.getUseArea();
-        this.useArea = entity.getUseAreaTrunc();
+        this.useAreaTrunc = entity.getUseAreaTrunc();
         this.dealAmt = entity.getDealAmt();
         this.floor = entity.getFloor();
         this.buildYear = entity.getBuildYear();

@@ -26,6 +26,10 @@ public class AptPriceResponseDto {
     private String useAreaStr;
     private int useAreaTrunc;
     private int dealAmt;
+    private String dealAmtStr;
+    public String getDealAmtStr() {
+        return new DecimalFormat("#.0#").format((float)this.dealAmt / 10000) + "억";
+    }
     private int floor;
     private String buildYear;
     private String landDong;

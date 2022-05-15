@@ -8,7 +8,8 @@
     <!--    <a th:text="${year}"></a>-->
     <div>
         <p>
-            <h6 align="center" th:text="${title}"></h6>
+            <h6 align="center" th:text="|[ ${title} ]|"></h6>
+            <h6 align="center" th:text="|( 기간: ${termStr} )|"></h6>
         </p>
         <div>
             <canvas id="myChart"></canvas>
@@ -30,6 +31,7 @@
         <a th:href="@{/tradelist/ByName/{regncode}/{aptName}/{ua}/3 (regncode=${regncode}, aptName=${aptName}, ua=${ua})}">4년&nbsp</a>
         <b>/&nbsp</b>
         <a th:href="@{/tradelist/ByName/{regncode}/{aptName}/{ua}/4 (regncode=${regncode}, aptName=${aptName}, ua=${ua})}">5년&nbsp</a>
+
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
@@ -52,7 +54,8 @@
 <!--                    <td align="left" th:text="${list.aptName}"></td>-->
                     <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>
 <!--                    <td align="right" th:text="${list.useAreaStr}"></td>-->
-                    <td align="right" th:text="${#numbers.formatInteger(list.dealAmt,1,'COMMA')}"></td>
+<!--                    <td align="right" th:text="${#numbers.formatInteger(list.dealAmt,1,'COMMA')}"></td>-->
+                    <td align="right" th:text="${list.dealAmtStr}"></td>
                     <td align="right" th:text="${list.floor}"></td>
                     <td align="center" th:text="${list.newHighest}"></td>
                     <td align="center" th:text="${list.dealType}"></td>
