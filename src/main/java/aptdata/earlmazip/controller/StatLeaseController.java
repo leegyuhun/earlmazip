@@ -13,8 +13,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -89,7 +91,7 @@ public class StatLeaseController {
             stats = new ArrayList<>();
         }
         List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
-        List<Integer> avgDeposits = stats.stream().map(o->new Integer(o.getAvgDeposit())).collect(Collectors.toList());
+        List<Float> avgDeposits = stats.stream().map(o->new Float((float) o.getAvgDeposit()/10000)).collect(Collectors.toList());
         List<Integer> tradcnt = stats.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
 
         Collections.reverse(dates);
@@ -97,18 +99,28 @@ public class StatLeaseController {
         Collections.reverse(tradcnt);
 
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", "6");
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", Integer.toString(term));
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         model.addAttribute("dates", dates);
         model.addAttribute("avgDeposits", avgDeposits);
         model.addAttribute("tradcnt", tradcnt);
-        model.addAttribute("title",  "[ "+ title + " - 전세 통계 ]");
+        model.addAttribute("title",  title);
         model.addAttribute("interestRates", interestRates);
         model.addAttribute("list", stats);
+        model.addAttribute("term", term);
+        model.addAttribute("sigungucode", sigungucode);
+        model.addAttribute("termStr", makeTermString(term));
         return "stat_lease/seoul";
     }
 
+    /**
+     * 국평 전세가 월별통계
+     * @param sigungucode
+     * @param term
+     * @param model
+     * @return
+     */
     @GetMapping("/stat_lease/seoul84/{sigungucode}/{term}")
     public String getStatLeaseList_Seoul84(@PathVariable String sigungucode,
                                          @PathVariable int term,
@@ -128,7 +140,7 @@ public class StatLeaseController {
             stats = new ArrayList<>();
         }
         List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
-        List<Integer> avgDeposits = stats.stream().map(o->new Integer(o.getAvgDeposit())).collect(Collectors.toList());
+        List<Float> avgDeposits = stats.stream().map(o->new Float((float)o.getAvgDeposit()/10000)).collect(Collectors.toList());
         List<Integer> tradcnt = stats.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
 
         Collections.reverse(dates);
@@ -136,13 +148,16 @@ public class StatLeaseController {
         Collections.reverse(tradcnt);
 
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", "6");
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", Integer.toString(term));
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         model.addAttribute("dates", dates);
         model.addAttribute("avgDeposits", avgDeposits);
         model.addAttribute("tradcnt", tradcnt);
-        model.addAttribute("title",  "[ "+ title + " - 국평 전세 통계 ]");
+        model.addAttribute("title", title);
+        model.addAttribute("term", term);
+        model.addAttribute("sigungucode", sigungucode);
+        model.addAttribute("termStr", makeTermString(term));
         model.addAttribute("interestRates", interestRates);
         model.addAttribute("list", stats);
         return "stat_lease/seoul84";
@@ -217,4 +232,16 @@ public class StatLeaseController {
         return "stat_lease/statSido_monthly";
     }
 
+    private String makeTermString(int term) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        int nowInt = Integer.parseInt(date.substring(0,4));
+        int prevInt = nowInt - term;
+        if (nowInt == prevInt) {
+            return Integer.toString(nowInt);
+        } else {
+            return prevInt + " ~ " + nowInt;
+        }
+    }
 }

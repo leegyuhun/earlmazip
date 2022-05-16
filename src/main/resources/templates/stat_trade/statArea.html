@@ -5,22 +5,8 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
-        <div>
-            <a href="/stat_trade/incheonBySigungu/28710/5">강화군&nbsp</a>
-            <a href="/stat_trade/incheonBySigungu/28245/5">&nbsp계양구&nbsp</a>
-            <a href="/stat_trade/incheonBySigungu/28200/5">&nbsp남동구&nbsp</a>
-            <a href="/stat_trade/incheonBySigungu/28140/5">&nbsp동구&nbsp</a>
-            <a href="/stat_trade/incheonBySigungu/28177/5">&nbsp미추홀구</a>
-        </div>
-        <div>
-            <a href="/stat_trade/incheonBySigungu/28237/5">부평구&nbsp</a>
-            <a href="/stat_trade/incheonBySigungu/28260/5">&nbsp서구&nbsp</a>
-            <a href="/stat_trade/incheonBySigungu/28185/5">&nbsp연수구&nbsp</a>
-            <a href="/stat_trade/incheonBySigungu/28720/5">&nbsp옹진군&nbsp</a>
-            <a href="/stat_trade/incheonBySigungu/28110/5">중구</a>
-        </div>
         <p>
-            <h5 align="center" th:text="${title}"></h5>
+            <h5 align="center" th:text="|[ ${title} ]|"></h5>
         </p>
         <div>
             <canvas id="myChart"></canvas>
@@ -31,6 +17,18 @@
                  data-ad-width   = "320"
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <div>
+            <a>[기간]&nbsp</a>
+            <a th:href="@{/stat_trade/{areacode}/1 (areacode=${areacode})}">1년&nbsp</a>
+            <b>/&nbsp</b>
+            <a th:href="@{/stat_trade/{areacode}/3 (areacode=${areacode})}">3년&nbsp</a>
+            <b>/&nbsp</b>
+            <a th:href="@{/stat_trade/{areacode}/5 (areacode=${areacode})}">5년&nbsp</a>
+            <b>/&nbsp</b>
+            <a th:href="@{/stat_trade/{areacode}/10 (areacode=${areacode})}">10년&nbsp</a>
+            <b>/&nbsp</b>
+            <a th:href="@{/stat_trade/{areacode}/16 (areacode=${areacode})}">전체&nbsp</a>
         </div>
         <table class="table table-striped">
             <thead class="table-dark">
@@ -111,7 +109,8 @@
 				},
                 title: {
                     display: true,
-                    text: '평균매매가'
+                    color: 'rgb(255, 99, 132)',
+                    text: '평균매매가(억)'
                 }
             },
             'y-line2':{
@@ -121,22 +120,27 @@
                 ticks:{
 				    color: 'rgb(64, 64, 64)'
 				},
+				grid:{
+                    display: false
+                },
                 title: {
                     display: true,
+                    color: 'rgb(64, 64, 64)',
                     text: '한국은행 기준금리'
                 }
             },
             'y-bar':{
                 position: 'right',
                 suggestedMin: 0,
-                grid:{
-                    display: false
-                },
                 ticks:{
 				    color: 'rgb(54, 162, 235)'
 				},
+				grid:{
+                    display: false
+                },
                 title: {
                     display: true,
+                    color: 'rgb(54, 162, 235)',
                     text: '거래건수'
                 }
             }

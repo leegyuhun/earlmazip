@@ -5,54 +5,12 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
-<!--        <div>-->
-<!--            <a>년도별</a>-->
-<!--            <a href="/statistics/seoul">전체</a>-->
-<!--            <a href="/statistics/seoul/2022">2022</a>-->
-<!--            <a href="/statistics/seoul/2021">2021</a>-->
-<!--            <a href="/statistics/seoul/2020">2020</a>-->
-<!--            <a href="/statistics/seoul/2019">2019</a>-->
-<!--            <a href="/statistics/seoul/2018">2018</a>-->
-<!--            <a href="/statistics/seoul/2017">2017</a>-->
-<!--        </div>-->
         <p>
             <h5 align="center" th:text="인천광역시"></h5>
         </p>
         <div>
             <canvas id="myChart"></canvas>
         </div>
-<!--        <div>-->
-<!--            <a>[전용면적별]&nbsp</a>-->
-<!--            <a href="/stat_trade/seoul/usearea/UA01">전체&nbsp</a>-->
-<!--            <b>/&nbsp</b>-->
-<!--            <a href="/stat_trade/seoul/usearea/UA02">59미만&nbsp</a>-->
-<!--            <b>/&nbsp</b>-->
-<!--            <a href="/stat_trade/seoul/usearea/UA03">59이상 85미만&nbsp</a>-->
-<!--            <b>/&nbsp</b>-->
-<!--            <a href="/stat_trade/seoul/usearea/UA04">85이상 102미만&nbsp</a>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--            <a href="/stat_trade/seoul/usearea/UA05">102이상 135이하&nbsp</a>-->
-<!--            <b>/&nbsp</b>-->
-<!--            <a href="/stat_trade/seoul/usearea/UA06">135초과</a>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--            <form th:object="${aptSearch}" class="form-inline">-->
-<!--                <div class="form-group mb-2">-->
-<!--                    <input type="text" th:field="*{aptName}" class="form-control" placeholder="아파트명"/>-->
-<!--                </div>-->
-<!--                <button type="submit" class="btn btn-primary mb-2">검색</button>-->
-<!--                &lt;!&ndash;                <div class="form-group mx-sm-1 mb-2">&ndash;&gt;-->
-<!--                &lt;!&ndash;                    <select th:field="*{orderStatus}" class="form-control">&ndash;&gt;-->
-<!--                &lt;!&ndash;                        <option value="">주문상태</option>&ndash;&gt;-->
-<!--                &lt;!&ndash;                        <option th:each="status : ${T(jpabook.jpashop.domain.OrderStatus).values()}"                                 th:value="${status}"&ndash;&gt;-->
-<!--                &lt;!&ndash;                                th:text="${status}">option&ndash;&gt;-->
-<!--                &lt;!&ndash;                        </option>&ndash;&gt;-->
-<!--                &lt;!&ndash;                    </select>&ndash;&gt;-->
-<!--                &lt;!&ndash;                </div>&ndash;&gt;-->
-
-<!--            </form>-->
-<!--        </div>-->
         <div>
             <ins class="kakao_ad_area" style="display:none;"
                  data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
@@ -61,7 +19,7 @@
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
         <div>
-            <a>[기간설정]&nbsp</a>
+            <a>[기간]&nbsp</a>
             <a href="/stat_trade/incheon/1">1년&nbsp</a>
             <b>/&nbsp</b>
             <a href="/stat_trade/incheon/3">3년&nbsp</a>
@@ -75,7 +33,6 @@
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
-<!--                    <th>지역</th>-->
                     <th>년-월</th>
                     <th>최저<br/>매매가</th>
                     <th>평균<br/>매매가</th>
@@ -86,11 +43,10 @@
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
-<!--                    <td align="center" th:text="${list.name}"></td>-->
                     <td align="center" th:text="${list.dealYYMM}"></td>
-                    <td align="right" th:text="${#numbers.formatInteger(list.minPrice,1,'COMMA')}"></td>
-                    <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgPrice,1,'COMMA')}"></td>
-                    <td align="right" th:text="${#numbers.formatInteger(list.maxPrice,1,'COMMA')}"></td>
+                    <td align="right" th:text="${list.minPriceStr}"></td>
+                    <td align="right" th:text="${list.avgPriceStr}"></td>
+                    <td align="right" th:text="${list.maxPriceStr}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
                     <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>
                 </tr>
@@ -150,7 +106,7 @@
 				},
                 title: {
                     display: true,
-                    text: '평균매매가'
+                    text: '평균매매가(억)'
                 }
             },
             'y-line2':{

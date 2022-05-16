@@ -3,6 +3,8 @@ package aptdata.earlmazip.controller.dto;
 import aptdata.earlmazip.domain.*;
 import lombok.Getter;
 
+import java.text.DecimalFormat;
+
 @Getter
 public class StatLeaseResponseDto {
     private String sidoName;
@@ -15,6 +17,21 @@ public class StatLeaseResponseDto {
     private int minDeposit;
     private int avgDeposit;
     private int maxDeposit;
+    private String minDepositStr;
+    private String avgDepositStr;
+    private String maxDepositStr;
+
+    public String getMinDepositStr() {
+        return new DecimalFormat("0.0#").format((float)this.minDeposit / 10000) + "억";
+    }
+
+    public String getAvgDepositStr() {
+        return new DecimalFormat("0.0#").format((float)this.avgDeposit / 10000) + "억";
+    }
+
+    public String getMaxDepositStr() {
+        return new DecimalFormat("0.0#").format((float)this.maxDeposit / 10000) + "억";
+    }
 
     private int minMonthlyrent;
     private int avgMonthlyrent;

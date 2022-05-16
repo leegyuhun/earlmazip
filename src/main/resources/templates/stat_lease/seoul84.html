@@ -6,40 +6,41 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
         <div>
-            <a href="/stat_lease/seoul84/11680/5">강남구&nbsp</a>
-            <a href="/stat_lease/seoul84/11740/5">&nbsp강동구&nbsp</a>
-            <a href="/stat_lease/seoul84/11305/5">&nbsp강북구&nbsp</a>
-            <a href="/stat_lease/seoul84/11500/5">&nbsp강서구&nbsp</a>
-            <a href="/stat_lease/seoul84/11620/5">&nbsp관악구&nbsp</a>
-            <a href="/stat_lease/seoul84/11215/5">&nbsp광진구&nbsp</a>
-            <a href="/stat_lease/seoul84/11530/5">&nbsp구로구</a>
+            <a th:href="@{/stat_lease/seoul84/11680/{term} (term=${term})}">강남구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11740/{term} (term=${term})}">&nbsp강동구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11305/{term} (term=${term})}">&nbsp강북구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11500/{term} (term=${term})}">&nbsp강서구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11620/{term} (term=${term})}">&nbsp관악구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11215/{term} (term=${term})}">&nbsp광진구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11530/{term} (term=${term})}">&nbsp구로구</a>
         </div>
         <div>
-            <a href="/stat_lease/seoul84/11545/5">금천구&nbsp</a>
-            <a href="/stat_lease/seoul84/11350/5">&nbsp노원구&nbsp</a>
-            <a href="/stat_lease/seoul84/11320/5">&nbsp도봉구&nbsp</a>
-            <a href="/stat_lease/seoul84/11230/5">&nbsp동대문&nbsp</a>
-            <a href="/stat_lease/seoul84/11590/5">&nbsp동작구&nbsp</a>
-            <a href="/stat_lease/seoul84/11440/5">&nbsp마포구&nbsp</a>
-            <a href="/stat_lease/seoul84/11410/5">&nbsp서대문</a>
+            <a th:href="@{/stat_lease/seoul84/11545/{term} (term=${term})}">금천구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11350/{term} (term=${term})}">&nbsp노원구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11320/{term} (term=${term})}">&nbsp도봉구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11230/{term} (term=${term})}">&nbsp동대문&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11590/{term} (term=${term})}">&nbsp동작구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11440/{term} (term=${term})}">&nbsp마포구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11410/{term} (term=${term})}">&nbsp서대문</a>
         </div>
         <div>
-            <a href="/stat_lease/seoul84/11650/5">서초구&nbsp</a>
-            <a href="/stat_lease/seoul84/11200/5">&nbsp성동구&nbsp</a>
-            <a href="/stat_lease/seoul84/11290/5">&nbsp성북구&nbsp</a>
-            <a href="/stat_lease/seoul84/11710/5">&nbsp송파구&nbsp</a>
-            <a href="/stat_lease/seoul84/11470/5">&nbsp양천구&nbsp</a>
-            <a href="/stat_lease/seoul84/11560/5">&nbsp영등포&nbsp</a>
-            <a href="/stat_lease/seoul84/11170/5">&nbsp용산구</a>
+            <a th:href="@{/stat_lease/seoul84/11650/{term} (term=${term})}">서초구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11200/{term} (term=${term})}">&nbsp성동구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11290/{term} (term=${term})}">&nbsp성북구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11710/{term} (term=${term})}">&nbsp송파구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11470/{term} (term=${term})}">&nbsp양천구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11560/{term} (term=${term})}">&nbsp영등포&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11170/{term} (term=${term})}">&nbsp용산구</a>
         </div>
         <div>
-            <a href="/stat_lease/seoul84/11380/5">은평구&nbsp</a>
-            <a href="/stat_lease/seoul84/11110/5">&nbsp종로구&nbsp</a>
-            <a href="/stat_lease/seoul84/11260/5">&nbsp중랑구&nbsp</a>
-            <a href="/stat_lease/seoul84/11140/5">&nbsp중구</a>
+            <a th:href="@{/stat_lease/seoul84/11380/{term} (term=${term})}">은평구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11110/{term} (term=${term})}">&nbsp종로구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11260/{term} (term=${term})}">&nbsp중랑구&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/11140/{term} (term=${term})}">&nbsp중구</a>
         </div>
         <p>
-        <h5 align="center" th:text="${title}"></h5>
+            <h6 align="center" th:text="|[ ${title} ${termStr} ]|"></h6>
+            <h6 align="center">* 국평 전세 통계</h6>
         </p>
         <div>
             <canvas id="myChart"></canvas>
@@ -50,6 +51,18 @@
                  data-ad-width   = "320"
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <div>
+            <a>[기간]&nbsp</a>
+            <a th:href="@{/stat_lease/seoul84/{sigungucode}/0 (sigungucode=${sigungucode})}">올해&nbsp</a>
+            <b>/&nbsp</b>
+            <a th:href="@{/stat_lease/seoul84/{sigungucode}/1 (sigungucode=${sigungucode})}">2년&nbsp</a>
+            <b>/&nbsp</b>
+            <a th:href="@{/stat_lease/seoul84/{sigungucode}/2 (sigungucode=${sigungucode})}">3년&nbsp</a>
+            <b>/&nbsp</b>
+            <a th:href="@{/stat_lease/seoul84/{sigungucode}/4 (sigungucode=${sigungucode})}">5년&nbsp</a>
+            <b>/&nbsp</b>
+            <a th:href="@{/stat_lease/seoul84/{sigungucode}/11 (sigungucode=${sigungucode})}">전체&nbsp</a>
         </div>
         <table class="table table-striped">
             <thead class="table-dark">
@@ -64,9 +77,12 @@
             <tbody>
             <tr style="font-size:12px;" th:each="list : ${list}">
                 <td align="center" th:text="${list.dealYYMM}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.minDeposit,1,'COMMA')}"></td>
-                <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgDeposit,1,'COMMA')}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.maxDeposit,1,'COMMA')}"></td>
+                <td align="right" th:text="${list.minDepositStr}"></td>
+                <td align="right" style="font-weight: bolder" th:text="${list.avgDepositStr}"></td>
+                <td align="right" th:text="${list.maxDepositStr}"></td>
+<!--                <td align="right" th:text="${#numbers.formatInteger(list.minDeposit,1,'COMMA')}"></td>-->
+<!--                <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgDeposit,1,'COMMA')}"></td>-->
+<!--                <td align="right" th:text="${#numbers.formatInteger(list.maxDeposit,1,'COMMA')}"></td>-->
                 <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
             </tr>
             </tbody>
@@ -125,6 +141,7 @@
 				},
                 title: {
                     display: true,
+                    color: 'rgb(255, 99, 132)',
                     text: '평균전세가'
                 }
             },
@@ -140,6 +157,7 @@
 				},
                 title: {
                     display: true,
+                    color: 'rgb(64, 64, 64)',
                     text: '한국은행 기준금리'
                 }
             },
@@ -154,6 +172,7 @@
 				},
                 title: {
                     display: true,
+                    color: 'rgb(54, 162, 235)',
                     text: '거래건수'
                 }
             }

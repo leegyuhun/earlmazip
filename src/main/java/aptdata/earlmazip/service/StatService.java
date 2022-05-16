@@ -19,6 +19,10 @@ public class StatService {
 
     private final StatRepository statRepository;
 
+    public List<StatResponseDto> getStatTradeList_Area(String areaCode, String term) {
+        return statRepository.getStatTradeList(areaCode, term);
+    }
+
     public List<StatResponseDto> getStatTradeList_Seoul(String term) {
         return statRepository.getStatTradeList("11", term);
     }

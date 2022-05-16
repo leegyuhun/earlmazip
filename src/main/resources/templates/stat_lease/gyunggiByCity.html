@@ -79,9 +79,12 @@
                 <tr style="font-size:12px;" th:each="list : ${list}">
 <!--                    <td align="center" th:text="${list.sidoName}"></td>-->
                     <td align="center" th:text="${list.dealYYMM}"></td>
-                    <td align="right" th:text="${#numbers.formatInteger(list.minDeposit,1,'COMMA')}"></td>
-                    <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgDeposit,1,'COMMA')}"></td>
-                    <td align="right" th:text="${#numbers.formatInteger(list.maxDeposit,1,'COMMA')}"></td>
+                    <td align="right" th:text="${list.minDepositStr}"></td>
+                    <td align="right" style="font-weight: bolder" th:text="${list.avgDepositStr}"></td>
+                    <td align="right" th:text="${list.maxDepositStr}"></td>
+<!--                    <td align="right" th:text="${#numbers.formatInteger(list.minDeposit,1,'COMMA')}"></td>-->
+<!--                    <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgDeposit,1,'COMMA')}"></td>-->
+<!--                    <td align="right" th:text="${#numbers.formatInteger(list.maxDeposit,1,'COMMA')}"></td>-->
                     <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
                 </tr>
             </tbody>
