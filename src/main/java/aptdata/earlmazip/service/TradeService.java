@@ -13,13 +13,13 @@ public class TradeService {
 
     private final TradeRepository tradeRepository;
 
-    public List<AptPriceResponseDto> getTradeList_SeoulSigungu(String sigungucode)
+    public List<AptPriceResponseDto> getTradeList_Sigungu(String sigungucode, int gubn, int ua)
     {
-        return tradeRepository.getTradeList_SeoulSigungu(sigungucode);
+        return tradeRepository.getTradeList_Sigungu(sigungucode, gubn, ua);
     }
 
-    public List<AptPriceResponseDto> getTradeList_GyunggiSido(String sidocode) {
-        return tradeRepository.getTradeList_GyunggiSido(sidocode);
+    public List<AptPriceResponseDto> getTradeList_GyunggiSido(String sidocode, int gubn, int ua) {
+        return tradeRepository.getTradeList_GyunggiSido(sidocode, gubn, ua);
     }
 
     public List<AptPriceResponseDto> getTradeList_Incheon(String sigungu) {

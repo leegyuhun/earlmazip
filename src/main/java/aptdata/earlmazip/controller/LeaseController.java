@@ -29,7 +29,40 @@ public class LeaseController {
     private final ApiCallStatService apiCallStatService;
     private final CodeInfoService codeInfoService;
 
-    @GetMapping("/leaselist/seoul/{sigungucode}")
+    @GetMapping("/leaselist/{sigungucode}/{gubn}/{ua}")
+    public String getLeaseList(@PathVariable String sigungucode,
+                               @PathVariable int gubn,
+                               @PathVariable int ua,Model model) {
+        String title = "-";
+        List<AptLeaseResponseDto> trads;
+        if (sigungucode.length()==5) {
+            log.info("/leaselist/seoul/" + sigungucode);
+            title = codeInfoService.getCodeName(sigungucode);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/" + title + "/" + gubn + "/" + ua);
+            if (StringUtils.hasText(sigungucode)) {
+                trads = leaseService.getLeaseList_Sigungu(sigungucode, gubn, ua);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else {
+            trads = new ArrayList<>();
+        }
+
+        model.addAttribute("title",  "[ "+ title + " - 최근 전세]");
+        model.addAttribute("sigungucode", sigungucode);
+        model.addAttribute("gubn", gubn);
+        model.addAttribute("ua", ua);
+        model.addAttribute("list", trads);
+        if (sigungucode.substring(0, 2).equals("11")) {
+            return "leaselist/seoul";
+        } else if (sigungucode.substring(0, 2).equals("41")) {
+            return "leaselist/gyunggi";
+        } else {
+            return "leaselist/incheon";
+        }
+    }
+
+    @GetMapping("/leaselist/seoul/{sigungucode}") // 추후 삭제
     public String getLeaseList_Seoul(@PathVariable String sigungucode, Model model) {
         String title = "-";
         List<AptLeaseResponseDto> trads;
@@ -38,7 +71,7 @@ public class LeaseController {
             title = codeInfoService.getCodeName(sigungucode);
             apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/seoul/" + title);
             if (StringUtils.hasText(sigungucode)) {
-                trads = leaseService.getLeaseList_SeoulSigungu(sigungucode);
+                trads = leaseService.getLeaseList_Sigungu(sigungucode, 0, 0);
             } else {
                 trads = new ArrayList<>();
             }

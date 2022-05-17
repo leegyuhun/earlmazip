@@ -121,8 +121,9 @@ public class StatLeaseController {
      * @param model
      * @return
      */
-    @GetMapping("/stat_lease/seoul84/{sigungucode}/{term}")
+    @GetMapping("/stat_lease/seoul84/{sigungucode}/{gubn}/{term}")
     public String getStatLeaseList_Seoul84(@PathVariable String sigungucode,
+                                           @PathVariable int gubn,
                                          @PathVariable int term,
                                          Model model) {
         List<StatLeaseResponseDto> stats;
@@ -130,9 +131,58 @@ public class StatLeaseController {
         if (!sigungucode.equals("0")) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_lease84/seoul/" + sigungucode);
+            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease/seoul84/" + title + "/" + gubn + "/" + term);
+            if (StringUtils.hasText(sigungucode)) {
+                stats = statLeaseService.getStatLeaseList_Seoul84(sigungucode, gubn, term);
+            } else {
+                stats = new ArrayList<>();
+            }
+        } else {
+            stats = new ArrayList<>();
+        }
+        List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Float> avgDeposits = stats.stream().map(o->new Float((float)o.getAvgDeposit()/10000)).collect(Collectors.toList());
+        List<Integer> avgMonthlyRents = stats.stream().map(o->new Integer(o.getAvgMonthlyrent())).collect(Collectors.toList());
+        List<Integer> tradcnt = stats.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+
+        Collections.reverse(dates);
+        Collections.reverse(avgDeposits);
+        Collections.reverse(avgMonthlyRents);
+        Collections.reverse(tradcnt);
+
+        // 한국은행 기준금리
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", Integer.toString(term));
+        List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+
+        model.addAttribute("dates", dates);
+        model.addAttribute("avgDeposits", avgDeposits);
+        model.addAttribute("avgMonthlyRents", avgMonthlyRents);
+        model.addAttribute("tradcnt", tradcnt);
+        model.addAttribute("title", title);
+        model.addAttribute("term", term);
+        model.addAttribute("sigungucode", sigungucode);
+        model.addAttribute("termStr", makeTermString(term));
+        model.addAttribute("interestRates", interestRates);
+        model.addAttribute("list", stats);
+        if (gubn == 0) {
+            return "stat_lease/seoul84";
+        } else {
+            return "stat_lease/seoul_Monthly84";
+        }
+    }
+
+    @GetMapping("/stat_lease/seoul84/{sigungucode}/{term}") // 추후 삭제
+    public String getStatLeaseList_Seoul84Bak(@PathVariable String sigungucode,
+                                           @PathVariable int term,
+                                           Model model) {
+        List<StatLeaseResponseDto> stats;
+        String title = "-";
+        if (!sigungucode.equals("0")) {
+            title = codeInfoService.getCodeName(sigungucode);
+            log.info("/stat_lease84/seoul/" + sigungucode);
             apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease/seoul84/" + title + "/" + term);
             if (StringUtils.hasText(sigungucode)) {
-                stats = statLeaseService.getStatLeaseList_Seoul84(sigungucode, term);
+                stats = statLeaseService.getStatLeaseList_Seoul84(sigungucode, 0, term);
             } else {
                 stats = new ArrayList<>();
             }

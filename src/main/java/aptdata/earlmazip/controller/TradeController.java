@@ -27,8 +27,52 @@ public class TradeController {
     private final ApiCallStatService apiCallStatService;
     private final CodeInfoService codeInfoService;
 
-    @GetMapping("/tradelist/seoul/{sigungucode}")
-    public String getTradeList_Seoul(@PathVariable String sigungucode, Model model) {
+
+    /**
+     * gubn 0: = ua, 1: < ua, 2: > ua / ua = 0 전체면적
+     * @param sigungucode
+     * @param gubn
+     * @param ua
+     * @param model
+     * @return
+     */
+    @GetMapping("/tradelist/{sigungucode}/{gubn}/{ua}")
+    public String getTradeList_Seoul(@PathVariable String sigungucode,
+                                     @PathVariable int gubn,
+                                     @PathVariable int ua,
+                                     Model model) {
+        List<AptPriceResponseDto> trads;
+        String title = "-";
+        if (sigungucode.length() == 5) {
+            title = codeInfoService.getCodeName(sigungucode);
+            log.info("/tradelist/seoul/" + sigungucode);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/seoul/" + title + "/" + gubn + "/" + ua);
+            if (StringUtils.hasText(sigungucode)) {
+                trads = tradeService.getTradeList_Sigungu(sigungucode, gubn, ua);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else{
+            trads = new ArrayList<>();
+        }
+
+        model.addAttribute("list", trads);
+        model.addAttribute("sigungucode", sigungucode);
+        model.addAttribute("gubn", gubn);
+        model.addAttribute("ua", ua);
+        model.addAttribute("title",  "[ "+ title + " ]");
+        if (sigungucode.substring(0, 2).equals("11")) {
+            return "tradelist/seoul";
+        } else if (sigungucode.substring(0, 2).equals("41")) {
+            return "tradelist/gyunggi";
+        } else {
+            return "tradelist/incheon";
+        }
+
+    }
+
+    @GetMapping("/tradelist/seoul/{sigungucode}") // 추후 삭제
+    public String getTradeList_SeoulBak(@PathVariable String sigungucode, Model model) {
         List<AptPriceResponseDto> trads;
         String title = "-";
         if (!sigungucode.equals("0")) {
@@ -36,7 +80,7 @@ public class TradeController {
             log.info("/tradelist/seoul/" + sigungucode);
             apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/seoul/" + title);
             if (StringUtils.hasText(sigungucode)) {
-                trads = tradeService.getTradeList_SeoulSigungu(sigungucode);
+                trads = tradeService.getTradeList_Sigungu(sigungucode,0,0);
             } else {
                 trads = new ArrayList<>();
             }
@@ -50,8 +94,34 @@ public class TradeController {
         return "tradelist/seoul";
     }
 
-    @GetMapping("/tradelist/gyunggi/{sidocode}")
-    public String getTradeList_Gyunggi(@PathVariable String sidocode, Model model) {
+    @GetMapping("/tradelist/gyunggi/{sidocode}/{gubn}/{ua}")
+    public String getTradeList_Gyunggi(@PathVariable String sidocode,
+                                       @PathVariable int gubn,
+                                       @PathVariable int ua,
+                                       Model model) {
+        List<AptPriceResponseDto> trads;
+        String title = "-";
+        if (!sidocode.equals("0")) {
+            title = codeInfoService.getCodeName(sidocode);
+            log.info("/tradelist/gyunggi/" + sidocode);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/gyunggi/" + "/" + gubn + "/" + ua);
+            if (StringUtils.hasText(sidocode)) {
+                trads = tradeService.getTradeList_GyunggiSido(sidocode, gubn, ua);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else{
+            trads = new ArrayList<>();
+        }
+
+        model.addAttribute("list", trads);
+        model.addAttribute("title",  "[ "+ title + " ]");
+
+        return "tradelist/gyunggi";
+    }
+    
+    @GetMapping("/tradelist/gyunggi/{sidocode}") //추후삭제
+    public String getTradeList_GyunggiBak(@PathVariable String sidocode, Model model) {
         List<AptPriceResponseDto> trads;
         String title = "-";
         if (!sidocode.equals("0")) {
@@ -59,7 +129,7 @@ public class TradeController {
             log.info("/tradelist/gyunggi/" + sidocode);
             apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/gyunggi/" + title);
             if (StringUtils.hasText(sidocode)) {
-                trads = tradeService.getTradeList_GyunggiSido(sidocode);
+                trads = tradeService.getTradeList_GyunggiSido(sidocode, 0, 0);
             } else {
                 trads = new ArrayList<>();
             }

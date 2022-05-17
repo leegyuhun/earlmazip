@@ -15,9 +15,9 @@ public class LeaseService {
 
     private final LeaseRepository leaseRepository;
 
-    public List<AptLeaseResponseDto> getLeaseList_SeoulSigungu(String sigungucode)
+    public List<AptLeaseResponseDto> getLeaseList_Sigungu(String sigungucode, int gubn, int ua)
     {
-        return leaseRepository.getLeaseList_SeoulSigungu(sigungucode);
+        return leaseRepository.getLeaseList_Sigungu(sigungucode, gubn, ua);
     }
 
     public List<AptLeaseResponseDto> getLeaseRenewalList_SeoulSigungu(String sigungucode)

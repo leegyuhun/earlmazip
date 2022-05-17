@@ -5,33 +5,20 @@
 
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
-    <!--    <a th:text="${year}"></a>-->
     <div>
-<!--        <p>-->
-<!--            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">-->
-<!--                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>-->
-<!--                <a class="btn btn-outline-primary" for="btnradio1" href="/tradelist/incheon/28710">강화군</a>-->
-
-<!--                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">-->
-<!--                <a class="btn btn-outline-primary" for="btnradio2" href="/tradelist/incheon/28245">계양구</a>-->
-
-<!--                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">-->
-<!--                <a class="btn btn-outline-primary" for="btnradio3" href="/tradelist/incheon/28200">남동구</a>-->
-<!--            </div>-->
-<!--        </p>-->
         <div>
-            <a href="/tradelist/incheon/28710">강화군&nbsp</a>
-            <a href="/tradelist/incheon/28245">&nbsp계양구&nbsp</a>
-            <a href="/tradelist/incheon/28200">&nbsp남동구&nbsp</a>
-            <a href="/tradelist/incheon/28140">&nbsp동구&nbsp</a>
-            <a href="/tradelist/incheon/28177">&nbsp미추홀구</a>
+            <a th:href="@{/tradelist/28710/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">강화군&nbsp</a>
+            <a th:href="@{/tradelist/28245/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp계양구&nbsp</a>
+            <a th:href="@{/tradelist/28200/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp남동구&nbsp</a>
+            <a th:href="@{/tradelist/28140/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp동구&nbsp</a>
+            <a th:href="@{/tradelist/28177/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp미추홀구</a>
         </div>
         <div>
-            <a href="/tradelist/incheon/28237">부평구&nbsp</a>
-            <a href="/tradelist/incheon/28260">&nbsp서구&nbsp</a>
-            <a href="/tradelist/incheon/28185">&nbsp연수구&nbsp</a>
-            <a href="/tradelist/incheon/28720">&nbsp옹진군&nbsp</a>
-            <a href="/tradelist/incheon/28110">중구</a>
+            <a th:href="@{/tradelist/28237/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">부평구&nbsp</a>
+            <a th:href="@{/tradelist/28260/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp서구&nbsp</a>
+            <a th:href="@{/tradelist/28185/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp연수구&nbsp</a>
+            <a th:href="@{/tradelist/28720/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp옹진군&nbsp</a>
+            <a th:href="@{/tradelist/28110/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">중구</a>
         </div>
         <p>
             <h4 align="center" th:text="${title}"></h4>
@@ -43,6 +30,14 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
+        <a>[면적]&nbsp</a>
+        <a th:href="@{/tradelist/{sigungucode}/0/0 (sigungucode=${sigungucode})}">전체&nbsp</a>
+        <b>/&nbsp</b>
+        <a th:href="@{/tradelist/{sigungucode}/0/59 (sigungucode=${sigungucode})}">전용59&nbsp</a>
+        <b>/&nbsp</b>
+        <a th:href="@{/tradelist/{sigungucode}/0/84 (sigungucode=${sigungucode})}">국평&nbsp</a>
+        <b>/&nbsp</b>
+        <a th:href="@{/tradelist/{sigungucode}/2/84 (sigungucode=${sigungucode})}">국평초과</a>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">

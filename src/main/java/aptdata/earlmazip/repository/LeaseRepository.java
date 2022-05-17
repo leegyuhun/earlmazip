@@ -20,15 +20,52 @@ public class LeaseRepository {
     private final EntityManager em;
 
     /* 서울 전세 */
-    public List<AptLeaseResponseDto> getLeaseList_SeoulSigungu(String sigungucode) {
-        return em.createQuery("select a from AptLeaseRaw a"
-                        + " where a.dealYear = 2022 and a.areaCode = '11' "
-                        + "   and a.sigunguCode = :sigunguCode "
-                        + "   and a.monthlyRent = 0 "
-                        + " order by a.dealDate desc", AptLeaseRaw.class)
-                .setParameter("sigunguCode", sigungucode)
-                .setMaxResults(100)
-                .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+    public List<AptLeaseResponseDto> getLeaseList_Sigungu(String sigungucode, int gubn, int ua) {
+        if (ua == 0) {
+            return em.createQuery("select a from AptLeaseRaw a"
+                            + " where a.dealYear = 2022 "
+                            + "   and a.sigunguCode = :sigunguCode "
+                            + "   and a.monthlyRent = 0 "
+                            + " order by a.dealDate desc", AptLeaseRaw.class)
+                    .setParameter("sigunguCode", sigungucode)
+                    .setMaxResults(100)
+                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+        } else {
+            if (gubn == 1) {
+                return em.createQuery("select a from AptLeaseRaw a"
+                                + " where a.dealYear = 2022 "
+                                + "   and a.sigunguCode = :sigunguCode "
+                                + "   and a.monthlyRent = 0 "
+                                + "   and a.useAreaTrunc < :ua "
+                                + " order by a.dealDate desc", AptLeaseRaw.class)
+                        .setParameter("sigunguCode", sigungucode)
+                        .setParameter("ua", ua)
+                        .setMaxResults(100)
+                        .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+            } else if (gubn == 2) {
+                return em.createQuery("select a from AptLeaseRaw a"
+                                + " where a.dealYear = 2022 "
+                                + "   and a.sigunguCode = :sigunguCode "
+                                + "   and a.monthlyRent = 0 "
+                                + "   and a.useAreaTrunc > :ua "
+                                + " order by a.dealDate desc", AptLeaseRaw.class)
+                        .setParameter("sigunguCode", sigungucode)
+                        .setParameter("ua", ua)
+                        .setMaxResults(100)
+                        .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+            } else {
+                return em.createQuery("select a from AptLeaseRaw a"
+                                + " where a.dealYear = 2022 "
+                                + "   and a.sigunguCode = :sigunguCode "
+                                + "   and a.monthlyRent = 0 "
+                                + "   and a.useAreaTrunc = :ua "
+                                + " order by a.dealDate desc", AptLeaseRaw.class)
+                        .setParameter("sigunguCode", sigungucode)
+                        .setParameter("ua", ua)
+                        .setMaxResults(100)
+                        .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+            }
+        }
     }
 
     /* 서울 갱신권사용 */

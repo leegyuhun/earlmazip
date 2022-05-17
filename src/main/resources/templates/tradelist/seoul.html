@@ -8,37 +8,37 @@
     <!--    <a th:text="${year}"></a>-->
     <div>
         <div>
-            <a href="/tradelist/seoul/11680">강남구&nbsp</a>
-            <a href="/tradelist/seoul/11740">&nbsp강동구&nbsp</a>
-            <a href="/tradelist/seoul/11305">&nbsp강북구&nbsp</a>
-            <a href="/tradelist/seoul/11500">&nbsp강서구&nbsp</a>
-            <a href="/tradelist/seoul/11620">&nbsp관악구&nbsp</a>
-            <a href="/tradelist/seoul/11215">&nbsp광진구&nbsp</a>
-            <a href="/tradelist/seoul/11530">&nbsp구로구</a>
+            <a th:href="@{/tradelist/11680/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">강남구&nbsp</a>
+            <a th:href="@{/tradelist/11740/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp강동구&nbsp</a>
+            <a th:href="@{/tradelist/11305/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp강북구&nbsp</a>
+            <a th:href="@{/tradelist/11500/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp강서구&nbsp</a>
+            <a th:href="@{/tradelist/11620/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp관악구&nbsp</a>
+            <a th:href="@{/tradelist/11215/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp광진구&nbsp</a>
+            <a th:href="@{/tradelist/11530/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp구로구</a>
         </div>
         <div>
-            <a href="/tradelist/seoul/11545">금천구&nbsp</a>
-            <a href="/tradelist/seoul/11350">&nbsp노원구&nbsp</a>
-            <a href="/tradelist/seoul/11320">&nbsp도봉구&nbsp</a>
-            <a href="/tradelist/seoul/11230">&nbsp동대문&nbsp</a>
-            <a href="/tradelist/seoul/11590">&nbsp동작구&nbsp</a>
-            <a href="/tradelist/seoul/11440">&nbsp마포구&nbsp</a>
-            <a href="/tradelist/seoul/11410">&nbsp서대문</a>
+            <a th:href="@{/tradelist/11545/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">금천구&nbsp</a>
+            <a th:href="@{/tradelist/11350/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp노원구&nbsp</a>
+            <a th:href="@{/tradelist/11320/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp도봉구&nbsp</a>
+            <a th:href="@{/tradelist/11230/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp동대문&nbsp</a>
+            <a th:href="@{/tradelist/11590/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp동작구&nbsp</a>
+            <a th:href="@{/tradelist/11440/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp마포구&nbsp</a>
+            <a th:href="@{/tradelist/11410/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp서대문</a>
         </div>
         <div>
-            <a href="/tradelist/seoul/11650">서초구&nbsp</a>
-            <a href="/tradelist/seoul/11200">&nbsp성동구&nbsp</a>
-            <a href="/tradelist/seoul/11290">&nbsp성북구&nbsp</a>
-            <a href="/tradelist/seoul/11710">&nbsp송파구&nbsp</a>
-            <a href="/tradelist/seoul/11470">&nbsp양천구&nbsp</a>
-            <a href="/tradelist/seoul/11560">&nbsp영등포&nbsp</a>
-            <a href="/tradelist/seoul/11170">&nbsp용산구</a>
+            <a th:href="@{/tradelist/11650/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">서초구&nbsp</a>
+            <a th:href="@{/tradelist/11200/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp성동구&nbsp</a>
+            <a th:href="@{/tradelist/11290/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp성북구&nbsp</a>
+            <a th:href="@{/tradelist/11710/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp송파구&nbsp</a>
+            <a th:href="@{/tradelist/11470/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp양천구&nbsp</a>
+            <a th:href="@{/tradelist/11560/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp영등포&nbsp</a>
+            <a th:href="@{/tradelist/11170/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp용산구</a>
         </div>
         <div>
-            <a href="/tradelist/seoul/11380">은평구&nbsp</a>
-            <a href="/tradelist/seoul/11110">&nbsp종로구&nbsp</a>
-            <a href="/tradelist/seoul/11260">&nbsp중랑구&nbsp</a>
-            <a href="/tradelist/seoul/11140">&nbsp중구</a>
+            <a th:href="@{/tradelist/11380/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">은평구&nbsp</a>
+            <a th:href="@{/tradelist/11110/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp종로구&nbsp</a>
+            <a th:href="@{/tradelist/11260/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp중랑구&nbsp</a>
+            <a th:href="@{/tradelist/11140/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp중구</a>
         </div>
         <p>
             <h4 align="center" th:text="${title}"></h4>
@@ -50,6 +50,14 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
+        <a>[면적]&nbsp</a>
+        <a th:href="@{/tradelist/{sigungucode}/0/0 (sigungucode=${sigungucode})}">전체&nbsp</a>
+        <b>/&nbsp</b>
+        <a th:href="@{/tradelist/{sigungucode}/0/59 (sigungucode=${sigungucode})}">전용59&nbsp</a>
+        <b>/&nbsp</b>
+        <a th:href="@{/tradelist/{sigungucode}/0/84 (sigungucode=${sigungucode})}">국평&nbsp</a>
+        <b>/&nbsp</b>
+        <a th:href="@{/tradelist/{sigungucode}/2/84 (sigungucode=${sigungucode})}">국평초과</a>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">

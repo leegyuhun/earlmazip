@@ -28,8 +28,8 @@ public class StatLeaseService {
         return statRepository.getStatLeaseList_Seoul(sigunguCode, term);
     }
 
-    public List<StatLeaseResponseDto> getStatLeaseList_Seoul84(String sigunguCode, int term) {
-        return statRepository.getStatLeaseList_Seoul84(sigunguCode, term);
+    public List<StatLeaseResponseDto> getStatLeaseList_Seoul84(String sigunguCode, int gubn, int term) {
+        return statRepository.getStatLeaseList_Seoul84(sigunguCode, gubn, term);
     }
 
     public List<StatLeaseResponseDto> getStatLeaseMonthlySigungu(String sigunguCode) {

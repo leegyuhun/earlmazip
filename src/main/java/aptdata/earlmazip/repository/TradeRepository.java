@@ -18,16 +18,47 @@ public class TradeRepository {
 
     private final EntityManager em;
 
-    public List<AptPriceResponseDto> getTradeList_SeoulSigungu(String sigungucode) {
-        return em.createQuery("select a from AptPriceRaw a"
-                        + " where a.dealYear >= 2021 and a.areaCode = '11' and a.sigunguCode = :sigunguCode"
-                        + " order by a.dealDate desc", AptPriceRaw.class)
-                .setParameter("sigunguCode", sigungucode)
-                .setMaxResults(100)
-                .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    public List<AptPriceResponseDto> getTradeList_Sigungu(String sigungucode, int gubn, int ua) {
+        if (ua == 0) {
+            return em.createQuery("select a from AptPriceRaw a"
+                            + " where a.dealYear >= 2021 and a.sigunguCode = :sigunguCode"
+                            + " order by a.dealDate desc", AptPriceRaw.class)
+                    .setParameter("sigunguCode", sigungucode)
+                    .setMaxResults(100)
+                    .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        } else {
+            if (gubn == 1) {
+                return em.createQuery("select a from AptPriceRaw a"
+                                + " where a.dealYear >= 2021 and a.sigunguCode = :sigunguCode "
+                                + "   and a.useAreaTrunc < :ua "
+                                + " order by a.dealDate desc", AptPriceRaw.class)
+                        .setParameter("sigunguCode", sigungucode)
+                        .setParameter("ua", ua)
+                        .setMaxResults(100)
+                        .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+            } else if (gubn == 2) {
+                return em.createQuery("select a from AptPriceRaw a"
+                                + " where a.dealYear >= 2021 and a.sigunguCode = :sigunguCode "
+                                + "   and a.useAreaTrunc > :ua "
+                                + " order by a.dealDate desc", AptPriceRaw.class)
+                        .setParameter("sigunguCode", sigungucode)
+                        .setParameter("ua", ua)
+                        .setMaxResults(100)
+                        .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+            } else {
+                return em.createQuery("select a from AptPriceRaw a"
+                                + " where a.dealYear >= 2021 and a.sigunguCode = :sigunguCode "
+                                + "   and a.useAreaTrunc = :ua "
+                                + " order by a.dealDate desc", AptPriceRaw.class)
+                        .setParameter("sigunguCode", sigungucode)
+                        .setParameter("ua", ua)
+                        .setMaxResults(100)
+                        .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+            }
+        }
     }
 
-    public List<AptPriceResponseDto> getTradeList_GyunggiSido(String sidocode) {
+    public List<AptPriceResponseDto> getTradeList_GyunggiSido(String sidocode, int gubn, int ua) {
         if (sidocode.length() == 4) {
             return em.createQuery("select a from AptPriceRaw a"
                             + " where a.dealYear >= 2021 and a.areaCode = '41' and a.sidoCode = :sidoCode"

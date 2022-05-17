@@ -56,7 +56,8 @@ public class StatLeaseRepository {
         }
     }
 
-    public List<StatLeaseResponseDto> getStatLeaseList_Seoul84(String sigunguCode, int term) {
+    public List<StatLeaseResponseDto> getStatLeaseList_Seoul84(String sigunguCode, int gubn, int term) {
+        if (gubn == 0) {
             return em.createQuery("select a from StatSigunguLease84 a"
                             + " where a.sigunguCode = :sigunguCode and a.leaseType = '전세' "
                             + "   and a.dealYear >= :searchYear "
@@ -64,6 +65,15 @@ public class StatLeaseRepository {
                     .setParameter("sigunguCode", sigunguCode)
                     .setParameter("searchYear", calcYearByTerm(term))
                     .getResultList().stream().map(StatLeaseResponseDto::new).collect(Collectors.toList());
+        } else {
+            return em.createQuery("select a from StatSigunguLease84 a"
+                            + " where a.sigunguCode = :sigunguCode and a.leaseType = '월세' "
+                            + "   and a.dealYear >= :searchYear "
+                            + " order by a.dealYYMM desc", StatSigunguLease84.class)
+                    .setParameter("sigunguCode", sigunguCode)
+                    .setParameter("searchYear", calcYearByTerm(term))
+                    .getResultList().stream().map(StatLeaseResponseDto::new).collect(Collectors.toList());
+        }
     }
 
     public List<StatLeaseResponseDto> getStatLeaseMonthlySigungu(String sigunguCode) {
