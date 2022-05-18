@@ -12,6 +12,13 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
 
     <div>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
         <h6>전세 최근 100</h6>
         <p>
             <a class="btn btn-primary btn-sm" href="/leaselist/11/0/0">서울</a>
@@ -21,16 +28,15 @@
 
         <h6>월세 최근 100</h6>
         <p>
-            <a class="btn btn-outline-primary btn-sm" href="/leaselist/monthly/seoul/0">서울</a>
-            <a class="btn btn-outline-primary btn-sm" href="/leaselist/monthly/gyunggi/0">경기</a>
-            <a class="btn btn-outline-primary btn-sm" href="/leaselist/monthly/incheon/0">인천</a>
+            <a class="btn btn-outline-primary btn-sm" href="/leaselist/monthly/11/0/0">서울</a>
+            <a class="btn btn-outline-primary btn-sm" href="/leaselist/monthly/41/0/0">경기</a>
+            <a class="btn btn-outline-primary btn-sm" href="/leaselist/monthly/28/0/0">인천</a>
         </p>
 
         <h6>전/월세 갱신현황</h6>
         <p>
             <a class="btn btn-info btn-sm" href="/leaselist/renewal/seoul/0">서울</a>
         </p>
-
         <h6>수도권 전세 가격 통계</h6>
         <p>
             <a class="btn btn-success btn-sm" href="/stat_lease/seoul/11/5">서울</a>

@@ -514,7 +514,8 @@ public class StatController {
         stats = statService.getStatTheme("001", term);
 
         List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
-        List<Integer> avgPrices = stats.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Float> avgPrices = stats.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
+//        List<Integer> avgPrices = stats.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Float> newHighests = stats.stream().map(o->new Float(o.getHighestRate())).collect(Collectors.toList());
         List<Integer> tradcnt = stats.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
         String title = stats.get(0).getName();
@@ -554,10 +555,11 @@ public class StatController {
         stats005 = statService.getStatTheme("005", term);
 
         List<String> dates = stats002.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
-        List<Integer> avgPrices002 = stats002.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
-        List<Integer> avgPrices003 = stats003.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
-        List<Integer> avgPrices004 = stats004.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
-        List<Integer> avgPrices005 = stats005.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+//        List<Float> avgprc = areas.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
+        List<Float> avgPrices002 = stats002.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
+        List<Float> avgPrices003 = stats003.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
+        List<Float> avgPrices004 = stats004.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
+        List<Float> avgPrices005 = stats005.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
 
         List<Float> newHighests002 = stats002.stream().map(o->new Float(o.getHighestRate())).collect(Collectors.toList());
         List<Float> newHighests003 = stats003.stream().map(o->new Float(o.getHighestRate())).collect(Collectors.toList());
@@ -570,7 +572,8 @@ public class StatController {
         List<Integer> tradcnt005 = stats005.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
         List<theme02Dto> list = new ArrayList<>();
         for (int i = 0; i < dates.size() - 1; i++) {
-            theme02Dto item = new theme02Dto(dates.get(i), avgPrices002.get(i), avgPrices003.get(i), avgPrices004.get(i), avgPrices005.get(i));
+            theme02Dto item = new theme02Dto(dates.get(i), avgPrices002.get(i), avgPrices003.get(i), avgPrices004.get(i), avgPrices005.get(i),
+                    tradcnt002.get(i), tradcnt003.get(i), tradcnt004.get(i), tradcnt005.get(i));
             list.add(item);
         }
         Collections.reverse(dates);
@@ -614,17 +617,28 @@ public class StatController {
     @Data
     static class theme02Dto{
         private String date;
-        private int item1;
-        private int item2;
-        private int item3;
-        private int item4;
+        private float item1;
+        private float item2;
+        private float item3;
+        private float item4;
 
-        public theme02Dto(String date, int item1, int item2, int item3, int item4) {
+        private int cnt1;
+        private int cnt2;
+        private int cnt3;
+        private int cnt4;
+
+        public theme02Dto(String date, float item1, float item2, float item3, float item4,
+                            int cnt1, int cnt2, int cnt3, int cnt4) {
             this.date = date;
             this.item1 = item1;
             this.item2 = item2;
             this.item3 = item3;
             this.item4 = item4;
+
+            this.cnt1 = cnt1;
+            this.cnt2 = cnt2;
+            this.cnt3 = cnt3;
+            this.cnt4 = cnt4;
         }
     }
 
@@ -654,7 +668,7 @@ public class StatController {
         }
 
         List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
-        List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Float> avgprc = areas.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
 
         // 주담대
         List<EcosDataResponseDto> houseDebt;

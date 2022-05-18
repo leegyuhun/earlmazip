@@ -46,7 +46,7 @@ public class TradeController {
         if (sigungucode.length() == 5) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/tradelist/seoul/" + sigungucode);
-            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/seoul/" + title + "/" + gubn + "/" + ua);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/" + title + "/" + gubn + "/" + ua);
             if (StringUtils.hasText(sigungucode)) {
                 trads = tradeService.getTradeList_Sigungu(sigungucode, gubn, ua);
             } else {

@@ -41,19 +41,19 @@
             <thead class="table-dark">
             <tr style="font-size:12px;" align="center">
                 <th>년-월</th>
-                <th>강남3구</th>
-                <th>마용성</th>
-                <th>노도강</th>
-                <th>금관구</th>
+                <th>강남3구</br>(건수)</th>
+                <th>마용성</br>(건수)</th>
+                <th>노도강</br>(건수)</th>
+                <th>금관구</br>(건수)</th>
             </tr>
             </thead>
             <tbody>
             <tr style="font-size:12px;" th:each="list : ${list}">
                 <td align="center" th:text="${list.date}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.item1,1,'COMMA')}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.item2,1,'COMMA')}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.item3,1,'COMMA')}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.item4,1,'COMMA')}"></td>
+                <td align="right" th:text="| ${#numbers.formatDecimal(list.item1,1,2,'POINT')}억 (${#numbers.formatInteger(list.cnt1,1,'COMMA')})|"></td>
+                <td align="right" th:text="| ${#numbers.formatDecimal(list.item2,1,2,'POINT')}억 (${#numbers.formatInteger(list.cnt2,1,'COMMA')})|"></td>
+                <td align="right" th:text="| ${#numbers.formatDecimal(list.item3,1,2,'POINT')}억 (${#numbers.formatInteger(list.cnt3,1,'COMMA')})|"></td>
+                <td align="right" th:text="| ${#numbers.formatDecimal(list.item4,1,2,'POINT')}억 (${#numbers.formatInteger(list.cnt4,1,'COMMA')})|"></td>
             </tr>
             </tbody>
         </table>
@@ -163,7 +163,7 @@
             'y-line002':{
                 position: 'left',
                 suggestedMin: 0,
-                suggestedMax: 300000,
+                suggestedMax: 30,
                 grid:{
                     display: true
                 },
@@ -172,7 +172,7 @@
                 },
                 title: {
                     display: true,
-                    text: '평균매매가'
+                    text: '평균매매가(억)'
                 }
             },
             'y-line003':{
@@ -182,7 +182,7 @@
                     display: false
                 },
                 suggestedMin: 0,
-                suggestedMax: 300000,
+                suggestedMax: 30,
             },
             'y-line004':{
                 position: 'left',
@@ -191,7 +191,7 @@
                     display: false
                 },
                 suggestedMin: 0,
-                suggestedMax: 300000,
+                suggestedMax: 30,
             },
             'y-line005':{
                 position: 'left',
@@ -200,7 +200,7 @@
                     display: false
                 },
                 suggestedMin: 0,
-                suggestedMax: 300000,
+                suggestedMax: 30,
             }
 
         }

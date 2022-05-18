@@ -22,7 +22,13 @@ public class AptLeaseResponseDto {
 //        }
 //    }
     private float useArea;
+
+    public float getUseArea() {
+        return (float) (Math.floor(useArea * 100)/100);
+    }
+
     private int useAreaTrunc;
+
     private int befDeposit;
     private int deposit;
     private String befMonthlyRentStr;

@@ -23,12 +23,16 @@ public class AptPriceResponseDto {
 //    }
     private float useArea;
 
+    public float getUseArea() {
+        return (float) (Math.floor(useArea * 100)/100);
+    }
+
     private String useAreaStr;
     private int useAreaTrunc;
     private int dealAmt;
     private String dealAmtStr;
     public String getDealAmtStr() {
-        return new DecimalFormat("#.0#").format((float)this.dealAmt / 10000) + "억";
+        return new DecimalFormat("0.0#").format((float)this.dealAmt / 10000) + "억";
     }
     private int floor;
     private String buildYear;

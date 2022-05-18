@@ -62,7 +62,7 @@
                     <td align="center" th:text="${list.dealType}"></td>
                     <td align="center" th:text="${list.dealTerm}"></td>
                     <td align="left" th:text="${list.aptName}"></td>
-                    <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,1,'POINT')}"></td>
+                    <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>
                     <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.deposit,1,'COMMA')}"></td>
                     <td align="right" style="font-weight: bolder" th:text="${list.monthlyRentStr}"></td>
     <!--                <td align="right" th:text="${#numbers.formatInteger(list.monthlyRent,1,'COMMA')}"></td>-->

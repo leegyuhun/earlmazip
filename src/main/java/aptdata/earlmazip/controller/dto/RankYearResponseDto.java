@@ -26,6 +26,11 @@ public class RankYearResponseDto {
     private String dealDate;
     private String aptName;
     private float useArea;
+
+    public float getUseArea() {
+        return (float) (Math.floor(useArea * 100)/100);
+    }
+
     private int useAreaTrunc;
     private int dealAmt;
     private String dealAmtStr;

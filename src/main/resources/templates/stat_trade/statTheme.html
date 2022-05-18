@@ -50,9 +50,12 @@
             <tbody>
             <tr style="font-size:12px;" th:each="list : ${list}">
                 <td align="center" th:text="${list.dealYYMM}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.minPrice,1,'COMMA')}"></td>
-                <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgPrice,1,'COMMA')}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.maxPrice,1,'COMMA')}"></td>
+                <td align="right" th:text="${list.minPriceStr}"></td>
+                <td align="right" style="font-weight: bolder" th:text="${list.avgPriceStr}"></td>
+                <td align="right" th:text="${list.maxPriceStr}"></td>
+<!--                <td align="right" th:text="${#numbers.formatInteger(list.minPrice,1,'COMMA')}"></td>-->
+<!--                <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgPrice,1,'COMMA')}"></td>-->
+<!--                <td align="right" th:text="${#numbers.formatInteger(list.maxPrice,1,'COMMA')}"></td>-->
                 <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
                 <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>
             </tr>
@@ -158,7 +161,7 @@
 				},
                 title: {
                     display: true,
-                    text: '평균매매가'
+                    text: '평균매매가(억)'
                 }
             },
             'y-bar2':{
