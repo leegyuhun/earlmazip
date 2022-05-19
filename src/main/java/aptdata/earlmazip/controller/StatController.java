@@ -179,7 +179,8 @@ public class StatController {
             areas = new ArrayList<>();
         }
         List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
-        List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+//        List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Float> avgprc = areas.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
 
         // 한국은행 기준금리
@@ -201,7 +202,13 @@ public class StatController {
         model.addAttribute("avgprc", avgprc);
         model.addAttribute("tradcnt", tradcnt);
         model.addAttribute("interestRates", interestRates);
-        return "stat_trade/useareaTypeBySigungu";
+        if (sigungucode.substring(0, 2).equals("11")) {
+            return "stat_trade/useAreaType_Seoul";
+        } else if (sigungucode.substring(0, 2).equals("41")) {
+            return "stat_trade/useAreaType_Gyunggi";
+        } else {
+            return "stat_trade/useAreaType_Incheon";
+        }
     }
 
     /**

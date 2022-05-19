@@ -68,7 +68,7 @@ public class LeaseRepository {
         }
     }
 
-    /* 서울 갱신권사용 */
+    /* 서울 갱신현황 */
     public List<AptLeaseResponseDto> getLeaseRenewalList_SeoulSigungu(String sigungucode) {
         return em.createQuery("select a from AptLeaseRaw a"
                         + " where a.dealYear = 2022 and a.areaCode = '11' "
