@@ -21,11 +21,11 @@
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
         <a>[기간설정]&nbsp</a>
-        <a th:href="@{/leaselist/ByName/{regncode}/{dong}/{aptName}/{ua}/0 (regncode=${regncode}, dong=${dong}, aptName=${aptName}, ua=${ua})}">올해&nbsp</a>
+        <a th:href="@{/leaselist/monthly/ByName/{regncode}/{dong}/{aptName}/{ua}/0 (regncode=${regncode}, dong=${dong}, aptName=${aptName}, ua=${ua})}">올해&nbsp</a>
         <b>/&nbsp</b>
-        <a th:href="@{/leaselist/ByName/{regncode}/{dong}/{aptName}/{ua}/1 (regncode=${regncode}, dong=${dong}, aptName=${aptName}, ua=${ua})}">1년&nbsp</a>
+        <a th:href="@{/leaselist/monthly/ByName/{regncode}/{dong}/{aptName}/{ua}/1 (regncode=${regncode}, dong=${dong}, aptName=${aptName}, ua=${ua})}">1년&nbsp</a>
         <b>/&nbsp</b>
-        <a th:href="@{/leaselist/ByName/{regncode}/{dong}/{aptName}/{ua}/2 (regncode=${regncode}, dong=${dong}, aptName=${aptName}, ua=${ua})}">2년&nbsp</a>
+        <a th:href="@{/leaselist/monthly/ByName/{regncode}/{dong}/{aptName}/{ua}/2 (regncode=${regncode}, dong=${dong}, aptName=${aptName}, ua=${ua})}">2년&nbsp</a>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
@@ -34,8 +34,8 @@
                     <th>계약기간</th>
 <!--                    <th>갱신권<br/>사용</th>-->
                     <th>전용면적(m2)</th>
-                    <th>전세가</th>
-                    <th>이전</br>전세가</th>
+                    <th>보증금</th>
+                    <th>이전</br>보증금</th>
                     <th>월세</th>
                     <th>이전</br>월세</th>
                     <th>층수</th>

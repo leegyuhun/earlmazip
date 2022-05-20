@@ -319,10 +319,57 @@ public class LeaseController {
 
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("termStr", Common.makeTermString(term));
+        model.addAttribute("regncode", regncode);
+        model.addAttribute("aptName", aptName);
+        model.addAttribute("ua", ua);
+        model.addAttribute("dong", dong);
         model.addAttribute("dates", dates);
         model.addAttribute("deposits", deposits);
         model.addAttribute("list", trads);
 
         return "leaselist/aptLeaseList_ByUA";
+    }
+
+    @GetMapping("/leaselist/monthly/ByName/{regncode}/{dong}/{aptName}/{ua}/{term}")
+    public String getMonthlyListByName(@PathVariable String regncode,
+                                     @PathVariable String dong,
+                                     @PathVariable String aptName,
+                                     @PathVariable int ua,
+                                     @PathVariable int term,
+                                     Model model) {
+        List<AptLeaseResponseDto> trads;
+        if (!regncode.equals("0")) {
+            log.info("/leaselist/monthly/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
+            apiCallStatService.writeApiCallStat("LEASE_LIST_NAME", "/leaselist/monthly/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
+            if (StringUtils.hasText(regncode)) {
+                trads = leaseService.getMonthlyList_ByName(regncode, dong, aptName, ua, term);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else {
+            trads = new ArrayList<>();
+        }
+
+        List<String> dates = trads.stream().map(o->new String(o.getDealDate())).collect(Collectors.toList());
+        List<Integer> deposits = trads.stream().map(o->new Integer(o.getDeposit())).collect(Collectors.toList());
+        Collections.reverse(dates);
+        Collections.reverse(deposits);
+
+        String title = "-";
+        if (trads.size() > 0) {
+            title = trads.get(0).getLandDong() + " " + aptName;
+        }
+
+        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("termStr", Common.makeTermString(term));
+        model.addAttribute("regncode", regncode);
+        model.addAttribute("aptName", aptName);
+        model.addAttribute("ua", ua);
+        model.addAttribute("dong", dong);
+        model.addAttribute("dates", dates);
+        model.addAttribute("deposits", deposits);
+        model.addAttribute("list", trads);
+
+        return "leaselist/aptMonthlyList_ByUA";
     }
 }

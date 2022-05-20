@@ -53,4 +53,9 @@ public class LeaseService {
     public List<AptLeaseResponseDto> getLeaseList_ByName(String regncode, String dong, String aptName, int ua, int term) {
         return leaseRepository.getLeaseList_ByName(regncode, dong, aptName, ua, term);
     }
+
+    public List<AptLeaseResponseDto> getMonthlyList_ByName(String regncode, String dong, String aptName, int ua, int term) {
+        return leaseRepository.getMonthlyList_ByName(regncode, dong, aptName, ua, term);
+    }
+
 }

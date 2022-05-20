@@ -232,4 +232,36 @@ public class LeaseRepository {
                     .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
         }
     }
+
+    public List<AptLeaseResponseDto> getMonthlyList_ByName(String regnCode, String dong, String aptName, int ua, int term) {
+        if (ua == 0) {
+            return em.createQuery(" select a from AptLeaseRaw a "
+                            + " where a.sigunguCode = :regncode "
+                            + "   and a.landDong = :landDong"
+                            + "   and a.dealYear >= :searchYear "
+                            + "   and a.aptName = :aptname "
+                            + "   and a.monthlyRent > 0 "
+                            + " order by a.dealDate desc", AptLeaseRaw.class)
+                    .setParameter("regncode", regnCode)
+                    .setParameter("landDong", dong)
+                    .setParameter("searchYear", Common.calcYearByTerm(term))
+                    .setParameter("aptname", aptName)
+                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+        } else {
+            return em.createQuery(" select a from AptLeaseRaw a "
+                            + " where a.sigunguCode = :regncode "
+                            + "   and a.landDong = :landDong"
+                            + "   and a.dealYear >= :searchYear "
+                            + "   and a.aptName = :aptname "
+                            + "   and a.monthlyRent > 0 "
+                            + "   and a.useAreaTrunc = :ua "
+                            + " order by a.dealDate desc", AptLeaseRaw.class)
+                    .setParameter("regncode", regnCode)
+                    .setParameter("landDong", dong)
+                    .setParameter("searchYear", Common.calcYearByTerm(term))
+                    .setParameter("aptname", aptName)
+                    .setParameter("ua", ua)
+                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+        }
+    }
 }
