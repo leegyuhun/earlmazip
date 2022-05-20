@@ -5,6 +5,7 @@ import aptdata.earlmazip.controller.dto.RankYearResponseDto;
 import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.StatResponseDto;
 import aptdata.earlmazip.domain.*;
+import aptdata.earlmazip.utils.Common;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -26,7 +27,7 @@ public class StatRepository {
                         + " and a.dealYear >= :searchYear "
                         + " order by a.dealYYMM desc", StatAreaYYMM.class)
                 .setParameter("areaCode", areaCode)
-                .setParameter("searchYear", calcYearByTerm(term))
+                .setParameter("searchYear", Common.calcYearByTerm(term))
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
@@ -35,7 +36,7 @@ public class StatRepository {
                         + " where a.sigunguCode = :sigunguCode and use_area_type = 'UA01'"
                         + " and a.dealYear >= :searchYear "
                         + " order by a.dealYYMM desc", StatSigunguYYMM.class)
-                .setParameter("searchYear", calcYearByTerm(term))
+                .setParameter("searchYear", Common.calcYearByTerm(term))
                 .setParameter("sigunguCode", sigunguCode)
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
@@ -64,7 +65,7 @@ public class StatRepository {
                             + " order by a.dealYYMM desc", StatAreaYYMM.class)
                     .setParameter("regnCode", regnCode)
                     .setParameter("useAreaType", ua)
-                    .setParameter("searchYear", calcYearByTerm(term))
+                    .setParameter("searchYear", Common.calcYearByTerm(term))
                     .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
         } else if (regnCode.length() == 4) {
             return em.createQuery("select a from StatSidoYYMM a"
@@ -73,7 +74,7 @@ public class StatRepository {
                             + " order by a.dealYYMM desc", StatSidoYYMM.class)
                     .setParameter("regnCode", regnCode)
                     .setParameter("useAreaType", ua)
-                    .setParameter("searchYear", calcYearByTerm(term))
+                    .setParameter("searchYear", Common.calcYearByTerm(term))
                     .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
         } else {
             return em.createQuery("select a from StatSigunguYYMM a"
@@ -82,7 +83,7 @@ public class StatRepository {
                             + " order by a.dealYYMM desc", StatSigunguYYMM.class)
                     .setParameter("regnCode", regnCode)
                     .setParameter("useAreaType", ua)
-                    .setParameter("searchYear", calcYearByTerm(term))
+                    .setParameter("searchYear", Common.calcYearByTerm(term))
                     .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
         }
     }
@@ -102,7 +103,7 @@ public class StatRepository {
                         + " where a.areaCode = '41' and useAreaType = 'UA01'"
                         + " and a.dealYear >= :searchYear "
                         + " order by a.dealYYMM desc", StatAreaYYMM.class)
-                .setParameter("searchYear", calcYearByTerm(term))
+                .setParameter("searchYear", Common.calcYearByTerm(term))
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
@@ -112,7 +113,7 @@ public class StatRepository {
                         + " and a.dealYear >= :searchYear "
                         + " order by a.dealYYMM desc", StatSidoYYMM.class)
                 .setParameter("sidoCode", sidoCode)
-                .setParameter("searchYear", calcYearByTerm(term))
+                .setParameter("searchYear", Common.calcYearByTerm(term))
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
@@ -162,7 +163,7 @@ public class StatRepository {
                         + "   and a.date >= :searchYear "
                         + " order by a.date desc ", StatTheme.class)
                 .setParameter("themeCode", themeCode)
-                .setParameter("searchYear", calcYearByTerm(term))
+                .setParameter("searchYear", Common.calcYearByTerm(term))
                 .getResultList().stream().map(StatResponseDto::new)
                 .collect(Collectors.toList());
     }
@@ -175,7 +176,7 @@ public class StatRepository {
                         + " order by a.dealYear desc", StatBuildYear.class)
                 .setParameter("regnCode", regnCode)
                 .setParameter("buildYear", buildYear)
-                .setParameter("searchYear", calcYearByTerm(term))
+                .setParameter("searchYear", Common.calcYearByTerm(term))
                 .getResultList().stream().map(StatResponseDto::new)
                 .collect(Collectors.toList());
     }
@@ -206,13 +207,13 @@ public class StatRepository {
         }
     }
 
-    private String calcYearByTerm(String term) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        // 현재날짜
-        String date = simpleDateFormat.format(new Date());
-        int termInt = Integer.parseInt(term);
-        int nowInt = Integer.parseInt(date.substring(0,4));
-        // 현재날짜-term = 조회 기준일자
-        return Integer.toString(nowInt - termInt);
-    }
+//    private String calcYearByTerm(String term) {
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+//        // 현재날짜
+//        String date = simpleDateFormat.format(new Date());
+//        int termInt = Integer.parseInt(term);
+//        int nowInt = Integer.parseInt(date.substring(0,4));
+//        // 현재날짜-term = 조회 기준일자
+//        return Integer.toString(nowInt - termInt);
+//    }
 }

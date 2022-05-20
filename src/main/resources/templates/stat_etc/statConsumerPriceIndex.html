@@ -13,39 +13,30 @@
             <canvas id="myChart"></canvas>
         </p>
         <div>
-            <a>[기간설정]&nbsp</a>
-            <a href="/stat_etc/population/5">5년&nbsp</a>
-            <b>/&nbsp</b>
-            <a href="/stat_etc/population/10">10년&nbsp</a>
-            <b>/&nbsp</b>
-            <a href="/stat_etc/population/15">15년&nbsp</a>
-            <b>/&nbsp</b>
-            <a href="/stat_etc/population/30">30년&nbsp</a>
-            <b>/&nbsp</b>
-            <a href="/stat_etc/population/50">50년&nbsp</a>
-        </div>
-        <div>
             <ins class="kakao_ad_area" style="display:none;"
                  data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
                  data-ad-width   = "320"
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
+        <p>
+            <a style="font-size:12px;" align="center" th:text="${subtitle}"></a>
+        </p>
         <table class="table table-striped">
             <thead>
             <tr class="table-dark" style="font-size:12px;" align="center">
-                <th>년도</th>
-                <th>총 지수</th>
-                <th>전세 지수</th>
-                <th>월세 지수</th>
+                <th>년-월</th>
+                <th>소비자</br>물가지수</th>
+                <th>주택매매</br>가격지수</th>
+                <th>주택전세</br>가격지수</th>
             </tr>
             </thead>
             <tbody>
             <tr style="font-size:12px;" th:each="list : ${list}">
                 <td align="center" th:text="${list.date}"></td>
-                <td align="right" th:text="${#numbers.formatInteger(list.population,1,'COMMA')}"></td>
-                <td align="right" th:text="${#numbers.formatDecimal(list.birthRate,1,2,'POINT')}"></td>
-                <td align="right" th:text="${#numbers.formatDecimal(list.agingPopulation,1,2,'POINT')}"></td>
+                <td align="right" th:text="${#numbers.formatDecimal(list.value1,1,2,'POINT')}"></td>
+                <td align="right" th:text="${#numbers.formatDecimal(list.value2,1,2,'POINT')}"></td>
+                <td align="right" th:text="${#numbers.formatDecimal(list.value3,1,2,'POINT')}"></td>
             </tr>
             </tbody>
         </table>
@@ -59,36 +50,37 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type = "text/javascript" th:inline="javascript">
-  const population =  /*[[ ${population.toArray()} ]]*/;
-  const agingPopulation =  /*[[ ${agingPopulation.toArray()} ]]*/;
-  const birthRate =  /*[[ ${birthRate.toArray()} ]]*/;
+  const totIndexes =  /*[[ ${totIndexes.toArray()} ]]*/;
+  const seoulTradeIndexes =  /*[[ ${seoulTradeIndexes.toArray()} ]]*/;
+  const seoulLeaseIndexes =  /*[[ ${seoulLeaseIndexes.toArray()} ]]*/;
   const labels =  /*[[ ${dates.toArray()} ]]*/;
 
   const data = {
     labels: labels,
     datasets: [{
-      type: 'line',
-      label: '추계인구(만)',
-      yAxisID: 'y-line1',
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
-      pointRadius:1,
-      data: population
+          type: 'line',
+          label: '물가(전국)',
+          yAxisID: 'y-line1',
+          backgroundColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgb(255, 99, 132)',
+          pointRadius:1,
+          data: totIndexes
       },{
-      type: 'line',
-      label: '합계출산율',
-      yAxisID: 'y-line2',
-      backgroundColor: 'rgb(95,67,175)',
-      borderColor: 'rgb(95,67,175)',
-      pointRadius:1,
-      data: birthRate
+          type: 'line',
+          label: '매매지수(서울)',
+          yAxisID: 'y-line2',
+          backgroundColor: 'rgb(95,67,175)',
+          borderColor: 'rgb(95,67,175)',
+          pointRadius:1,
+          data: seoulTradeIndexes
       },{
-        type: 'bar',
-        label: '고령인구비율(65~)',
-        yAxisID: 'y-bar',
-        backgroundColor: 'rgb(54, 162, 235)',
-        borderColor: 'rgb(255, 99, 132)',
-        data: agingPopulation
+          type: 'line',
+          label: '전세지수(서울)',
+          yAxisID: 'y-line3',
+          backgroundColor: 'rgb(54, 162, 235)',
+          borderColor: 'rgb(54, 162, 235)',
+          pointRadius:1,
+          data: seoulLeaseIndexes
       }
     ]
   };
@@ -98,43 +90,50 @@
     options: {
         scales:{
             'y-line1':{
-                position: 'left',
-<!--                suggestedMin: 0,-->
+                position: 'right',
+                suggestedMin: 40,
+                suggestedMax: 120,
                 ticks:{
-				    color: 'rgb(255, 99, 132)'
+				    color: 'rgb(0, 0, 0)'
 				},
                 title: {
                     display: true,
-                    text: '추계인구'
+                    text: '지수'
                 }
             },
             'y-line2':{
                 position: 'right',
-                suggestedMin: 0,
+                suggestedMin: 40,
+                suggestedMax: 120,
+<!--                suggestedMin: 0,-->
                 grid:{
                     display: false
                 },
                 ticks:{
+                    display: false,
 				    color: 'rgb(95,67,175)'
 				},
                 title: {
-                    display: true,
-                    text: '합계출산율'
+                    display: false,
+                    text: '매매지수'
                 }
             },
-            'y-bar':{
+            'y-line3':{
                 position: 'right',
-                suggestedMin: 0,
-                suggestedMax: 50,
+                suggestedMin: 40,
+                suggestedMax: 120,
+<!--                suggestedMin: 0,-->
+<!--                suggestedMax: 50,-->
                 grid:{
                     display: false
                 },
                 ticks:{
+                    display: false,
 				    color: 'rgb(54, 162, 235)'
 				},
                 title: {
-                    display: true,
-                    text: '고령인구비율(65~)'
+                    display: false,
+                    text: '전세지수'
                 }
             }
         }

@@ -5,6 +5,7 @@ import aptdata.earlmazip.controller.dto.RankYearResponseDto;
 import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.StatResponseDto;
 import aptdata.earlmazip.service.*;
+import aptdata.earlmazip.utils.Common;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -110,12 +111,12 @@ public class StatLeaseController {
         model.addAttribute("list", stats);
         model.addAttribute("term", term);
         model.addAttribute("sigungucode", sigungucode);
-        model.addAttribute("termStr", makeTermString(term));
+        model.addAttribute("termStr", Common.makeTermString(term));
         return "stat_lease/seoul";
     }
 
     /**
-     * 국평 전세가 월별통계
+     * 구별 국평 전세가 월별통계
      * @param sigungucode
      * @param term
      * @param model
@@ -161,7 +162,7 @@ public class StatLeaseController {
         model.addAttribute("title", title);
         model.addAttribute("term", term);
         model.addAttribute("sigungucode", sigungucode);
-        model.addAttribute("termStr", makeTermString(term));
+        model.addAttribute("termStr", Common.makeTermString(term));
         model.addAttribute("interestRates", interestRates);
         model.addAttribute("list", stats);
         if (gubn == 0) {
@@ -207,7 +208,7 @@ public class StatLeaseController {
         model.addAttribute("title", title);
         model.addAttribute("term", term);
         model.addAttribute("sigungucode", sigungucode);
-        model.addAttribute("termStr", makeTermString(term));
+        model.addAttribute("termStr", Common.makeTermString(term));
         model.addAttribute("interestRates", interestRates);
         model.addAttribute("list", stats);
         return "stat_lease/seoul84";
@@ -280,18 +281,5 @@ public class StatLeaseController {
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", stats);
         return "stat_lease/statSido_monthly";
-    }
-
-    private String makeTermString(int term) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        // 현재날짜
-        String date = simpleDateFormat.format(new Date());
-        int nowInt = Integer.parseInt(date.substring(0,4));
-        int prevInt = nowInt - term;
-        if (nowInt == prevInt) {
-            return Integer.toString(nowInt);
-        } else {
-            return prevInt + " ~ " + nowInt;
-        }
     }
 }

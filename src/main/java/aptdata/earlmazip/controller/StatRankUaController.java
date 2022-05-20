@@ -29,8 +29,8 @@ public class StatRankUaController {
     private final CodeInfoService codeInfoService;
 
     private final EcosDataService ecosDataService;
-
-    @GetMapping("/stat_rank_ua/{rankgubn}/{sigungucode}/{ua}")
+    
+    @GetMapping("/stat_rank_ua/{rankgubn}/{sigungucode}/{ua}") //추후 삭제
     public String getStatRankUaList_SeoulBak(@PathVariable int rankgubn,
                                           @PathVariable String sigungucode,
                                           @PathVariable int ua,Model model) {
@@ -84,7 +84,17 @@ public class StatRankUaController {
 
         }
     }
-
+    
+    /**
+     * 서울지역 전용면적별 TOP 랭크 조회
+     * rankgubn(0: 평균매매가, 1: 거래건수)
+     * ua(현재 59, 84만)
+     * @param rankgubn
+     * @param sigungucode
+     * @param ua
+     * @param model
+     * @return
+     */
     @GetMapping("/stat_rank_ua/seoul/{rankgubn}/{sigungucode}/{ua}")
     public String getStatRankUaList_Seoul(@PathVariable int rankgubn,
                                           @PathVariable String sigungucode,
@@ -98,14 +108,6 @@ public class StatRankUaController {
             list = statService.getStatRankUaList_Seoul(rankgubn, sigungucode, ua);
         } else {
             list = new ArrayList<>();
-        }
-
-        int idx = 1;
-        for (RankUaSigunguResponseDto item: list) {
-            item.setRank(idx);
-            item.setTradeUrl("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/1");
-            item.setTradeUrl2("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/3");
-            idx++;
         }
 
         if (list.size() > 0) {
@@ -139,6 +141,16 @@ public class StatRankUaController {
         }
     }
 
+    /**
+     * 경기지역 전용면적별 TOP 랭크 조회
+     * rankgubn(0: 평균매매가, 1: 거래건수)
+     * ua(현재 59, 84만)
+     * @param rankgubn
+     * @param sigungucode
+     * @param ua
+     * @param model
+     * @return
+     */
     @GetMapping("/stat_rank_ua/gyunggi/{rankgubn}/{sigungucode}/{ua}")
     public String getStatRankUaList_Gyunggi(@PathVariable int rankgubn,
                                           @PathVariable String sigungucode,
@@ -152,14 +164,6 @@ public class StatRankUaController {
             list = statService.getStatRankUaList_Seoul(rankgubn, sigungucode, ua);
         } else {
             list = new ArrayList<>();
-        }
-
-        int idx = 1;
-        for (RankUaSigunguResponseDto item: list) {
-            item.setRank(idx);
-            item.setTradeUrl("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/1");
-            item.setTradeUrl2("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/3");
-            idx++;
         }
 
         if (list.size() > 0) {

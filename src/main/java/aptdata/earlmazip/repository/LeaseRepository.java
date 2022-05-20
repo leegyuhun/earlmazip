@@ -4,6 +4,7 @@ import aptdata.earlmazip.controller.dto.AptLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.AptPriceResponseDto;
 import aptdata.earlmazip.domain.AptLeaseRaw;
 import aptdata.earlmazip.domain.AptPriceRaw;
+import aptdata.earlmazip.utils.Common;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -211,7 +212,7 @@ public class LeaseRepository {
                             + " order by a.dealDate desc", AptLeaseRaw.class)
                     .setParameter("regncode", regnCode)
                     .setParameter("landDong", dong)
-                    .setParameter("searchYear", calcYearByTerm(term))
+                    .setParameter("searchYear", Common.calcYearByTerm(term))
                     .setParameter("aptname", aptName)
                     .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
         } else {
@@ -225,19 +226,10 @@ public class LeaseRepository {
                             + " order by a.dealDate desc", AptLeaseRaw.class)
                     .setParameter("regncode", regnCode)
                     .setParameter("landDong", dong)
-                    .setParameter("searchYear", calcYearByTerm(term))
+                    .setParameter("searchYear", Common.calcYearByTerm(term))
                     .setParameter("aptname", aptName)
                     .setParameter("ua", ua)
                     .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
         }
-    }
-
-    private String calcYearByTerm(int term) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        // 현재날짜
-        String date = simpleDateFormat.format(new Date());
-        int nowInt = Integer.parseInt(date.substring(0,4));
-        // 현재날짜-term = 조회 기준일자
-        return Integer.toString(nowInt - term);
     }
 }

@@ -3,6 +3,7 @@ package aptdata.earlmazip.repository;
 import aptdata.earlmazip.controller.dto.EcosDataResponseDto;
 import aptdata.earlmazip.domain.EcosData;
 import aptdata.earlmazip.domain.SiteInfo;
+import aptdata.earlmazip.utils.Common;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -21,14 +22,6 @@ public class EcosDataRepository {
     private final EntityManager em;
 
     public List<EcosDataResponseDto> getEcosData(String statCode, String itemCode1, String itemCode2, String term) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        // 현재날짜
-        String date = simpleDateFormat.format(new Date());
-        int termInt = Integer.parseInt(term);
-        int nowInt = Integer.parseInt(date.substring(0,4));
-        // 현재날짜-term = 조회 기준일자
-        String searchYear = Integer.toString(nowInt - termInt);
-
         return em.createQuery(" select a from EcosData a "
                         + " where a.statCode = :statCode "
                         + "   and itemCode1 = :itemCode1 "
@@ -38,7 +31,7 @@ public class EcosDataRepository {
                 .setParameter("statCode", statCode)
                 .setParameter("itemCode1", itemCode1)
                 .setParameter("itemCode2", itemCode2)
-                .setParameter("searchYear", searchYear)
+                .setParameter("searchYear", Common.calcYearByTerm(term))
                 .getResultList().stream().map(EcosDataResponseDto::new).collect(Collectors.toList());
     }
 }

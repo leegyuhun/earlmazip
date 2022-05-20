@@ -11,6 +11,7 @@ import aptdata.earlmazip.service.ApiCallStatService;
 import aptdata.earlmazip.service.CodeInfoService;
 import aptdata.earlmazip.service.EcosDataService;
 import aptdata.earlmazip.service.StatService;
+import aptdata.earlmazip.utils.Common;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -144,7 +145,7 @@ public class StatController {
         Collections.reverse(tradcnt);
 
         model.addAttribute("title",  title);
-        model.addAttribute("termStr",  makeTermString(term));
+        model.addAttribute("termStr",  Common.makeTermString(term));
         model.addAttribute("list", areas);
         model.addAttribute("term", term);
         model.addAttribute("sigungucode", sigungucode);
@@ -194,7 +195,7 @@ public class StatController {
         model.addAttribute("title",  title);
         model.addAttribute("sigungucode",  sigungucode);
         model.addAttribute("term",  term);
-        model.addAttribute("termStr", makeTermString(term));
+        model.addAttribute("termStr", Common.makeTermString(term));
         model.addAttribute("list", areas);
         model.addAttribute("uaStr", codeInfoService.getCodeName(ua));
         model.addAttribute("ua", ua);
@@ -419,7 +420,7 @@ public class StatController {
         model.addAttribute("title",  title);
         model.addAttribute("sidocode",  sidoCode);
         model.addAttribute("term",  term);
-        model.addAttribute("termStr", makeTermString(term));
+        model.addAttribute("termStr", Common.makeTermString(term));
 
         return "stat_trade/gyunggiByCity";
     }
@@ -750,7 +751,7 @@ public class StatController {
 
         model.addAttribute("title",  title);
         model.addAttribute("term",  term);
-        model.addAttribute("termStr", makeTermString(term));
+        model.addAttribute("termStr", Common.makeTermString(term));
         model.addAttribute("sigungucode",  sigungucode);
         model.addAttribute("list", areas);
         model.addAttribute("dates", dates);
@@ -898,19 +899,5 @@ public class StatController {
         model.addAttribute("tradCnt2020", tradCnt2020);
 
         return "stat_trade/statByBuildYear";
-    }
-
-    private String makeTermString(String term) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        // 현재날짜
-        String date = simpleDateFormat.format(new Date());
-        int termInt = Integer.parseInt(term);
-        int nowInt = Integer.parseInt(date.substring(0,4));
-        int prevInt = nowInt - termInt;
-        if (nowInt == prevInt) {
-            return Integer.toString(nowInt);
-        } else {
-            return prevInt + " ~ " + nowInt;
-        }
     }
 }

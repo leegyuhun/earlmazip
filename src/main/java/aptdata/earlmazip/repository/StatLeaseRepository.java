@@ -4,6 +4,7 @@ import aptdata.earlmazip.controller.dto.RankYearResponseDto;
 import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.StatResponseDto;
 import aptdata.earlmazip.domain.*;
+import aptdata.earlmazip.utils.Common;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +25,7 @@ public class StatLeaseRepository {
                 + "   and a.dealYear >= :searchYear "
                 + " order by a.dealYYMM desc", StatSidoLease.class)
                 .setParameter("sidoCode", sidoCode)
-                .setParameter("searchYear", calcYearByTerm(term))
+                .setParameter("searchYear", Common.calcYearByTerm(term))
                 .getResultList().stream().map(StatLeaseResponseDto::new).collect(Collectors.toList());
     }
 
@@ -43,7 +44,7 @@ public class StatLeaseRepository {
                             + "   and a.dealYear >= :searchYear "
                             + " order by a.dealYYMM desc", StatSidoLease.class)
                     .setParameter("sigunguCode", sigunguCode)
-                    .setParameter("searchYear", calcYearByTerm(term))
+                    .setParameter("searchYear", Common.calcYearByTerm(term))
                     .getResultList().stream().map(StatLeaseResponseDto::new).collect(Collectors.toList());
         } else {
             return em.createQuery("select a from StatSigunguLease a"
@@ -51,7 +52,7 @@ public class StatLeaseRepository {
                             + "   and a.dealYear >= :searchYear "
                             + " order by a.dealYYMM desc", StatSigunguLease.class)
                     .setParameter("sigunguCode", sigunguCode)
-                    .setParameter("searchYear", calcYearByTerm(term))
+                    .setParameter("searchYear", Common.calcYearByTerm(term))
                     .getResultList().stream().map(StatLeaseResponseDto::new).collect(Collectors.toList());
         }
     }
@@ -63,7 +64,7 @@ public class StatLeaseRepository {
                             + "   and a.dealYear >= :searchYear "
                             + " order by a.dealYYMM desc", StatSigunguLease84.class)
                     .setParameter("sigunguCode", sigunguCode)
-                    .setParameter("searchYear", calcYearByTerm(term))
+                    .setParameter("searchYear", Common.calcYearByTerm(term))
                     .getResultList().stream().map(StatLeaseResponseDto::new).collect(Collectors.toList());
         } else {
             return em.createQuery("select a from StatSigunguLease84 a"
@@ -71,7 +72,7 @@ public class StatLeaseRepository {
                             + "   and a.dealYear >= :searchYear "
                             + " order by a.dealYYMM desc", StatSigunguLease84.class)
                     .setParameter("sigunguCode", sigunguCode)
-                    .setParameter("searchYear", calcYearByTerm(term))
+                    .setParameter("searchYear", Common.calcYearByTerm(term))
                     .getResultList().stream().map(StatLeaseResponseDto::new).collect(Collectors.toList());
         }
     }
@@ -82,14 +83,5 @@ public class StatLeaseRepository {
                         + " order by a.dealYYMM desc", StatSigunguLease.class)
                 .setParameter("sigunguCode", sigunguCode)
                 .getResultList().stream().map(StatLeaseResponseDto::new).collect(Collectors.toList());
-    }
-
-    private String calcYearByTerm(int term) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        // 현재날짜
-        String date = simpleDateFormat.format(new Date());
-        int nowInt = Integer.parseInt(date.substring(0,4));
-        // 현재날짜-term = 조회 기준일자
-        return Integer.toString(nowInt - term);
     }
 }

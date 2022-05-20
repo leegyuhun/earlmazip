@@ -6,6 +6,7 @@ import aptdata.earlmazip.service.ApiCallStatService;
 import aptdata.earlmazip.service.CodeInfoService;
 import aptdata.earlmazip.service.LeaseService;
 import aptdata.earlmazip.service.TradeService;
+import aptdata.earlmazip.utils.Common;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -317,20 +318,11 @@ public class LeaseController {
         }
 
         model.addAttribute("title",  "[ "+ title + " ]");
-        model.addAttribute("termStr", makeTermString(term));
+        model.addAttribute("termStr", Common.makeTermString(term));
         model.addAttribute("dates", dates);
         model.addAttribute("deposits", deposits);
         model.addAttribute("list", trads);
 
         return "leaselist/aptLeaseList_ByUA";
-    }
-
-    private String makeTermString(int term) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        // 현재날짜
-        String date = simpleDateFormat.format(new Date());
-        int nowInt = Integer.parseInt(date.substring(0,4));
-        // 현재날짜-term = 조회 기준일자
-        return Integer.toString(nowInt - term) + " ~ " + nowInt;
     }
 }

@@ -4,6 +4,7 @@ import aptdata.earlmazip.controller.dto.AptPriceResponseDto;
 import aptdata.earlmazip.service.ApiCallStatService;
 import aptdata.earlmazip.service.CodeInfoService;
 import aptdata.earlmazip.service.TradeService;
+import aptdata.earlmazip.utils.Common;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -227,19 +228,9 @@ public class TradeController {
         model.addAttribute("ua", ua);
         model.addAttribute("dates", dates);
         model.addAttribute("dealAmts", dealAmts);
-        model.addAttribute("termStr", makeTermString(Integer.toString(term)));
+        model.addAttribute("termStr", Common.makeTermString(term));
         model.addAttribute("list", trads);
 
         return "tradelist/aptTradeList_ByUA";
-    }
-
-    private String makeTermString(String term) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        // 현재날짜
-        String date = simpleDateFormat.format(new Date());
-        int termInt = Integer.parseInt(term);
-        int nowInt = Integer.parseInt(date.substring(0,4));
-        // 현재날짜-term = 조회 기준일자
-        return Integer.toString(nowInt - termInt) + " ~ " + nowInt;
     }
 }

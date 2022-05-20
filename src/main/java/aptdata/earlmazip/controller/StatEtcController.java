@@ -93,9 +93,9 @@ public class StatEtcController {
         List<String> avgIncomes = avgIncome.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
         List<String> topIncomes = topIncome.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
         List<String> botIncomes = botIncome.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
-        List<ItemDto> list = new ArrayList<>();
+        List<IncomeDto> list = new ArrayList<>();
         for (int i = dates.size() - 1; i > -1; i--) {
-            ItemDto item = new ItemDto(dates.get(i), halfIncomes.get(i), avgIncomes.get(i), topIncomes.get(i), botIncomes.get(i));
+            IncomeDto item = new IncomeDto(dates.get(i), halfIncomes.get(i), avgIncomes.get(i), topIncomes.get(i), botIncomes.get(i));
             list.add(item);
         }
         String title = "균등화 중위/평균/5분위 소득";
@@ -111,6 +111,12 @@ public class StatEtcController {
         return "stat_etc/statIncome";
     }
 
+    /**
+     * 개인신용카드 사용 통계
+     * @param areacode
+     * @param model
+     * @return
+     */
     @GetMapping("/stat_etc/creditCardUse/{areacode}")
     public String getStatEtcCreditCardUse(@PathVariable String areacode, Model model) {
         apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/creditCardUse/" + areacode);
@@ -171,39 +177,71 @@ public class StatEtcController {
         return "stat_etc/statCreditCardUse";
     }
 
+    /**
+     * 소비자 물가지수
+     * @param model
+     * @return
+     */
     @GetMapping("/stat_etc/consumerPriceIndex")
     public String getStatEtcConsumerPriceIndex(Model model) {
         apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/consumerPriceIndex");
 
-        // 소비자물가지수(총 지수)
-        List<EcosDataResponseDto> totIndex = ecosDataService.getEcosData("021Y125", "0", "", "15");
+        // 소비자물가지수(전국)
+        List<EcosDataResponseDto> totIndex = ecosDataService.getEcosData("021Y125", "0", "", "16");
 
-        // 소비자물가지수(전세)
-        List<EcosDataResponseDto> leaseIndex = ecosDataService.getEcosData("021Y125", "D01101", "", "15");
+        // 주택매매가격지수(KB) 총지수(서울)
+        List<EcosDataResponseDto> seoulTradeIndex = ecosDataService.getEcosData("085Y021", "P63AD", "", "16");
 
-        // 소비자물가지수(월세)
-        List<EcosDataResponseDto> monthlyIndex = ecosDataService.getEcosData("021Y125", "D01102", "", "15");
+        // 주택전세가격지수(KB) 총지수(서울)
+        List<EcosDataResponseDto> seoulLeaseIndex = ecosDataService.getEcosData("085Y022", "P64AD", "", "16");
 
         List<String> dates = totIndex.stream().map(o->new String(o.getDate())).collect(Collectors.toList());
-        List<String> totIndexes = totIndex.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
-        List<String> leaseIndexes = leaseIndex.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
-        List<String> monthlyIndexes = monthlyIndex.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
-        List<ItemDto> list = new ArrayList<>();
+        List<Float> totIndexes = totIndex.stream().map(o->new Float(o.getDataValue())).collect(Collectors.toList());
+        List<Float> seoulTradeIndexes = seoulTradeIndex.stream().map(o->new Float(o.getDataValue())).collect(Collectors.toList());
+        List<Float> seoulLeaseIndexes = seoulLeaseIndex.stream().map(o->new Float(o.getDataValue())).collect(Collectors.toList());
+        List<IndexDto> list = new ArrayList<>();
         for (int i = dates.size() - 1; i > -1; i--) {
-//            ItemDto item = new ItemDto(dates.get(i), halfIncomes.get(i), avgIncomes.get(i), topIncomes.get(i), botIncomes.get(i));
-//            list.add(item);
+            IndexDto item = new IndexDto(dates.get(i), totIndexes.get(i), seoulTradeIndexes.get(i), seoulLeaseIndexes.get(i));
+            list.add(item);
         }
-        String title = "소비자물가지수(총지수,전세,월세)";
 
+        String title = "-";
+        String subtitle = "-";
+        if (totIndex.size() > 0) {
+            subtitle = " ※ 소비자물가(기준: " + totIndex.get(0).getUnitName() + ")";
+        }
+        if (seoulTradeIndex.size() > 0) {
+            subtitle = subtitle + ", 매매지수(기준: " + seoulTradeIndex.get(0).getUnitName() + ")";
+        }
+        if (seoulLeaseIndex.size() > 0) {
+            subtitle = subtitle + ", 전세지수(기준: " + seoulLeaseIndex.get(0).getUnitName() + ")";
+        }
         model.addAttribute("totIndexes", totIndexes);
-        model.addAttribute("leaseIndexes", leaseIndexes);
-        model.addAttribute("monthlyIndexes", monthlyIndexes);
+        model.addAttribute("seoulTradeIndexes", seoulTradeIndexes);
+        model.addAttribute("seoulLeaseIndexes", seoulLeaseIndexes);
         model.addAttribute("dates", dates);
         model.addAttribute("title", title);
+        model.addAttribute("subtitle", subtitle);
         model.addAttribute("list", list);
 
         return "stat_etc/statConsumerPriceIndex";
     }
+
+    @Data
+    static class IndexDto {
+        private String date;
+        private float value1;
+        private float value2;
+        private float value3;
+
+        public IndexDto(String date, float value1, float value2, float value3) {
+            this.date = date;
+            this.value1 = value1;
+            this.value2 = value2;
+            this.value3 = value3;
+        }
+    }
+
     @Data
     static class CreditCardUseDto {
 
@@ -223,6 +261,7 @@ public class StatEtcController {
             this.value5 = value5;
         }
     }
+
     @Data
     static class PopulationDto {
 
@@ -238,8 +277,9 @@ public class StatEtcController {
             this.birthRate = birthRate;
         }
     }
+
     @Data
-    static class ItemDto {
+    static class IncomeDto {
 
         private String date;
         private String halfIncome;
@@ -247,7 +287,7 @@ public class StatEtcController {
         private String topIncome;
         private String botIncome;
 
-        public ItemDto(String date, String half, String avg, String top, String bot) {
+        public IncomeDto(String date, String half, String avg, String top, String bot) {
             this.date = date;
             this.halfIncome = half;
             this.avgIncome = avg;
