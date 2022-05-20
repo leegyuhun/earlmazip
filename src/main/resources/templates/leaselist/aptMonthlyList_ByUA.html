@@ -64,18 +64,27 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type = "text/javascript" th:inline="javascript">
   const labels =  /*[[ ${dates.toArray()} ]]*/;
+  const monthlies =  /*[[ ${monthlies.toArray()} ]]*/;
   const deposits =  /*[[ ${deposits.toArray()} ]]*/;
 
   const data = {
     labels: labels,
     datasets: [{
       type: 'line',
-      label: '전세가',
+      label: '월세',
       yAxisID: 'y-line',
       backgroundColor: 'rgb(255, 99, 132)',
       borderColor: 'rgb(255, 99, 132)',
       pointRadius:1,
-      data: deposits
+      data: monthlies
+      },{
+          type: 'line',
+          label: '보증금',
+          yAxisID: 'y-line2',
+          backgroundColor: 'rgb(95,67,175)',
+          borderColor: 'rgb(95,67,175)',
+          pointRadius:1,
+          data: deposits
       }
     ]
   };
@@ -86,13 +95,28 @@
         scales:{
             'y-line':{
                 position: 'left',
-                suggestedMin: 0,
                 ticks:{
 				    color: 'rgb(255, 99, 132)'
 				},
                 title: {
                     display: true,
-                    text: '전세가'
+                    color: 'rgb(255, 99, 132)',
+                    text: '월세'
+                }
+            },
+            'y-line2':{
+                position: 'right',
+                grid:{
+                    display: false
+                },
+                ticks:{
+                    display: true,
+				    color: 'rgb(95,67,175)'
+				},
+                title: {
+                    display: true,
+                    color: 'rgb(95,67,175)',
+                    text: '보증금'
                 }
             }
         }

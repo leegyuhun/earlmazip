@@ -79,7 +79,8 @@
                     <td align="center" th:text="${list.landDong}"></td>
                     <td align="center" th:text="${list.dealType}"></td>
                     <td align="center" th:text="${list.dealTerm}"></td>
-                    <td align="left" th:text="${list.aptName}"></td>
+                    <td align="left"><a th:text="${list.aptName}" th:href="@{/leaselist/monthly/ByName/{sigungucode}/{dong}/{aptname}/{uatrunc}/1 (sigungucode=${list.sigunguCode}, dong=${list.landDong}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc})}"></a></td>
+<!--                    <td align="left" th:text="${list.aptName}"></td>-->
                     <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>
                     <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.deposit,1,'COMMA')}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.befDeposit,1,'COMMA')}"></td>

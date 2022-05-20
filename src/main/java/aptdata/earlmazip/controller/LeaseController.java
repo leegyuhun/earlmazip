@@ -351,8 +351,10 @@ public class LeaseController {
         }
 
         List<String> dates = trads.stream().map(o->new String(o.getDealDate())).collect(Collectors.toList());
+        List<String> monthlies = trads.stream().map(o->new String(o.getMonthlyRentStr())).collect(Collectors.toList());
         List<Integer> deposits = trads.stream().map(o->new Integer(o.getDeposit())).collect(Collectors.toList());
         Collections.reverse(dates);
+        Collections.reverse(monthlies);
         Collections.reverse(deposits);
 
         String title = "-";
@@ -367,6 +369,7 @@ public class LeaseController {
         model.addAttribute("ua", ua);
         model.addAttribute("dong", dong);
         model.addAttribute("dates", dates);
+        model.addAttribute("monthlies", monthlies);
         model.addAttribute("deposits", deposits);
         model.addAttribute("list", trads);
 
