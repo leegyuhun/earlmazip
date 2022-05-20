@@ -110,6 +110,14 @@ public class StatRankUaController {
             list = new ArrayList<>();
         }
 
+        int idx = 1;
+        for (RankUaSigunguResponseDto item: list) {
+            item.setRank(idx);
+            item.setTradeUrl("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/1");
+            item.setTradeUrl2("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/3");
+            idx++;
+        }
+
         if (list.size() > 0) {
             if (rankgubn == 0) {
                 title = title + " 평균매매가 TOP 20";
@@ -164,6 +172,14 @@ public class StatRankUaController {
             list = statService.getStatRankUaList_Seoul(rankgubn, sigungucode, ua);
         } else {
             list = new ArrayList<>();
+        }
+
+        int idx = 1;
+        for (RankUaSigunguResponseDto item: list) {
+            item.setRank(idx);
+            item.setTradeUrl("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/1");
+            item.setTradeUrl2("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/3");
+            idx++;
         }
 
         if (list.size() > 0) {
