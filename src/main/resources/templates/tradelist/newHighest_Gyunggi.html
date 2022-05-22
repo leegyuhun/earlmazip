@@ -74,7 +74,7 @@
             <a th:href="@{/newHighestList/41590/{ua} (ua=${ua})}">&nbsp화성시</a>
         </div>
         <p>
-            <h4 align="center" th:text="${title}"></h4>
+            <h4 align="center" th:text="|${title} - 2022 신고가|"></h4>
         </p>
         <div>
             <ins class="kakao_ad_area" style="display:none;"
@@ -84,13 +84,11 @@
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
         <a>[면적]&nbsp</a>
-        <a th:href="@{/tradelist/{sigungucode}/0/0 (sigungucode=${sigungucode})}">전체&nbsp</a>
+        <a th:href="@{/newHighestList/{sigungucode}/0 (sigungucode=${sigungucode})}">전체&nbsp</a>
         <b>/&nbsp</b>
-        <a th:href="@{/tradelist/{sigungucode}/0/59 (sigungucode=${sigungucode})}">전용59&nbsp</a>
+        <a th:href="@{/newHighestList/{sigungucode}/59 (sigungucode=${sigungucode})}">전용59&nbsp</a>
         <b>/&nbsp</b>
-        <a th:href="@{/tradelist/{sigungucode}/0/84 (sigungucode=${sigungucode})}">국평&nbsp</a>
-        <b>/&nbsp</b>
-        <a th:href="@{/tradelist/{sigungucode}/2/84 (sigungucode=${sigungucode})}">국평초과</a>
+        <a th:href="@{/newHighestList/{sigungucode}/84 (sigungucode=${sigungucode})}">국평&nbsp</a>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
