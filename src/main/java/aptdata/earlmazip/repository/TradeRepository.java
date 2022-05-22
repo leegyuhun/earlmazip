@@ -161,4 +161,28 @@ public class TradeRepository {
             }
         }
     }
+
+    public List<AptPriceResponseDto> getNewHighestList(String sigungucode, int ua) {
+        if (ua == 0) {
+            return em.createQuery(" select a from AptPriceRaw a "
+                            + " where a.sigunguCode = :sigungucode "
+                            + "   and a.dealYear = 2022 "
+                            + "   and a.cnclDealDate = '' "
+                            + "   and a.newHighestPrice = 1 "
+                            + " order by a.dealDate desc", AptPriceRaw.class)
+                    .setParameter("sigungucode", sigungucode)
+                    .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        } else {
+            return em.createQuery(" select a from AptPriceRaw a "
+                            + " where a.sigunguCode = :sigungucode "
+                            + "   and a.dealYear = 2022 "
+                            + "   and a.useAreaTrunc = :ua "
+                            + "   and a.cnclDealDate = '' "
+                            + "   and a.newHighestPrice = 1 "
+                            + " order by a.dealDate desc", AptPriceRaw.class)
+                    .setParameter("sigungucode", sigungucode)
+                    .setParameter("ua", ua)
+                    .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        }
+    }
 }

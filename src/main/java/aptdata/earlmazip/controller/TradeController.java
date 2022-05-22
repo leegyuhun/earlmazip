@@ -233,4 +233,38 @@ public class TradeController {
 
         return "tradelist/aptTradeList_ByUA";
     }
+
+    @GetMapping("/newHighestList/{sigungucode}/{ua}")
+    public String getNewHighestList(@PathVariable String sigungucode,
+                                     @PathVariable int ua,
+                                     Model model) {
+        List<AptPriceResponseDto> trads;
+        String title = "-";
+        if (sigungucode.length() == 5) {
+            title = codeInfoService.getCodeName(sigungucode);
+            log.info("/newHighestList/" + sigungucode);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/newHighestList/" + title + "/" + ua);
+            if (StringUtils.hasText(sigungucode)) {
+                trads = tradeService.getNewHighestList(sigungucode, ua);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else{
+            trads = new ArrayList<>();
+        }
+
+        model.addAttribute("list", trads);
+        model.addAttribute("sigungucode", sigungucode);
+//        model.addAttribute("gubn", gubn);
+        model.addAttribute("ua", ua);
+        model.addAttribute("title",  "[ "+ title + " ]");
+        if (sigungucode.substring(0, 2).equals("11")) {
+            return "tradelist/newHighest_Seoul";
+        } else if (sigungucode.substring(0, 2).equals("41")) {
+            return "tradelist/newHighest_Gyunggi";
+        } else {
+            return "tradelist/newHighest_Incheon";
+        }
+
+    }
 }
