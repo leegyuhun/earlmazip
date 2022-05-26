@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,7 +48,7 @@ public class TradeController {
         if (sigungucode.length() == 5) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/tradelist/seoul/" + sigungucode);
-            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/" + title + "/" + gubn + "/" + ua);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/" + title + "/" + gubn + "/" + ua, sigungucode);
             if (StringUtils.hasText(sigungucode)) {
                 trads = tradeService.getTradeList_Sigungu(sigungucode, gubn, ua);
             } else {
@@ -79,7 +80,7 @@ public class TradeController {
         if (!sigungucode.equals("0")) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/tradelist/seoul/" + sigungucode);
-            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/seoul/" + title);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/seoul/" + title, sigungucode);
             if (StringUtils.hasText(sigungucode)) {
                 trads = tradeService.getTradeList_Sigungu(sigungucode,0,0);
             } else {
@@ -105,7 +106,7 @@ public class TradeController {
         if (!sidocode.equals("0")) {
             title = codeInfoService.getCodeName(sidocode);
             log.info("/tradelist/gyunggi/" + sidocode);
-            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/gyunggi/" + "/" + gubn + "/" + ua);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/gyunggi/" + "/" + gubn + "/" + ua, sidocode);
             if (StringUtils.hasText(sidocode)) {
                 trads = tradeService.getTradeList_GyunggiSido(sidocode, gubn, ua);
             } else {
@@ -128,7 +129,7 @@ public class TradeController {
         if (!sidocode.equals("0")) {
             title = codeInfoService.getCodeName(sidocode);
             log.info("/tradelist/gyunggi/" + sidocode);
-            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/gyunggi/" + title);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/gyunggi/" + title, sidocode);
             if (StringUtils.hasText(sidocode)) {
                 trads = tradeService.getTradeList_GyunggiSido(sidocode, 0, 0);
             } else {
@@ -151,7 +152,7 @@ public class TradeController {
         if (!sigungucode.equals("0")) {
             log.info("/tradelist/incheon/" + sigungucode);
             title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/incheon/" + title);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/incheon/" + title, sigungucode);
 
             if (StringUtils.hasText(sigungucode)) {
                 trads = tradeService.getTradeList_Incheon(sigungucode);
@@ -175,7 +176,7 @@ public class TradeController {
         if (!regncode.equals("0")) {
             log.info("/tradelist/cancelDeal/" + regncode);
             title = codeInfoService.getCodeName(regncode);
-            apiCallStatService.writeApiCallStat("TRADE_CANCEL", "/tradelist/cancelDeal/" + title);
+            apiCallStatService.writeApiCallStat("TRADE_CANCEL", "/tradelist/cancelDeal/" + title, regncode);
 
             if (StringUtils.hasText(regncode)) {
                 trads = tradeService.getCancelDealList(regncode);
@@ -197,14 +198,15 @@ public class TradeController {
                                     @PathVariable String aptName,
                                     @PathVariable int ua,
                                     @PathVariable int term,
+                                    @RequestParam(value="landDong", defaultValue = "") String landDong,
                                     Model model) {
         List<AptPriceResponseDto> trads;
         if (!regncode.equals("0")) {
             log.info("/tradelist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
-            apiCallStatService.writeApiCallStat("TRADE_LIST_NAME", "/tradelist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
+            apiCallStatService.writeApiCallStat("TRADE_LIST_NAME", "/tradelist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term + "?" + landDong, regncode);
 
             if (StringUtils.hasText(regncode)) {
-                trads = tradeService.getAptTradeList_ByName(regncode, aptName, ua, term);
+                trads = tradeService.getAptTradeList_ByName(regncode, landDong, aptName, ua, term);
             } else {
                 trads = new ArrayList<>();
             }
@@ -223,6 +225,7 @@ public class TradeController {
         }
 
         model.addAttribute("title",  title);
+        model.addAttribute("landDong", landDong);
         model.addAttribute("regncode", regncode);
         model.addAttribute("aptName", aptName);
         model.addAttribute("ua", ua);
@@ -243,7 +246,7 @@ public class TradeController {
         if (sigungucode.length() == 5) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/newHighestList/" + sigungucode);
-            apiCallStatService.writeApiCallStat("TRADE_LIST", "/newHighestList/" + title + "/" + ua);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/newHighestList/" + title + "/" + ua, sigungucode);
             if (StringUtils.hasText(sigungucode)) {
                 trads = tradeService.getNewHighestList(sigungucode, ua);
             } else {

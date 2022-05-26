@@ -31,7 +31,7 @@ public class StatEtcController {
      */
     @GetMapping("/stat_etc/population/{term}")
     public String getStatEtcPopulation(@PathVariable String term, Model model) {
-        apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/population/" + term);
+        apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/population/" + term, "0");
 
         // 추계인구
         List<EcosDataResponseDto> population = ecosDataService.getEcosData("080Y035", "I35A", "", term);
@@ -75,7 +75,7 @@ public class StatEtcController {
      */
     @GetMapping("/stat_etc/income")
     public String getStatEtcIncome(Model model) {
-        apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/income");
+        apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/income", "0");
 
         // 중위소득
         List<EcosDataResponseDto> halfIncome = ecosDataService.getEcosData("080Y038", "I38A", "30", "15");
@@ -119,7 +119,7 @@ public class StatEtcController {
      */
     @GetMapping("/stat_etc/creditCardUse/{areacode}")
     public String getStatEtcCreditCardUse(@PathVariable String areacode, Model model) {
-        apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/creditCardUse/" + areacode);
+        apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/creditCardUse/" + areacode, areacode);
 
         String code = "";
         if (areacode.equals("11")) {
@@ -184,7 +184,7 @@ public class StatEtcController {
      */
     @GetMapping("/stat_etc/consumerPriceIndex")
     public String getStatEtcConsumerPriceIndex(Model model) {
-        apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/consumerPriceIndex");
+        apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/consumerPriceIndex", "0");
 
         // 소비자물가지수(전국)
         List<EcosDataResponseDto> totIndex = ecosDataService.getEcosData("021Y125", "0", "", "16");

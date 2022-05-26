@@ -39,7 +39,7 @@ public class LeaseController {
         if (sigungucode.length()==5) {
             log.info("/leaselist/seoul/" + sigungucode);
             title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/" + title + "/" + gubn + "/" + ua);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/" + title + "/" + gubn + "/" + ua, sigungucode);
             if (StringUtils.hasText(sigungucode)) {
                 trads = leaseService.getLeaseList_Sigungu(sigungucode, gubn, ua);
             } else {
@@ -70,7 +70,7 @@ public class LeaseController {
         if (!sigungucode.equals("0")) {
             log.info("/leaselist/seoul/" + sigungucode);
             title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/seoul/" + title);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/seoul/" + title, sigungucode);
             if (StringUtils.hasText(sigungucode)) {
                 trads = leaseService.getLeaseList_Sigungu(sigungucode, 0, 0);
             } else {
@@ -99,7 +99,7 @@ public class LeaseController {
         if (!sigungucode.equals("0")) {
             log.info("/leaselist/renewal/seoul/" + sigungucode);
             title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/renewal/seoul/" + title);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/renewal/seoul/" + title, sigungucode);
             if (StringUtils.hasText(sigungucode)) {
                 trads = leaseService.getLeaseRenewalList_SeoulSigungu(sigungucode);
             } else {
@@ -124,7 +124,7 @@ public class LeaseController {
         if (sigungucode.length() == 5) {
             log.info("/leaselist/monthly/" + sigungucode);
             title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/monthly/" + title + "/" + gubn + "/" + ua);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/monthly/" + title + "/" + gubn + "/" + ua, sigungucode);
             if (StringUtils.hasText(sigungucode)) {
                 trads = leaseService.getLeaseMonthlyList_Sigungu(sigungucode, gubn, ua);
             } else {
@@ -156,7 +156,7 @@ public class LeaseController {
         if (!sigungucode.equals("0")) {
             log.info("/leaselist/monthly/seoul/" + sigungucode);
             title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/monthly/seoul/" + title);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/monthly/seoul/" + title, sigungucode);
             if (StringUtils.hasText(sigungucode)) {
                 trads = leaseService.getLeaseMonthlyList_Sigungu(sigungucode,0,0);
             } else {
@@ -179,7 +179,7 @@ public class LeaseController {
         if (!sidocode.equals("0")) {
             log.info("/leaselist/gyunggi/" + sidocode);
             title = codeInfoService.getCodeName(sidocode);
-            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/gyunggi/" + title);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/gyunggi/" + title, sidocode);
             if (StringUtils.hasText(sidocode)) {
                 trads = leaseService.getLeaseList_GyunggiSido(sidocode);
             } else {
@@ -202,7 +202,7 @@ public class LeaseController {
         if (!sigungucode.equals("0")) {
             log.info("/leaselist/renewal/gyunggi/" + sigungucode);
             title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/renewal/gyunggi/" + title);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/renewal/gyunggi/" + title, sigungucode);
             if (StringUtils.hasText(sigungucode)) {
                 trads = leaseService.getLeaseRenewalList_GyunggiSigungu(sigungucode);
             } else {
@@ -225,7 +225,7 @@ public class LeaseController {
         if (!sidocode.equals("0")) {
             log.info("/leaselist/monthly/gyunggi/" + sidocode);
             title = codeInfoService.getCodeName(sidocode);
-            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/monthly/gyunggi/" + title);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/monthly/gyunggi/" + title, sidocode);
             if (StringUtils.hasText(sidocode)) {
                 trads = leaseService.getLeaseMonthlyList_GyunggiSido(sidocode);
             } else {
@@ -248,7 +248,7 @@ public class LeaseController {
         if (!sigungucode.equals("0")) {
             log.info("/leaselist/incheon/" + sigungucode);
             title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/incheon/" + title);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/incheon/" + title, sigungucode);
             if (StringUtils.hasText(sigungucode)) {
                 trads = leaseService.getLeaseList_IncheonSigungu(sigungucode);
             } else {
@@ -271,7 +271,7 @@ public class LeaseController {
         if (!sigungucode.equals("0")) {
             log.info("/leaselist/monthly/incheon/" + sigungucode);
             title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/monthly/incheon/" + title);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/monthly/incheon/" + title, sigungucode);
             if (StringUtils.hasText(sigungucode)) {
                 trads = leaseService.getLeaseMonthlyList_IncheonSigungu(sigungucode);
             } else {
@@ -297,7 +297,7 @@ public class LeaseController {
         List<AptLeaseResponseDto> trads;
         if (!regncode.equals("0")) {
             log.info("/leaselist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
-            apiCallStatService.writeApiCallStat("LEASE_LIST_NAME", "/leaselist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
+            apiCallStatService.writeApiCallStat("LEASE_LIST_NAME", "/leaselist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term, regncode);
             if (StringUtils.hasText(regncode)) {
                 trads = leaseService.getLeaseList_ByName(regncode, dong, aptName, ua, term);
             } else {
@@ -340,7 +340,7 @@ public class LeaseController {
         List<AptLeaseResponseDto> trads;
         if (!regncode.equals("0")) {
             log.info("/leaselist/monthly/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
-            apiCallStatService.writeApiCallStat("LEASE_LIST_NAME", "/leaselist/monthly/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
+            apiCallStatService.writeApiCallStat("LEASE_LIST_NAME", "/leaselist/monthly/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term, regncode);
             if (StringUtils.hasText(regncode)) {
                 trads = leaseService.getMonthlyList_ByName(regncode, dong, aptName, ua, term);
             } else {

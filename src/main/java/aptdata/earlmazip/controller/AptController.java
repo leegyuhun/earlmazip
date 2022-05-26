@@ -30,7 +30,7 @@ public class AptController {
         if(aptSearch.getAptName() == null || aptSearch.getAptName().equals("")){
             apts = new ArrayList<>();
         } else{
-            apiCallStatService.writeApiCallStat("APT_SEARCH", aptSearch.getAptName());
+            apiCallStatService.writeApiCallStat("APT_SEARCH", aptSearch.getAptName(), "0");
             apts = aptService.findAllByName(aptSearch);
         }
         for (AptResponseDto apt: apts) {

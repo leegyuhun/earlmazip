@@ -34,7 +34,7 @@ public class LeaseAnalysisController {
         if (!gubncode.equals("0")) {
             log.info("/lease_analysis/seoul/" + gubncode);
             title = codeInfoService.getCodeName(gubncode);
-            apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis/seoul/" + title);
+            apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis/seoul/" + title, gubncode);
             if (StringUtils.hasText(gubncode)) {
                 anals = leaseAnalysisService.getLeaseAnalysisList(gubncode);
             } else {
@@ -63,7 +63,7 @@ public class LeaseAnalysisController {
         if (!gubncode.equals("0")) {
             title = codeInfoService.getCodeName(gubncode);
             log.info("/lease_analysis/gyunggi/" + gubncode);
-            apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis/gyunggi/" + title);
+            apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis/gyunggi/" + title, gubncode);
             if (StringUtils.hasText(gubncode)) {
                 anals = leaseAnalysisService.getLeaseAnalysisList(gubncode);
             } else {
@@ -92,7 +92,7 @@ public class LeaseAnalysisController {
         if (!gubncode.equals("0")) {
             log.info("/lease_analysis/incheon/" + gubncode);
             title = codeInfoService.getCodeName(gubncode);
-            apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis/incheon/" + title);
+            apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis/incheon/" + title, gubncode);
             if (StringUtils.hasText(gubncode)) {
                 anals = leaseAnalysisService.getLeaseAnalysisList(gubncode);
             } else {

@@ -11,13 +11,6 @@ public class RankYearResponseDto {
     private String gubnCode;
     private String gubnName;
     private String landDong;
-    public String getLandDong(){
-        if (this.landDong.length() > 2 && this.landDong.contains("동")) {
-            return this.landDong.replace("동", "");
-        } else {
-            return this.landDong;
-        }
-    }
     private String dealYear;
     private String dealMon;
     public String getDealDate() {

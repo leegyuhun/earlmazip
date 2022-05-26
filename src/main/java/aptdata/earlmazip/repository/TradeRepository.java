@@ -105,32 +105,65 @@ public class TradeRepository {
         }
     }
 
-    public List<AptPriceResponseDto> getAptTradeList_ByName(String regnCode, String aptName, int ua, int term) {
+    public List<AptPriceResponseDto> getAptTradeList_ByName(String regnCode, String landDong, String aptName, int ua, int term) {
         if (regnCode.length() == 5) {
             if (ua == 0) {
-                return em.createQuery(" select a from AptPriceRaw a "
-                                + " where a.sigunguCode = :regncode "
-                                + "   and a.dealYear >= :searchYear "
-                                + "   and a.aptName = :aptname "
-                                + "   and a.cnclDealDate = '' "
-                                + " order by a.dealDate desc", AptPriceRaw.class)
-                        .setParameter("regncode", regnCode)
-                        .setParameter("searchYear", Common.calcYearByTerm(term))
-                        .setParameter("aptname", aptName)
-                        .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+                if (landDong.equals("")) {
+                    return em.createQuery(" select a from AptPriceRaw a "
+                                    + " where a.sigunguCode = :regncode "
+                                    + "   and a.dealYear >= :searchYear "
+                                    + "   and a.aptName = :aptname "
+                                    + "   and a.cnclDealDate = '' "
+                                    + " order by a.dealDate desc", AptPriceRaw.class)
+                            .setParameter("regncode", regnCode)
+                            .setParameter("searchYear", Common.calcYearByTerm(term))
+                            .setParameter("aptname", aptName)
+                            .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+                } else {
+                    return em.createQuery(" select a from AptPriceRaw a "
+                                    + " where a.sigunguCode = :regncode "
+                                    + "       a.landDong = :landDong "
+                                    + "   and a.dealYear >= :searchYear "
+                                    + "   and a.aptName = :aptname "
+                                    + "   and a.cnclDealDate = '' "
+                                    + " order by a.dealDate desc", AptPriceRaw.class)
+                            .setParameter("regncode", regnCode)
+                            .setParameter("landDong", landDong)
+                            .setParameter("searchYear", Common.calcYearByTerm(term))
+                            .setParameter("aptname", aptName)
+                            .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+                }
+
             } else {
-                return em.createQuery(" select a from AptPriceRaw a "
-                                + " where a.sigunguCode = :regncode "
-                                + "   and a.dealYear >= :searchYear "
-                                + "   and a.aptName = :aptname "
-                                + "   and a.useAreaTrunc = :ua "
-                                + "   and a.cnclDealDate = '' "
-                                + " order by a.dealDate desc", AptPriceRaw.class)
-                        .setParameter("regncode", regnCode)
-                        .setParameter("searchYear", Common.calcYearByTerm(term))
-                        .setParameter("aptname", aptName)
-                        .setParameter("ua", ua)
-                        .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+                if (landDong.equals("")) {
+                    return em.createQuery(" select a from AptPriceRaw a "
+                                    + " where a.sigunguCode = :regncode "
+                                    + "   and a.dealYear >= :searchYear "
+                                    + "   and a.aptName = :aptname "
+                                    + "   and a.useAreaTrunc = :ua "
+                                    + "   and a.cnclDealDate = '' "
+                                    + " order by a.dealDate desc", AptPriceRaw.class)
+                            .setParameter("regncode", regnCode)
+                            .setParameter("searchYear", Common.calcYearByTerm(term))
+                            .setParameter("aptname", aptName)
+                            .setParameter("ua", ua)
+                            .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+                } else {
+                    return em.createQuery(" select a from AptPriceRaw a "
+                                    + " where a.sigunguCode = :regncode "
+                                    + "   and a.landDong = :landDong "
+                                    + "   and a.dealYear >= :searchYear "
+                                    + "   and a.aptName = :aptname "
+                                    + "   and a.useAreaTrunc = :ua "
+                                    + "   and a.cnclDealDate = '' "
+                                    + " order by a.dealDate desc", AptPriceRaw.class)
+                            .setParameter("regncode", regnCode)
+                            .setParameter("landDong", landDong)
+                            .setParameter("searchYear", Common.calcYearByTerm(term))
+                            .setParameter("aptname", aptName)
+                            .setParameter("ua", ua)
+                            .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+                }
             }
 
         } else {

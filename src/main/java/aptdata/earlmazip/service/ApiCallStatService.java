@@ -16,8 +16,8 @@ public class ApiCallStatService {
     private final ApiCallStatRepository apiCallStatRepository;
 
     @Transactional
-    public void writeApiCallStat(String gubn, String name) {
-        apiCallStatRepository.WriteApiCallStat(gubn, name);
+    public void writeApiCallStat(String gubn, String name, String code) {
+        apiCallStatRepository.WriteApiCallStat(gubn, name, code);
     }
 
     public List<ApiCallStat> LoadTodayApiCallList(String gubn) {

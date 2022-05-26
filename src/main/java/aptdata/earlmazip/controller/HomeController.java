@@ -27,7 +27,7 @@ public class HomeController {
     @RequestMapping("/home_lease")
     public String home_lease(Model modal) {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
-        apiCallStatService.writeApiCallStat("MENU", "Lease");
+        apiCallStatService.writeApiCallStat("MENU", "Lease", "0");
         modal.addAttribute("udt", udt);
         return "home_lease";
     }
@@ -35,7 +35,7 @@ public class HomeController {
     @RequestMapping("/home_etc")
     public String home_etc(Model modal) {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
-        apiCallStatService.writeApiCallStat("MENU", "ETC");
+        apiCallStatService.writeApiCallStat("MENU", "ETC", "0");
         modal.addAttribute("udt", udt);
         return "home_etc";
     }
@@ -43,7 +43,7 @@ public class HomeController {
     @RequestMapping("/home_theme")
     public String home_theme(Model modal) {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
-        apiCallStatService.writeApiCallStat("MENU", "THEME");
+        apiCallStatService.writeApiCallStat("MENU", "THEME", "0");
         modal.addAttribute("udt", udt);
         return "home_theme";
     }

@@ -43,7 +43,7 @@ public class StatLeaseController {
         if (!sidocode.equals("0")) {
             title = codeInfoService.getCodeName(sidocode);
             log.info("/stat_lease/gyunggi/" + sidocode);
-            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease/gyunggi/" + title + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease/gyunggi/" + title + "/" + term, sidocode);
             if (StringUtils.hasText(sidocode)) {
                 stats = statLeaseService.getStatLeaseList_Gyunggi(sidocode, term);
             } else {
@@ -82,7 +82,7 @@ public class StatLeaseController {
         if (!sigungucode.equals("0")) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_lease/seoul/" + sigungucode);
-            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease/seoul/" + title + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease/seoul/" + title + "/" + term, sigungucode);
             if (StringUtils.hasText(sigungucode)) {
                 stats = statLeaseService.getStatLeaseList_Seoul(sigungucode, term);
             } else {
@@ -132,7 +132,7 @@ public class StatLeaseController {
         if (!sigungucode.equals("0")) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_lease84/seoul/" + sigungucode);
-            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease/seoul84/" + title + "/" + gubn + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease/seoul84/" + title + "/" + gubn + "/" + term, sigungucode);
             if (StringUtils.hasText(sigungucode)) {
                 stats = statLeaseService.getStatLeaseList_Seoul84(sigungucode, gubn, term);
             } else {
@@ -181,7 +181,7 @@ public class StatLeaseController {
         if (!sigungucode.equals("0")) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_lease84/seoul/" + sigungucode);
-            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease/seoul84/" + title + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease/seoul84/" + title + "/" + term, sigungucode);
             if (StringUtils.hasText(sigungucode)) {
                 stats = statLeaseService.getStatLeaseList_Seoul84(sigungucode, 0, term);
             } else {
@@ -221,7 +221,7 @@ public class StatLeaseController {
         if (!sigungucode.equals("0")) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_lease_monthly/seoul/sigungu/" + sigungucode);
-            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease_monthly/seoul/sigungu/" + title);
+            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease_monthly/seoul/sigungu/" + title, sigungucode);
             if (StringUtils.hasText(sigungucode)) {
                 stats = statLeaseService.getStatLeaseMonthlySigungu(sigungucode);
             } else {
@@ -258,7 +258,7 @@ public class StatLeaseController {
         if (!sidocode.equals("0")) {
             title = codeInfoService.getCodeName(sidocode);
             log.info("/stat_lease_monthly/sido/" + sidocode);
-            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease_monthly/sido/" + title);
+            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease_monthly/sido/" + title, sidocode);
             if (StringUtils.hasText(sidocode)) {
                 stats = statLeaseService.statLeaseMonthlySido(sidocode);
             } else {

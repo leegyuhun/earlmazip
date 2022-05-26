@@ -30,8 +30,8 @@ public class TradeService {
         return tradeRepository.getCancelDealList(regncode);
     }
 
-    public List<AptPriceResponseDto> getAptTradeList_ByName(String regncode, String aptName, int ua, int term) {
-        return tradeRepository.getAptTradeList_ByName(regncode, aptName, ua, term);
+    public List<AptPriceResponseDto> getAptTradeList_ByName(String regncode, String landDong, String aptName, int ua, int term) {
+        return tradeRepository.getAptTradeList_ByName(regncode, landDong, aptName, ua, term);
     }
 
     public List<AptPriceResponseDto> getNewHighestList(String sigungucode, int ua) {
