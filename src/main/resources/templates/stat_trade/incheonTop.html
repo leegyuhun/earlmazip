@@ -7,21 +7,22 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
         <div>
-            <a href="/stat_trade/incheon/top/2022/28710">강화군&nbsp</a>
-            <a href="/stat_trade/incheon/top/2022/28245">&nbsp계양구&nbsp</a>
-            <a href="/stat_trade/incheon/top/2022/28200">&nbsp남동구&nbsp</a>
-            <a href="/stat_trade/incheon/top/2022/28140">&nbsp동구&nbsp</a>
-            <a href="/stat_trade/incheon/top/2022/28177">&nbsp미추홀구</a>
+            <a th:href="@{/stat_trade/incheon/top/2022/28710?ua={ua} (ua=${ua})}">강화군&nbsp</a>
+            <a th:href="@{/stat_trade/incheon/top/2022/28245?ua={ua} (ua=${ua})}">&nbsp계양구&nbsp</a>
+            <a th:href="@{/stat_trade/incheon/top/2022/28200?ua={ua} (ua=${ua})}">&nbsp남동구&nbsp</a>
+            <a th:href="@{/stat_trade/incheon/top/2022/28140?ua={ua} (ua=${ua})}">&nbsp동구&nbsp</a>
+            <a th:href="@{/stat_trade/incheon/top/2022/28177?ua={ua} (ua=${ua})}">&nbsp미추홀구</a>
         </div>
         <div>
-            <a href="/stat_trade/incheon/top/2022/28237">부평구&nbsp</a>
-            <a href="/stat_trade/incheon/top/2022/28260">&nbsp서구&nbsp</a>
-            <a href="/stat_trade/incheon/top/2022/28185">&nbsp연수구&nbsp</a>
-            <a href="/stat_trade/incheon/top/2022/28720">&nbsp옹진군&nbsp</a>
-            <a href="/stat_trade/incheon/top/2022/28110">&nbsp중구</a>
+            <a th:href="@{/stat_trade/incheon/top/2022/28237?ua={ua} (ua=${ua})}">부평구&nbsp</a>
+            <a th:href="@{/stat_trade/incheon/top/2022/28260?ua={ua} (ua=${ua})}">&nbsp서구&nbsp</a>
+            <a th:href="@{/stat_trade/incheon/top/2022/28185?ua={ua} (ua=${ua})}">&nbsp연수구&nbsp</a>
+            <a th:href="@{/stat_trade/incheon/top/2022/28720?ua={ua} (ua=${ua})}">&nbsp옹진군&nbsp</a>
+            <a th:href="@{/stat_trade/incheon/top/2022/28110?ua={ua} (ua=${ua})}">&nbsp중구</a>
         </div>
         <p>
             <h5 align="center" th:text="${title}"></h5>
+            <h6 align="center" th:text="|* ${uaStr} |"></h6>
         </p>
         <div>
             <ins class="kakao_ad_area" style="display:none;"
@@ -30,6 +31,13 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
+        <a>[평형]&nbsp</a>
+        <a th:href="@{/stat_trade/incheon/top/2022/{sigungucode}?ua=UA01 (sigungucode=${sigungucode})}">전체&nbsp</a>
+        <a th:href="@{/stat_trade/incheon/top/2022/{sigungucode}?ua=UA08 (sigungucode=${sigungucode})}">전용59&nbsp</a>
+        <a th:href="@{/stat_trade/incheon/top/2022/{sigungucode}?ua=UA07 (sigungucode=${sigungucode})}">국평&nbsp</a>
+        <a th:href="@{/stat_trade/incheon/top/2022/{sigungucode}?ua=UA04 (sigungucode=${sigungucode})}">중형&nbsp</a>
+        <a th:href="@{/stat_trade/incheon/top/2022/{sigungucode}?ua=UA05 (sigungucode=${sigungucode})}">중대형&nbsp</a>
+        <a th:href="@{/stat_trade/incheon/top/2022/{sigungucode}?ua=UA06 (sigungucode=${sigungucode})}">대형&nbsp</a>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">

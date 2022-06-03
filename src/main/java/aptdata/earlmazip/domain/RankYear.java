@@ -13,6 +13,7 @@ import javax.persistence.Table;
 public class RankYear {
     @Id
     private int seq;
+    private String useAreaType;
     private String gubnCode;
     private String gubnName;
     private String landDong;

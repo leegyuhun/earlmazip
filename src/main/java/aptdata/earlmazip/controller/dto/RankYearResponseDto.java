@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
 
 @Getter
 public class RankYearResponseDto {
-    private int seq;
+    private String useAreaType;
     private String gubnCode;
     private String gubnName;
     private String landDong;
@@ -41,6 +41,7 @@ public class RankYearResponseDto {
     }
 
     public RankYearResponseDto(RankYear entity) {
+        this.useAreaType = entity.getUseAreaType();
         this.gubnCode = entity.getGubnCode();
         this.gubnName = entity.getGubnName();
         this.landDong = entity.getLandDong();

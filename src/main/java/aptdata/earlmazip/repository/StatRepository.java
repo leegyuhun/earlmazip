@@ -88,12 +88,14 @@ public class StatRepository {
         }
     }
 
-    public List<RankYearResponseDto> getStatTradeTopSeoulByYear(String year, String sigungucode){
+    public List<RankYearResponseDto> getStatTradeTopSeoulByYear(String year, String sigungucode, String ua){
         return em.createQuery(" select a from RankYear a "
                             + " where a.gubnCode = :sigunguCode and a.dealYear = :dealYear"
+                            + "   and a.useAreaType = :ua "
                             + " order by a.dealAmt desc", RankYear.class)
                 .setParameter("sigunguCode", sigungucode)
                 .setParameter("dealYear", year)
+                .setParameter("ua", ua)
                 .setMaxResults(100)
                 .getResultList().stream().map(RankYearResponseDto::new).collect(Collectors.toList());
     }
@@ -117,22 +119,26 @@ public class StatRepository {
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
-    public List<RankYearResponseDto> findGyungGiTop(String year, String sidocode){
+    public List<RankYearResponseDto> findGyungGiTop(String year, String sigungucode, String ua){
         return em.createQuery(" select a from RankYear a "
-                        + " where a.gubnCode = :sidoCode and a.dealYear = :dealYear "
+                        + " where a.gubnCode = :sigunguCode and a.dealYear = :dealYear "
+                        + "   and a.useAreaType = :ua "
                         + " order by a.dealAmt desc", RankYear.class)
-                .setParameter("sidoCode", sidocode)
+                .setParameter("sigunguCode", sigungucode)
                 .setParameter("dealYear", year)
+                .setParameter("ua", ua)
                 .setMaxResults(100)
                 .getResultList().stream().map(RankYearResponseDto::new).collect(Collectors.toList());
     }
 
-    public List<RankYearResponseDto> findIncheonTop(String year, String sigungucode){
+    public List<RankYearResponseDto> findIncheonTop(String year, String sigungucode, String ua){
         return em.createQuery(" select a from RankYear a "
                         + " where a.gubnCode = :sigungucode and a.dealYear = :dealYear "
+                        + "   and a.useAreaType = :ua "
                         + " order by a.dealAmt desc", RankYear.class)
                 .setParameter("sigungucode", sigungucode)
                 .setParameter("dealYear", year)
+                .setParameter("ua", ua)
                 .setMaxResults(100)
                 .getResultList().stream().map(RankYearResponseDto::new).collect(Collectors.toList());
     }

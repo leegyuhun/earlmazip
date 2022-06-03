@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -63,7 +64,7 @@ public class StatController {
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
 
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", term);
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("722Y001", "0101000", "", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);
@@ -97,7 +98,7 @@ public class StatController {
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
 
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", term);
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("722Y001", "0101000", "", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);
@@ -137,7 +138,7 @@ public class StatController {
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
 
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", term);
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("722Y001", "0101000", "", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);
@@ -185,7 +186,7 @@ public class StatController {
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
 
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", term);
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("722Y001", "0101000", "", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);
@@ -330,15 +331,17 @@ public class StatController {
      */
     @GetMapping("/stat_trade/seoul/top/{year}/{sigungucode}")
     public String getStatTradeTopSeoulByYear(@PathVariable String year,
-                               @PathVariable String sigungucode, Model model) {
+                                             @PathVariable String sigungucode,
+                                             @RequestParam(value="ua", defaultValue = "UA01") String ua,
+                                             Model model) {
         List<RankYearResponseDto> tops;
         String title = "-";
         if (!sigungucode.equals("0")) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_trade/seoul/top/" + year + "/" +  sigungucode);
-            apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/seoul/top/" + year + "/" +  title, sigungucode);
+            apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/seoul/top/" + year + "/" +  title + "?ua=" + ua, sigungucode);
             if (StringUtils.hasText(sigungucode)) {
-                tops = statService.getStatTradeTopSeoulByYear(year, sigungucode);
+                tops = statService.getStatTradeTopSeoulByYear(year, sigungucode, ua);
             } else {
                 tops = new ArrayList<>();
             }
@@ -348,6 +351,8 @@ public class StatController {
 
         model.addAttribute("title",  title);
         model.addAttribute("list", tops);
+        model.addAttribute("ua", ua);
+        model.addAttribute("uaStr", codeInfoService.getCodeName(ua));
         model.addAttribute("year", year);
         model.addAttribute("sigungucode", sigungucode);
 
@@ -369,7 +374,7 @@ public class StatController {
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", term);
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("722Y001", "0101000", "", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);
@@ -405,7 +410,7 @@ public class StatController {
         List<Integer> avgprc = stats.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> tradcnt = stats.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", term);
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("722Y001", "0101000", "", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);
@@ -425,17 +430,19 @@ public class StatController {
         return "stat_trade/gyunggiByCity";
     }
 
-    @GetMapping("/stat_trade/gyunggi/top/{year}/{sidocode}")
+    @GetMapping("/stat_trade/gyunggi/top/{year}/{sigungucode}")
     public String gyunggiTopList(@PathVariable String year,
-                                 @PathVariable String sidocode, Model model) {
+                                 @PathVariable String sigungucode,
+                                 @RequestParam(value="ua", defaultValue = "UA01") String ua,
+                                 Model model) {
         List<RankYearResponseDto> tops;
         String title = "-";
-        if (!sidocode.equals("0")) {
-            title = codeInfoService.getCodeName(sidocode);
-            log.info("/stat_trade/gyunggi/top/" + year + "/" + sidocode);
-            apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/gyunggi/top/" + year + "/" + title, sidocode);
-            if (StringUtils.hasText(sidocode)) {
-                tops = statService.findGyunggiTopList(year, sidocode);
+        if (!sigungucode.equals("0")) {
+            title = codeInfoService.getCodeName(sigungucode);
+            log.info("/stat_trade/gyunggi/top/" + year + "/" + sigungucode);
+            apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/gyunggi/top/" + year + "/" + title + "?ua=" + ua, sigungucode);
+            if (StringUtils.hasText(sigungucode)) {
+                tops = statService.findGyunggiTopList(year, sigungucode, ua);
             } else {
                 tops = new ArrayList<>();
             }
@@ -445,22 +452,26 @@ public class StatController {
 
         model.addAttribute("list", tops);
         model.addAttribute("year", year);
-        model.addAttribute("sidocode", sidocode);
+        model.addAttribute("ua", ua);
+        model.addAttribute("uaStr", codeInfoService.getCodeName(ua));
+        model.addAttribute("sigungucode", sigungucode);
         model.addAttribute("title",  title);
-        return "stat_trade/gyunggiByCityTop";
+        return "stat_trade/gyunggiTop";
     }
 
     @GetMapping("/stat_trade/incheon/top/{year}/{sigungucode}")
     public String incheonTopList(@PathVariable String year,
-                                 @PathVariable String sigungucode, Model model) {
+                                 @PathVariable String sigungucode,
+                                 @RequestParam(value="ua", defaultValue = "UA01") String ua,
+                                 Model model) {
         List<RankYearResponseDto> tops;
         String title = "-";
         if (!sigungucode.equals("0")) {
             title = codeInfoService.getCodeName(sigungucode);
             log.info("/stat_trade/incheon/top/" + year + "/" + sigungucode);
-            apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/incheon/top/" + year + "/" + title, sigungucode);
+            apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/incheon/top/" + year + "/" + title + "?ua=" + ua, sigungucode);
             if (StringUtils.hasText(sigungucode)) {
-                tops = statService.findIncheonTopList(year, sigungucode);
+                tops = statService.findIncheonTopList(year, sigungucode, ua);
             } else {
                 tops = new ArrayList<>();
             }
@@ -468,6 +479,8 @@ public class StatController {
             tops = new ArrayList<>();
         }
         model.addAttribute("list", tops);
+        model.addAttribute("ua", ua);
+        model.addAttribute("uaStr", codeInfoService.getCodeName(ua));
         model.addAttribute("year", year);
         model.addAttribute("title",  "[ "+ title + " ]");
         return "stat_trade/incheonTop";
@@ -742,7 +755,7 @@ public class StatController {
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", term);
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("722Y001", "0101000", "", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);
@@ -772,7 +785,7 @@ public class StatController {
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
 
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", term);
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("722Y001", "0101000", "", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);
@@ -805,7 +818,7 @@ public class StatController {
         List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
         List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
         // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("098Y001", "0101000", "", term);
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("722Y001", "0101000", "", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
         Collections.reverse(dates);

@@ -39,8 +39,8 @@ public class StatService {
         return statRepository.getStatTradeByUseAreaList(regnCode, ua, term);
     }
 
-    public List<RankYearResponseDto> getStatTradeTopSeoulByYear(String year, String sigungucode) {
-        return statRepository.getStatTradeTopSeoulByYear(year, sigungucode);
+    public List<RankYearResponseDto> getStatTradeTopSeoulByYear(String year, String sigungucode, String ua) {
+        return statRepository.getStatTradeTopSeoulByYear(year, sigungucode, ua);
     }
 
     public List<StatResponseDto> getStatTradeList_Gyunggi(String term) {
@@ -54,12 +54,12 @@ public class StatService {
         return statRepository.getStatTradeList_ByCity(sidoCode, term);
     }
 
-    public List<RankYearResponseDto> findGyunggiTopList(String year, String sidocode) {
-        return statRepository.findGyungGiTop(year, sidocode);
+    public List<RankYearResponseDto> findGyunggiTopList(String year, String sigungucode, String ua) {
+        return statRepository.findGyungGiTop(year, sigungucode, ua);
     }
 
-    public List<RankYearResponseDto> findIncheonTopList(String year, String sigungucode) {
-        return statRepository.findIncheonTop(year, sigungucode);
+    public List<RankYearResponseDto> findIncheonTopList(String year, String sigungucode, String ua) {
+        return statRepository.findIncheonTop(year, sigungucode, ua);
     }
 
     public List<StatResponseDto> getStatNewHighestAndTradeCount(String sidoCode) {

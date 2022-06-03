@@ -34,13 +34,13 @@ public class StatEtcController {
         apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/population/" + term, "0");
 
         // 추계인구
-        List<EcosDataResponseDto> population = ecosDataService.getEcosData("080Y035", "I35A", "", term);
+        List<EcosDataResponseDto> population = ecosDataService.getEcosData("901Y028", "I35A", "", term);
 
         // 고령인구비율(65세~)
-        List<EcosDataResponseDto> agingPopulation = ecosDataService.getEcosData("080Y035", "I35D", "", term);
+        List<EcosDataResponseDto> agingPopulation = ecosDataService.getEcosData("901Y028", "I35D", "", term);
         
         // 합계출산율
-        List<EcosDataResponseDto> birthRate = ecosDataService.getEcosData("080Y035", "I35E", "", term);
+        List<EcosDataResponseDto> birthRate = ecosDataService.getEcosData("901Y028", "I35E", "", term);
 
         List<String> dates = population.stream().map(o->new String(o.getDate())).collect(Collectors.toList());
         List<String> birthRates = birthRate.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
@@ -78,16 +78,16 @@ public class StatEtcController {
         apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/income", "0");
 
         // 중위소득
-        List<EcosDataResponseDto> halfIncome = ecosDataService.getEcosData("080Y038", "I38A", "30", "15");
+        List<EcosDataResponseDto> halfIncome = ecosDataService.getEcosData("901Y031", "I38A", "30", "15");
 
         // 평균소득
-        List<EcosDataResponseDto> avgIncome = ecosDataService.getEcosData("080Y038", "I38A", "40", "15");
+        List<EcosDataResponseDto> avgIncome = ecosDataService.getEcosData("901Y031", "I38A", "40", "15");
 
         // 5분위
-        List<EcosDataResponseDto> topIncome = ecosDataService.getEcosData("080Y038", "I38A", "405", "15");
+        List<EcosDataResponseDto> topIncome = ecosDataService.getEcosData("901Y031", "I38A", "405", "15");
 
         // 1분위
-        List<EcosDataResponseDto> botIncome = ecosDataService.getEcosData("080Y038", "I38A", "401", "15");
+        List<EcosDataResponseDto> botIncome = ecosDataService.getEcosData("901Y031", "I38A", "401", "15");
         List<String> dates = halfIncome.stream().map(o->new String(o.getDate())).collect(Collectors.toList());
         List<String> halfIncomes = halfIncome.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
         List<String> avgIncomes = avgIncome.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
@@ -187,13 +187,13 @@ public class StatEtcController {
         apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/consumerPriceIndex", "0");
 
         // 소비자물가지수(전국)
-        List<EcosDataResponseDto> totIndex = ecosDataService.getEcosData("021Y125", "0", "", "16");
+        List<EcosDataResponseDto> totIndex = ecosDataService.getEcosData("901Y009", "0", "", "16");
 
         // 주택매매가격지수(KB) 총지수(서울)
-        List<EcosDataResponseDto> seoulTradeIndex = ecosDataService.getEcosData("085Y021", "P63AD", "", "16");
+        List<EcosDataResponseDto> seoulTradeIndex = ecosDataService.getEcosData("901Y062", "P63AD", "", "16");
 
         // 주택전세가격지수(KB) 총지수(서울)
-        List<EcosDataResponseDto> seoulLeaseIndex = ecosDataService.getEcosData("085Y022", "P64AD", "", "16");
+        List<EcosDataResponseDto> seoulLeaseIndex = ecosDataService.getEcosData("901Y063", "P64AD", "", "16");
 
         List<String> dates = totIndex.stream().map(o->new String(o.getDate())).collect(Collectors.toList());
         List<Float> totIndexes = totIndex.stream().map(o->new Float(o.getDataValue())).collect(Collectors.toList());
