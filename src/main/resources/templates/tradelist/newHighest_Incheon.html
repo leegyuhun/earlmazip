@@ -57,7 +57,7 @@
                     <td align="left">
                         <div>
                             <a th:text="${list.landDong}"></a></br>
-                            <a th:text="${list.aptName}" th:href="@{/tradelist/ByName/{sigungucode}/{aptname}/{uatrunc}/1?landDong={landDong} (sigungucode=${list.sigunguCode}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc}, landDong=${list.landDong})}"></a></br>
+                            <a th:text="${list.aptName}" th:href="@{/tradelist/ByName?regncode={sigungucode}&aptname={aptname}&ua={uatrunc}&term=1&landDong={landDong} (sigungucode=${list.sigunguCode}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc}, landDong=${list.landDong})}"></a></br>
                             <a th:text="|[${list.buildYear}] ${list.floor}층|"></a>
                         </div>
                     </td>

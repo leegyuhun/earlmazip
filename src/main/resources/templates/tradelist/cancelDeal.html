@@ -120,24 +120,32 @@
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
-                    <th>계약일자</th>
-                    <th>취소일자</th>
-                    <th>법정동</th>
-                    <th>아파트명</th>
+                    <th>계약</br>일자</th>
+                    <th>취소</br>일자</th>
+<!--                    <th>법정동</th>-->
+                    <th>아파트</th>
                     <th>전용면적(m2)</th>
-                    <th>거래금액</th>
+                    <th>거래</br>금액</th>
                     <th>신고가</th>
-                    <th>거래유형</th>
+                    <th>거래</br>유형</th>
                 </tr>
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
                     <td align="center" th:text="${list.dealDate}"></td>
                     <td style="font-weight: bolder"  align="center" th:text="${list.cnclDealDate}"></td>
-                    <td align="center" th:text="${list.landDong}"></td>
-                    <td align="left" th:text="${list.aptName}"></td>
+<!--                    <td align="center" th:text="${list.landDong}"></td>-->
+<!--                    <td align="left" th:text="${list.aptName}"></td>-->
+                    <td align="left">
+                        <div>
+                            <a th:text="${list.landDong}"></a></br>
+                            <a style="font-weight: bolder" th:text="${list.aptName}"></a></br>
+                            <a th:text="|[${list.buildYear}] ${list.floor}층|"></a>
+                        </div>
+                    </td>
                     <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>
-                    <td align="right" th:text="${#numbers.formatInteger(list.dealAmt,1,'COMMA')}"></td>
+                    <td align="right" style="font-weight: bolder" th:text="${list.dealAmtStr}"></td>
+<!--                    <td align="right" th:text="${#numbers.formatInteger(list.dealAmt,1,'COMMA')}"></td>-->
                     <td align="center" th:text="${list.newHighest}"></td>
                     <td align="center" th:text="${list.dealType}"></td>
                 </tr>

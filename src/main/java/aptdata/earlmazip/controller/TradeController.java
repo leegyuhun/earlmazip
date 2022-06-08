@@ -193,8 +193,52 @@ public class TradeController {
         return "tradelist/cancelDeal";
     }
 
+    @GetMapping("/tradelist/ByName")
+    public String getTradeListByName(@RequestParam(value="regncode", defaultValue = "") String regncode,
+                                     @RequestParam(value="aptname", defaultValue = "") String aptName,
+                                     @RequestParam(value="ua", defaultValue = "0") int ua,
+                                     @RequestParam(value="term", defaultValue = "1") int term,
+                                     @RequestParam(value="landDong", defaultValue = "") String landDong,
+                                     Model model) {
+        List<AptPriceResponseDto> trads;
+        if (!regncode.equals("0")) {
+            log.info("/tradelist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
+            apiCallStatService.writeApiCallStat("TRADE_LIST_NAME", "/tradelist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term + "?" + landDong, regncode);
+
+            if (StringUtils.hasText(regncode)) {
+                trads = tradeService.getAptTradeList_ByName(regncode, landDong, aptName, ua, term);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else {
+            trads = new ArrayList<>();
+        }
+
+        List<String> dates = trads.stream().map(o->new String(o.getDealDate())).collect(Collectors.toList());
+        List<Float> dealAmts = trads.stream().map(o->new Float((float)o.getDealAmt()/10000)).collect(Collectors.toList());
+        Collections.reverse(dates);
+        Collections.reverse(dealAmts);
+
+        String title = "-";
+        if (trads.size() > 0) {
+            title = trads.get(0).getLandDong() + " " + aptName + "(" + trads.get(0).getBuildYear() + ")";
+        }
+
+        model.addAttribute("title",  title);
+        model.addAttribute("landDong", landDong);
+        model.addAttribute("regncode", regncode);
+        model.addAttribute("aptName", aptName);
+        model.addAttribute("ua", ua);
+        model.addAttribute("dates", dates);
+        model.addAttribute("dealAmts", dealAmts);
+        model.addAttribute("termStr", Common.makeTermString(term));
+        model.addAttribute("list", trads);
+
+        return "tradelist/aptTradeList_ByUA";
+    }
+
     @GetMapping("/tradelist/ByName/{regncode}/{aptName}/{ua}/{term}")
-    public String getTradeListByName(@PathVariable String regncode,
+    public String getTradeListByNameBak(@PathVariable String regncode,
                                     @PathVariable String aptName,
                                     @PathVariable int ua,
                                     @PathVariable int term,

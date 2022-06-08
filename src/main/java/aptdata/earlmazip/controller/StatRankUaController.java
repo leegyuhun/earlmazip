@@ -110,13 +110,12 @@ public class StatRankUaController {
             list = new ArrayList<>();
         }
 
-        int idx = 1;
-        for (RankUaSigunguResponseDto item: list) {
-            item.setRank(idx);
-            item.setTradeUrl("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/1");
-            item.setTradeUrl2("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/3");
-            idx++;
-        }
+//        int idx = 1;
+//        for (RankUaSigunguResponseDto item: list) {
+//            item.setRank(idx);
+//            item.setTradeUrl("tradelist/ByName?regncode=" + item.getSigunguCode() + "&aptname=" + item.getAptName() + "&ua="+ua+"&term=1&landDong=" + item.getLandDong());
+//            idx++;
+//        }
 
         if (list.size() > 0) {
             if (rankgubn == 0) {
