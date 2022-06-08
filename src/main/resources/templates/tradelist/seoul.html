@@ -61,28 +61,35 @@
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
-                    <th>계약일자</th>
-                    <th>법정동</th>
-                    <th>아파트명</th>
-                    <th>건축년도</th>
-                    <th>전용면적(m2)</th>
-                    <th>거래금액</th>
-                    <th>층수</th>
+                    <th>일자</th>
+<!--                    <th>법정동</th>-->
+                    <th>아파트</th>
+<!--                    <th>건축년도</th>-->
+                    <th>전용</br>면적(m<sup>2</sup>)</th>
+                    <th>금액</th>
+<!--                    <th>층수</th>-->
                     <th>신고가</th>
-                    <th>거래유형</th>
+                    <th>거래</br>유형</th>
 <!--                    <th>내역</th>-->
                 </tr>
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
                     <td align="center" th:text="${list.dealDate}"></td>
-                    <td align="center" th:text="${list.landDong}"></td>
-                    <td align="left"><a th:text="${list.aptName}" th:href="@{/tradelist/ByName/{sigungucode}/{aptname}/{uatrunc}/1?landDong={landDong} (sigungucode=${list.sigunguCode}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc}, landDong=${list.landDong})}"></a></td>
-                    <td align="center" th:text="${list.buildYear}"></td>
+                    <td align="left">
+                        <div>
+                            <a th:text="${list.landDong}"></a></br>
+                            <a th:text="${list.aptName}" th:href="@{/tradelist/ByName/{sigungucode}/{aptname}/{uatrunc}/1?landDong={landDong} (sigungucode=${list.sigunguCode}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc}, landDong=${list.landDong})}"></a></br>
+                            <a th:text="|[${list.buildYear}] ${list.floor}층|"></a>
+                        </div>
+                    </td>
+<!--                    <td align="center" th:text="${list.landDong}"></td>-->
+<!--                    <td align="left"><a th:text="${list.aptName}" th:href="@{/tradelist/ByName/{sigungucode}/{aptname}/{uatrunc}/1?landDong={landDong} (sigungucode=${list.sigunguCode}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc}, landDong=${list.landDong})}"></a></td>-->
+<!--                    <td align="center" th:text="${list.buildYear}"></td>-->
                     <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>
 <!--                    <td align="right" th:text="${#numbers.formatInteger(list.dealAmt,1,'COMMA')}"></td>-->
                     <td align="right" th:text="${list.dealAmtStr}"></td>
-                    <td align="right" th:text="${list.floor}"></td>
+<!--                    <td align="right" th:text="${list.floor}"></td>-->
                     <td align="center" th:text="${list.newHighest}"></td>
                     <td align="center" th:text="${list.dealType}"></td>
 <!--                    <td align="center"><a th:href="@{/tradelist/ByName/{sigungucode}/{aptname}/{uatrunc}/1 (sigungucode=${list.sigunguCode}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc})}">내역</a></td>-->
