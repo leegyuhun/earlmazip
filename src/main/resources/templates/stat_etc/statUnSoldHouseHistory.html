@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <p>
+            <h5 align="center" th:text="|[ ${title} ${termStr} ]|"></h5>
+        </p>
+        <p>
+            <canvas id="myChart"></canvas>
+        </p>
+<!--        <a style="font-size: 20px" th:href="@{/stat_trade/seoul/top/2022/{sigungucode}?ua=UA01 (sigungucode=${sigungucode})}">전체&nbsp</a>-->
+        <div>
+            <a>[지역]&nbsp</a>
+            <a th:href="@{/stat_etc/unSoldHouseHistory?areacode=11&term={term} (term=${term})}">서울&nbsp</a>
+            <b>/&nbsp</b>
+            <a th:href="@{/stat_etc/unSoldHouseHistory?areacode=41&term={term} (term=${term})}">경기&nbsp</a>
+            <b>/&nbsp</b>
+            <a th:href="@{/stat_etc/unSoldHouseHistory?areacode=28&term={term} (term=${term})}">인천</a>
+        </div>
+        <div>
+            <a>[기간]&nbsp</a>
+            <a th:href="@{/stat_etc/unSoldHouseHistory?areacode={areacode}&term=5 (areacode=${areacode})}">5년&nbsp</a>
+            <b>/&nbsp</b>
+            <a th:href="@{/stat_etc/unSoldHouseHistory?areacode={areacode}&term=10 (areacode=${areacode})}">10년&nbsp</a>
+            <b>/&nbsp</b>
+            <a th:href="@{/stat_etc/unSoldHouseHistory?areacode={areacode}&term=15 (areacode=${areacode})}">15년</a>
+        </div>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-dark" style="font-size:12px;" align="center">
+                <th>년-월</th>
+                <th>평균매매가</th>
+                <th>미분양현황</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="font-size:12px;" th:each="list : ${list}">
+                <td align="center" th:text="${list.date}"></td>
+                <td align="right" th:text="${list.value1}"></td>
+                <td align="right" th:text="${list.value2}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h7>※ 출처: 한국은행 경제통계시스템 (ecos.bok.or.kr)</h7>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const avgAmts =  /*[[ ${avgAmts.toArray()} ]]*/;
+  const histCnts =  /*[[ ${histCnts.toArray()} ]]*/;
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      type: 'line',
+      label: '평균매매가(억)',
+      yAxisID: 'y-line1',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      pointRadius:1,
+      data: avgAmts
+      },{
+        type: 'bar',
+        label: '미분양(호)',
+        yAxisID: 'y-bar',
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: histCnts
+      }
+    ]
+  };
+
+  const config = {
+    data: data,
+    options: {
+        scales:{
+            'y-line1':{
+                position: 'left',
+<!--                suggestedMin: 0,-->
+                ticks:{
+				    color: 'rgb(255, 99, 132)'
+				},
+                title: {
+                    display: true,
+                    text: '평균매매가'
+                }
+            },
+            'y-bar':{
+                position: 'right',
+                suggestedMin: 0,
+                suggestedMax: 50,
+                grid:{
+                    display: false
+                },
+                ticks:{
+				    color: 'rgb(54, 162, 235)'
+				},
+                title: {
+                    display: true,
+                    text: '미분양(호)'
+                }
+            }
+        }
+    }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+</html>

@@ -1,8 +1,11 @@
 package aptdata.earlmazip.controller;
 
 import aptdata.earlmazip.controller.dto.EcosDataResponseDto;
+import aptdata.earlmazip.controller.dto.StatResponseDto;
 import aptdata.earlmazip.service.ApiCallStatService;
 import aptdata.earlmazip.service.EcosDataService;
+import aptdata.earlmazip.service.StatService;
+import aptdata.earlmazip.utils.Common;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +26,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class StatEtcController {
     private final EcosDataService ecosDataService;
+    private final StatService statService;
     private final ApiCallStatService apiCallStatService;
 
     /**
@@ -201,7 +207,7 @@ public class StatEtcController {
         List<Float> seoulLeaseIndexes = seoulLeaseIndex.stream().map(o->new Float(o.getDataValue())).collect(Collectors.toList());
         List<IndexDto> list = new ArrayList<>();
         for (int i = dates.size() - 1; i > -1; i--) {
-            IndexDto item = new IndexDto(dates.get(i), totIndexes.get(i), seoulTradeIndexes.get(i), seoulLeaseIndexes.get(i));
+            IndexDto item = new IndexDto(dates.get(i), totIndexes.get(i), seoulTradeIndexes.get(i), seoulLeaseIndexes.get(i), 0);
             list.add(item);
         }
 
@@ -227,18 +233,123 @@ public class StatEtcController {
         return "stat_etc/statConsumerPriceIndex";
     }
 
+    /**
+     * 주택보급률
+     * @param model
+     * @return
+     */
+    @GetMapping("/stat_etc/housePenetrationRate")
+    public String getHousePenetrationRate(Model model) {
+        apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/housePenetrationRate", "0");
+        // 주택보급률(전국)
+        List<EcosDataResponseDto> totRate = ecosDataService.getEcosData("901Y106", "SALL", "", "16");
+
+        // 주택보급률(서울)
+        List<EcosDataResponseDto> seoulRate = ecosDataService.getEcosData("901Y106", "SSEO", "", "16");
+
+        // 주택보급률(인천)
+        List<EcosDataResponseDto> incheonRate = ecosDataService.getEcosData("901Y106", "SINC", "", "16");
+
+        // 주택보급률(경기)
+        List<EcosDataResponseDto> gyunggiRate = ecosDataService.getEcosData("901Y106", "SGYE", "", "16");
+
+        List<String> dates = totRate.stream().map(o->new String(o.getDate())).collect(Collectors.toList());
+        List<Float> totRates = totRate.stream().map(o->new Float(o.getDataValue())).collect(Collectors.toList());
+        List<Float> seoulRates = seoulRate.stream().map(o->new Float(o.getDataValue())).collect(Collectors.toList());
+        List<Float> incheonRates = incheonRate.stream().map(o->new Float(o.getDataValue())).collect(Collectors.toList());
+        List<Float> gyunggiRates = gyunggiRate.stream().map(o->new Float(o.getDataValue())).collect(Collectors.toList());
+
+        List<IndexDto> list = new ArrayList<>();
+        for (int i = dates.size() - 1; i > -1; i--) {
+            IndexDto item = new IndexDto(dates.get(i), totRates.get(i), seoulRates.get(i), gyunggiRates.get(i), incheonRates.get(i));
+            list.add(item);
+        }
+        
+        model.addAttribute("totRates", totRates);
+        model.addAttribute("seoulRates", seoulRates);
+        model.addAttribute("incheonRates", incheonRates);
+        model.addAttribute("gyunggiRates", gyunggiRates);
+        model.addAttribute("dates", dates);
+        model.addAttribute("title", "[ 주택보급률 ]");
+        model.addAttribute("list", list);
+
+        return "stat_etc/statHousePenetrationRate";
+    }
+
+    /**
+     * 미분양주택현황
+     * @param model
+     * @return
+     */
+    @GetMapping("/stat_etc/unSoldHouseHistory")
+    public String getUnSoldHouseHistory(@RequestParam(value="areacode", defaultValue = "") String areacode,
+                                        @RequestParam(value="term", defaultValue = "5") String term,
+                                        Model model) {
+        apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/unSoldHouseHistory", "0");
+        List<EcosDataResponseDto> histList;
+        List<StatResponseDto> tradList = statService.getStatTradeList_Area(areacode, term);
+        String title = "";
+        if (areacode.equals("11")) {
+            title = "서울 미분양주택현황";
+            histList = ecosDataService.getEcosData("901Y074", "I410B", "", term);
+        } else if (areacode.equals("41")) {
+            title = "경기 미분양주택현황";
+            histList = ecosDataService.getEcosData("901Y074", "I410I", "", term);
+        } else {
+            title = "인천 미분양주택현황";
+            histList = ecosDataService.getEcosData("901Y074", "I410E", "", term);
+        }
+
+        List<String> dates = histList.stream().map(o->new String(o.getDate())).collect(Collectors.toList());
+        List<String> avgAmtsStr = tradList.stream().map(o->new String(o.getAvgPriceStr())).collect(Collectors.toList());
+        List<Float> avgAmts = tradList.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
+        List<String> histCntsStr = histList.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+        List<Integer> histCnts = histList.stream().map(o->new Integer(o.getDataValue())).collect(Collectors.toList());
+        Collections.reverse(avgAmtsStr);
+        Collections.reverse(avgAmts);
+        List<UnSoldDto> list = new ArrayList<>();
+        for (int i = dates.size() - 1; i > -1; i--) {
+            UnSoldDto item = new UnSoldDto(dates.get(i), avgAmtsStr.get(i), histCntsStr.get(i));
+            list.add(item);
+        }
+        model.addAttribute("avgAmts", avgAmts);
+        model.addAttribute("histCnts", histCnts);
+        model.addAttribute("dates", dates);
+        model.addAttribute("term", term);
+        model.addAttribute("areacode", areacode);
+        model.addAttribute("termStr",  Common.makeTermString(term));
+        model.addAttribute("title", title);
+        model.addAttribute("list", list);
+
+        return "stat_etc/statUnSoldHouseHistory";
+    }
+
+    @Data
+    static class UnSoldDto {
+        private String date;
+        private String value1;
+        private String value2;
+
+        public UnSoldDto(String date, String value1, String value2) {
+            this.date = date;
+            this.value1 = value1;
+            this.value2 = value2;
+        }
+    }
     @Data
     static class IndexDto {
         private String date;
         private float value1;
         private float value2;
         private float value3;
+        private float value4;
 
-        public IndexDto(String date, float value1, float value2, float value3) {
+        public IndexDto(String date, float value1, float value2, float value3, float value4) {
             this.date = date;
             this.value1 = value1;
             this.value2 = value2;
             this.value3 = value3;
+            this.value4 = value4;
         }
     }
 

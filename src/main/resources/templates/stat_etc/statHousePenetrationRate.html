@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <p>
+            <h5 align="center" th:text="${title}"></h5>
+        </p>
+        <p>
+            <canvas id="myChart"></canvas>
+        </p>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <p>
+            <a style="font-size:12px;" align="center" th:text="${subtitle}"></a>
+        </p>
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-dark" style="font-size:12px;" align="center">
+                <th>년-월</th>
+                <th>전국</th>
+                <th>서울</th>
+                <th>경기</th>
+                <th>인천</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="font-size:12px;" th:each="list : ${list}">
+                <td align="center" th:text="${list.date}"></td>
+                <td align="right" th:text="${#numbers.formatDecimal(list.value1,1,2,'POINT')}"></td>
+                <td align="right" th:text="${#numbers.formatDecimal(list.value2,1,2,'POINT')}"></td>
+                <td align="right" th:text="${#numbers.formatDecimal(list.value3,1,2,'POINT')}"></td>
+                <td align="right" th:text="${#numbers.formatDecimal(list.value4,1,2,'POINT')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h7>※ 출처: 한국은행 경제통계시스템 (ecos.bok.or.kr)</h7>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const totRates =  /*[[ ${totRates.toArray()} ]]*/;
+  const seoulRates =  /*[[ ${seoulRates.toArray()} ]]*/;
+  const gyunggiRates =  /*[[ ${gyunggiRates.toArray()} ]]*/;
+  const incheonRates =  /*[[ ${incheonRates.toArray()} ]]*/;
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+
+  const data = {
+    labels: labels,
+    datasets: [{
+          type: 'line',
+          label: '전국',
+          yAxisID: 'y-line1',
+          backgroundColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgb(255, 99, 132)',
+          pointRadius:1,
+          data: totRates
+      },{
+          type: 'line',
+          label: '서울',
+          yAxisID: 'y-line2',
+          backgroundColor: 'rgb(95,67,175)',
+          borderColor: 'rgb(95,67,175)',
+          pointRadius:1,
+          data: seoulRates
+      },{
+          type: 'line',
+          label: '경기',
+          yAxisID: 'y-line3',
+          backgroundColor: 'rgb(54, 162, 235)',
+          borderColor: 'rgb(54, 162, 235)',
+          pointRadius:1,
+          data: gyunggiRates
+      },{
+          type: 'line',
+          label: '인천',
+          yAxisID: 'y-line4',
+          backgroundColor: 'rgb(167,215,113)',
+          borderColor: 'rgb(167,215,113)',
+          pointRadius:1,
+          data: incheonRates
+      }
+    ]
+  };
+
+  const config = {
+    data: data,
+    options: {
+        scales:{
+            'y-line1':{
+                position: 'right',
+                suggestedMin: 90,
+                suggestedMax: 110,
+                ticks:{
+				    color: 'rgb(0, 0, 0)'
+				},
+                title: {
+                    display: true,
+                    text: '전국'
+                }
+            },
+            'y-line2':{
+                position: 'right',
+                suggestedMin: 90,
+                suggestedMax: 110,
+                grid:{
+                    display: false
+                },
+                ticks:{
+                    display: false
+				},
+                title: {
+                    display: false,
+                    text: '서울'
+                }
+            },
+            'y-line3':{
+                position: 'right',
+                suggestedMin: 90,
+                suggestedMax: 110,
+                grid:{
+                    display: false
+                },
+                ticks:{
+                    display: false
+				},
+                title: {
+                    display: false,
+                    text: '경기'
+                }
+            },
+            'y-line4':{
+                position: 'right',
+                suggestedMin: 90,
+                suggestedMax: 110,
+                grid:{
+                    display: false
+                },
+                ticks:{
+                    display: false
+				},
+                title: {
+                    display: false,
+                    text: '인천'
+                }
+            }
+        }
+    }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+</html>
