@@ -1,9 +1,6 @@
 package aptdata.earlmazip.controller;
 
-import aptdata.earlmazip.controller.dto.EcosDataResponseDto;
-import aptdata.earlmazip.controller.dto.RankYearResponseDto;
-import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
-import aptdata.earlmazip.controller.dto.StatResponseDto;
+import aptdata.earlmazip.controller.dto.*;
 import aptdata.earlmazip.service.*;
 import aptdata.earlmazip.utils.Common;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -281,5 +279,46 @@ public class StatLeaseController {
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("list", stats);
         return "stat_lease/statSido_monthly";
+    }
+
+    @GetMapping("/stat_lease/top")
+    public String getTopLeaseSigungu(@RequestParam(value="sigunguCode", defaultValue = "") String sigunguCode,
+                                     @RequestParam(value="uaType", defaultValue = "UA01") String uaType,
+                                      @RequestParam(value="leaseType", defaultValue = "0") int leaseType,
+                                      Model model) {
+        List<RankLeaseResponseDto> ranks;
+        String title = "-";
+        if (!sigunguCode.equals("0")) {
+            title = codeInfoService.getCodeName(sigunguCode);
+            log.info("/stat_lease/top?sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&leaseType=" + leaseType);
+            apiCallStatService.writeApiCallStat("TRADE_LIST_NAME", "/stat_lease/top?sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&leaseType=" + leaseType, sigunguCode);
+
+            if (StringUtils.hasText(sigunguCode)) {
+                ranks = statLeaseService.getTopLeaseSigungu(sigunguCode, uaType, leaseType);
+            } else {
+                ranks = new ArrayList<>();
+            }
+        } else {
+            ranks = new ArrayList<>();
+        }
+
+        model.addAttribute("list", ranks);
+        model.addAttribute("sigungucode", sigunguCode);
+        model.addAttribute("uatype", uaType);
+        model.addAttribute("leasetype", leaseType);
+        if (leaseType == 0) {
+            model.addAttribute("title",  title + " 2022 전세 TOP 100");
+        } else {
+            model.addAttribute("title",  title + " 2022 월세 TOP 100");
+        }
+        model.addAttribute("subtitle", codeInfoService.getCodeName(uaType));
+
+        if (sigunguCode.substring(0, 2).equals("11")) {
+            return "stat_lease/seoulTop";
+        } else if (sigunguCode.substring(0, 2).equals("41")) {
+            return "stat_lease/gyunggiTop";
+        } else {
+            return "stat_lease/incheonTop";
+        }
     }
 }

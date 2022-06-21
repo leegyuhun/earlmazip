@@ -1,5 +1,6 @@
 package aptdata.earlmazip.service;
 
+import aptdata.earlmazip.controller.dto.RankLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.RankYearResponseDto;
 import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.StatResponseDto;
@@ -34,5 +35,10 @@ public class StatLeaseService {
 
     public List<StatLeaseResponseDto> getStatLeaseMonthlySigungu(String sigunguCode) {
         return statRepository.getStatLeaseMonthlySigungu(sigunguCode);
+    }
+
+    public List<RankLeaseResponseDto> getTopLeaseSigungu(String sigunguCode, String uaType, int leaseType) {
+        return statRepository.getTopLeaseSigungu(sigunguCode, uaType, leaseType);
+
     }
 }

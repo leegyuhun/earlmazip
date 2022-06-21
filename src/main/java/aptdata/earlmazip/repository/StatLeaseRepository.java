@@ -1,5 +1,6 @@
 package aptdata.earlmazip.repository;
 
+import aptdata.earlmazip.controller.dto.RankLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.RankYearResponseDto;
 import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
 import aptdata.earlmazip.controller.dto.StatResponseDto;
@@ -83,5 +84,26 @@ public class StatLeaseRepository {
                         + " order by a.dealYYMM desc", StatSigunguLease.class)
                 .setParameter("sigunguCode", sigunguCode)
                 .getResultList().stream().map(StatLeaseResponseDto::new).collect(Collectors.toList());
+    }
+
+    public List<RankLeaseResponseDto> getTopLeaseSigungu(String sigunguCode, String uaType, int leaseType) {
+        if (leaseType == 0) {
+            return em.createQuery("select a from RankLease a"
+                            + " where a.gubnCode = :sigunguCode and a.leaseType = '전세' "
+                            + "   and a.useAreaType = :uaType "
+                            + " order by a.deposit desc", RankLease.class)
+                    .setParameter("sigunguCode", sigunguCode)
+                    .setParameter("uaType", uaType)
+                    .getResultList().stream().map(RankLeaseResponseDto::new).collect(Collectors.toList());
+
+        } else {
+            return em.createQuery("select a from RankLease a"
+                            + " where a.gubnCode = :sigunguCode and a.leaseType = '월세' "
+                            + "   and a.useAreaType = :uaType "
+                            + " order by a.monthlyRent desc", RankLease.class)
+                    .setParameter("sigunguCode", sigunguCode)
+                    .setParameter("uaType", uaType)
+                    .getResultList().stream().map(RankLeaseResponseDto::new).collect(Collectors.toList());
+        }
     }
 }
