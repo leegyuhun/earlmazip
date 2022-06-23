@@ -77,4 +77,8 @@ public class StatService {
     public List<RankUaSigunguResponseDto> getStatRankUaList_Seoul(int rankGubn, String sigunguCode, int ua) {
         return statRepository.getStatRankUaList_Seoul(rankGubn, sigunguCode, ua);
     }
+
+    public List<StatResponseDto> getStatByDealType(String sigunguCode, String uaTYpe, int dealType) {
+        return statRepository.getStatByDealType(sigunguCode, uaTYpe, dealType);
+    }
 }

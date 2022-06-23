@@ -16,6 +16,7 @@ public class StatResponseDto {
 //    public String getDealYYMM() {
 //        return dealYYMM.substring(0,4) + "-" + dealYYMM.substring(4,6);
 //    }
+    public String dealType;
     public String useAreaType;
     private int minPrice;
     private int avgPrice;
@@ -101,5 +102,21 @@ public class StatResponseDto {
         this.avgPrice = entity.getAvgPrice();
         this.maxPrice = entity.getMaxPrice();
         this.cnt = entity.getCnt();
+    }
+
+    public StatResponseDto(StatSigunguType entity) {
+        this.seq = entity.getSeq();
+        this.code = entity.getSigunguCode();
+        this.name = entity.getSigunguName();
+        this.dealYear = entity.getDealYear();
+        this.dealYYMM = entity.getDealYYMM();
+        this.dealType = entity.getDealType();
+        this.useAreaType = entity.getUseAreaType();
+        this.minPrice = entity.getMinPrice();
+        this.avgPrice = entity.getAvgPrice();
+        this.maxPrice = entity.getMaxPrice();
+        this.cnt = entity.getCnt();
+        this.highestCnt = entity.getHighestCnt();
+        this.highestRate = entity.getHighestRate();
     }
 }

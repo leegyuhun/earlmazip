@@ -715,6 +715,61 @@ public class StatController {
         return getStatUseareaType_BySigungu(sigungucode, "UA01", term, model);
     }
 
+    @GetMapping("/stat_trade/ByDealType")
+    public String getStatByDealType(@RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
+                                    @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
+                                    Model model) {
+        List<StatResponseDto> stats0;
+        List<StatResponseDto> stats1;
+        String title = "-";
+        if (!sigunguCode.equals("0")) {
+            title = codeInfoService.getCodeName(sigunguCode);
+            log.info("/stat_trade/ByDealType?" + sigunguCode + "&uaType" + uaType);
+            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/ByDealType?" + sigunguCode + "&uaType" + uaType, sigunguCode);
+            stats0 = statService.getStatByDealType(sigunguCode, uaType, 0); //중개거래
+            stats1 = statService.getStatByDealType(sigunguCode, uaType, 1); //직거래
+        } else {
+            stats0 = new ArrayList<>();
+            stats1 = new ArrayList<>();
+        }
+
+        List<String> dates0 = stats0.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<String> dates1 = stats1.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+//        List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
+        List<Float> avgprc0 = stats0.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
+        List<Integer> tradcnt0 = stats0.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        List<Float> avgprc1 = stats1.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
+        List<Integer> tradcnt1 = stats1.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+
+        Collections.reverse(dates0);
+        Collections.reverse(avgprc0);
+        Collections.reverse(tradcnt0);
+        Collections.reverse(dates1);
+        Collections.reverse(avgprc1);
+        Collections.reverse(tradcnt1);
+
+        model.addAttribute("title",  title);
+        model.addAttribute("sigungucode",  sigunguCode);
+        model.addAttribute("list0", stats0);
+        model.addAttribute("list1", stats1);
+        model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
+//        model.addAttribute("ua", ua);
+        model.addAttribute("dates0", dates0);
+        model.addAttribute("dates1", dates1);
+        model.addAttribute("avgprc0", avgprc0);
+        model.addAttribute("tradcnt0", tradcnt0);
+        model.addAttribute("avgprc1", avgprc1);
+        model.addAttribute("tradcnt1", tradcnt1);
+        if (sigunguCode.substring(0, 2).equals("11")) {
+            return "stat_trade/seoulByDealType";
+        } else if (sigunguCode.substring(0, 2).equals("41")) {
+            return "stat_trade/useAreaType_Gyunggi";
+        } else {
+            return "stat_trade/useAreaType_Incheon";
+        }
+
+    }
+
     @GetMapping("/stat_trade/ByBuildYear/{regncode}/{term}")
     public String getStatBuildYearList(@PathVariable String regncode,
                                                     @PathVariable String term,
@@ -793,4 +848,5 @@ public class StatController {
 
         return "stat_trade/statByBuildYear";
     }
+
 }

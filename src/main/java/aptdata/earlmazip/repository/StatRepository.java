@@ -213,13 +213,25 @@ public class StatRepository {
         }
     }
 
-//    private String calcYearByTerm(String term) {
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-//        // 현재날짜
-//        String date = simpleDateFormat.format(new Date());
-//        int termInt = Integer.parseInt(term);
-//        int nowInt = Integer.parseInt(date.substring(0,4));
-//        // 현재날짜-term = 조회 기준일자
-//        return Integer.toString(nowInt - termInt);
-//    }
+    public List<StatResponseDto> getStatByDealType(String sigunguCode, String uaType, int dealType) {
+        String mType = "중개거래";
+        if (dealType == 0) {
+            mType = "중개거래";
+        } else {
+            mType = "직거래";
+        }
+
+        return em.createQuery("select a from StatSigunguType a "
+                        + " where a.sigunguCode = :sigunguCode "
+                        + "   and a.useAreaType = :uaType "
+                        + "   and a.dealType = :dealType "
+                        + " order by dealYYMM desc", StatSigunguType.class)
+                .setParameter("sigunguCode", sigunguCode)
+                .setParameter("uaType", uaType)
+                .setParameter("dealType", mType)
+                .getResultList().stream().map(StatResponseDto::new)
+                .collect(Collectors.toList());
+    }
+        
 }
+    
