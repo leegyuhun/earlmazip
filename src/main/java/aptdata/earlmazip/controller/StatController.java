@@ -7,6 +7,7 @@ import aptdata.earlmazip.controller.dto.StatResponseDto;
 import aptdata.earlmazip.domain.RankYear;
 import aptdata.earlmazip.domain.StatAreaYYMM;
 import aptdata.earlmazip.domain.StatSidoYYMM;
+import aptdata.earlmazip.domain.StatSigunguType;
 import aptdata.earlmazip.service.ApiCallStatService;
 import aptdata.earlmazip.service.CodeInfoService;
 import aptdata.earlmazip.service.EcosDataService;
@@ -719,57 +720,108 @@ public class StatController {
     public String getStatByDealType(@RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
                                     @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                     Model model) {
+        List<StatResponseDto> stats;
         List<StatResponseDto> stats0;
         List<StatResponseDto> stats1;
         String title = "-";
+        String title2 = "-";
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/stat_trade/ByDealType?" + sigunguCode + "&uaType" + uaType);
-            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/ByDealType?" + sigunguCode + "&uaType" + uaType, sigunguCode);
+            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/ByDealType?" + title + "&uaType" + uaType, sigunguCode);
+            if (sigunguCode.length() == 5) {
+                stats = statService.getStatTradeByUseAreaList(sigunguCode, uaType, "0");
+            } else {
+                stats = statService.getStatTradeByUseAreaList(sigunguCode, uaType, "0");
+            }
             stats0 = statService.getStatByDealType(sigunguCode, uaType, 0); //중개거래
             stats1 = statService.getStatByDealType(sigunguCode, uaType, 1); //직거래
         } else {
+            stats = new ArrayList<>();
             stats0 = new ArrayList<>();
             stats1 = new ArrayList<>();
         }
 
-        List<String> dates0 = stats0.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
-        List<String> dates1 = stats1.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
-//        List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
-        List<Float> avgprc0 = stats0.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
-        List<Integer> tradcnt0 = stats0.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-        List<Float> avgprc1 = stats1.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
-        List<Integer> tradcnt1 = stats1.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
 
-        Collections.reverse(dates0);
+        List<DealTypeDto> list = new ArrayList<>();
+        for (int i = 0; i < dates.size(); i++) {
+            String tmp = dates.get(i);
+            StatResponseDto statItem = stats.stream().filter(o -> o.getDealYYMM().equals(tmp)).findFirst().orElse(null);
+            StatResponseDto statItem0 = stats0.stream().filter(o -> o.getDealYYMM().equals(tmp)).findFirst().orElse(null);
+            StatResponseDto statItem1 = stats1.stream().filter(o -> o.getDealYYMM().equals(tmp)).findFirst().orElse(null);
+            if (statItem0 == null) {
+                statItem0 = new StatResponseDto();
+            }
+            if (statItem1 == null) {
+                statItem1 = new StatResponseDto();
+            }
+            DealTypeDto item = new DealTypeDto(tmp, statItem, statItem0, statItem1);
+            list.add(item);
+        }
+
+        List<Float> avgprc = list.stream().map(o->new Float(o.getAvgPrice())).collect(Collectors.toList());
+        List<Float> avgprc0 = list.stream().map(o->new Float(o.getAvgPrice0())).collect(Collectors.toList());
+        List<Float> avgprc1 = list.stream().map(o->new Float(o.getAvgPrice1())).collect(Collectors.toList());
+
+        Collections.reverse(dates);
+        Collections.reverse(avgprc);
         Collections.reverse(avgprc0);
-        Collections.reverse(tradcnt0);
-        Collections.reverse(dates1);
         Collections.reverse(avgprc1);
-        Collections.reverse(tradcnt1);
 
         model.addAttribute("title",  title);
+        model.addAttribute("title2",  title2);
         model.addAttribute("sigungucode",  sigunguCode);
-        model.addAttribute("list0", stats0);
-        model.addAttribute("list1", stats1);
+        model.addAttribute("list", list);
+        model.addAttribute("uaType", uaType);
         model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
 //        model.addAttribute("ua", ua);
-        model.addAttribute("dates0", dates0);
-        model.addAttribute("dates1", dates1);
+        model.addAttribute("dates", dates);
+        model.addAttribute("avgprc", avgprc);
         model.addAttribute("avgprc0", avgprc0);
-        model.addAttribute("tradcnt0", tradcnt0);
         model.addAttribute("avgprc1", avgprc1);
-        model.addAttribute("tradcnt1", tradcnt1);
         if (sigunguCode.substring(0, 2).equals("11")) {
             return "stat_trade/seoulByDealType";
         } else if (sigunguCode.substring(0, 2).equals("41")) {
-            return "stat_trade/useAreaType_Gyunggi";
+            return "stat_trade/gyunggiByDealType";
         } else {
             return "stat_trade/useAreaType_Incheon";
         }
-
     }
 
+    @Data
+    static class DealTypeDto{
+        private String date;
+        private float avgPrice;
+        private float avgPrice0;
+        private float avgPrice1;
+        private String avgPriceStr;
+        private String avgPriceStr0;
+        private String avgPriceStr1;
+        private int cnt;
+        private int cnt0;
+        private int cnt1;
+        private float highestRate;
+        private float highestRate0;
+        private float highestRate1;
+        public DealTypeDto(String date, StatResponseDto item, StatResponseDto item0, StatResponseDto item1) {
+            this.date = date;
+            this.avgPrice = (float)item.getAvgPrice() / 10000;
+            this.avgPriceStr = item.getAvgPriceStr();
+            this.cnt = item.getCnt();
+            this.highestRate = item.getHighestRate();
+
+            this.avgPrice0 = (float)item0.getAvgPrice() / 10000;
+            this.avgPriceStr0 = item0.getAvgPriceStr();
+            this.cnt0 = item0.getCnt();
+            this.highestRate0 = item0.getHighestRate();
+
+            this.avgPrice1 = (float)item1.getAvgPrice() / 10000;
+            this.avgPriceStr1 = item1.getAvgPriceStr();
+            this.cnt1 = item1.getCnt();
+            this.highestRate1 = item1.getHighestRate();
+        }
+    }
     @GetMapping("/stat_trade/ByBuildYear/{regncode}/{term}")
     public String getStatBuildYearList(@PathVariable String regncode,
                                                     @PathVariable String term,

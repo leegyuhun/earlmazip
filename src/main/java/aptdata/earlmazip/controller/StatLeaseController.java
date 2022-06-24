@@ -291,7 +291,7 @@ public class StatLeaseController {
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/stat_lease/top?sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&leaseType=" + leaseType);
-            apiCallStatService.writeApiCallStat("TRADE_LIST_NAME", "/stat_lease/top?sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&leaseType=" + leaseType, sigunguCode);
+            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease/top?sigunguCode=" + title + "&uaType=" + uaType + "&leaseType=" + leaseType, sigunguCode);
 
             if (StringUtils.hasText(sigunguCode)) {
                 ranks = statLeaseService.getTopLeaseSigungu(sigunguCode, uaType, leaseType);

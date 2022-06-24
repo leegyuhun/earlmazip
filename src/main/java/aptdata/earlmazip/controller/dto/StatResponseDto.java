@@ -18,6 +18,10 @@ public class StatResponseDto {
 //    }
     public String dealType;
     public String useAreaType;
+
+    public StatResponseDto() {
+    }
+
     private int minPrice;
     private int avgPrice;
     private int maxPrice;
