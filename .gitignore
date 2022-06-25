@@ -50,3 +50,4 @@ out/
 !/applicatoin.2022-04-21.log
 
 !/applicatoin.2022-04-24.log
+/src/main/resources/application.yml
