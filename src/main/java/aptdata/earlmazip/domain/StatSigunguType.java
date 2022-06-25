@@ -43,5 +43,7 @@ public class StatSigunguType {
 
     private float highestRate;
 
+    private float avgUseArea;
+
     private int totPrice;
 }

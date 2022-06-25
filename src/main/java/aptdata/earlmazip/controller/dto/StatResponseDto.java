@@ -42,6 +42,7 @@ public class StatResponseDto {
     private int cnt;
     private int highestCnt;
     private float highestRate;
+    private float avgUseArea;
 
     public StatResponseDto(StatAreaYYMM entity) {
         this.seq = entity.getSeq();
@@ -55,6 +56,7 @@ public class StatResponseDto {
         this.maxPrice = entity.getMaxPrice();
         this.cnt = entity.getCnt();
         this.highestRate = entity.getHighestRate();
+        this.avgUseArea = entity.getAvgUseArea();
     }
 
     public StatResponseDto(StatSidoYYMM entity) {
@@ -69,6 +71,7 @@ public class StatResponseDto {
         this.maxPrice = entity.getMaxPrice();
         this.cnt = entity.getCnt();
         this.highestRate = entity.getHighestRate();
+        this.avgUseArea = entity.getAvgUseArea();
     }
 
     public StatResponseDto(StatTheme entity) {
@@ -95,6 +98,7 @@ public class StatResponseDto {
         this.cnt = entity.getCnt();
         this.highestCnt = entity.getHighestCnt();
         this.highestRate = entity.getHighestRate();
+        this.avgUseArea = entity.getAvgUseArea();
     }
 
     public StatResponseDto(StatBuildYear entity) {
@@ -122,5 +126,6 @@ public class StatResponseDto {
         this.cnt = entity.getCnt();
         this.highestCnt = entity.getHighestCnt();
         this.highestRate = entity.getHighestRate();
+        this.avgUseArea = entity.getAvgUseArea();
     }
 }

@@ -38,4 +38,6 @@ public class StatSigunguYYMM {
     private int highestCnt;
 
     private float highestRate;
+
+    private float avgUseArea;
 }

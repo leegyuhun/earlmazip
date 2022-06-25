@@ -42,6 +42,10 @@
             <a th:href="@{/stat_trade/ByDealType?sigunguCode=11140&uaType={uaType} (uaType=${uaType})}">&nbsp중구</a>
         </div>
         <p>
+            <h5 align="center" th:text="|[ ${title} 거래유형별 ]|"></h5>
+            <h6 align="center" th:text="|* ${uaStr}|"></h6>
+        </p>
+        <p>
             <a style="font-size: 20px">[평형]&nbsp</a>
             <a style="font-size: 20px" th:href="@{/stat_trade/ByDealType?sigunguCode={sigungucode}&uaType=UA01 (sigungucode=${sigungucode})}">전체&nbsp</a>
             <a style="font-size: 20px" th:href="@{/stat_trade/ByDealType?sigunguCode={sigungucode}&uaType=UA08 (sigungucode=${sigungucode})}">전용59&nbsp</a>
@@ -49,10 +53,6 @@
             <a style="font-size: 20px" th:href="@{/stat_trade/ByDealType?sigunguCode={sigungucode}&uaType=UA04 (sigungucode=${sigungucode})}">중형&nbsp</a>
             <a style="font-size: 20px" th:href="@{/stat_trade/ByDealType?sigunguCode={sigungucode}&uaType=UA05 (sigungucode=${sigungucode})}">중대형&nbsp</a>
             <a style="font-size: 20px" th:href="@{/stat_trade/ByDealType?sigunguCode={sigungucode}&uaType=UA06 (sigungucode=${sigungucode})}">대형&nbsp</a>
-        </p>
-        <p>
-            <h5 align="center" th:text="|[ ${title} 거래유형별 ]|"></h5>
-            <h6 align="center" th:text="|* ${uaStr}|"></h6>
         </p>
         <div>
             <canvas id="myChart"></canvas>
@@ -68,9 +68,9 @@
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
                     <th>년-월</th>
-                    <th>전체거래<br/>평균매매가</br>건수<br/>신고가율</th>
-                    <th>중개거래<br/>평균매매가</br>건수<br/>신고가율</th>
-                    <th>직거래<br/>평균매매가</br>건수<br/>신고가율</th>
+                    <th>전체거래<br/>평균매매가</br>건수<br/>신고가율<br/>평균전용면적(m<sup>2</sup>)</th>
+                    <th>중개거래<br/>평균매매가</br>건수<br/>신고가율<br/>평균전용면적(m<sup>2</sup>)</th>
+                    <th>직거래<br/>평균매매가</br>건수<br/>신고가율<br/>평균전용면적(m<sup>2</sup>)</th>
                 </tr>
             </thead>
             <tbody>
@@ -81,6 +81,7 @@
                             <a style="font-weight: bolder" th:text="|${list.avgPrice} 억|"></a></br>
                             <a th:text="|${#numbers.formatInteger(list.cnt,1,'COMMA')} 건|"></a></br>
                             <a th:text="|${#numbers.formatDecimal(list.highestRate,1,1,'POINT')} %|"></a></br>
+                            <a th:text="|${#numbers.formatDecimal(list.avgUseArea,1,1,'POINT')}|"></a>
                         </div>
                     </td>
                     <td align="center">
@@ -88,6 +89,7 @@
                             <a style="font-weight: bolder" th:text="|${list.avgPrice0} 억|"></a></br>
                             <a th:text="|${#numbers.formatInteger(list.cnt0,1,'COMMA')} 건|"></a></br>
                             <a th:text="|${#numbers.formatDecimal(list.highestRate0,1,1,'POINT')} %|"></a></br>
+                            <a th:text="|${#numbers.formatDecimal(list.avgUseArea0,1,1,'POINT')}|"></a>
                         </div>
                     </td>
 
@@ -96,6 +98,7 @@
                             <a style="font-weight: bolder" th:text="|${list.avgPrice1} 억|"></a></br>
                             <a th:text="|${#numbers.formatInteger(list.cnt1,1,'COMMA')} 건|"></a></br>
                             <a th:text="|${#numbers.formatDecimal(list.highestRate1,1,1,'POINT')} %|"></a></br>
+                            <a th:text="|${#numbers.formatDecimal(list.avgUseArea1,1,1,'POINT')}|"></a>
                         </div>
                     </td>
                 </tr>

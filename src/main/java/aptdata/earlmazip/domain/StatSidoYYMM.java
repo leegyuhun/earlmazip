@@ -47,4 +47,6 @@ public class StatSidoYYMM {
 
     @Column(name = "highest_rate")
     private float highestRate;
+
+    private float avgUseArea;
 }

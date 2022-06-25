@@ -46,4 +46,6 @@ public class StatAreaYYMM {
 
     @Column(name = "highest_rate")
     private float highestRate;
+
+    private float avgUseArea;
 }

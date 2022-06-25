@@ -801,6 +801,9 @@ public class StatController {
         private int cnt;
         private int cnt0;
         private int cnt1;
+        private float avgUseArea;
+        private float avgUseArea0;
+        private float avgUseArea1;
         private float highestRate;
         private float highestRate0;
         private float highestRate1;
@@ -810,16 +813,19 @@ public class StatController {
             this.avgPriceStr = item.getAvgPriceStr();
             this.cnt = item.getCnt();
             this.highestRate = item.getHighestRate();
+            this.avgUseArea = item.getAvgUseArea();
 
             this.avgPrice0 = (float)item0.getAvgPrice() / 10000;
             this.avgPriceStr0 = item0.getAvgPriceStr();
             this.cnt0 = item0.getCnt();
             this.highestRate0 = item0.getHighestRate();
+            this.avgUseArea0 = item0.getAvgUseArea();
 
             this.avgPrice1 = (float)item1.getAvgPrice() / 10000;
             this.avgPriceStr1 = item1.getAvgPriceStr();
             this.cnt1 = item1.getCnt();
             this.highestRate1 = item1.getHighestRate();
+            this.avgUseArea1 = item1.getAvgUseArea();
         }
     }
     @GetMapping("/stat_trade/ByBuildYear/{regncode}/{term}")
