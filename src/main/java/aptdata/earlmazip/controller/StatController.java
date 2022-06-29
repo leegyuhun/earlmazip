@@ -84,64 +84,7 @@ public class StatController {
     }
 
     /**
-     * 서울시 월별 매매가 통계 (삭제해야됨)
-     * @param term : 1인경우 현재년도 -1, 3인경우 현재년도 -3 부터 ~ 현재까지 조회
-     * @param model
-     * @return
-     */
-    @GetMapping("/stat_trade/seoul/{term}")
-    public String getStatTradeList_Seoul(@PathVariable String term, Model model) {
-        log.info("/stat_trade/seoul/" + term);
-        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/seoul/" + term, "11");
-        return getStatTradeList_Area("11", term, model);
-    }
-
-    /**
-     * 서울시 구별 월별 매매가 통계
-     * @param term : 1인경우 현재년도 -1, 3인경우 현재년도 -3 부터 ~ 현재까지 조회
-     * @param model
-     * @return
-     */
-    @GetMapping("/stat_trade/seoul/{sigungucode}/{term}")
-    public String getStatTradeList_SeoulBySigungu(@PathVariable String sigungucode,
-                                                  @PathVariable String term,
-                                                  Model model) {
-        List<StatResponseDto> areas;
-        String title = "-";
-        if (!sigungucode.equals("0")) {
-            title = codeInfoService.getCodeName(sigungucode);
-            log.info("/stat_trade/seoul/" + sigungucode + "/" + term);
-            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/seoul/" + title + "/" + term, sigungucode);
-            areas = statService.getStatTradeList_BySigungu(sigungucode, term);
-        } else {
-            areas = new ArrayList<>();
-        }
-        List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
-        List<Float> avgprc = areas.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
-        List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-
-        // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("722Y001", "0101000", "", term);
-        List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
-
-        Collections.reverse(dates);
-        Collections.reverse(avgprc);
-        Collections.reverse(tradcnt);
-
-        model.addAttribute("title",  title);
-        model.addAttribute("termStr",  Common.makeTermString(term));
-        model.addAttribute("list", areas);
-        model.addAttribute("term", term);
-        model.addAttribute("sigungucode", sigungucode);
-        model.addAttribute("dates", dates);
-        model.addAttribute("avgprc", avgprc);
-        model.addAttribute("tradcnt", tradcnt);
-        model.addAttribute("interestRates", interestRates);
-        return "stat_trade/seoulBySigungu";
-    }
-
-    /**
-     * 서울시 전용면적별 월별 매매 통계
+     * 서울/경기/인천 구별,평형대별,월별 매매 통계
      * @param sigungucode
      * @param ua
      * @param term
@@ -340,29 +283,6 @@ public class StatController {
         model.addAttribute("sigungucode", sigungucode);
 
         return "stat_trade/seoulTop";
-    }
-
-    /**
-     * 경기도 월별 매매가 통계 (삭졔해야됨)
-     * @param term : 1인경우 현재년도 -1, 3인경우 현재년도 -3 부터 ~ 현재까지 조회
-     * @param model
-     * @return
-     */
-    @GetMapping("/stat_trade/gyunggi/{term}")
-    public String getStatTradeGyunggi(@PathVariable String term, Model model) {
-        log.info("/stat_trade/gyunggi/" + term);
-        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/gyunggi/" + term, "41");
-        return getStatTradeList_Area("41", term, model);
-    }
-
-    @GetMapping("/stat_trade/gyunggiByCity/{sidoCode}/{term}")
-    public String getStatTradeList_ByCity(@PathVariable String sidoCode,
-                                @PathVariable String term,Model model) {
-        log.info("/stat_trade/gyunggiByCity/" + sidoCode + "/" + term);
-        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/gyunggiByCity/" + sidoCode+ "/" + term, sidoCode);
-
-
-        return getStatUseareaType_BySigungu(sidoCode, "UA01", term, model);
     }
 
     @GetMapping("/stat_trade/gyunggi/top/{year}/{sigungucode}")
@@ -686,36 +606,12 @@ public class StatController {
     }
 
     /**
-     * 인천 월별 매매가 통계 (삭졔해야됨)
-     * @param term
+     * 거래유형별(직/중개거래) 월별통계
+     * @param sigunguCode
+     * @param uaType
      * @param model
      * @return
      */
-    @GetMapping("/stat_trade/incheon/{term}")
-    public String getStatTradeList_Incheon(@PathVariable String term, Model model) {
-        log.info("/stat_trade/incheon/" + term);
-        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/incheon/" + term, "28");
-        return getStatTradeList_Area("28", term, model);
-    }
-
-    /**
-     * 삭제해야됨
-     * @param sigungucode
-     * @param term
-     * @param model
-     * @return
-     */
-    @GetMapping("/stat_trade/incheonBySigungu/{sigungucode}/{term}")
-    public String getStatTradeList_IncheonBySigungu(@PathVariable String sigungucode,
-                                                    @PathVariable String term,
-                                                    Model model) {
-        String title = "-";
-        title = codeInfoService.getCodeName(sigungucode);
-        log.info("/stat_trade/incheonBySigungu/" + sigungucode + "/" + term);
-        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/incheonBySigungu/" + title + "/" + term, sigungucode);
-        return getStatUseareaType_BySigungu(sigungucode, "UA01", term, model);
-    }
-
     @GetMapping("/stat_trade/ByDealType")
     public String getStatByDealType(@RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
                                     @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
@@ -828,6 +724,7 @@ public class StatController {
             this.avgUseArea1 = item1.getAvgUseArea();
         }
     }
+
     @GetMapping("/stat_trade/ByBuildYear/{regncode}/{term}")
     public String getStatBuildYearList(@PathVariable String regncode,
                                                     @PathVariable String term,
@@ -907,4 +804,95 @@ public class StatController {
         return "stat_trade/statByBuildYear";
     }
 
+    /**
+     * 서울시 월별 매매가 통계 (삭제해야됨)
+     * @param term : 1인경우 현재년도 -1, 3인경우 현재년도 -3 부터 ~ 현재까지 조회
+     * @param model
+     * @return
+     */
+    @GetMapping("/stat_trade/seoul/{term}")
+    public String getStatTradeList_Seoul(@PathVariable String term, Model model) {
+        log.info("/stat_trade/seoul/" + term);
+        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/seoul/" + term, "11");
+        return getStatTradeList_Area("11", term, model);
+    }
+
+    /**
+     * 서울시 구별 월별 매매가 통계 (삭제해야됨)
+     * @param term : 1인경우 현재년도 -1, 3인경우 현재년도 -3 부터 ~ 현재까지 조회
+     * @param model
+     * @return
+     */
+    @GetMapping("/stat_trade/seoul/{sigungucode}/{term}")
+    public String getStatTradeList_SeoulBySigungu(@PathVariable String sigungucode,
+                                                  @PathVariable String term,
+                                                  Model model) {
+        String title = "-";
+        title = codeInfoService.getCodeName(sigungucode);
+        log.info("/stat_trade/seoul/" + sigungucode + "/" + term);
+        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/seoul/" + title + "/" + term, sigungucode);
+
+        return getStatUseareaType_BySigungu(sigungucode, "UA01", term, model);
+    }
+
+    /**
+     * 인천 월별 매매가 통계 (삭졔해야됨)
+     * @param term
+     * @param model
+     * @return
+     */
+    @GetMapping("/stat_trade/incheon/{term}")
+    public String getStatTradeList_Incheon(@PathVariable String term, Model model) {
+        log.info("/stat_trade/incheon/" + term);
+        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/incheon/" + term, "28");
+        return getStatTradeList_Area("28", term, model);
+    }
+
+    /**
+     * 삭제해야됨
+     * @param sigungucode
+     * @param term
+     * @param model
+     * @return
+     */
+    @GetMapping("/stat_trade/incheonBySigungu/{sigungucode}/{term}")
+    public String getStatTradeList_IncheonBySigungu(@PathVariable String sigungucode,
+                                                    @PathVariable String term,
+                                                    Model model) {
+        String title = "-";
+        title = codeInfoService.getCodeName(sigungucode);
+        log.info("/stat_trade/incheonBySigungu/" + sigungucode + "/" + term);
+        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/incheonBySigungu/" + title + "/" + term, sigungucode);
+        return getStatUseareaType_BySigungu(sigungucode, "UA01", term, model);
+    }
+
+    /**
+     * 경기도 월별 매매가 통계 (삭졔해야됨)
+     * @param term : 1인경우 현재년도 -1, 3인경우 현재년도 -3 부터 ~ 현재까지 조회
+     * @param model
+     * @return
+     */
+    @GetMapping("/stat_trade/gyunggi/{term}")
+    public String getStatTradeGyunggi(@PathVariable String term, Model model) {
+        log.info("/stat_trade/gyunggi/" + term);
+        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/gyunggi/" + term, "41");
+        return getStatTradeList_Area("41", term, model);
+    }
+
+    /**
+     * 삭제해야됨
+     * @param sidoCode
+     * @param term
+     * @param model
+     * @return
+     */
+    @GetMapping("/stat_trade/gyunggiByCity/{sidoCode}/{term}")
+    public String getStatTradeList_ByCity(@PathVariable String sidoCode,
+                                          @PathVariable String term,Model model) {
+        log.info("/stat_trade/gyunggiByCity/" + sidoCode + "/" + term);
+        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/gyunggiByCity/" + sidoCode+ "/" + term, sidoCode);
+
+
+        return getStatUseareaType_BySigungu(sidoCode, "UA01", term, model);
+    }
 }
