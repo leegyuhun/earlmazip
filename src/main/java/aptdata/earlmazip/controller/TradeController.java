@@ -70,7 +70,45 @@ public class TradeController {
         } else {
             return "tradelist/incheon";
         }
+    }
 
+    /**
+     * @param sigunguCode
+     * @param uaType
+     * @param model
+     * @return
+     */
+    @GetMapping("/tradelist")
+    public String getTradeList_Seoul(@RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
+                                     @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
+                                     Model model) {
+        List<AptPriceResponseDto> trads;
+        String title = "-";
+        if (sigunguCode.length() == 5) {
+            title = codeInfoService.getCodeName(sigunguCode);
+            log.info("/tradelist?" + sigunguCode);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist?sigunguCode=" + title + "&uaType=" + uaType, sigunguCode);
+            if (StringUtils.hasText(sigunguCode)) {
+                trads = tradeService.getTradeList_SigunguUAType(sigunguCode, uaType);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else{
+            trads = new ArrayList<>();
+        }
+
+        model.addAttribute("list", trads);
+        model.addAttribute("sigungucode", sigunguCode);
+        model.addAttribute("uaType", uaType);
+        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
+        if (sigunguCode.substring(0, 2).equals("11")) {
+            return "tradelist/seoul";
+        } else if (sigunguCode.substring(0, 2).equals("41")) {
+            return "tradelist/gyunggi";
+        } else {
+            return "tradelist/incheon";
+        }
     }
 
     @GetMapping("/tradelist/seoul/{sigungucode}") // 추후 삭제

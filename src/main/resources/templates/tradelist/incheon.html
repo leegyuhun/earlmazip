@@ -7,21 +7,22 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
         <div>
-            <a th:href="@{/tradelist/28710/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">강화군&nbsp</a>
-            <a th:href="@{/tradelist/28245/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp계양구&nbsp</a>
-            <a th:href="@{/tradelist/28200/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp남동구&nbsp</a>
-            <a th:href="@{/tradelist/28140/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp동구&nbsp</a>
-            <a th:href="@{/tradelist/28177/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp미추홀구</a>
+            <a th:href="@{/tradelist?sigunguCode=28710&uaType={uaType} (uaType=${uaType})}">강화군&nbsp</a>
+            <a th:href="@{/tradelist?sigunguCode=28245&uaType={uaType} (uaType=${uaType})}">&nbsp계양구&nbsp</a>
+            <a th:href="@{/tradelist?sigunguCode=28200&uaType={uaType} (uaType=${uaType})}">&nbsp남동구&nbsp</a>
+            <a th:href="@{/tradelist?sigunguCode=28140&uaType={uaType} (uaType=${uaType})}">&nbsp동구&nbsp</a>
+            <a th:href="@{/tradelist?sigunguCode=28177&uaType={uaType} (uaType=${uaType})}">&nbsp미추홀구</a>
         </div>
         <div>
-            <a th:href="@{/tradelist/28237/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">부평구&nbsp</a>
-            <a th:href="@{/tradelist/28260/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp서구&nbsp</a>
-            <a th:href="@{/tradelist/28185/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp연수구&nbsp</a>
-            <a th:href="@{/tradelist/28720/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp옹진군&nbsp</a>
-            <a th:href="@{/tradelist/28110/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">중구</a>
+            <a th:href="@{/tradelist?sigunguCode=28237&uaType={uaType} (uaType=${uaType})}">부평구&nbsp</a>
+            <a th:href="@{/tradelist?sigunguCode=28260&uaType={uaType} (uaType=${uaType})}">&nbsp서구&nbsp</a>
+            <a th:href="@{/tradelist?sigunguCode=28185&uaType={uaType} (uaType=${uaType})}">&nbsp연수구&nbsp</a>
+            <a th:href="@{/tradelist?sigunguCode=28720&uaType={uaType} (uaType=${uaType})}">&nbsp옹진군&nbsp</a>
+            <a th:href="@{/tradelist?sigunguCode=28110&uaType={uaType} (uaType=${uaType})}">중구</a>
         </div>
         <p>
-            <h4 align="center" th:text="${title}"></h4>
+            <h5 align="center" th:text="${title}"></h5>
+            <h6 align="center" th:text="|* ${uaStr}|"></h6>
         </p>
         <div>
             <ins class="kakao_ad_area" style="display:none;"
@@ -30,14 +31,20 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
-        <a>[면적]&nbsp</a>
-        <a th:href="@{/tradelist/{sigungucode}/0/0 (sigungucode=${sigungucode})}">전체&nbsp</a>
+        <a style="font-size: 20px">[면적]&nbsp</a>
+        <a style="font-size: 20px" th:href="@{/tradelist?sigunguCode={sigungucode}&uaType=UA01 (sigungucode=${sigungucode})}">전체&nbsp</a>
         <b>/&nbsp</b>
-        <a th:href="@{/tradelist/{sigungucode}/0/59 (sigungucode=${sigungucode})}">전용59&nbsp</a>
+        <a style="font-size: 20px" th:href="@{/tradelist?sigunguCode={sigungucode}&uaType=UA02 (sigungucode=${sigungucode})}">소형&nbsp</a>
         <b>/&nbsp</b>
-        <a th:href="@{/tradelist/{sigungucode}/0/84 (sigungucode=${sigungucode})}">국평&nbsp</a>
+        <a style="font-size: 20px" th:href="@{/tradelist?sigunguCode={sigungucode}&uaType=UA03 (sigungucode=${sigungucode})}">중소형&nbsp</a>
         <b>/&nbsp</b>
-        <a th:href="@{/tradelist/{sigungucode}/2/84 (sigungucode=${sigungucode})}">국평초과</a>
+        <a style="font-size: 20px" th:href="@{/tradelist?sigunguCode={sigungucode}&uaType=UA07 (sigungucode=${sigungucode})}">국평&nbsp</a>
+        <b>/&nbsp</b>
+        <a style="font-size: 20px" th:href="@{/tradelist?sigunguCode={sigungucode}&uaType=UA04 (sigungucode=${sigungucode})}">중형</a>
+        <b>/&nbsp</b>
+        <a style="font-size: 20px" th:href="@{/tradelist?sigunguCode={sigungucode}&uaType=UA05 (sigungucode=${sigungucode})}">중대형</a>
+        <b>/&nbsp</b>
+        <a style="font-size: 20px" th:href="@{/tradelist?sigunguCode={sigungucode}&uaType=UA06 (sigungucode=${sigungucode})}">대형</a>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">

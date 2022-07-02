@@ -29,6 +29,7 @@ public class AptPriceRaw {
     private String aptName;
     private float useArea;
     private int useAreaTrunc;
+    private String useAreaType;
     private int dealAmt;
     private int floor;
     private String buildYear;

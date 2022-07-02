@@ -19,6 +19,27 @@ public class TradeRepository {
 
     private final EntityManager em;
 
+    public List<AptPriceResponseDto> getTradeList_SigunguUAType(String sigungucode, String uaType) {
+        if (uaType.equals("UA01")) {
+            return em.createQuery("select a from AptPriceRaw a"
+                            + " where a.dealYear >= 2021 and a.sigunguCode = :sigunguCode "
+                            + " order by a.dealDate desc", AptPriceRaw.class)
+                    .setParameter("sigunguCode", sigungucode)
+                    .setMaxResults(100)
+                    .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        } else {
+            return em.createQuery("select a from AptPriceRaw a"
+                            + " where a.dealYear >= 2021 and a.sigunguCode = :sigunguCode "
+                            + "   and a.useAreaType = :uaType "
+                            + " order by a.dealDate desc", AptPriceRaw.class)
+                    .setParameter("sigunguCode", sigungucode)
+                    .setParameter("uaType", uaType)
+                    .setMaxResults(100)
+                    .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        }
+
+    }
+
     public List<AptPriceResponseDto> getTradeList_Sigungu(String sigungucode, int gubn, int ua) {
         if (ua == 0) {
             return em.createQuery("select a from AptPriceRaw a"

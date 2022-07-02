@@ -18,6 +18,11 @@ public class TradeService {
         return tradeRepository.getTradeList_Sigungu(sigungucode, gubn, ua);
     }
 
+    public List<AptPriceResponseDto> getTradeList_SigunguUAType(String sigungucode, String uaType)
+    {
+        return tradeRepository.getTradeList_SigunguUAType(sigungucode, uaType);
+    }
+
     public List<AptPriceResponseDto> getTradeList_GyunggiSido(String sidocode, int gubn, int ua) {
         return tradeRepository.getTradeList_GyunggiSido(sidocode, gubn, ua);
     }

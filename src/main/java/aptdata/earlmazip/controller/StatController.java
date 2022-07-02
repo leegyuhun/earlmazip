@@ -681,7 +681,7 @@ public class StatController {
         } else if (sigunguCode.substring(0, 2).equals("41")) {
             return "stat_trade/gyunggiByDealType";
         } else {
-            return "stat_trade/useAreaType_Incheon";
+            return "stat_trade/incheonByDealType";
         }
     }
 

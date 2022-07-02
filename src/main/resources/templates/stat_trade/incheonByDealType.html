@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <div>
+            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28710&uaType={uaType} (uaType=${uaType})}">강화군&nbsp</a>
+            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28245&uaType={uaType} (uaType=${uaType})}">&nbsp계양구&nbsp</a>
+            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28200&uaType={uaType} (uaType=${uaType})}">&nbsp남동구&nbsp</a>
+            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28140&uaType={uaType} (uaType=${uaType})}">&nbsp동구&nbsp</a>
+            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28177&uaType={uaType} (uaType=${uaType})}">&nbsp미추홀구</a>
+        </div>
+        <div>
+            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28237&uaType={uaType} (uaType=${uaType})}">부평구&nbsp</a>
+            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28260&uaType={uaType} (uaType=${uaType})}">&nbsp서구&nbsp</a>
+            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28185&uaType={uaType} (uaType=${uaType})}">&nbsp연수구&nbsp</a>
+            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28720&uaType={uaType} (uaType=${uaType})}">&nbsp옹진군&nbsp</a>
+            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28110&uaType={uaType} (uaType=${uaType})}">중구</a>
+        </div>
+        <p>
+            <a style="font-size: 20px">[평형]&nbsp</a>
+            <a style="font-size: 20px" th:href="@{/stat_trade/ByDealType?sigunguCode={sigungucode}&uaType=UA01 (sigungucode=${sigungucode})}">전체&nbsp</a>
+            <a style="font-size: 20px" th:href="@{/stat_trade/ByDealType?sigunguCode={sigungucode}&uaType=UA08 (sigungucode=${sigungucode})}">전용59&nbsp</a>
+            <a style="font-size: 20px" th:href="@{/stat_trade/ByDealType?sigunguCode={sigungucode}&uaType=UA07 (sigungucode=${sigungucode})}">국평&nbsp</a>
+            <a style="font-size: 20px" th:href="@{/stat_trade/ByDealType?sigunguCode={sigungucode}&uaType=UA04 (sigungucode=${sigungucode})}">중형&nbsp</a>
+            <a style="font-size: 20px" th:href="@{/stat_trade/ByDealType?sigunguCode={sigungucode}&uaType=UA05 (sigungucode=${sigungucode})}">중대형&nbsp</a>
+            <a style="font-size: 20px" th:href="@{/stat_trade/ByDealType?sigunguCode={sigungucode}&uaType=UA06 (sigungucode=${sigungucode})}">대형&nbsp</a>
+        </p>
+        <p>
+            <h5 align="center" th:text="|[ ${title} 거래유형별 ]|"></h5>
+            <h6 align="center" th:text="|* ${uaStr}|"></h6>
+        </p>
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+                    <th>년-월</th>
+                    <th>전체거래<br/>평균매매가</br>건수<br/>신고가율</th>
+                    <th>중개거래<br/>평균매매가</br>건수<br/>신고가율</th>
+                    <th>직거래<br/>평균매매가</br>건수<br/>신고가율</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="font-size:12px;" th:each="list : ${list}">
+                    <td align="center" th:text="${list.date}"></td>
+                    <td align="center">
+                        <div>
+                            <a style="font-weight: bolder" th:text="|${list.avgPrice} 억|"></a></br>
+                            <a th:text="|${#numbers.formatInteger(list.cnt,1,'COMMA')} 건|"></a></br>
+                            <a th:text="|${#numbers.formatDecimal(list.highestRate,1,1,'POINT')} %|"></a></br>
+                        </div>
+                    </td>
+                    <td align="center">
+                        <div>
+                            <a style="font-weight: bolder" th:text="|${list.avgPrice0} 억|"></a></br>
+                            <a th:text="|${#numbers.formatInteger(list.cnt0,1,'COMMA')} 건|"></a></br>
+                            <a th:text="|${#numbers.formatDecimal(list.highestRate0,1,1,'POINT')} %|"></a></br>
+                        </div>
+                    </td>
+
+                    <td align="center">
+                        <div>
+                            <a style="font-weight: bolder" th:text="|${list.avgPrice1} 억|"></a></br>
+                            <a th:text="|${#numbers.formatInteger(list.cnt1,1,'COMMA')} 건|"></a></br>
+                            <a th:text="|${#numbers.formatDecimal(list.highestRate1,1,1,'POINT')} %|"></a></br>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+  const avgPrices =  /*[[ ${avgprc.toArray()} ]]*/;
+  const avgPrices0 =  /*[[ ${avgprc0.toArray()} ]]*/;
+  const avgPrices1 =  /*[[ ${avgprc1.toArray()} ]]*/;
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      type: 'line',
+      label: '전체거래',
+      yAxisID: 'y-line',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      pointRadius:1,
+      data: avgPrices
+      },{
+        type: 'line',
+        label: '중개거래',
+        yAxisID: 'y-line0',
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgb(54, 162, 235)',
+        pointRadius:1,
+        data: avgPrices0
+      },{
+        type: 'line',
+        label: '직거래',
+        yAxisID: 'y-line1',
+        backgroundColor: 'rgb(95,67,175)',
+        borderColor: 'rgb(95,67,175)',
+        pointRadius:1,
+        data: avgPrices1
+      }
+    ]
+  };
+  const config = {
+    data: data,
+    options: {
+        scales:{
+            'y-line':{
+                position: 'left',
+                suggestedMin: 0,
+                suggestedMax: 30,
+                grid:{
+                    display: true
+                },
+                ticks:{
+				    color: 'rgb(0, 0, 0)'
+				},
+                title: {
+                    display: true,
+                    text: '평균매매가(억)'
+                }
+            },
+            'y-line0':{
+                position: 'left',
+                suggestedMin: 0,
+                suggestedMax: 30,
+                display: false,
+                ticks:{
+                    display: false
+                }
+            },
+            'y-line1':{
+                position: 'left',
+                suggestedMin: 0,
+                suggestedMax: 30,
+                display: false,
+                ticks:{
+                    display: false
+                }
+            }
+        }
+    }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+
+</html>
