@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <!--    <a th:text="${year}"></a>-->
+    <div>
+<!--        <p>-->
+<!--            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">-->
+<!--                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>-->
+<!--                <a class="btn btn-outline-primary" for="btnradio1" href="/tradelist/incheon/28710">강화군</a>-->
+
+<!--                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">-->
+<!--                <a class="btn btn-outline-primary" for="btnradio2" href="/tradelist/incheon/28245">계양구</a>-->
+
+<!--                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">-->
+<!--                <a class="btn btn-outline-primary" for="btnradio3" href="/tradelist/incheon/28200">남동구</a>-->
+<!--            </div>-->
+<!--        </p>-->
+        <div>
+            <div>
+                <a th:href="@{/stat_lease/top?sigunguCode=28710&uaType={uatype}&leaseType={leasetype}  (uatype=${uatype}, leasetype=${leasetype})}">강화군&nbsp</a>
+                <a th:href="@{/stat_lease/top?sigunguCode=28245&uaType={uatype}&leaseType={leasetype}  (uatype=${uatype}, leasetype=${leasetype})}">&nbsp계양구&nbsp</a>
+                <a th:href="@{/stat_lease/top?sigunguCode=28200&uaType={uatype}&leaseType={leasetype}  (uatype=${uatype}, leasetype=${leasetype})}">&nbsp남동구&nbsp</a>
+                <a th:href="@{/stat_lease/top?sigunguCode=28140&uaType={uatype}&leaseType={leasetype}  (uatype=${uatype}, leasetype=${leasetype})}">&nbsp동구&nbsp</a>
+                <a th:href="@{/stat_lease/top?sigunguCode=28177&uaType={uatype}&leaseType={leasetype}  (uatype=${uatype}, leasetype=${leasetype})}">&nbsp미추홀구&nbsp</a>
+            </div>
+            <div>
+                <a th:href="@{/stat_lease/top?sigunguCode=28237&uaType={uatype}&leaseType={leasetype}  (uatype=${uatype}, leasetype=${leasetype})}">&nbsp부평구&nbsp</a>
+                <a th:href="@{/stat_lease/top?sigunguCode=28260&uaType={uatype}&leaseType={leasetype}  (uatype=${uatype}, leasetype=${leasetype})}">&nbsp서구&nbsp</a>
+                <a th:href="@{/stat_lease/top?sigunguCode=28185&uaType={uatype}&leaseType={leasetype}  (uatype=${uatype}, leasetype=${leasetype})}">&nbsp연수구&nbsp</a>
+                <a th:href="@{/stat_lease/top?sigunguCode=28720&uaType={uatype}&leaseType={leasetype}  (uatype=${uatype}, leasetype=${leasetype})}">&nbsp옹진군&nbsp</a>
+                <a th:href="@{/stat_lease/top?sigunguCode=28110&uaType={uatype}&leaseType={leasetype}  (uatype=${uatype}, leasetype=${leasetype})}">&nbsp중구</a>
+            </div>
+        </div>
+        <h5 align="center" th:text="|[ ${title} ]|"></h5>
+        <h6 align="center" th:text="|* ${subtitle}|"></h6>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <a style="font-size: 20px">[평형]&nbsp</a>
+        <a style="font-size: 20px" th:href="@{/stat_lease/top?sigunguCode={sigungucode}&uaType=UA01&leaseType={leasetype} (sigungucode=${sigungucode}, leasetype=${leasetype})}">전체&nbsp</a>
+        <a style="font-size: 20px" th:href="@{/stat_lease/top?sigunguCode={sigungucode}&uaType=UA08&leaseType={leasetype} (sigungucode=${sigungucode}, leasetype=${leasetype})}">전용59&nbsp</a>
+        <a style="font-size: 20px" th:href="@{/stat_lease/top?sigunguCode={sigungucode}&uaType=UA07&leaseType={leasetype} (sigungucode=${sigungucode}, leasetype=${leasetype})}">국평&nbsp</a>
+        <a style="font-size: 20px" th:href="@{/stat_lease/top?sigunguCode={sigungucode}&uaType=UA04&leaseType={leasetype} (sigungucode=${sigungucode}, leasetype=${leasetype})}">중형&nbsp</a>
+        <a style="font-size: 20px" th:href="@{/stat_lease/top?sigunguCode={sigungucode}&uaType=UA05&leaseType={leasetype} (sigungucode=${sigungucode}, leasetype=${leasetype})}">중대형&nbsp</a>
+        <a style="font-size: 20px" th:href="@{/stat_lease/top?sigunguCode={sigungucode}&uaType=UA06&leaseType={leasetype} (sigungucode=${sigungucode}, leasetype=${leasetype})}">대형&nbsp</a>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+                    <th>일자</th>
+                    <th>계약</th>
+                    <th>아파트</th>
+                    <th>전용</br>면적(m<sup>2</sup>)</th>
+                    <th>보증금</th>
+                    <th>월세</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="font-size:12px;" th:each="list : ${list}">
+                    <td align="center" th:text="${list.dealDate}"></td>
+                    <td align="center">
+                        <div>
+                            <a th:text="${list.dealType}"></a></br>
+                            <a th:text="${list.dealTerm}"></a>
+                        </div>
+                    </td>
+                    <td align="left">
+                        <div>
+                            <a th:text="${list.landDong}"></a></br>
+                            <a th:text="${list.aptName}" th:href="@{/leaselist/ByName/{sigungucode}/{dong}/{aptname}/{uatrunc}/1 (sigungucode=${list.gubnCode}, dong=${list.landDong}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc})}"></a></br>
+                            <a th:text="|${list.floor} 층|"></a>
+                        </div>
+                    </td>
+                    <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>
+                    <td align="right" th:text="${list.depositStr}"></td>
+                    <td align="right" th:text="${list.monthlyRentStr}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>
