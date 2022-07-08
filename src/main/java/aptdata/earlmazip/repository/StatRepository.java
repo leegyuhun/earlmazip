@@ -213,6 +213,36 @@ public class StatRepository {
         }
     }
 
+    public List<RankUaSigunguResponseDto> getStatRankUaTypeList(int rankGubn, int dealYear, String sigunguCode, String uaType) {
+        if (rankGubn == 0) {
+            return em.createQuery("select a from RankUatypeSigungu a "
+                            + " where a.dealYear = :dealYear "
+                            + "   and a.sigunguCode = :sigunguCode "
+                            + "   and a.rankGubn = :rankGubn "
+                            + "   and a.useAreaType = :uaType "
+                            + " order by a.avgAmt desc ", RankUatypeSigungu.class)
+                    .setParameter("dealYear", dealYear)
+                    .setParameter("sigunguCode", sigunguCode)
+                    .setParameter("rankGubn", rankGubn)
+                    .setParameter("uaType", uaType)
+                    .getResultList().stream().map(RankUaSigunguResponseDto::new)
+                    .collect(Collectors.toList());
+        } else {
+            return em.createQuery("select a from RankUatypeSigungu a "
+                            + " where a.dealYear = :dealYear "
+                            + "   and a.sigunguCode = :sigunguCode "
+                            + "   and a.rankGubn = :rankGubn "
+                            + "   and a.useAreaType = :uaType "
+                            + " order by a.tradeCnt desc ", RankUatypeSigungu.class)
+                    .setParameter("dealYear", dealYear)
+                    .setParameter("sigunguCode", sigunguCode)
+                    .setParameter("rankGubn", rankGubn)
+                    .setParameter("uaType", uaType)
+                    .getResultList().stream().map(RankUaSigunguResponseDto::new)
+                    .collect(Collectors.toList());
+        }
+    }
+
     public List<StatResponseDto> getStatByDealType(String sigunguCode, String uaType, int dealType) {
         String mType = "중개거래";
         if (dealType == 0) {

@@ -1,6 +1,7 @@
 package aptdata.earlmazip.controller.dto;
 
 import aptdata.earlmazip.domain.RankUaSigungu;
+import aptdata.earlmazip.domain.RankUatypeSigungu;
 import aptdata.earlmazip.domain.RankYear;
 import lombok.Getter;
 
@@ -15,11 +16,20 @@ public class RankUaSigunguResponseDto {
         this.rank = rank;
     }
 
+    private int dealYear;
     private String sigunguCode;
     private String sigunguName;
     private String landDong;
     private String aptName;
+    private float useArea;
+    private String useAreaStr;
+    public String getUseAreaStr() {
+        return Float.toString(this.useArea);
+    }
+
     private int useAreaTrunc;
+    private String useAreaType;
+
     private String buildYear;
     private int tradeCnt;
     private int minAmt;
@@ -63,6 +73,25 @@ public class RankUaSigunguResponseDto {
         this.landDong = entity.getLandDong();
         this.aptName = entity.getAptName();
         this.useAreaTrunc = entity.getUseAreaTrunc();
+        this.buildYear = entity.getBuildYear();
+        this.tradeCnt = entity.getTradeCnt();
+        this.minAmt = entity.getMinAmt();
+        this.avgAmt = entity.getAvgAmt();
+        this.maxAmt = entity.getMaxAmt();
+        this.highestCnt = entity.getHighestCnt();
+        this.highestRate = entity.getHighestRate();
+    }
+
+    public RankUaSigunguResponseDto(RankUatypeSigungu entity) {
+        this.rankGubn = entity.getRankGubn();
+        this.dealYear = entity.getDealYear();
+        this.sigunguCode = entity.getSigunguCode();
+        this.sigunguName = entity.getSigunguName();
+        this.landDong = entity.getLandDong();
+        this.aptName = entity.getAptName();
+        this.useArea = entity.getUseArea();
+        this.useAreaTrunc = entity.getUseAreaTrunc();
+        this.useAreaType = entity.getUseAreaType();
         this.buildYear = entity.getBuildYear();
         this.tradeCnt = entity.getTradeCnt();
         this.minAmt = entity.getMinAmt();

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -252,5 +253,49 @@ public class StatRankUaController {
         model.addAttribute("rankgubn", rankgubn);
 
         return "stat_rank_ua/incheon";
+    }
+
+    @GetMapping("/stat_rank_uatype")
+    public String getStatRankUatype(@RequestParam(value = "rankGubn", defaultValue = "0") int rankGubn,
+                                    @RequestParam(value = "dealYear", defaultValue = "2021") int dealYear,
+                                    @RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
+                                    @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
+                                    Model model) {
+        String title = "-";
+        List<RankUaSigunguResponseDto> list;
+        if (!sigunguCode.equals("0")) {
+            log.info("/stat_rank_uatype?rankGubn=" + rankGubn + "&dealYear=" + dealYear + "&sigunguCode=" + sigunguCode + "&uaType=" + uaType);
+            title = codeInfoService.getCodeName(sigunguCode);
+            apiCallStatService.writeApiCallStat("STAT_RANK_UA", "/stat_rank_uatype?rankGubn=" + rankGubn + "&dealYear=" + dealYear + "&sigunguCode=" + title + "&uaType=" + uaType, sigunguCode);
+            list = statService.getStatRankUaTypeList(rankGubn, dealYear, sigunguCode, uaType);
+        } else {
+            list = new ArrayList<>();
+        }
+
+        if (list.size() > 0) {
+            if (rankGubn == 0) {
+                title = dealYear + " " + title + " 평균매매가 TOP 20";
+            } else if (rankGubn == 1) {
+                title = dealYear + " " + title + " 매매건수 TOP 20";
+            }
+        }
+
+        String subTitle = "* " + codeInfoService.getCodeName(uaType);
+
+        model.addAttribute("list", list);
+        model.addAttribute("title", "[ " + title + " ]");
+        model.addAttribute("subtitle", subTitle);
+        model.addAttribute("uaType", uaType);
+        model.addAttribute("rankGubn", rankGubn);
+        model.addAttribute("dealYear", dealYear);
+        model.addAttribute("sigunguCode", sigunguCode);
+
+        if (sigunguCode.substring(0, 2).equals("11")) {
+            return "stat_rank_uatype/seoul";
+        } else if (sigunguCode.substring(0, 2).equals("41")) {
+            return "stat_rank_uatype/gyunggi";
+        } else {
+            return "stat_rank_uatype/incheon";
+        }
     }
 }

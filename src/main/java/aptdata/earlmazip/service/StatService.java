@@ -78,6 +78,10 @@ public class StatService {
         return statRepository.getStatRankUaList_Seoul(rankGubn, sigunguCode, ua);
     }
 
+    public List<RankUaSigunguResponseDto> getStatRankUaTypeList(int rankGubn, int dealYear, String sigunguCode, String uaType) {
+        return statRepository.getStatRankUaTypeList(rankGubn, dealYear, sigunguCode, uaType);
+    }
+
     public List<StatResponseDto> getStatByDealType(String sigunguCode, String uaTYpe, int dealType) {
         return statRepository.getStatByDealType(sigunguCode, uaTYpe, dealType);
     }

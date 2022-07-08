@@ -1,0 +1,31 @@
+package aptdata.earlmazip.domain;
+
+import lombok.Getter;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "rank_uatype_sigungu")
+@Getter
+public class RankUatypeSigungu {
+    @Id
+    private int seq;
+    private int rankGubn;
+    private int dealYear;
+    private String sigunguCode;
+    private String sigunguName;
+    private String landDong;
+    private String aptName;
+    private float useArea;
+    private int useAreaTrunc;
+    private String useAreaType;
+    private String buildYear;
+    private int tradeCnt;
+    private int minAmt;
+    private int avgAmt;
+    private int maxAmt;
+    private int highestCnt;
+    private float highestRate;
+}
