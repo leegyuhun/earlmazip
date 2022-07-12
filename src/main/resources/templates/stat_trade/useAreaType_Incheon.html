@@ -51,9 +51,8 @@
                     <th>최저</th>
                     <th>평균</th>
                     <th>최고</th>
-                    <th>거래<br/>건수</th>
-                    <th>신고<br/>가율</th>
-                    <th>평균<br/>전용<br/>면적(m<sup>2</sup>)</th>
+                    <th>거래건수<br/>신고가율</th>
+                    <th>평균<br/>전용<br/>(m<sup>2</sup>)</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,8 +61,12 @@
                     <td align="right" th:text="${list.minPriceStr}"></td>
                     <td align="right" style="font-weight: bolder" th:text="${list.avgPriceStr}"></td>
                     <td align="right" th:text="${list.maxPriceStr}"></td>
-                    <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
-                    <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>
+                    <td>
+                        <div align="right">
+                            <a th:text="|${#numbers.formatInteger(list.cnt,1,'COMMA')} 건|"></a></br>
+                            <a style="font-weight: bolder" th:text="|${#numbers.formatDecimal(list.highestRate,1,1,'POINT')} %|"></a>
+                        </div>
+                    </td>
                     <td align="right" th:text="${#numbers.formatDecimal(list.avgUseArea,1,1,'POINT')}"></td>
                 </tr>
             </tbody>

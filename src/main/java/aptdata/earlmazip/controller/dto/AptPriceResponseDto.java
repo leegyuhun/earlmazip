@@ -47,6 +47,15 @@ public class AptPriceResponseDto {
     private String cnclDealType;
     private String cnclDealDate;
     private String dealType;
+
+    public String getDealType() {
+        if (dealType.contains("거래")) {
+            return dealType.replace("거래", "");
+        } else {
+            return dealType;
+        }
+    }
+
     private String dealLoc;
     private String newHighest;
     private int newHighestPrice;
