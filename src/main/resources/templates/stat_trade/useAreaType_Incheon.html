@@ -6,21 +6,21 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
         <div>
-            <a th:href="@{/stat_trade/useareaType/28/{ua}/{term} (ua=${ua}, term=${term})}">인천 전체</a>
+            <a th:href="@{/stat_trade/useareaType?sigunguCode=28&uaType={ua}&term={term} (ua=${ua}, term=${term})}">인천 전체</a>
         </div>
         <div>
-            <a th:href="@{/stat_trade/useareaType/28710/{ua}/{term} (ua=${ua}, term=${term})}">강화군&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType/28245/{ua}/{term} (ua=${ua}, term=${term})}">&nbsp계양구&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType/28200/{ua}/{term} (ua=${ua}, term=${term})}">&nbsp남동구&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType/28140/{ua}/{term} (ua=${ua}, term=${term})}">&nbsp동구&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType/28177/{ua}/{term} (ua=${ua}, term=${term})}">&nbsp미추홀구</a>
+            <a th:href="@{/stat_trade/useareaType?sigunguCode=28710&uaType={ua}&term={term} (ua=${ua}, term=${term})}">강화군&nbsp</a>
+            <a th:href="@{/stat_trade/useareaType?sigunguCode=28245&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp계양구&nbsp</a>
+            <a th:href="@{/stat_trade/useareaType?sigunguCode=28200&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp남동구&nbsp</a>
+            <a th:href="@{/stat_trade/useareaType?sigunguCode=28140&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp동구&nbsp</a>
+            <a th:href="@{/stat_trade/useareaType?sigunguCode=28177&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp미추홀구</a>
         </div>
         <div>
-            <a th:href="@{/stat_trade/useareaType/28237/{ua}/{term} (ua=${ua}, term=${term})}">부평구&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType/28260/{ua}/{term} (ua=${ua}, term=${term})}">&nbsp서구&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType/28185/{ua}/{term} (ua=${ua}, term=${term})}">&nbsp연수구&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType/28720/{ua}/{term} (ua=${ua}, term=${term})}">&nbsp옹진군&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType/28110/{ua}/{term} (ua=${ua}, term=${term})}">&nbsp중구</a>
+            <a th:href="@{/stat_trade/useareaType?sigunguCode=28237&uaType={ua}&term={term} (ua=${ua}, term=${term})}">부평구&nbsp</a>
+            <a th:href="@{/stat_trade/useareaType?sigunguCode=28260&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp서구&nbsp</a>
+            <a th:href="@{/stat_trade/useareaType?sigunguCode=28185&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp연수구&nbsp</a>
+            <a th:href="@{/stat_trade/useareaType?sigunguCode=28720&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp옹진군&nbsp</a>
+            <a th:href="@{/stat_trade/useareaType?sigunguCode=28110&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp중구</a>
         </div>
         <p>
             <h6 align="center" th:text="|[ ${title} ${termStr} ]|"></h6>
@@ -36,14 +36,26 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
-        <a style="font-size: 20px">[기간]&nbsp</a>
-        <a style="font-size: 20px" th:href="@{/stat_trade/useareaType/{sigungucode}/{ua}/0 (sigungucode=${sigungucode}, ua=${ua})}">올해</a>
+        <a style="font-size: 16px">[평형]&nbsp</a>
+        <a style="font-size: 16px" th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType=UA01&term={term} (sigungucode=${sigungucode}, term=${term})}">전체&nbsp</a>
+        <a style="font-size: 16px" th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType=UA02&term={term} (sigungucode=${sigungucode}, term=${term})}">소형&nbsp</a>
+        <a style="font-size: 16px" th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType=UA03&term={term} (sigungucode=${sigungucode}, term=${term})}">중소형&nbsp</a>
+        <a style="font-size: 16px" th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType=UA08&term={term} (sigungucode=${sigungucode}, term=${term})}">전용59&nbsp</a>
+        <a style="font-size: 16px" th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType=UA07&term={term} (sigungucode=${sigungucode}, term=${term})}">국평&nbsp</a>
+        </br>
+        <a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
+        <a style="font-size: 16px" th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType=UA04&term={term} (sigungucode=${sigungucode}, term=${term})}">중형&nbsp</a>
+        <a style="font-size: 16px" th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType=UA05&term={term} (sigungucode=${sigungucode}, term=${term})}">중대형&nbsp</a>
+        <a style="font-size: 16px" th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType=UA06&term={term} (sigungucode=${sigungucode}, term=${term})}">대형&nbsp</a>
+        </br>
+        <a style="font-size: 16px">[기간]&nbsp</a>
+        <a style="font-size: 16px" th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType={ua}&term=0 (sigungucode=${sigungucode}, ua=${ua})}">올해</a>
         <b>&nbsp/&nbsp</b>
-        <a style="font-size: 20px" th:href="@{/stat_trade/useareaType/{sigungucode}/{ua}/5 (sigungucode=${sigungucode}, ua=${ua})}">5년</a>
+        <a style="font-size: 16px" th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType={ua}&term=5 (sigungucode=${sigungucode}, ua=${ua})}">5년</a>
         <b>&nbsp/&nbsp</b>
-        <a style="font-size: 20px" th:href="@{/stat_trade/useareaType/{sigungucode}/{ua}/10 (sigungucode=${sigungucode}, ua=${ua})}">10년</a>
+        <a style="font-size: 16px" th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType={ua}&term=10 (sigungucode=${sigungucode}, ua=${ua})}">10년</a>
         <b>&nbsp/&nbsp</b>
-        <a style="font-size: 20px" th:href="@{/stat_trade/useareaType/{sigungucode}/{ua}/15 (sigungucode=${sigungucode}, ua=${ua})}">15년</a>
+        <a style="font-size: 16px" th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType={ua}&term=15 (sigungucode=${sigungucode}, ua=${ua})}">15년</a>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">

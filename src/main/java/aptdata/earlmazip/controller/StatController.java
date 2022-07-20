@@ -92,17 +92,33 @@ public class StatController {
      * @return
      */
     @GetMapping("/stat_trade/useareaType/{sigungucode}/{ua}/{term}")
-    public String getStatUseareaType_BySigungu(@PathVariable String sigungucode,
+    public String getStatUseareaType_BySigunguBak(@PathVariable String sigungucode,
                                                   @PathVariable String ua,
                                                   @PathVariable String term,
                                                   Model model) {
+        return getStatUseareaType_BySigungu(sigungucode, ua, term, model);
+    }
+
+    /**
+     * 서울/경기/인천 구별,평형대별,월별 매매 통계
+     * @param sigunguCode
+     * @param uaType
+     * @param term
+     * @param model
+     * @return
+     */
+    @GetMapping("/stat_trade/useareaType")
+    public String getStatUseareaType_BySigungu(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
+                                               @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
+                                               @RequestParam(value = "term", defaultValue = "0") String term,
+                                               Model model) {
         List<StatResponseDto> areas;
         String title = "-";
-        if (!sigungucode.equals("0")) {
-            title = codeInfoService.getCodeName(sigungucode);
-            log.info("/stat_trade/useareaType/" + sigungucode + "/" + ua + "/" + term);
-            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/useareaType/" + title + "/" + ua + "/" + term, sigungucode);
-            areas = statService.getStatTradeByUseAreaList(sigungucode,ua, term);
+        if (!sigunguCode.equals("0")) {
+            title = codeInfoService.getCodeName(sigunguCode);
+            log.info("/stat_trade/useareaType?" + sigunguCode + "&" + uaType + "&" + term);
+            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/useareaType?sigunguCode=" + title + "&uaType=" + uaType + "&term=" + term, sigunguCode);
+            areas = statService.getStatTradeByUseAreaList(sigunguCode,uaType, term);
         } else {
             areas = new ArrayList<>();
         }
@@ -120,23 +136,24 @@ public class StatController {
         Collections.reverse(tradcnt);
 
         model.addAttribute("title",  title);
-        model.addAttribute("sigungucode",  sigungucode);
+        model.addAttribute("sigungucode",  sigunguCode);
         model.addAttribute("term",  term);
         model.addAttribute("termStr", Common.makeTermString(term));
         model.addAttribute("list", areas);
-        model.addAttribute("uaStr", codeInfoService.getCodeName(ua));
-        model.addAttribute("ua", ua);
+        model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
+        model.addAttribute("ua", uaType);
         model.addAttribute("dates", dates);
         model.addAttribute("avgprc", avgprc);
         model.addAttribute("tradcnt", tradcnt);
         model.addAttribute("interestRates", interestRates);
-        if (sigungucode.substring(0, 2).equals("11")) {
+        if (sigunguCode.substring(0, 2).equals("11")) {
             return "stat_trade/useAreaType_Seoul";
-        } else if (sigungucode.substring(0, 2).equals("41")) {
+        } else if (sigunguCode.substring(0, 2).equals("41")) {
             return "stat_trade/useAreaType_Gyunggi";
         } else {
             return "stat_trade/useAreaType_Incheon";
         }
+
     }
 
     /**

@@ -79,7 +79,7 @@ public class TradeController {
      * @return
      */
     @GetMapping("/tradelist")
-    public String getTradeList_Seoul(@RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
+    public String getTradeList(@RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
                                      @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                      Model model) {
         List<AptPriceResponseDto> trads;
@@ -113,25 +113,7 @@ public class TradeController {
 
     @GetMapping("/tradelist/seoul/{sigungucode}") // 추후 삭제
     public String getTradeList_SeoulBak(@PathVariable String sigungucode, Model model) {
-        List<AptPriceResponseDto> trads;
-        String title = "-";
-        if (!sigungucode.equals("0")) {
-            title = codeInfoService.getCodeName(sigungucode);
-            log.info("/tradelist/seoul/" + sigungucode);
-            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/seoul/" + title, sigungucode);
-            if (StringUtils.hasText(sigungucode)) {
-                trads = tradeService.getTradeList_Sigungu(sigungucode,0,0);
-            } else {
-                trads = new ArrayList<>();
-            }
-        } else{
-            trads = new ArrayList<>();
-        }
-
-        model.addAttribute("list", trads);
-        model.addAttribute("title",  "[ "+ title + " ]");
-
-        return "tradelist/seoul";
+        return getTradeList(sigungucode, "UA01", model);
     }
 
     @GetMapping("/tradelist/gyunggi/{sidocode}/{gubn}/{ua}")
@@ -208,16 +190,22 @@ public class TradeController {
     }
 
     @GetMapping("/tradelist/cancelDeal/{regncode}")
-    public String getCancelDealList(@PathVariable String regncode, Model model) {
+    public String getCancelDealListBak(@PathVariable String regncode, Model model) {
+        return getCancelDealList(regncode, model);
+    }
+
+    @GetMapping("/tradelist/cancelDeal")
+    public String getCancelDealList(@RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
+                                    Model model) {
         List<AptPriceResponseDto> trads;
         String title = "-";
-        if (!regncode.equals("0")) {
-            log.info("/tradelist/cancelDeal/" + regncode);
-            title = codeInfoService.getCodeName(regncode);
-            apiCallStatService.writeApiCallStat("TRADE_CANCEL", "/tradelist/cancelDeal/" + title, regncode);
+        if (!sigunguCode.equals("0")) {
+            log.info("/tradelist/cancelDeal?sigunguCode=" + sigunguCode);
+            title = codeInfoService.getCodeName(sigunguCode);
+            apiCallStatService.writeApiCallStat("TRADE_CANCEL", "/tradelist/cancelDeal?sigunguCode=" + title, sigunguCode);
 
-            if (StringUtils.hasText(regncode)) {
-                trads = tradeService.getCancelDealList(regncode);
+            if (StringUtils.hasText(sigunguCode)) {
+                trads = tradeService.getCancelDealList(sigunguCode);
             } else {
                 trads = new ArrayList<>();
             }
