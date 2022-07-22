@@ -1,9 +1,6 @@
 package aptdata.earlmazip.service;
 
-import aptdata.earlmazip.controller.dto.RankUaSigunguResponseDto;
-import aptdata.earlmazip.controller.dto.RankYearResponseDto;
-import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
-import aptdata.earlmazip.controller.dto.StatResponseDto;
+import aptdata.earlmazip.controller.dto.*;
 import aptdata.earlmazip.domain.RankYear;
 import aptdata.earlmazip.domain.StatAreaYYMM;
 import aptdata.earlmazip.domain.StatSidoYYMM;
@@ -39,10 +36,6 @@ public class StatService {
         return statRepository.getStatTradeByUseAreaList(regnCode, ua, term);
     }
 
-    public List<RankYearResponseDto> getStatTradeTopSeoulByYear(String year, String sigungucode, String ua) {
-        return statRepository.getStatTradeTopSeoulByYear(year, sigungucode, ua);
-    }
-
     public List<StatResponseDto> getStatTradeList_Gyunggi(String term) {
         return statRepository.getStatTradeList("41", term);
     }
@@ -54,12 +47,8 @@ public class StatService {
         return statRepository.getStatTradeList_ByCity(sidoCode, term);
     }
 
-    public List<RankYearResponseDto> findGyunggiTopList(String year, String sigungucode, String ua) {
-        return statRepository.findGyungGiTop(year, sigungucode, ua);
-    }
-
-    public List<RankYearResponseDto> findIncheonTopList(String year, String sigungucode, String ua) {
-        return statRepository.findIncheonTop(year, sigungucode, ua);
+    public List<AptPriceResponseDto> getStatTradeTopByYear(String year, String sigungucode, String uaType) {
+        return statRepository.getStatTradeTopByYear(year, sigungucode, uaType);
     }
 
     public List<StatResponseDto> getStatNewHighestAndTradeCount(String sidoCode) {

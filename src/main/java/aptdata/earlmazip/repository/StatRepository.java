@@ -1,9 +1,6 @@
 package aptdata.earlmazip.repository;
 
-import aptdata.earlmazip.controller.dto.RankUaSigunguResponseDto;
-import aptdata.earlmazip.controller.dto.RankYearResponseDto;
-import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
-import aptdata.earlmazip.controller.dto.StatResponseDto;
+import aptdata.earlmazip.controller.dto.*;
 import aptdata.earlmazip.domain.*;
 import aptdata.earlmazip.utils.Common;
 import lombok.RequiredArgsConstructor;
@@ -88,16 +85,16 @@ public class StatRepository {
         }
     }
 
-    public List<RankYearResponseDto> getStatTradeTopSeoulByYear(String year, String sigungucode, String ua){
+    public List<AptPriceResponseDto> getStatTradeTopByYear(String year, String sigungucode, String uaType) {
         return em.createQuery(" select a from RankYear a "
-                            + " where a.gubnCode = :sigunguCode and a.dealYear = :dealYear"
-                            + "   and a.useAreaType = :ua "
-                            + " order by a.dealAmt desc", RankYear.class)
+                        + " where a.gubnCode = :sigunguCode and a.dealYear = :dealYear"
+                        + "   and a.useAreaType = :ua "
+                        + " order by a.dealAmt desc", RankYear.class)
                 .setParameter("sigunguCode", sigungucode)
                 .setParameter("dealYear", year)
-                .setParameter("ua", ua)
+                .setParameter("ua", uaType)
                 .setMaxResults(100)
-                .getResultList().stream().map(RankYearResponseDto::new).collect(Collectors.toList());
+                .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
 
     public List<StatResponseDto> getStatTradeGyunggi(String term){
@@ -117,30 +114,6 @@ public class StatRepository {
                 .setParameter("sidoCode", sidoCode)
                 .setParameter("searchYear", Common.calcYearByTerm(term))
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
-    }
-
-    public List<RankYearResponseDto> findGyungGiTop(String year, String sigungucode, String ua){
-        return em.createQuery(" select a from RankYear a "
-                        + " where a.gubnCode = :sigunguCode and a.dealYear = :dealYear "
-                        + "   and a.useAreaType = :ua "
-                        + " order by a.dealAmt desc", RankYear.class)
-                .setParameter("sigunguCode", sigungucode)
-                .setParameter("dealYear", year)
-                .setParameter("ua", ua)
-                .setMaxResults(100)
-                .getResultList().stream().map(RankYearResponseDto::new).collect(Collectors.toList());
-    }
-
-    public List<RankYearResponseDto> findIncheonTop(String year, String sigungucode, String ua){
-        return em.createQuery(" select a from RankYear a "
-                        + " where a.gubnCode = :sigungucode and a.dealYear = :dealYear "
-                        + "   and a.useAreaType = :ua "
-                        + " order by a.dealAmt desc", RankYear.class)
-                .setParameter("sigungucode", sigungucode)
-                .setParameter("dealYear", year)
-                .setParameter("ua", ua)
-                .setMaxResults(100)
-                .getResultList().stream().map(RankYearResponseDto::new).collect(Collectors.toList());
     }
 
     public List<StatResponseDto> getStatNewHighestAndTradeCount(String sidoCode) {

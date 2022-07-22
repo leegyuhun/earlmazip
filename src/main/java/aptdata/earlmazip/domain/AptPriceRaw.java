@@ -22,15 +22,16 @@ public class AptPriceRaw {
     private String dealYear;
     private String dealMon;
     private String dealDay;
-//    public String getDealDate() {
-//        return dealDate.substring(0,4) + "-" + dealDate.substring(4,6) + "-" + dealDate.substring(6,8);
-//    }
     private String dealDate;
     private String aptName;
     private float useArea;
     private int useAreaTrunc;
     private String useAreaType;
     private int dealAmt;
+    private int prevDealAmt;
+    private String prevDealDate;
+    private int diffAmt;
+    private float diffRate;
     private int floor;
     private String buildYear;
     private String roadName;

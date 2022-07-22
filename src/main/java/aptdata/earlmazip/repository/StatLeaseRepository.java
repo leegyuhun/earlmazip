@@ -1,17 +1,16 @@
 package aptdata.earlmazip.repository;
 
 import aptdata.earlmazip.controller.dto.RankLeaseResponseDto;
-import aptdata.earlmazip.controller.dto.RankYearResponseDto;
 import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
-import aptdata.earlmazip.controller.dto.StatResponseDto;
-import aptdata.earlmazip.domain.*;
+import aptdata.earlmazip.domain.RankLease;
+import aptdata.earlmazip.domain.StatSidoLease;
+import aptdata.earlmazip.domain.StatSigunguLease;
+import aptdata.earlmazip.domain.StatSigunguLease84;
 import aptdata.earlmazip.utils.Common;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 

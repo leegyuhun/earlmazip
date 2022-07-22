@@ -1,9 +1,6 @@
 package aptdata.earlmazip.controller;
 
-import aptdata.earlmazip.controller.dto.EcosDataResponseDto;
-import aptdata.earlmazip.controller.dto.RankYearResponseDto;
-import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
-import aptdata.earlmazip.controller.dto.StatResponseDto;
+import aptdata.earlmazip.controller.dto.*;
 import aptdata.earlmazip.domain.RankYear;
 import aptdata.earlmazip.domain.StatAreaYYMM;
 import aptdata.earlmazip.domain.StatSidoYYMM;
@@ -39,65 +36,6 @@ public class StatController {
     private final CodeInfoService codeInfoService;
 
     private final EcosDataService ecosDataService;
-
-    /**
-     * 서울시,인천시,경기도 월별 매매가 통계
-     * @param term : 1인경우 현재년도 -1, 3인경우 현재년도 -3 부터 ~ 현재까지 조회
-     * @param model
-     * @return
-     */
-    @GetMapping("/stat_trade/{areaCode}/{term}")
-    public String getStatTradeList_Area(@PathVariable String areaCode,
-                                        @PathVariable String term, Model model) {
-        String title = "-";
-        List<StatResponseDto> areas;
-        if (areaCode != "") {
-            title = codeInfoService.getCodeName(areaCode);
-            log.info("/stat_trade/" + title + "/" + term);
-            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/" + title + "/" + term, areaCode);
-            areas = statService.getStatTradeList_Area(areaCode, term);
-        } else {
-            areas = new ArrayList<>();
-        }
-
-        List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
-        List<Float> avgprc = areas.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
-        List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-
-        // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("722Y001", "0101000", "", term);
-        List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
-
-        Collections.reverse(dates);
-        Collections.reverse(avgprc);
-        Collections.reverse(tradcnt);
-
-        model.addAttribute("list", areas);
-        model.addAttribute("title", title);
-        model.addAttribute("dates", dates);
-        model.addAttribute("avgprc", avgprc);
-        model.addAttribute("tradcnt", tradcnt);
-        model.addAttribute("areacode", areaCode);
-        model.addAttribute("interestRates", interestRates);
-
-        return "stat_trade/statArea";
-    }
-
-    /**
-     * 서울/경기/인천 구별,평형대별,월별 매매 통계
-     * @param sigungucode
-     * @param ua
-     * @param term
-     * @param model
-     * @return
-     */
-    @GetMapping("/stat_trade/useareaType/{sigungucode}/{ua}/{term}")
-    public String getStatUseareaType_BySigunguBak(@PathVariable String sigungucode,
-                                                  @PathVariable String ua,
-                                                  @PathVariable String term,
-                                                  Model model) {
-        return getStatUseareaType_BySigungu(sigungucode, ua, term, model);
-    }
 
     /**
      * 서울/경기/인천 구별,평형대별,월별 매매 통계
@@ -266,97 +204,6 @@ public class StatController {
         return "stat_trade/statByUsearea";
     }
 
-    /**
-     * 서울시 구별 매매가 상위 100
-     * @param
-     * @param model
-     * @return
-     */
-    @GetMapping("/stat_trade/seoul/top/{year}/{sigungucode}")
-    public String getStatTradeTopSeoulByYear(@PathVariable String year,
-                                             @PathVariable String sigungucode,
-                                             @RequestParam(value="ua", defaultValue = "UA01") String ua,
-                                             Model model) {
-        List<RankYearResponseDto> tops;
-        String title = "-";
-        if (!sigungucode.equals("0")) {
-            title = codeInfoService.getCodeName(sigungucode);
-            log.info("/stat_trade/seoul/top/" + year + "/" +  sigungucode);
-            apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/seoul/top/" + year + "/" +  title + "?ua=" + ua, sigungucode);
-            if (StringUtils.hasText(sigungucode)) {
-                tops = statService.getStatTradeTopSeoulByYear(year, sigungucode, ua);
-            } else {
-                tops = new ArrayList<>();
-            }
-        } else {
-            tops = new ArrayList<>();
-        }
-
-        model.addAttribute("title",  title);
-        model.addAttribute("list", tops);
-        model.addAttribute("ua", ua);
-        model.addAttribute("uaStr", codeInfoService.getCodeName(ua));
-        model.addAttribute("year", year);
-        model.addAttribute("sigungucode", sigungucode);
-
-        return "stat_trade/seoulTop";
-    }
-
-    @GetMapping("/stat_trade/gyunggi/top/{year}/{sigungucode}")
-    public String gyunggiTopList(@PathVariable String year,
-                                 @PathVariable String sigungucode,
-                                 @RequestParam(value="ua", defaultValue = "UA01") String ua,
-                                 Model model) {
-        List<RankYearResponseDto> tops;
-        String title = "-";
-        if (!sigungucode.equals("0")) {
-            title = codeInfoService.getCodeName(sigungucode);
-            log.info("/stat_trade/gyunggi/top/" + year + "/" + sigungucode);
-            apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/gyunggi/top/" + year + "/" + title + "?ua=" + ua, sigungucode);
-            if (StringUtils.hasText(sigungucode)) {
-                tops = statService.findGyunggiTopList(year, sigungucode, ua);
-            } else {
-                tops = new ArrayList<>();
-            }
-        } else {
-            tops = new ArrayList<>();
-        }
-
-        model.addAttribute("list", tops);
-        model.addAttribute("year", year);
-        model.addAttribute("ua", ua);
-        model.addAttribute("uaStr", codeInfoService.getCodeName(ua));
-        model.addAttribute("sigungucode", sigungucode);
-        model.addAttribute("title",  title);
-        return "stat_trade/gyunggiTop";
-    }
-
-    @GetMapping("/stat_trade/incheon/top/{year}/{sigungucode}")
-    public String incheonTopList(@PathVariable String year,
-                                 @PathVariable String sigungucode,
-                                 @RequestParam(value="ua", defaultValue = "UA01") String ua,
-                                 Model model) {
-        List<RankYearResponseDto> tops;
-        String title = "-";
-        if (!sigungucode.equals("0")) {
-            title = codeInfoService.getCodeName(sigungucode);
-            log.info("/stat_trade/incheon/top/" + year + "/" + sigungucode);
-            apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/incheon/top/" + year + "/" + title + "?ua=" + ua, sigungucode);
-            if (StringUtils.hasText(sigungucode)) {
-                tops = statService.findIncheonTopList(year, sigungucode, ua);
-            } else {
-                tops = new ArrayList<>();
-            }
-        } else {
-            tops = new ArrayList<>();
-        }
-        model.addAttribute("list", tops);
-        model.addAttribute("ua", ua);
-        model.addAttribute("uaStr", codeInfoService.getCodeName(ua));
-        model.addAttribute("year", year);
-        model.addAttribute("title",  "[ "+ title + " ]");
-        return "stat_trade/incheonTop";
-    }
 
     @GetMapping("/stat_trade/newHighestAndTradeCntByCity/{sidocode}")
     public String getStatNewHighestAndTradeCount(@PathVariable String sidocode, Model model) {
@@ -393,221 +240,6 @@ public class StatController {
         return "stat_trade/newHighestAndTradeCntByCity";
     }
 
-    /**
-     * 강남3구 15억이상 거래
-     * @param term
-     * @param model
-     * @return
-     */
-    @GetMapping("/stat_trade/theme01/{term}")
-    public String getStatTheme(@PathVariable String term, Model model) {
-        List<StatResponseDto> stats;
-        log.info("/stat_trade/theme01/" + term);
-        apiCallStatService.writeApiCallStat("STAT_THEME", "/stat_trade/theme01/" + term, "0");
-        stats = statService.getStatTheme("001", term);
-
-        List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
-        List<Float> avgPrices = stats.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
-//        List<Integer> avgPrices = stats.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
-        List<Float> newHighests = stats.stream().map(o->new Float(o.getHighestRate())).collect(Collectors.toList());
-        List<Integer> tradcnt = stats.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-        String title = stats.get(0).getName();
-
-        Collections.reverse(dates);
-        Collections.reverse(avgPrices);
-        Collections.reverse(newHighests);
-        Collections.reverse(tradcnt);
-
-        model.addAttribute("dates", dates);
-        model.addAttribute("avgPrices", avgPrices);
-        model.addAttribute("tradcnt", tradcnt);
-        model.addAttribute("newHighests", newHighests);
-        model.addAttribute("title",  "[ "+ title + " ]");
-        model.addAttribute("list", stats);
-
-        return "stat_trade/statTheme";
-    }
-
-    /**
-     * 서울 4구역 통계 (강남3구, 마용성, 노도강, 금관구)
-     * @param term
-     * @param model
-     * @return
-     */
-    @GetMapping("/stat_trade/theme02/{term}")
-    public String getStatTheme02(@PathVariable String term, Model model) {
-        List<StatResponseDto> stats002;
-        List<StatResponseDto> stats003;
-        List<StatResponseDto> stats004;
-        List<StatResponseDto> stats005;
-        log.info("/stat_trade/theme02/" + term);
-        apiCallStatService.writeApiCallStat("STAT_THEME", "/stat_trade/theme02/" + term, "0");
-        stats002 = statService.getStatTheme("002", term);
-        stats003 = statService.getStatTheme("003", term);
-        stats004 = statService.getStatTheme("004", term);
-        stats005 = statService.getStatTheme("005", term);
-
-        List<String> dates = stats002.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
-//        List<Float> avgprc = areas.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
-        List<Float> avgPrices002 = stats002.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
-        List<Float> avgPrices003 = stats003.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
-        List<Float> avgPrices004 = stats004.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
-        List<Float> avgPrices005 = stats005.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
-
-        List<Float> newHighests002 = stats002.stream().map(o->new Float(o.getHighestRate())).collect(Collectors.toList());
-        List<Float> newHighests003 = stats003.stream().map(o->new Float(o.getHighestRate())).collect(Collectors.toList());
-        List<Float> newHighests004 = stats004.stream().map(o->new Float(o.getHighestRate())).collect(Collectors.toList());
-        List<Float> newHighests005 = stats005.stream().map(o->new Float(o.getHighestRate())).collect(Collectors.toList());
-
-        List<Integer> tradcnt002 = stats002.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-        List<Integer> tradcnt003 = stats003.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-        List<Integer> tradcnt004 = stats004.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-        List<Integer> tradcnt005 = stats005.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-        List<theme02Dto> list = new ArrayList<>();
-        for (int i = 0; i < dates.size() - 1; i++) {
-            theme02Dto item = new theme02Dto(dates.get(i), avgPrices002.get(i), avgPrices003.get(i), avgPrices004.get(i), avgPrices005.get(i),
-                    tradcnt002.get(i), tradcnt003.get(i), tradcnt004.get(i), tradcnt005.get(i));
-            list.add(item);
-        }
-        Collections.reverse(dates);
-        Collections.reverse(avgPrices002);
-        Collections.reverse(avgPrices003);
-        Collections.reverse(avgPrices004);
-        Collections.reverse(avgPrices005);
-
-        Collections.reverse(newHighests002);
-        Collections.reverse(newHighests003);
-        Collections.reverse(newHighests004);
-        Collections.reverse(newHighests005);
-
-        Collections.reverse(tradcnt002);
-        Collections.reverse(tradcnt003);
-        Collections.reverse(tradcnt004);
-        Collections.reverse(tradcnt005);
-
-        model.addAttribute("dates", dates);
-        model.addAttribute("list", list);
-        model.addAttribute("avgPrices002", avgPrices002);
-        model.addAttribute("avgPrices003", avgPrices003);
-        model.addAttribute("avgPrices004", avgPrices004);
-        model.addAttribute("avgPrices005", avgPrices005);
-
-        model.addAttribute("tradcnt002", tradcnt002);
-        model.addAttribute("tradcnt003", tradcnt003);
-        model.addAttribute("tradcnt004", tradcnt004);
-        model.addAttribute("tradcnt005", tradcnt005);
-
-        model.addAttribute("newHighests002", newHighests002);
-        model.addAttribute("newHighests003", newHighests003);
-        model.addAttribute("newHighests004", newHighests004);
-        model.addAttribute("newHighests005", newHighests005);
-        model.addAttribute("title",  "[ 서울 4구역 통계 ]");
-//        model.addAttribute("list", stats);
-
-        return "stat_trade/statTheme02";
-    }
-
-    @Data
-    static class theme02Dto{
-        private String date;
-        private float item1;
-        private float item2;
-        private float item3;
-        private float item4;
-
-        private int cnt1;
-        private int cnt2;
-        private int cnt3;
-        private int cnt4;
-
-        public theme02Dto(String date, float item1, float item2, float item3, float item4,
-                            int cnt1, int cnt2, int cnt3, int cnt4) {
-            this.date = date;
-            this.item1 = item1;
-            this.item2 = item2;
-            this.item3 = item3;
-            this.item4 = item4;
-
-            this.cnt1 = cnt1;
-            this.cnt2 = cnt2;
-            this.cnt3 = cnt3;
-            this.cnt4 = cnt4;
-        }
-    }
-
-    /**
-     * 가계대출
-     * @param areacode
-     * @param term
-     * @param model
-     * @return
-     */
-    @GetMapping("/stat_trade/theme03/{areacode}/{term}")
-    public String getStatTheme03(@PathVariable String areacode,
-                                 @PathVariable String term, Model model) {
-        log.info("/stat_trade/theme03/" + areacode + "/" + term);
-        apiCallStatService.writeApiCallStat("STAT_THEME", "/stat_trade/stheme03/" + areacode + "/" + term, "0");
-        List<StatResponseDto> areas;
-        String title = "-";
-        title = codeInfoService.getCodeName(areacode);
-        if (areacode.equals("11")) {
-            areas = statService.getStatTradeList_Seoul(term);
-        } else if (areacode.equals("41")) {
-            areas = statService.getStatTradeList_Gyunggi(term);
-        } else if (areacode.equals("28")) {
-            areas = statService.getStatTradeList_Incheon(term);
-        } else {
-            areas = new ArrayList<>();
-        }
-
-        List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
-        List<Float> avgprc = areas.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
-
-        // 주담대
-        List<EcosDataResponseDto> houseDebt;
-        if (areacode.equals("11")) {
-            houseDebt = ecosDataService.getEcosData("008Y003", "11100A0", "A", term);
-        } else if (areacode.equals("41")) {
-            houseDebt = ecosDataService.getEcosData("008Y003", "11100A0", "L", term);
-        } else if (areacode.equals("28")) {
-            houseDebt = ecosDataService.getEcosData("008Y003", "11100A0", "D", term);
-        } else {
-            houseDebt = new ArrayList<>();
-        }
-        List<Float> houseDebts = houseDebt.stream().map(o->new Float(o.getValue())).collect(Collectors.toList());
-
-        // 기타대출
-        List<EcosDataResponseDto> etcDebt;
-        if (areacode.equals("11")) {
-            etcDebt = ecosDataService.getEcosData("008Y003", "11100B0", "A", term);
-        } else if (areacode.equals("41")) {
-            etcDebt = ecosDataService.getEcosData("008Y003", "11100B0", "L", term);
-        } else if (areacode.equals("28")) {
-            etcDebt = ecosDataService.getEcosData("008Y003", "11100B0", "D", term);
-        } else {
-            etcDebt = new ArrayList<>();
-        }
-        List<Float> etcDebts = etcDebt.stream().map(o->new Float(o.getValue())).collect(Collectors.toList());
-        String subtitle = "-";
-        if (houseDebt.size() > 0){
-            subtitle = houseDebt.get(0).getStatName();
-        }
-
-        Collections.reverse(dates);
-        Collections.reverse(avgprc);
-        Collections.reverse(houseDebt);
-
-        model.addAttribute("list", houseDebt);
-        model.addAttribute("dates", dates);
-        model.addAttribute("avgprc", avgprc);
-        model.addAttribute("title", "[ " + title + " ]");
-        model.addAttribute("subtitle", "[ " + subtitle + " ]");
-        model.addAttribute("etcDebts", etcDebts);
-        model.addAttribute("houseDebts", houseDebts);
-
-//        model.addAttribute("interestRates", interestRates);
-        return "stat_trade/statTheme03";
-    }
 
     @GetMapping("/stat_trade/gyunggiBySigungu/{sigungucode}/{term}")
     public String getStatTradeList_GyunggiBySigungu(@PathVariable String sigungucode,
@@ -821,95 +453,90 @@ public class StatController {
         return "stat_trade/statByBuildYear";
     }
 
-    /**
-     * 서울시 월별 매매가 통계 (삭제해야됨)
-     * @param term : 1인경우 현재년도 -1, 3인경우 현재년도 -3 부터 ~ 현재까지 조회
-     * @param model
-     * @return
-     */
+    // 삭제해야됨
+    @GetMapping("/stat_trade/{areaCode}/{term}")
+    public String getStatTradeList_Area(@PathVariable String areaCode,
+                                        @PathVariable String term, Model model) {
+        String title = "-";
+        List<StatResponseDto> areas;
+        if (areaCode != "") {
+            title = codeInfoService.getCodeName(areaCode);
+            log.info("/stat_trade/" + title + "/" + term);
+            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/" + title + "/" + term, areaCode);
+            areas = statService.getStatTradeList_Area(areaCode, term);
+        } else {
+            areas = new ArrayList<>();
+        }
+
+        List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Float> avgprc = areas.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
+        List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+
+        // 한국은행 기준금리
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("722Y001", "0101000", "", term);
+        List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+
+        Collections.reverse(dates);
+        Collections.reverse(avgprc);
+        Collections.reverse(tradcnt);
+
+        model.addAttribute("list", areas);
+        model.addAttribute("title", title);
+        model.addAttribute("dates", dates);
+        model.addAttribute("avgprc", avgprc);
+        model.addAttribute("tradcnt", tradcnt);
+        model.addAttribute("areacode", areaCode);
+        model.addAttribute("interestRates", interestRates);
+
+        return "stat_trade/statArea";
+    }
+
+    // 삭제해야됨
+    @GetMapping("/stat_trade/useareaType/{sigungucode}/{ua}/{term}")
+    public String getStatUseareaType_BySigunguBak(@PathVariable String sigungucode,
+                                                  @PathVariable String ua,
+                                                  @PathVariable String term,
+                                                  Model model) {
+        return getStatUseareaType_BySigungu(sigungucode, ua, term, model);
+    }
+    // 삭제해야됨
     @GetMapping("/stat_trade/seoul/{term}")
     public String getStatTradeList_Seoul(@PathVariable String term, Model model) {
-        log.info("/stat_trade/seoul/" + term);
-        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/seoul/" + term, "11");
         return getStatTradeList_Area("11", term, model);
     }
 
-    /**
-     * 서울시 구별 월별 매매가 통계 (삭제해야됨)
-     * @param term : 1인경우 현재년도 -1, 3인경우 현재년도 -3 부터 ~ 현재까지 조회
-     * @param model
-     * @return
-     */
+    // 삭제해야됨
     @GetMapping("/stat_trade/seoul/{sigungucode}/{term}")
     public String getStatTradeList_SeoulBySigungu(@PathVariable String sigungucode,
                                                   @PathVariable String term,
                                                   Model model) {
-        String title = "-";
-        title = codeInfoService.getCodeName(sigungucode);
-        log.info("/stat_trade/seoul/" + sigungucode + "/" + term);
-        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/seoul/" + title + "/" + term, sigungucode);
-
         return getStatUseareaType_BySigungu(sigungucode, "UA01", term, model);
     }
 
-    /**
-     * 인천 월별 매매가 통계 (삭졔해야됨)
-     * @param term
-     * @param model
-     * @return
-     */
+    // 삭제해야됨
     @GetMapping("/stat_trade/incheon/{term}")
     public String getStatTradeList_Incheon(@PathVariable String term, Model model) {
-        log.info("/stat_trade/incheon/" + term);
-        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/incheon/" + term, "28");
         return getStatTradeList_Area("28", term, model);
     }
 
-    /**
-     * 삭제해야됨
-     * @param sigungucode
-     * @param term
-     * @param model
-     * @return
-     */
+    // 삭제해야됨
     @GetMapping("/stat_trade/incheonBySigungu/{sigungucode}/{term}")
     public String getStatTradeList_IncheonBySigungu(@PathVariable String sigungucode,
                                                     @PathVariable String term,
                                                     Model model) {
-        String title = "-";
-        title = codeInfoService.getCodeName(sigungucode);
-        log.info("/stat_trade/incheonBySigungu/" + sigungucode + "/" + term);
-        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/incheonBySigungu/" + title + "/" + term, sigungucode);
         return getStatUseareaType_BySigungu(sigungucode, "UA01", term, model);
     }
 
-    /**
-     * 경기도 월별 매매가 통계 (삭졔해야됨)
-     * @param term : 1인경우 현재년도 -1, 3인경우 현재년도 -3 부터 ~ 현재까지 조회
-     * @param model
-     * @return
-     */
+    // 삭제해야됨
     @GetMapping("/stat_trade/gyunggi/{term}")
     public String getStatTradeGyunggi(@PathVariable String term, Model model) {
-        log.info("/stat_trade/gyunggi/" + term);
-        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/gyunggi/" + term, "41");
         return getStatTradeList_Area("41", term, model);
     }
 
-    /**
-     * 삭제해야됨
-     * @param sidoCode
-     * @param term
-     * @param model
-     * @return
-     */
+    // 삭제해야됨
     @GetMapping("/stat_trade/gyunggiByCity/{sidoCode}/{term}")
     public String getStatTradeList_ByCity(@PathVariable String sidoCode,
                                           @PathVariable String term,Model model) {
-        log.info("/stat_trade/gyunggiByCity/" + sidoCode + "/" + term);
-        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/gyunggiByCity/" + sidoCode+ "/" + term, sidoCode);
-
-
         return getStatUseareaType_BySigungu(sidoCode, "UA01", term, model);
     }
 }

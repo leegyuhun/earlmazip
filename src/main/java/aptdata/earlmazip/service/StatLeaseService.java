@@ -1,11 +1,8 @@
 package aptdata.earlmazip.service;
 
 import aptdata.earlmazip.controller.dto.RankLeaseResponseDto;
-import aptdata.earlmazip.controller.dto.RankYearResponseDto;
 import aptdata.earlmazip.controller.dto.StatLeaseResponseDto;
-import aptdata.earlmazip.controller.dto.StatResponseDto;
 import aptdata.earlmazip.repository.StatLeaseRepository;
-import aptdata.earlmazip.repository.StatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

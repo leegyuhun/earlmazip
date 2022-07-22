@@ -11,9 +11,7 @@
 
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
 
-<!--    <div class="jumbotron">-->
     <div>
-<!--        <h1></h1>-->
         <h6>아파트 정보 검색</h6>
         <p>
             <a class="btn btn-dark btn-sm" href="/apts">아파트 검색</a>
@@ -46,7 +44,6 @@
             </br>
             </br>
             <a>인천&nbsp</a>
-<!--            <a class="btn btn-secondary btn-sm" href="/stat_trade/28/3">인천</a>-->
             <a class="btn btn-secondary btn-sm" href="/stat_trade/useareaType?sigunguCode=28&uaType=UA01&term=1">전체</a>
             <a class="btn btn-secondary btn-sm" href="/stat_trade/useareaType?sigunguCode=28&uaType=UA08&term=1">전용59</a>
             <a class="btn btn-secondary btn-sm" href="/stat_trade/useareaType?sigunguCode=28&uaType=UA07&term=1">국평</a>
@@ -68,15 +65,10 @@
         </p>
         <h6>2022 매매가 TOP 100</h6>
         <p>
-            <a class="btn btn-danger btn-sm" href="/stat_trade/seoul/top/2022/0">서울</a>
-            <a class="btn btn-danger btn-sm" href="/stat_trade/gyunggi/top/2022/0">경기</a>
-            <a class="btn btn-danger btn-sm" href="/stat_trade/incheon/top/2022/0">인천</a>
+            <a class="btn btn-danger btn-sm" href="/stat_trade/top?sigunguCode=11&yaer=2022&uaType=UA01">서울</a>
+            <a class="btn btn-danger btn-sm" href="/stat_trade/top?sigunguCode=41&yaer=2022&uaType=UA01">경기</a>
+            <a class="btn btn-danger btn-sm" href="/stat_trade/top?sigunguCode=28&yaer=2022&uaType=UA01">인천</a>
         </p>
-<!--        <p>기타</p>-->
-<!--        <p>-->
-<!--            <a class="btn btn-outline-info" href="/stat_etc/population/10">인구통계</a>-->
-<!--            <a class="btn btn-outline-info" href="/stat_etc/income">소득통계</a>-->
-<!--        </p>-->
     </div>
 
     <div th:replace="fragments/footer :: footer" />

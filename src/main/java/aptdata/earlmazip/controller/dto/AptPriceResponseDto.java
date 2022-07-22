@@ -2,6 +2,7 @@ package aptdata.earlmazip.controller.dto;
 
 import aptdata.earlmazip.domain.AptPriceRaw;
 import aptdata.earlmazip.domain.CancelDealData;
+import aptdata.earlmazip.domain.RankYear;
 import lombok.Getter;
 
 import java.text.DecimalFormat;
@@ -14,22 +15,32 @@ public class AptPriceResponseDto {
     }
     private String dealDate;
     private String aptName;
-//    public String getAptName() {
-//        if (this.aptName.length() > 8) {
-//            return this.aptName.substring(0, 8) + "..";
-//        } else {
-//            return this.aptName;
-//        }
-//    }
     private float useArea;
-
     public float getUseArea() {
         return (float) (Math.floor(useArea * 100)/100);
     }
-
     private String useAreaStr;
+    public String getUseAreaStr() {
+        return Float.toString(this.useArea);
+    }
     private int useAreaTrunc;
+    private String useAreaType;
     private int dealAmt;
+    private int prevDealAmt;
+    private String prevDealAmtStr;
+
+    public String getPrevDealAmtStr() {
+        return new DecimalFormat("0.0#").format((float)this.prevDealAmt / 10000) + "억";
+    }
+
+    private String prevDealDate;
+
+    public String getPrevDealDate() {
+        return prevDealDate.substring(2,4) + "." + prevDealDate.substring(4,6) + "." + prevDealDate.substring(6,8);
+    }
+
+    private int diffAmt;
+    private float diffRate;
     private String dealAmtStr;
     public String getDealAmtStr() {
         return new DecimalFormat("0.0#").format((float)this.dealAmt / 10000) + "억";
@@ -37,13 +48,6 @@ public class AptPriceResponseDto {
     private int floor;
     private String buildYear;
     private String landDong;
-//    public String getLandDong(){
-//        if (this.landDong.length() > 2 && this.landDong.contains("동")) {
-//            return this.landDong.replace("동", "");
-//        } else {
-//            return this.landDong;
-//        }
-//    }
     private String cnclDealType;
     private String cnclDealDate;
     private String dealType;
@@ -58,6 +62,15 @@ public class AptPriceResponseDto {
 
     private String dealLoc;
     private String newHighest;
+
+    public String getNewHighest() {
+        if (newHighestPrice == 0) {
+            return "-";
+        } else {
+            return "O";
+        }
+    }
+
     private int newHighestPrice;
 
     public AptPriceResponseDto(AptPriceRaw entity) {
@@ -66,6 +79,7 @@ public class AptPriceResponseDto {
         this.aptName = entity.getAptName();
         this.useArea = entity.getUseArea();
         this.useAreaTrunc = entity.getUseAreaTrunc();
+        this.useAreaType = entity.getUseAreaType();
         this.dealAmt = entity.getDealAmt();
         this.floor = entity.getFloor();
         this.buildYear = entity.getBuildYear();
@@ -75,8 +89,10 @@ public class AptPriceResponseDto {
         this.dealType = entity.getDealType();
         this.dealLoc = entity.getDealLoc();
         this.newHighestPrice = entity.getNewHighestPrice();
-        if (entity.getNewHighestPrice() == 0) { this.newHighest = "-"; }
-        else { this.newHighest = "O"; }
+        this.prevDealAmt = entity.getPrevDealAmt();
+        this.prevDealDate = entity.getPrevDealDate();
+        this.diffAmt = entity.getDiffAmt();
+        this.diffRate = entity.getDiffRate();
     }
 
     public AptPriceResponseDto(CancelDealData entity) {
@@ -92,7 +108,19 @@ public class AptPriceResponseDto {
         this.dealType = entity.getDealType();
         this.dealLoc = entity.getDealLoc();
         this.newHighestPrice = entity.getNewHighestPrice();
-        if (entity.getNewHighestPrice() == 0) { this.newHighest = "-"; }
-        else { this.newHighest = "O"; }
+    }
+
+    public AptPriceResponseDto(RankYear entity) {
+        this.sigunguCode = entity.getGubnCode();
+        this.landDong = entity.getLandDong();
+        this.dealDate = entity.getDealDate();
+        this.aptName = entity.getAptName();
+        this.useArea = entity.getUseArea();
+        this.useAreaTrunc = entity.getUseAreaTrunc();
+        this.dealAmt = entity.getDealAmt();
+        this.floor = entity.getFloor();
+        this.buildYear = entity.getBuildYear();
+        this.dealType = entity.getDealType();
+        this.newHighestPrice = entity.getNewHighestPrice();
     }
 }
