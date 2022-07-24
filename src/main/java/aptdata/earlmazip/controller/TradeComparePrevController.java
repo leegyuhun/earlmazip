@@ -59,9 +59,9 @@ public class TradeComparePrevController {
         model.addAttribute("uaType", uaType);
         model.addAttribute("type", type);
         if (type.equals("0")) {
-            model.addAttribute("title",  "[ "+ title + " 상승거래 ]");
+            model.addAttribute("title",  "[ "+ title + " 2022 상승거래 ]");
         } else {
-            model.addAttribute("title",  "[ "+ title + " 하락거래 ]");
+            model.addAttribute("title",  "[ "+ title + " 2022 하락거래 ]");
         }
         model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
         if (sigunguCode.substring(0, 2).equals("11")) {
