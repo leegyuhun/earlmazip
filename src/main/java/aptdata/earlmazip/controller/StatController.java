@@ -85,11 +85,11 @@ public class StatController {
         model.addAttribute("tradcnt", tradcnt);
         model.addAttribute("interestRates", interestRates);
         if (sigunguCode.substring(0, 2).equals("11")) {
-            return "stat_trade/useAreaType_Seoul";
+            return "stat_trade/useAreaType/seoul";
         } else if (sigunguCode.substring(0, 2).equals("41")) {
-            return "stat_trade/useAreaType_Gyunggi";
+            return "stat_trade/useAreaType/gyunggi";
         } else {
-            return "stat_trade/useAreaType_Incheon";
+            return "stat_trade/useAreaType/incheon";
         }
 
     }
@@ -326,11 +326,11 @@ public class StatController {
         model.addAttribute("avgprc0", avgprc0);
         model.addAttribute("avgprc1", avgprc1);
         if (sigunguCode.substring(0, 2).equals("11")) {
-            return "stat_trade/seoulByDealType";
+            return "stat_trade/dealType/seoul";
         } else if (sigunguCode.substring(0, 2).equals("41")) {
-            return "stat_trade/gyunggiByDealType";
+            return "stat_trade/dealType/gyunggi";
         } else {
-            return "stat_trade/incheonByDealType";
+            return "stat_trade/dealType/incheon";
         }
     }
 

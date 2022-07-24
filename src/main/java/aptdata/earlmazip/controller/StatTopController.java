@@ -64,11 +64,11 @@ public class StatTopController {
         model.addAttribute("sigunguCode", sigunguCode);
 
         if (sigunguCode.substring(0, 2).equals("41")) {
-            return "stat_trade/gyunggiTop";
+            return "stat_trade/top/gyunggiTop";
         } else if (sigunguCode.substring(0, 2).equals("28")) {
-            return "stat_trade/incheonTop";
+            return "stat_trade/top/incheonTop";
         } else {
-            return "stat_trade/seoulTop";
+            return "stat_trade/top/seoulTop";
         }
     }
 

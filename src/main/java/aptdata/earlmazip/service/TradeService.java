@@ -23,6 +23,10 @@ public class TradeService {
         return tradeRepository.getTradeList_SigunguUAType(sigungucode, uaType);
     }
 
+    public List<AptPriceResponseDto> getTradeComparePrevList_SigunguUAType(String sigungucode, String type, String uaType) {
+        return tradeRepository.getTradeComparePrevList_SigunguUAType(sigungucode, type, uaType);
+    }
+
     public List<AptPriceResponseDto> getTradeList_GyunggiSido(String sidocode, int gubn, int ua) {
         return tradeRepository.getTradeList_GyunggiSido(sidocode, gubn, ua);
     }
