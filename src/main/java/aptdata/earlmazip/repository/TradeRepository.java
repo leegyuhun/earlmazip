@@ -44,7 +44,7 @@ public class TradeRepository {
         if (type.equals("0")) {
             if (uaType.equals("UA01")) {
                 return em.createQuery("select a from AptPriceRaw a"
-                                + " where a.dealYear >= 2021 and a.sigunguCode = :sigunguCode "
+                                + " where a.dealYear = 2022 and a.sigunguCode = :sigunguCode "
                                 + "   and a.prevDealAmt < a.dealAmt "
                                 + " order by a.dealDate desc", AptPriceRaw.class)
                         .setParameter("sigunguCode", sigungucode)
@@ -52,7 +52,7 @@ public class TradeRepository {
                         .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
             } else {
                 return em.createQuery("select a from AptPriceRaw a"
-                                + " where a.dealYear >= 2021 and a.sigunguCode = :sigunguCode "
+                                + " where a.dealYear = 2022 and a.sigunguCode = :sigunguCode "
                                 + "   and a.useAreaType = :uaType "
                                 + "   and a.prevDealAmt < a.dealAmt "
                                 + " order by a.dealDate desc", AptPriceRaw.class)
@@ -64,7 +64,7 @@ public class TradeRepository {
         } else {
             if (uaType.equals("UA01")) {
                 return em.createQuery("select a from AptPriceRaw a"
-                                + " where a.dealYear >= 2021 and a.sigunguCode = :sigunguCode "
+                                + " where a.dealYear = 2022 and a.sigunguCode = :sigunguCode "
                                 + "   and a.prevDealAmt > a.dealAmt "
                                 + " order by a.dealDate desc", AptPriceRaw.class)
                         .setParameter("sigunguCode", sigungucode)
@@ -72,7 +72,7 @@ public class TradeRepository {
                         .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
             } else {
                 return em.createQuery("select a from AptPriceRaw a"
-                                + " where a.dealYear >= 2021 and a.sigunguCode = :sigunguCode "
+                                + " where a.dealYear = 2022 and a.sigunguCode = :sigunguCode "
                                 + "   and a.useAreaType = :uaType "
                                 + "   and a.prevDealAmt > a.dealAmt "
                                 + " order by a.dealDate desc", AptPriceRaw.class)
