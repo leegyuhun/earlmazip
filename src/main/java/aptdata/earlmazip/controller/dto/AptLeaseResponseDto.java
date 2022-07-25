@@ -14,21 +14,12 @@ public class AptLeaseResponseDto {
         return dealDate.substring(2,4) + "." + dealDate.substring(4,6) + "." + dealDate.substring(6,8);
     }
     private String aptName;
-//    public String getAptName() {
-//        if (this.aptName.length() > 8) {
-//            return this.aptName.substring(0, 8) + "..";
-//        } else {
-//            return this.aptName;
-//        }
-//    }
     private float useArea;
-
     public float getUseArea() {
         return (float) (Math.floor(useArea * 100)/100);
     }
-
     private int useAreaTrunc;
-
+    private String useAreaType;
     private int befDeposit;
     private int deposit;
     private String befMonthlyRentStr;
@@ -50,6 +41,7 @@ public class AptLeaseResponseDto {
         this.aptName = entity.getAptName();
         this.useArea = entity.getUseArea();
         this.useAreaTrunc = entity.getUseAreaTrunc();
+        this.useAreaType = entity.getUseAreaType();
         this.deposit = entity.getDeposit();
         this.floor = entity.getFloor();
         this.buildYear = entity.getBuildYear();

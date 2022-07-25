@@ -26,6 +26,7 @@ public class AptLeaseRaw {
     private String aptName;
     private float useArea;
     private int useAreaTrunc;
+    private String useAreaType;
     private int befDeposit;
     private int deposit;
     private int befMonthlyRent;

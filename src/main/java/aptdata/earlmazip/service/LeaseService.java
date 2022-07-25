@@ -20,6 +20,11 @@ public class LeaseService {
         return leaseRepository.getLeaseList_Sigungu(sigungucode, gubn, ua);
     }
 
+    public List<AptLeaseResponseDto> getLeaseList_SigunguUAType(String sigungucode, String uaType)
+    {
+        return leaseRepository.getLeaseList_SigunguUAType(sigungucode, uaType);
+    }
+
     public List<AptLeaseResponseDto> getLeaseRenewalList_SeoulSigungu(String sigungucode)
     {
         return leaseRepository.getLeaseRenewalList_SeoulSigungu(sigungucode);
@@ -28,6 +33,11 @@ public class LeaseService {
     public List<AptLeaseResponseDto> getLeaseMonthlyList_Sigungu(String sigungucode, int gubn, int ua)
     {
         return leaseRepository.getLeaseMonthlyList_Sigungu(sigungucode, gubn, ua);
+    }
+
+    public List<AptLeaseResponseDto> getLeaseMonthlyList_SigunguUAType(String sigunguCode, String uaType)
+    {
+        return leaseRepository.getLeaseMonthlyList_SigunguUAType(sigunguCode, uaType);
     }
 
     public List<AptLeaseResponseDto> getLeaseList_GyunggiSido(String sidocode) {

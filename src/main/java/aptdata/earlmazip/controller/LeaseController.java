@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,8 +31,75 @@ public class LeaseController {
     private final ApiCallStatService apiCallStatService;
     private final CodeInfoService codeInfoService;
 
+    @GetMapping("/leaselist")
+    public String getLeaseListBak(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
+                                  @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
+                                  Model model) {
+        String title = "-";
+        List<AptLeaseResponseDto> trads;
+        if (sigunguCode.length()==5) {
+            log.info("/leaselist?sigunguCode=" + sigunguCode);
+            title = codeInfoService.getCodeName(sigunguCode);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist?sigunguCode=" + title + "&uaType=" + uaType, sigunguCode);
+            if (StringUtils.hasText(sigunguCode)) {
+                trads = leaseService.getLeaseList_SigunguUAType(sigunguCode, uaType);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else {
+            trads = new ArrayList<>();
+        }
+
+        model.addAttribute("title",  "[ "+ title + " - 최근 전세]");
+        model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
+        model.addAttribute("sigunguCode", sigunguCode);
+        model.addAttribute("uaType", uaType);
+        model.addAttribute("list", trads);
+        if (sigunguCode.substring(0, 2).equals("11")) {
+            return "leaselist/seoul";
+        } else if (sigunguCode.substring(0, 2).equals("41")) {
+            return "leaselist/gyunggi";
+        } else {
+            return "leaselist/incheon";
+        }
+    }
+
+    @GetMapping("/leaselist/monthly")
+    public String getLeaseMonthlyList(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
+                                      @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
+                                      Model model) {
+        String title = "-";
+        List<AptLeaseResponseDto> trads;
+        if (sigunguCode.length() == 5) {
+            log.info("/leaselist/monthly?sigunguCode" + sigunguCode);
+            title = codeInfoService.getCodeName(sigunguCode);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/monthly?sigunguCode=" + title + "&uaType" + uaType, sigunguCode);
+            if (StringUtils.hasText(sigunguCode)) {
+                trads = leaseService.getLeaseMonthlyList_SigunguUAType(sigunguCode, uaType);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else {
+            trads = new ArrayList<>();
+        }
+
+        model.addAttribute("title",  "[ "+ title + " - 최근 월세 ]");
+        model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
+        model.addAttribute("sigunguCode", sigunguCode);
+        model.addAttribute("uaType", uaType);
+        model.addAttribute("list", trads);
+
+        if (sigunguCode.substring(0, 2).equals("11")) {
+            return "leaselist/monthly/seoul";
+        } else if (sigunguCode.substring(0, 2).equals("41")) {
+            return "leaselist/monthly/gyunggi";
+        } else {
+            return "leaselist/monthly/incheon";
+        }
+    }
+
     @GetMapping("/leaselist/{sigungucode}/{gubn}/{ua}")
-    public String getLeaseList(@PathVariable String sigungucode,
+    public String getLeaseListBak(@PathVariable String sigungucode,
                                @PathVariable int gubn,
                                @PathVariable int ua, Model model) {
         String title = "-";
@@ -141,11 +209,11 @@ public class LeaseController {
         model.addAttribute("list", trads);
 
         if (sigungucode.substring(0, 2).equals("11")) {
-            return "leaselist/seoulMonthly";
+            return "leaselist/monthly/seoul";
         } else if (sigungucode.substring(0, 2).equals("41")) {
-            return "leaselist/gyunggiMonthly";
+            return "leaselist/monthly/gyunggi";
         } else {
-            return "leaselist/incheonMonthly";
+            return "leaselist/monthly/incheon";
         }
     }
     

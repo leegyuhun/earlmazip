@@ -69,6 +69,56 @@ public class LeaseRepository {
         }
     }
 
+    /* 전세 */
+    public List<AptLeaseResponseDto> getLeaseList_SigunguUAType(String sigunguCode, String uaType) {
+        if (uaType.equals("UA01")) {
+            return em.createQuery("select a from AptLeaseRaw a"
+                            + " where a.dealYear = 2022 "
+                            + "   and a.sigunguCode = :sigunguCode "
+                            + "   and a.monthlyRent = 0 "
+                            + " order by a.dealDate desc", AptLeaseRaw.class)
+                    .setParameter("sigunguCode", sigunguCode)
+                    .setMaxResults(200)
+                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+        } else {
+            return em.createQuery("select a from AptLeaseRaw a"
+                            + " where a.dealYear = 2022 "
+                            + "   and a.sigunguCode = :sigunguCode "
+                            + "   and a.monthlyRent = 0 "
+                            + "   and a.useAreaType = :uaType "
+                            + " order by a.dealDate desc", AptLeaseRaw.class)
+                    .setParameter("sigunguCode", sigunguCode)
+                    .setParameter("uaType", uaType)
+                    .setMaxResults(200)
+                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+        }
+    }
+
+    /* 월세 */
+    public List<AptLeaseResponseDto> getLeaseMonthlyList_SigunguUAType(String sigunguCode, String uaType) {
+        if (uaType.equals("UA01")) {
+            return em.createQuery("select a from AptLeaseRaw a"
+                            + " where a.dealYear = 2022 "
+                            + "   and a.sigunguCode = :sigunguCode "
+                            + "   and a.monthlyRent > 0 "
+                            + " order by a.dealDate desc", AptLeaseRaw.class)
+                    .setParameter("sigunguCode", sigunguCode)
+                    .setMaxResults(200)
+                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+        } else {
+            return em.createQuery("select a from AptLeaseRaw a"
+                            + " where a.dealYear = 2022 "
+                            + "   and a.sigunguCode = :sigunguCode "
+                            + "   and a.useAreaType = :uaType "
+                            + "   and a.monthlyRent > 0 "
+                            + " order by a.dealDate desc", AptLeaseRaw.class)
+                    .setParameter("sigunguCode", sigunguCode)
+                    .setParameter("uaType", uaType)
+                    .setMaxResults(200)
+                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+        }
+    }
+
     /* 서울 갱신현황 */
     public List<AptLeaseResponseDto> getLeaseRenewalList_SeoulSigungu(String sigungucode) {
         return em.createQuery("select a from AptLeaseRaw a"

@@ -20,19 +20,20 @@
 <!--            </div>-->
 <!--        </p>-->
         <div>
-            <a th:href="@{/leaselist/28710/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">강화군&nbsp</a>
-            <a th:href="@{/leaselist/28245/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp계양구&nbsp</a>
-            <a th:href="@{/leaselist/28200/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp남동구&nbsp</a>
-            <a th:href="@{/leaselist/28140/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp동구&nbsp</a>
-            <a th:href="@{/leaselist/28177/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp미추홀구&nbsp</a>
-            <a th:href="@{/leaselist/28237/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp부평구&nbsp</a>
-            <a th:href="@{/leaselist/28260/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp서구&nbsp</a>
-            <a th:href="@{/leaselist/28185/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp연수구&nbsp</a>
-            <a th:href="@{/leaselist/28720/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">&nbsp옹진군&nbsp</a>
-            <a th:href="@{/leaselist/28110/{gubn}/{ua} (gubn=${gubn}, ua=${ua})}">중구</a>
+            <a th:href="@{/leaselist?sigunguCode=28710&uaType={uaType} (uaType=${uaType})}">강화군&nbsp</a>
+            <a th:href="@{/leaselist?sigunguCode=28245&uaType={uaType} (uaType=${uaType})}">&nbsp계양구&nbsp</a>
+            <a th:href="@{/leaselist?sigunguCode=28200&uaType={uaType} (uaType=${uaType})}">&nbsp남동구&nbsp</a>
+            <a th:href="@{/leaselist?sigunguCode=28140&uaType={uaType} (uaType=${uaType})}">&nbsp동구&nbsp</a>
+            <a th:href="@{/leaselist?sigunguCode=28177&uaType={uaType} (uaType=${uaType})}">&nbsp미추홀구&nbsp</a>
+            <a th:href="@{/leaselist?sigunguCode=28237&uaType={uaType} (uaType=${uaType})}">&nbsp부평구&nbsp</a>
+            <a th:href="@{/leaselist?sigunguCode=28260&uaType={uaType} (uaType=${uaType})}">&nbsp서구&nbsp</a>
+            <a th:href="@{/leaselist?sigunguCode=28185&uaType={uaType} (uaType=${uaType})}">&nbsp연수구&nbsp</a>
+            <a th:href="@{/leaselist?sigunguCode=28720&uaType={uaType} (uaType=${uaType})}">&nbsp옹진군&nbsp</a>
+            <a th:href="@{/leaselist?sigunguCode=28110&uaType={uaType} (uaType=${uaType})}">중구</a>
         </div>
         <p>
             <h5 align="center" th:text="${title}"></h5>
+            <h6 align="center" th:text="|* ${uaStr}|"></h6>
         </p>
         <div>
             <ins class="kakao_ad_area" style="display:none;"
@@ -42,40 +43,52 @@
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
         <a>[면적]&nbsp</a>
-        <a th:href="@{/leaselist/{sigungucode}/0/0 (sigungucode=${sigungucode})}">전체&nbsp</a>
+        <a th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA01 (sigunguCode=${sigunguCode})}">전체&nbsp</a>
         <b>/&nbsp</b>
-        <a th:href="@{/leaselist/{sigungucode}/0/59 (sigungucode=${sigungucode})}">전용59&nbsp</a>
+        <a th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA02 (sigunguCode=${sigunguCode})}">소형&nbsp</a>
         <b>/&nbsp</b>
-        <a th:href="@{/leaselist/{sigungucode}/0/84 (sigungucode=${sigungucode})}">국평&nbsp</a>
+        <a th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA03 (sigunguCode=${sigunguCode})}">중소형&nbsp</a>
         <b>/&nbsp</b>
-        <a th:href="@{/leaselist/{sigungucode}/2/84 (sigungucode=${sigungucode})}">국평초과</a>
+        <a th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA07 (sigunguCode=${sigunguCode})}">국평</a>
+        <b>/&nbsp</b>
+        <a th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA04 (sigunguCode=${sigunguCode})}">중형</a>
+        <b>/&nbsp</b>
+        <a th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA05 (sigunguCode=${sigunguCode})}">중대형</a>
+        <b>/&nbsp</b>
+        <a th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA06 (sigunguCode=${sigunguCode})}">대형</a>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
                     <th>일자</th>
-                    <th>법정동</th>
-                    <th>계약구분</th>
-                    <th>계약기간</th>
-                    <th>아파트명</th>
-                    <th>전용면적(m2)</th>
-                    <th>보증금</th>
-<!--                    <th>월세</th>-->
-                    <th>층수</th>
+                    <th>계약</th>
+                    <th>아파트</th>
+                    <th>전용</br>(m<sup>2</sup>)</th>
+                    <th>보증금</br>이전보증금</th>
                 </tr>
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
                     <td align="center" th:text="${list.dealDate}"></td>
-                    <td align="center" th:text="${list.landDong}"></td>
-                    <td align="center" th:text="${list.dealType}"></td>
-                    <td align="center" th:text="${list.dealTerm}"></td>
-                    <td align="left"><a th:text="${list.aptName}" th:href="@{/leaselist/ByName/{sigungucode}/{dong}/{aptname}/{uatrunc}/1 (sigungucode=${list.sigunguCode}, dong=${list.landDong}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc})}"></a></td>
-<!--                    <td align="left" th:text="${list.aptName}"></td>-->
+                    <td align="center">
+                        <div>
+                            <a th:text="${list.dealType}"></a></br>
+                            <a th:text="${list.dealTerm}"></a>
+                        </div>
+                    </td>
+                    <td align="left">
+                        <div>
+                            <a th:text="${list.landDong}"></a></br>
+                            <a th:text="${list.aptName}" th:href="@{/leaselist/ByName/{sigungucode}/{dong}/{aptname}/{uatrunc}/1 (sigungucode=${list.sigunguCode}, dong=${list.landDong}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc})}"></a></br>
+                            <a th:text="|${list.floor} 층|"></a>
+                        </div>
+                    </td>
                     <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>
-                    <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.deposit,1,'COMMA')}"></td>
-<!--                    <td align="right" style="font-weight: bolder" th:text="${list.monthlyRentStr}"></td>-->
-    <!--                <td align="right" th:text="${#numbers.formatInteger(list.monthlyRent,1,'COMMA')}"></td>-->
-                    <td align="right" th:text="${list.floor}"></td>
+                    <td align="right">
+                        <div>
+                            <a style="font-weight: bolder" th:text="${#numbers.formatInteger(list.deposit,1,'COMMA')}"></a></br>
+                            <a th:text="${#numbers.formatInteger(list.befDeposit,1,'COMMA')}"></a>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
