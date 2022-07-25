@@ -55,7 +55,7 @@ public class StatController {
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/stat_trade/useareaType?" + sigunguCode + "&" + uaType + "&" + term);
-            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/useareaType?sigunguCode=" + title + "&uaType=" + uaType + "&term=" + term, sigunguCode);
+            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/useareaType?sigunguCode=" + title, sigunguCode);
             areas = statService.getStatTradeByUseAreaList(sigunguCode,uaType, term);
         } else {
             areas = new ArrayList<>();
@@ -273,7 +273,7 @@ public class StatController {
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/stat_trade/ByDealType?" + sigunguCode + "&uaType" + uaType);
-            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/ByDealType?" + title + "&uaType" + uaType, sigunguCode);
+            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/ByDealType?" + title, sigunguCode);
             if (sigunguCode.length() == 5) {
                 stats = statService.getStatTradeByUseAreaList(sigunguCode, uaType, "0");
             } else {

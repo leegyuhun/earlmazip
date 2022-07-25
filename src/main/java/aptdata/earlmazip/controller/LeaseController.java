@@ -32,7 +32,7 @@ public class LeaseController {
     private final CodeInfoService codeInfoService;
 
     @GetMapping("/leaselist")
-    public String getLeaseListBak(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
+    public String getLeaseList_Sigungu(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                   @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                   Model model) {
         String title = "-";
@@ -40,7 +40,7 @@ public class LeaseController {
         if (sigunguCode.length()==5) {
             log.info("/leaselist?sigunguCode=" + sigunguCode);
             title = codeInfoService.getCodeName(sigunguCode);
-            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist?sigunguCode=" + title + "&uaType=" + uaType, sigunguCode);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 trads = leaseService.getLeaseList_SigunguUAType(sigunguCode, uaType);
             } else {
@@ -73,7 +73,7 @@ public class LeaseController {
         if (sigunguCode.length() == 5) {
             log.info("/leaselist/monthly?sigunguCode" + sigunguCode);
             title = codeInfoService.getCodeName(sigunguCode);
-            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/monthly?sigunguCode=" + title + "&uaType" + uaType, sigunguCode);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/monthly?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 trads = leaseService.getLeaseMonthlyList_SigunguUAType(sigunguCode, uaType);
             } else {
@@ -96,6 +96,29 @@ public class LeaseController {
         } else {
             return "leaselist/monthly/incheon";
         }
+    }
+
+    @GetMapping("/leaselist/renewal")
+    public String getLeaseRenewalList_Seoul(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
+                                            Model model) {
+        String title = "-";
+        List<AptLeaseResponseDto> trads;
+        if (!sigunguCode.equals("0")) {
+            title = codeInfoService.getCodeName(sigunguCode);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/renewal?sigunguCode=" + title, sigunguCode);
+            if (StringUtils.hasText(sigunguCode)) {
+                trads = leaseService.getLeaseRenewalList_SeoulSigungu(sigunguCode);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else {
+            trads = new ArrayList<>();
+        }
+
+        model.addAttribute("title",  "[ "+ title + " - 최근 갱신내역 ]");
+        model.addAttribute("list", trads);
+
+        return "leaselist/renewal/seoul";
     }
 
     @GetMapping("/leaselist/{sigungucode}/{gubn}/{ua}")
@@ -133,41 +156,16 @@ public class LeaseController {
 
     @GetMapping("/leaselist/seoul/{sigungucode}") // 추후 삭제
     public String getLeaseList_Seoul(@PathVariable String sigungucode, Model model) {
-        String title = "-";
-        List<AptLeaseResponseDto> trads;
-        if (!sigungucode.equals("0")) {
-            log.info("/leaselist/seoul/" + sigungucode);
-            title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/seoul/" + title, sigungucode);
-            if (StringUtils.hasText(sigungucode)) {
-                trads = leaseService.getLeaseList_Sigungu(sigungucode, 0, 0);
-            } else {
-                trads = new ArrayList<>();
-            }
-        } else {
-            trads = new ArrayList<>();
-        }
-
-        model.addAttribute("title",  "[ "+ title + " - 최근 전세]");
-        model.addAttribute("list", trads);
-
-        return "leaselist/seoul";
+        return getLeaseList_Sigungu(sigungucode, "UA01", model);
     }
 
-    /**
-     * 서울 전세 갱신 현황
-     * @param sigungucode
-     * @param model
-     * @return
-     */
     @GetMapping("/leaselist/renewal/seoul/{sigungucode}")
-    public String getLeaseRenewalList_Seoul(@PathVariable String sigungucode, Model model) {
+    public String getLeaseRenewalList_SeoulBak(@PathVariable String sigungucode, Model model) {
         String title = "-";
         List<AptLeaseResponseDto> trads;
         if (!sigungucode.equals("0")) {
-            log.info("/leaselist/renewal/seoul/" + sigungucode);
             title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/renewal/seoul/" + title, sigungucode);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/renewal" + title, sigungucode);
             if (StringUtils.hasText(sigungucode)) {
                 trads = leaseService.getLeaseRenewalList_SeoulSigungu(sigungucode);
             } else {
@@ -180,7 +178,7 @@ public class LeaseController {
         model.addAttribute("title",  "[ "+ title + " - 최근 갱신내역 ]");
         model.addAttribute("list", trads);
 
-        return "leaselist/seoulRenewal";
+        return "leaselist/renewal/seoul";
     }
 
     @GetMapping("/leaselist/monthly/{sigungucode}/{gubn}/{ua}")
@@ -219,25 +217,7 @@ public class LeaseController {
     
     @GetMapping("/leaselist/monthly/seoul/{sigungucode}") //추후 삭제
     public String getLeaseMonthlyList_SeoulBak(@PathVariable String sigungucode, Model model) {
-        String title = "-";
-        List<AptLeaseResponseDto> trads;
-        if (!sigungucode.equals("0")) {
-            log.info("/leaselist/monthly/seoul/" + sigungucode);
-            title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/monthly/seoul/" + title, sigungucode);
-            if (StringUtils.hasText(sigungucode)) {
-                trads = leaseService.getLeaseMonthlyList_Sigungu(sigungucode,0,0);
-            } else {
-                trads = new ArrayList<>();
-            }
-        } else {
-            trads = new ArrayList<>();
-        }
-
-        model.addAttribute("title",  "[ "+ title + " - 최근 월세 ]");
-        model.addAttribute("list", trads);
-
-        return "leaselist/seoulMonthly";
+        return getLeaseMonthlyList(sigungucode, "UA01", model);
     }
 
     @GetMapping("/leaselist/gyunggi/{sidocode}")
@@ -311,25 +291,7 @@ public class LeaseController {
 
     @GetMapping("/leaselist/incheon/{sigungucode}")
     public String getLeaseList_Incheon(@PathVariable String sigungucode, Model model) {
-        List<AptLeaseResponseDto> trads;
-        String title = "-";
-        if (!sigungucode.equals("0")) {
-            log.info("/leaselist/incheon/" + sigungucode);
-            title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/incheon/" + title, sigungucode);
-            if (StringUtils.hasText(sigungucode)) {
-                trads = leaseService.getLeaseList_IncheonSigungu(sigungucode);
-            } else {
-                trads = new ArrayList<>();
-            }
-        } else {
-            trads = new ArrayList<>();
-        }
-
-        model.addAttribute("title",  "[ "+ title + " - 최근 전세 ]");
-        model.addAttribute("list", trads);
-
-        return "leaselist/incheon";
+        return getLeaseList_Sigungu(sigungucode, "UA01", model);
     }
 
     @GetMapping("/leaselist/monthly/incheon/{sigungucode}")

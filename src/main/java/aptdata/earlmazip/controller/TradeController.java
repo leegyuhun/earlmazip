@@ -228,8 +228,7 @@ public class TradeController {
                                      Model model) {
         List<AptPriceResponseDto> trads;
         if (!regncode.equals("0")) {
-            log.info("/tradelist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
-            apiCallStatService.writeApiCallStat("TRADE_LIST_NAME", "/tradelist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term + "?" + landDong, regncode);
+            apiCallStatService.writeApiCallStat("TRADE_LIST_NAME", "/tradelist/ByName?regncode=" + regncode + "&aptname=" + aptName + "&ua=" + ua, regncode);
 
             if (StringUtils.hasText(regncode)) {
                 trads = tradeService.getAptTradeList_ByName(regncode, landDong, aptName, ua, term);

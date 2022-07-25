@@ -47,22 +47,15 @@
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
                     <th>일자</th>
-                    <th>계약</th>
                     <th>아파트</th>
                     <th>전용</br>(m<sup>2</sup>)</th>
-                    <th>보증금</br>이전보증금</th>
-                    <th>월세</br>이전월세</th>
+                    <th>보증금</th>
+                    <th>월세</th>
                 </tr>
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
                     <td align="center" th:text="${list.dealDate}"></td>
-                    <td align="center">
-                        <div>
-                            <a th:text="${list.dealType}"></a></br>
-                            <a th:text="${list.dealTerm}"></a>
-                        </div>
-                    </td>
                     <td align="left">
                         <div>
                             <a th:text="${list.landDong}"></a></br>
@@ -71,18 +64,8 @@
                         </div>
                     </td>
                     <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>
-                    <td align="right">
-                        <div>
-                            <a style="font-weight: bolder" th:text="${#numbers.formatInteger(list.deposit,1,'COMMA')}"></a></br>
-                            <a th:text="${#numbers.formatInteger(list.befDeposit,1,'COMMA')}"></a>
-                        </div>
-                    </td>
-                    <td align="right">
-                        <div>
-                            <a style="font-weight: bolder" th:text="${list.monthlyRentStr}"></a></br>
-                            <a th:text="${list.befMonthlyRentStr}"></a>
-                        </div>
-                    </td>
+                    <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.deposit,1,'COMMA')}"></td>
+                    <td align="right" style="font-weight: bolder" th:text="${list.monthlyRentStr}"></td>
                 </tr>
             </tbody>
         </table>
