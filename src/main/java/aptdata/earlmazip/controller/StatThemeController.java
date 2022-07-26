@@ -41,8 +41,36 @@ public class StatThemeController {
      * @param model
      * @return
      */
+    @GetMapping("/stat_trade/theme/001")
+    public String getStatTheme(@RequestParam(value = "term", defaultValue = "5") String term,
+                               Model model) {
+        List<StatResponseDto> stats;
+        log.info("/stat_trade/theme/001?term=" + term);
+        apiCallStatService.writeApiCallStat("STAT_THEME", "/stat_trade/theme/001?term=" + term, "0");
+        stats = statService.getStatTheme("001", term);
+
+        List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Float> avgPrices = stats.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
+        List<Float> newHighests = stats.stream().map(o->new Float(o.getHighestRate())).collect(Collectors.toList());
+        List<Integer> tradcnt = stats.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        String title = stats.get(0).getName();
+
+        Collections.reverse(dates);
+        Collections.reverse(avgPrices);
+        Collections.reverse(newHighests);
+        Collections.reverse(tradcnt);
+
+        model.addAttribute("dates", dates);
+        model.addAttribute("avgPrices", avgPrices);
+        model.addAttribute("tradcnt", tradcnt);
+        model.addAttribute("newHighests", newHighests);
+        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("list", stats);
+
+        return "stat_trade/statTheme";
+    }
     @GetMapping("/stat_trade/theme01/{term}")
-    public String getStatTheme(@PathVariable String term, Model model) {
+    public String getStatThemeBak(@PathVariable String term, Model model) {
         List<StatResponseDto> stats;
         log.info("/stat_trade/theme01/" + term);
         apiCallStatService.writeApiCallStat("STAT_THEME", "/stat_trade/theme01/" + term, "0");
