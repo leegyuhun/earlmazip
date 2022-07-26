@@ -101,6 +101,7 @@ public class TradeController {
         model.addAttribute("sigungucode", sigunguCode);
         model.addAttribute("uaType", uaType);
         model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("headerTitle", title + " 최근 매매");
         model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
         if (sigunguCode.substring(0, 2).equals("11")) {
             return "tradelist/seoul";
@@ -214,6 +215,7 @@ public class TradeController {
         }
 
         model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("headerTitle", title + " 취소거래");
         model.addAttribute("list", trads);
 
         return "tradelist/cancelDeal";
@@ -250,6 +252,7 @@ public class TradeController {
         }
 
         model.addAttribute("title",  title);
+        model.addAttribute("headerTitle", title + " 매매내역");
         model.addAttribute("landDong", landDong);
         model.addAttribute("regncode", regncode);
         model.addAttribute("aptName", aptName);
@@ -269,41 +272,7 @@ public class TradeController {
                                     @PathVariable int term,
                                     @RequestParam(value="landDong", defaultValue = "") String landDong,
                                     Model model) {
-        List<AptPriceResponseDto> trads;
-        if (!regncode.equals("0")) {
-            log.info("/tradelist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
-            apiCallStatService.writeApiCallStat("TRADE_LIST_NAME", "/tradelist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term + "?" + landDong, regncode);
-
-            if (StringUtils.hasText(regncode)) {
-                trads = tradeService.getAptTradeList_ByName(regncode, landDong, aptName, ua, term);
-            } else {
-                trads = new ArrayList<>();
-            }
-        } else {
-            trads = new ArrayList<>();
-        }
-
-        List<String> dates = trads.stream().map(o->new String(o.getDealDate())).collect(Collectors.toList());
-        List<Integer> dealAmts = trads.stream().map(o->new Integer(o.getDealAmt())).collect(Collectors.toList());
-        Collections.reverse(dates);
-        Collections.reverse(dealAmts);
-
-        String title = "-";
-        if (trads.size() > 0) {
-            title = trads.get(0).getLandDong() + " " + aptName + "(" + trads.get(0).getBuildYear() + ")";
-        }
-
-        model.addAttribute("title",  title);
-        model.addAttribute("landDong", landDong);
-        model.addAttribute("regncode", regncode);
-        model.addAttribute("aptName", aptName);
-        model.addAttribute("ua", ua);
-        model.addAttribute("dates", dates);
-        model.addAttribute("dealAmts", dealAmts);
-        model.addAttribute("termStr", Common.makeTermString(term));
-        model.addAttribute("list", trads);
-
-        return "tradelist/aptTradeList_ByUA";
+        return getTradeListByName(regncode, aptName, ua, term, landDong, model);
     }
 
     @GetMapping("/newHighestList/{sigungucode}/{ua}")

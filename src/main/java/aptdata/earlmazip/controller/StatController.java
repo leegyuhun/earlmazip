@@ -74,6 +74,7 @@ public class StatController {
         Collections.reverse(tradcnt);
 
         model.addAttribute("title",  title);
+        model.addAttribute("headerTitle", title + " 월별 통계");
         model.addAttribute("sigungucode",  sigunguCode);
         model.addAttribute("term",  term);
         model.addAttribute("termStr", Common.makeTermString(term));
@@ -316,6 +317,7 @@ public class StatController {
 
         model.addAttribute("title",  title);
         model.addAttribute("title2",  title2);
+        model.addAttribute("headerTitle", title + " 직/중개 통계");
         model.addAttribute("sigungucode",  sigunguCode);
         model.addAttribute("list", list);
         model.addAttribute("uaType", uaType);

@@ -15,7 +15,7 @@
                     <button type="submit" class="btn btn-primary">검색</button>
                 </div>
             </form>
-            <label style="font-size:10px;">* 서울,경기 아파트만 조회됩니다.</label>
+            <label style="font-size:10px;">* 수도권 아파트만 조회됩니다.</label>
             <label style="font-size:11px;">* 지역명없이 아파트명으로 검색 ( ex 반포 래미안퍼스티지(x) 래미안퍼스티지(o) )</label>
         </div>
         <div>
@@ -25,40 +25,30 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
-        <label style="font-size:12px;">* 아파트명 동기화 작업중이라 매매내역이 조회되지 않는 아파트가 있을수 있습니다. </label>
         <table class="table table-striped">
             <thead>
             <tr class="table-dark" style="font-size:12px;"  align="center">
-                <th>아파트명</th>
-                <th>지역</th>
-                <th>입주년도</th>
-                <th>세대수</th>
-                <th>세대당<br/>주차수</th>
-                <th>국평초과<br/>비율(%)</th>
-                <th>2021~<br/>매매내역</th>
-<!--                <th>시공사</th>-->
-<!--                <th>지하철역</th>-->
-<!--                <th>지하철역 거리</th>-->
+                <th>지역</br>아파트</th>
+                <th>세대수<br/>주차수</br>국평초과</th>
+                <th>시공사<br/>시행사</th>
             </tr>
             </thead>
             <tbody>
             <tr style="font-size:12px;" th:each="apts : ${apts}">
-                <td th:text="${apts.aptName}"></td>
-                <td th:text="${#strings.concat(apts.as1, ' ', apts.as2, ' ', apts.as3)}"></td>
-                <td align="center" th:text="${apts.useAplyYear}"></td>
-<!--                <td th:text="${apts.as1}"></td>-->
-<!--                <td th:text="${apts.as2}"></td>-->
-<!--                <td th:text="${apts.as3}"></td>-->
-                <td align="right" th:text="${#numbers.formatInteger(apts.daCnt,3,'COMMA')}"></td>
-                <td align="right" th:text="${apts.parkRate}"></td>
-                <td align="right" th:text="${apts.bigMpRate}"></td>
-                <td><a th:href="@{https://www.earlmazip.co.kr/{add}(add=${apts.tradeUrl})}"><button>보기</button></a> </td>
-<!--                <td align="center" th:href="@{${apts.tradeUrl}}">내역</td>-->
-<!--                <td align="center" onclick="location.href='https://'" style="cursor:pointer">내역</td>-->
-<!--                <td th:text="${apts.bComp}"></td>-->
-<!--                <td th:text="${apts.subName}"></td>-->
-<!--                <td th:text="${apts.subDist}"></td>-->
-<!--                <td th:text="${apts.address?.zipcode}"></td>-->
+                <td align="left">
+                    <a th:text="${#strings.concat(apts.as2, ' ', apts.as3)}"></a></br>
+                    <a th:text="${apts.aptName}"></a></br>
+                    <a th:text="|[ ${apts.useAplyYear} ]|"></a>
+                </td>
+                <td align="right">
+                    <a th:text="|${#numbers.formatInteger(apts.daCnt,3,'COMMA')} 세대|"></a></br>
+                    <a th:text="|${apts.parkRate} 대|"></a></br>
+                    <a th:text="|${apts.bigMpRate} %|"></a>
+                </td>
+                <td align="left">
+                    <a th:text="${apts.bComp}"></a></br>
+                    <a th:text="${apts.aComp}"></a>
+                </td>
             </tr>
             </tbody>
         </table>

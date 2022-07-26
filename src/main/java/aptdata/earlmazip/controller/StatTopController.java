@@ -46,7 +46,7 @@ public class StatTopController {
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/stat_trade/top?year=" + year + "&sigunguCode=" +  sigunguCode);
-            apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/top?sigunguCode=" +  title + "year="+year+"&uaType=" + uaType, sigunguCode);
+            apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/top?sigunguCode=" +  title + "year="+year, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 tops = statService.getStatTradeTopByYear(year, sigunguCode, uaType);
             } else {

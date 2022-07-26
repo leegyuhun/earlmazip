@@ -21,6 +21,7 @@ public class HomeController {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
 //        apiCallStatService.writeApiCallStat("MENU", "Home");
         modal.addAttribute("udt", udt);
+        modal.addAttribute("headerTitle", "수도권 부동산 - 매매");
         return "home";
     }
 
@@ -29,6 +30,7 @@ public class HomeController {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
         apiCallStatService.writeApiCallStat("MENU", "Lease", "0");
         modal.addAttribute("udt", udt);
+        modal.addAttribute("headerTitle", "수도권 부동산 - 전세");
         return "home_lease";
     }
 
@@ -37,6 +39,7 @@ public class HomeController {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
         apiCallStatService.writeApiCallStat("MENU", "ETC", "0");
         modal.addAttribute("udt", udt);
+        modal.addAttribute("headerTitle", "수도권 부동산 - 기타");
         return "home_etc";
     }
 
@@ -45,6 +48,7 @@ public class HomeController {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
         apiCallStatService.writeApiCallStat("MENU", "THEME", "0");
         modal.addAttribute("udt", udt);
+        modal.addAttribute("headerTitle", "수도권 부동산 - 테마");
         return "home_theme";
     }
 }

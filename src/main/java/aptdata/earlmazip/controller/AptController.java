@@ -36,6 +36,7 @@ public class AptController {
         for (AptResponseDto apt: apts) {
             apt.setTradeUrl("tradelist/ByName/" + apt.getSigunguCode() + "/" + apt.getAptName() + "/0/1");
         }
+        model.addAttribute("headerTitle", "아파트 정보 검색");
         model.addAttribute("apts", apts);
         return "apts/aptList";
     }

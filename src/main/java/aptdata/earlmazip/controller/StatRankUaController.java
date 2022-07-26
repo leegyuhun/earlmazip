@@ -136,6 +136,7 @@ public class StatRankUaController {
 
         model.addAttribute("list", list);
         model.addAttribute("title", "[ " + title + " ]");
+        model.addAttribute("headerTitle", title);
         model.addAttribute("subtitle", subTitle);
         model.addAttribute("ua", ua);
         model.addAttribute("rankgubn", rankgubn);
@@ -200,6 +201,7 @@ public class StatRankUaController {
 
         model.addAttribute("list", list);
         model.addAttribute("title", "[ " + title + " ]");
+        model.addAttribute("headerTitle", title);
         model.addAttribute("subtitle", subTitle);
         model.addAttribute("ua", ua);
         model.addAttribute("rankgubn", rankgubn);
@@ -248,6 +250,7 @@ public class StatRankUaController {
 
         model.addAttribute("list", list);
         model.addAttribute("title", "[ " + title + " ]");
+        model.addAttribute("headerTitle", title);
         model.addAttribute("subtitle", subTitle);
         model.addAttribute("ua", ua);
         model.addAttribute("rankgubn", rankgubn);
@@ -266,7 +269,7 @@ public class StatRankUaController {
         if (!sigunguCode.equals("0")) {
             log.info("/stat_rank_uatype?rankGubn=" + rankGubn + "&dealYear=" + dealYear + "&sigunguCode=" + sigunguCode + "&uaType=" + uaType);
             title = codeInfoService.getCodeName(sigunguCode);
-            apiCallStatService.writeApiCallStat("STAT_RANK_UA", "/stat_rank_uatype?rankGubn=" + rankGubn + "&dealYear=" + dealYear + "&sigunguCode=" + title + "&uaType=" + uaType, sigunguCode);
+            apiCallStatService.writeApiCallStat("STAT_RANK_UA", "/stat_rank_uatype?rankGubn=" + rankGubn + "&dealYear=" + dealYear + "&sigunguCode=" + title, sigunguCode);
             list = statService.getStatRankUaTypeList(rankGubn, dealYear, sigunguCode, uaType);
         } else {
             list = new ArrayList<>();
@@ -284,6 +287,7 @@ public class StatRankUaController {
 
         model.addAttribute("list", list);
         model.addAttribute("title", "[ " + title + " ]");
+        model.addAttribute("headerTitle", title);
         model.addAttribute("subtitle", subTitle);
         model.addAttribute("uaType", uaType);
         model.addAttribute("rankGubn", rankGubn);
