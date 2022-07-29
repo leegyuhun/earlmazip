@@ -23,6 +23,7 @@ public class StatResponseDto {
     }
 
     private int minPrice;
+
     private int avgPrice;
     private int maxPrice;
     private String minPriceStr;
@@ -127,5 +128,13 @@ public class StatResponseDto {
         this.highestCnt = entity.getHighestCnt();
         this.highestRate = entity.getHighestRate();
         this.avgUseArea = entity.getAvgUseArea();
+    }
+
+    public StatResponseDto(StatDistribution entity) {
+        this.seq = entity.getSeq();
+        this.code = entity.getSigunguCode();
+        this.name = entity.getSigunguName();
+        this.dealYear = entity.getDealYear();
+        this.cnt = entity.getCnt();
     }
 }

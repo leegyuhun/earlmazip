@@ -235,6 +235,15 @@ public class StatRepository {
                 .getResultList().stream().map(StatResponseDto::new)
                 .collect(Collectors.toList());
     }
+
+    public List<StatResponseDto> getDistribution(String areaCode) {
+        return em.createQuery("select a from StatDistribution a "
+                        + " where a.areaCode = :areaCode "
+                        + " order by sigunguName desc", StatDistribution.class)
+                .setParameter("areaCode", areaCode)
+                .getResultList().stream().map(StatResponseDto::new)
+                .collect(Collectors.toList());
+    }
         
 }
     

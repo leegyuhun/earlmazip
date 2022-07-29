@@ -1,5 +1,6 @@
 package aptdata.earlmazip.controller.dto;
 
+import aptdata.earlmazip.domain.AptDistributionRaw;
 import aptdata.earlmazip.domain.AptPriceRaw;
 import aptdata.earlmazip.domain.CancelDealData;
 import aptdata.earlmazip.domain.RankYear;
@@ -121,6 +122,27 @@ public class AptPriceResponseDto {
         this.floor = entity.getFloor();
         this.buildYear = entity.getBuildYear();
         this.dealType = entity.getDealType();
+        this.newHighestPrice = entity.getNewHighestPrice();
+    }
+
+    public AptPriceResponseDto(AptDistributionRaw entity) {
+        this.sigunguCode = entity.getSigunguCode();
+        this.dealDate = entity.getDealDate();
+        this.aptName = entity.getAptName();
+        this.useArea = entity.getUseArea();
+        this.useAreaTrunc = entity.getUseAreaTrunc();
+        this.useAreaType = entity.getUseAreaType();
+        this.dealAmt = entity.getDealAmt();
+        this.prevDealAmt = entity.getPrevDealAmt();
+        this.prevDealDate = entity.getPrevDealDate();
+        this.diffAmt = entity.getDiffAmt();
+        this.diffRate = entity.getDiffRate();
+        this.floor = entity.getFloor();
+        this.landDong = entity.getLandDong();
+        this.cnclDealType = entity.getCnclDealType();
+        this.cnclDealDate = entity.getCnclDealDate();
+        this.dealType = entity.getDealType();
+        this.dealLoc = entity.getDealLoc();
         this.newHighestPrice = entity.getNewHighestPrice();
     }
 }

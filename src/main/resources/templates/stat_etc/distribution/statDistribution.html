@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <!--    <a th:text="${year}"></a>-->
+    <div>
+        <div>
+            <a href="/stat_etc/distribution?areaCode=11">서울&nbsp</a>
+            <a href="/stat_etc/distribution?areaCode=41">&nbsp경기&nbsp</a>
+            <a href="/stat_etc/distribution?areaCode=28">&nbsp인천&nbsp</a>
+        </div>
+        <p>
+            <h4 align="center" th:text="${title}"></h4>
+        </p>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+                    <th>지역</th>
+                    <th>거래 건수</th>
+                    <th>내역 보기</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="font-size:14px;" th:each="list : ${list}">
+                    <td align="center" th:text="${list.name}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
+                    <td align="right">
+                        <div>
+                          <a th:href="@{/tradelist/distribution?sigunguCode={code} (code=${list.code})}">조회</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>

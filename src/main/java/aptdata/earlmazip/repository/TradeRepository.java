@@ -1,6 +1,7 @@
 package aptdata.earlmazip.repository;
 
 import aptdata.earlmazip.controller.dto.AptPriceResponseDto;
+import aptdata.earlmazip.domain.AptDistributionRaw;
 import aptdata.earlmazip.domain.AptPriceRaw;
 import aptdata.earlmazip.domain.CancelDealData;
 import aptdata.earlmazip.utils.Common;
@@ -282,5 +283,30 @@ public class TradeRepository {
                     .setParameter("ua", ua)
                     .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
         }
+    }
+
+    public List<AptPriceResponseDto> getTradeDistribution_BySigungu(String dealYear, String sigungucode) {
+        return em.createQuery("select a from AptDistributionRaw a"
+                        + " where a.dealYear = :dealYear and a.sigunguCode = :sigunguCode "
+                        + " order by a.dealDate desc", AptDistributionRaw.class)
+                .setParameter("sigunguCode", sigungucode)
+                .setParameter("dealYear", dealYear)
+                .setMaxResults(500)
+                .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    }
+
+    public List<AptPriceResponseDto> getTradeDistribution_ByName(String dealYear, String sigungucode, String landDong, String aptName) {
+        return em.createQuery("select a from AptDistributionRaw a"
+                        + " where a.dealYear = :dealYear "
+                        + "   and a.sigunguCode = :sigunguCode "
+                        + "   and a.landDong = :landDong "
+                        + "   and a.aptName = :aptName "
+                        + " order by a.dealDate desc", AptDistributionRaw.class)
+                .setParameter("sigunguCode", sigungucode)
+                .setParameter("landDong", landDong)
+                .setParameter("aptName", aptName)
+                .setParameter("dealYear", dealYear)
+                .setMaxResults(500)
+                .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
 }

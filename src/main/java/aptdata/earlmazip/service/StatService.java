@@ -74,4 +74,8 @@ public class StatService {
     public List<StatResponseDto> getStatByDealType(String sigunguCode, String uaTYpe, int dealType) {
         return statRepository.getStatByDealType(sigunguCode, uaTYpe, dealType);
     }
+
+    public List<StatResponseDto> getDistribution(String areaCode) {
+        return statRepository.getDistribution(areaCode);
+    }
 }

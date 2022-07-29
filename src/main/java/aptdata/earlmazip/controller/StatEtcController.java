@@ -3,6 +3,7 @@ package aptdata.earlmazip.controller;
 import aptdata.earlmazip.controller.dto.EcosDataResponseDto;
 import aptdata.earlmazip.controller.dto.StatResponseDto;
 import aptdata.earlmazip.service.ApiCallStatService;
+import aptdata.earlmazip.service.CodeInfoService;
 import aptdata.earlmazip.service.EcosDataService;
 import aptdata.earlmazip.service.StatService;
 import aptdata.earlmazip.utils.Common;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 public class StatEtcController {
     private final EcosDataService ecosDataService;
     private final StatService statService;
+    private final CodeInfoService codeInfoService;
     private final ApiCallStatService apiCallStatService;
 
     /**
@@ -322,6 +324,19 @@ public class StatEtcController {
         model.addAttribute("list", list);
 
         return "stat_etc/statUnSoldHouseHistory";
+    }
+
+    @GetMapping("/stat_etc/distribution")
+    public String getDistribution(@RequestParam(value="areaCode", defaultValue = "11") String areaCode,
+                                        Model model) {
+        apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/distribution", "0");
+        List<StatResponseDto> stat = statService.getDistribution(areaCode);
+        String title = "";
+
+        model.addAttribute("title", codeInfoService.getCodeName(areaCode));
+        model.addAttribute("list", stat);
+
+        return "stat_etc/distribution/statDistribution";
     }
 
     @Data

@@ -5,6 +5,15 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
+<!--        <div class="dropdown">-->
+<!--            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                구 선택-->
+<!--            </button>-->
+<!--            <ul class="dropdown-menu">-->
+<!--                <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=11&uaType={ua}&term={term} (term=${term}, ua=${ua})}">서울 전체</a></li>-->
+<!--                <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=11680&uaType={ua}&term={term} (term=${term}, ua=${ua})}">강남구</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
         <a th:href="@{/stat_trade/useareaType?sigunguCode=11&uaType={ua}&term={term} (term=${term}, ua=${ua})}">서울 전체</a>
         <div>
             <a th:href="@{/stat_trade/useareaType?sigunguCode=11680&uaType={ua}&term={term} (term=${term}, ua=${ua})}">강남구&nbsp</a>

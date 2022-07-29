@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <!--    <a th:text="${year}"></a>-->
+    <div>
+        <p>
+            <h4 align="center" th:text="${title}"></h4>
+        </p>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+                    <th>계약일자</th>
+                    <th>전용</br>(m<sup>2</sup>)</th>
+                    <th>거래금액</th>
+                    <th>층수</th>
+                    <th>직/중개</br>신고가</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="font-size:12px;" th:each="list : ${list}">
+                    <td align="center" th:text="${list.dealDate}"></td>
+                    <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>
+                    <td align="right" th:text="${list.dealAmtStr}"></td>
+                    <td align="right" th:text="${list.floor}"></td>
+                    <td align="center">
+                        <div>
+                            <a th:text="${list.dealType}"></a></br>
+                            <a th:text="${list.newHighest}"></a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>
