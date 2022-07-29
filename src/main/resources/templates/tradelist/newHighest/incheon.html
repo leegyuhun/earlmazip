@@ -5,43 +5,24 @@
 
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
-    <!--    <a th:text="${year}"></a>-->
     <div>
         <div>
-            <a th:href="@{/newHighestList/11680/{ua} (ua=${ua})}">강남구&nbsp</a>
-            <a th:href="@{/newHighestList/11740/{ua} (ua=${ua})}">&nbsp강동구&nbsp</a>
-            <a th:href="@{/newHighestList/11305/{ua} (ua=${ua})}">&nbsp강북구&nbsp</a>
-            <a th:href="@{/newHighestList/11500/{ua} (ua=${ua})}">&nbsp강서구&nbsp</a>
-            <a th:href="@{/newHighestList/11620/{ua} (ua=${ua})}">&nbsp관악구&nbsp</a>
-            <a th:href="@{/newHighestList/11215/{ua} (ua=${ua})}">&nbsp광진구&nbsp</a>
-            <a th:href="@{/newHighestList/11530/{ua} (ua=${ua})}">&nbsp구로구</a>
+            <a th:href="@{/tradelist/newHighest?sigunguCode=28710&uaType={uaType} (uaType=${uaType})}">강화군&nbsp</a>
+            <a th:href="@{/tradelist/newHighest?sigunguCode=28245&uaType={uaType} (uaType=${uaType})}">&nbsp계양구&nbsp</a>
+            <a th:href="@{/tradelist/newHighest?sigunguCode=28200&uaType={uaType} (uaType=${uaType})}">&nbsp남동구&nbsp</a>
+            <a th:href="@{/tradelist/newHighest?sigunguCode=28140&uaType={uaType} (uaType=${uaType})}">&nbsp동구&nbsp</a>
+            <a th:href="@{/tradelist/newHighest?sigunguCode=28177&uaType={uaType} (uaType=${uaType})}">&nbsp미추홀구</a>
         </div>
         <div>
-            <a th:href="@{/newHighestList/11545/{ua} (ua=${ua})}">금천구&nbsp</a>
-            <a th:href="@{/newHighestList/11350/{ua} (ua=${ua})}">&nbsp노원구&nbsp</a>
-            <a th:href="@{/newHighestList/11320/{ua} (ua=${ua})}">&nbsp도봉구&nbsp</a>
-            <a th:href="@{/newHighestList/11230/{ua} (ua=${ua})}">&nbsp동대문&nbsp</a>
-            <a th:href="@{/newHighestList/11590/{ua} (ua=${ua})}">&nbsp동작구&nbsp</a>
-            <a th:href="@{/newHighestList/11440/{ua} (ua=${ua})}">&nbsp마포구&nbsp</a>
-            <a th:href="@{/newHighestList/11410/{ua} (ua=${ua})}">&nbsp서대문</a>
-        </div>
-        <div>
-            <a th:href="@{/newHighestList/11650/{ua} (ua=${ua})}">서초구&nbsp</a>
-            <a th:href="@{/newHighestList/11200/{ua} (ua=${ua})}">&nbsp성동구&nbsp</a>
-            <a th:href="@{/newHighestList/11290/{ua} (ua=${ua})}">&nbsp성북구&nbsp</a>
-            <a th:href="@{/newHighestList/11710/{ua} (ua=${ua})}">&nbsp송파구&nbsp</a>
-            <a th:href="@{/newHighestList/11470/{ua} (ua=${ua})}">&nbsp양천구&nbsp</a>
-            <a th:href="@{/newHighestList/11560/{ua} (ua=${ua})}">&nbsp영등포&nbsp</a>
-            <a th:href="@{/newHighestList/11170/{ua} (ua=${ua})}">&nbsp용산구</a>
-        </div>
-        <div>
-            <a th:href="@{/newHighestList/11380/{ua} (ua=${ua})}">은평구&nbsp</a>
-            <a th:href="@{/newHighestList/11110/{ua} (ua=${ua})}">&nbsp종로구&nbsp</a>
-            <a th:href="@{/newHighestList/11260/{ua} (ua=${ua})}">&nbsp중랑구&nbsp</a>
-            <a th:href="@{/newHighestList/11140/{ua} (ua=${ua})}">&nbsp중구</a>
+            <a th:href="@{/tradelist/newHighest?sigunguCode=28237&uaType={uaType} (uaType=${uaType})}">부평구&nbsp</a>
+            <a th:href="@{/tradelist/newHighest?sigunguCode=28260&uaType={uaType} (uaType=${uaType})}">&nbsp서구&nbsp</a>
+            <a th:href="@{/tradelist/newHighest?sigunguCode=28185&uaType={uaType} (uaType=${uaType})}">&nbsp연수구&nbsp</a>
+            <a th:href="@{/tradelist/newHighest?sigunguCode=28720&uaType={uaType} (uaType=${uaType})}">&nbsp옹진군&nbsp</a>
+            <a th:href="@{/tradelist/newHighest?sigunguCode=28110&uaType={uaType} (uaType=${uaType})}">중구</a>
         </div>
         <p>
-            <h4 align="center" th:text="|${title} - 2022 신고가|"></h4>
+            <h5 align="center" th:text="|${title} - 2022 신고가|"></h5>
+            <h6 align="center" th:text="|* ${uaStr} |"></h6>
         </p>
         <div>
             <ins class="kakao_ad_area" style="display:none;"
@@ -50,13 +31,20 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
-        <a style="font-size: 20px">[면적]&nbsp</a>
-        <a style="font-size: 20px" th:href="@{/newHighestList/{sigungucode}/0 (sigungucode=${sigungucode})}">전체&nbsp</a>
+        <a >[평형]&nbsp</a>
+        <a th:href="@{/tradelist/newHighest?sigunguCode={sigunguCode}&uaType=UA01 (sigunguCode=${sigunguCode})}">전체&nbsp</a>
         <b>/&nbsp</b>
-        <a style="font-size: 20px" th:href="@{/newHighestList/{sigungucode}/59 (sigungucode=${sigungucode})}">전용59&nbsp</a>
+        <a th:href="@{/tradelist/newHighest?sigunguCode={sigunguCode}&uaType=UA02 (sigunguCode=${sigunguCode})}">소형&nbsp</a>
         <b>/&nbsp</b>
-        <a style="font-size: 20px" th:href="@{/newHighestList/{sigungucode}/84 (sigungucode=${sigungucode})}">국평&nbsp</a>
-
+        <a th:href="@{/tradelist/newHighest?sigunguCode={sigunguCode}&uaType=UA03 (sigunguCode=${sigunguCode})}">중소형&nbsp</a>
+        <b>/&nbsp</b>
+        <a th:href="@{/tradelist/newHighest?sigunguCode={sigunguCode}&uaType=UA07 (sigunguCode=${sigunguCode})}">국평&nbsp</a>
+        <b>/&nbsp</b>
+        <a th:href="@{/tradelist/newHighest?sigunguCode={sigunguCode}&uaType=UA04 (sigunguCode=${sigunguCode})}">중형&nbsp</a>
+        <b>/&nbsp</b>
+        <a th:href="@{/tradelist/newHighest?sigunguCode={sigunguCode}&uaType=UA05 (sigunguCode=${sigunguCode})}">중대형&nbsp</a>
+        <b>/&nbsp</b>
+        <a th:href="@{/tradelist/newHighest?sigunguCode={sigunguCode}&uaType=UA06 (sigunguCode=${sigunguCode})}">대형</a>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">

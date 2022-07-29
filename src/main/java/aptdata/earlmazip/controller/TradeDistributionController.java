@@ -72,7 +72,7 @@ public class TradeDistributionController {
         if (sigunguCode.length() == 5) {
 //            title = codeInfoService.getCodeName(sigunguCode);
             log.info("/tradelist?" + sigunguCode);
-            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/distribution/ByName?sigunguCode=" + title, sigunguCode);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/distribution/ByName?sigunguCode=" + title + "&aptName=" + aptName, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 trads = tradeService.getTradeDistribution_ByName(date.substring(0,4), sigunguCode, landDong, aptName);
             } else {

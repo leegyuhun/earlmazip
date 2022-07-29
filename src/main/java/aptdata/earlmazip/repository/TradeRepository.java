@@ -261,8 +261,8 @@ public class TradeRepository {
         }
     }
 
-    public List<AptPriceResponseDto> getNewHighestList(String sigungucode, int ua) {
-        if (ua == 0) {
+    public List<AptPriceResponseDto> getNewHighestList(String sigungucode, String uaType) {
+        if (uaType.equals("UA01")) {
             return em.createQuery(" select a from AptPriceRaw a "
                             + " where a.sigunguCode = :sigungucode "
                             + "   and a.dealYear = 2022 "
@@ -275,12 +275,12 @@ public class TradeRepository {
             return em.createQuery(" select a from AptPriceRaw a "
                             + " where a.sigunguCode = :sigungucode "
                             + "   and a.dealYear = 2022 "
-                            + "   and a.useAreaTrunc = :ua "
+                            + "   and a.useAreaType = :uaType "
                             + "   and a.cnclDealDate = '' "
                             + "   and a.newHighestPrice = 1 "
                             + " order by a.dealDate desc", AptPriceRaw.class)
                     .setParameter("sigungucode", sigungucode)
-                    .setParameter("ua", ua)
+                    .setParameter("uaType", uaType)
                     .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
         }
     }

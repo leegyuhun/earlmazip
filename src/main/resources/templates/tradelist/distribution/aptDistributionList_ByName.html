@@ -30,7 +30,8 @@
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
                     <td align="center" th:text="${list.dealDate}"></td>
-                    <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>
+                    <td align="right" th:text="${list.useAreaStr}"></td>
+<!--                    <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>-->
                     <td align="right" th:text="${list.dealAmtStr}"></td>
                     <td align="right" th:text="${list.floor}"></td>
                     <td align="center">

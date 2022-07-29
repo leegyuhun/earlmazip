@@ -87,7 +87,7 @@ public class TradeController {
         if (sigunguCode.length() == 5) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/tradelist?" + sigunguCode);
-            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist?sigunguCode=" + title + "&uaType=" + uaType, sigunguCode);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 trads = tradeService.getTradeList_SigunguUAType(sigunguCode, uaType);
             } else {
@@ -127,7 +127,7 @@ public class TradeController {
         if (!sidocode.equals("0")) {
             title = codeInfoService.getCodeName(sidocode);
             log.info("/tradelist/gyunggi/" + sidocode);
-            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/gyunggi/" + "/" + gubn + "/" + ua, sidocode);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/gyunggi/" + gubn + "/" + ua, sidocode);
             if (StringUtils.hasText(sidocode)) {
                 trads = tradeService.getTradeList_GyunggiSido(sidocode, gubn, ua);
             } else {
@@ -265,6 +265,40 @@ public class TradeController {
         return "tradelist/aptTradeList_ByUA";
     }
 
+    @GetMapping("/tradelist/newHighest")
+    public String getNewHighestList(@RequestParam(value="sigunguCode", defaultValue = "11") String sigunguCode,
+                                    @RequestParam(value="uaType", defaultValue = "UA01") String uaType,
+                                    Model model) {
+        List<AptPriceResponseDto> trads;
+        String title = "-";
+        if (sigunguCode.length() == 5) {
+            title = codeInfoService.getCodeName(sigunguCode);
+            log.info("/tradelist/newHighest?sigunguCode" + sigunguCode);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/newHighest?sigunguCode=" + title, sigunguCode);
+            if (StringUtils.hasText(sigunguCode)) {
+                trads = tradeService.getNewHighestList(sigunguCode, uaType);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else{
+            trads = new ArrayList<>();
+        }
+
+        model.addAttribute("list", trads);
+        model.addAttribute("sigunguCode", sigunguCode);
+        model.addAttribute("uaType", uaType);
+        model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
+        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("headerTitle", title + " 2022 신고가내역");
+        if (sigunguCode.substring(0, 2).equals("11")) {
+            return "tradelist/newHighest/seoul";
+        } else if (sigunguCode.substring(0, 2).equals("41")) {
+            return "tradelist/newHighest/gyunggi";
+        } else {
+            return "tradelist/newHighest/incheon";
+        }
+    }
+
     @GetMapping("/tradelist/ByName/{regncode}/{aptName}/{ua}/{term}")
     public String getTradeListByNameBak(@PathVariable String regncode,
                                     @PathVariable String aptName,
@@ -276,36 +310,16 @@ public class TradeController {
     }
 
     @GetMapping("/newHighestList/{sigungucode}/{ua}")
-    public String getNewHighestList(@PathVariable String sigungucode,
+    public String getNewHighestListBak(@PathVariable String sigungucode,
                                      @PathVariable int ua,
                                      Model model) {
-        List<AptPriceResponseDto> trads;
         String title = "-";
-        if (sigungucode.length() == 5) {
-            title = codeInfoService.getCodeName(sigungucode);
-            log.info("/newHighestList/" + sigungucode);
-            apiCallStatService.writeApiCallStat("TRADE_LIST", "/newHighestList/" + title + "/" + ua, sigungucode);
-            if (StringUtils.hasText(sigungucode)) {
-                trads = tradeService.getNewHighestList(sigungucode, ua);
-            } else {
-                trads = new ArrayList<>();
-            }
-        } else{
-            trads = new ArrayList<>();
+        String uaType = "UA01";
+        if (ua == 84) {
+            uaType = "UA07";
+        } else if (ua==59) {
+            uaType = "UA03";
         }
-
-        model.addAttribute("list", trads);
-        model.addAttribute("sigungucode", sigungucode);
-//        model.addAttribute("gubn", gubn);
-        model.addAttribute("ua", ua);
-        model.addAttribute("title",  "[ "+ title + " ]");
-        if (sigungucode.substring(0, 2).equals("11")) {
-            return "tradelist/newHighest_Seoul";
-        } else if (sigungucode.substring(0, 2).equals("41")) {
-            return "tradelist/newHighest_Gyunggi";
-        } else {
-            return "tradelist/newHighest_Incheon";
-        }
-
+        return getNewHighestList(sigungucode, uaType, model);
     }
 }

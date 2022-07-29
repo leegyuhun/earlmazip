@@ -43,8 +43,8 @@ public class TradeService {
         return tradeRepository.getAptTradeList_ByName(regncode, landDong, aptName, ua, term);
     }
 
-    public List<AptPriceResponseDto> getNewHighestList(String sigungucode, int ua) {
-        return tradeRepository.getNewHighestList(sigungucode, ua);
+    public List<AptPriceResponseDto> getNewHighestList(String sigungucode, String uaType) {
+        return tradeRepository.getNewHighestList(sigungucode, uaType);
     }
 
     public List<AptPriceResponseDto> getTradeDistribution_BySigungu(String dealYear, String sigungucode) {
