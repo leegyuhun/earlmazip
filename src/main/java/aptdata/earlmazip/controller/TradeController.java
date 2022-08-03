@@ -29,50 +29,7 @@ public class TradeController {
     private final ApiCallStatService apiCallStatService;
     private final CodeInfoService codeInfoService;
 
-
-    /**
-     * gubn 0: = ua, 1: < ua, 2: > ua / ua = 0 전체면적
-     * @param sigungucode
-     * @param gubn
-     * @param ua
-     * @param model
-     * @return
-     */
-    @GetMapping("/tradelist/{sigungucode}/{gubn}/{ua}")
-    public String getTradeList_Seoul(@PathVariable String sigungucode,
-                                     @PathVariable int gubn,
-                                     @PathVariable int ua,
-                                     Model model) {
-        List<AptPriceResponseDto> trads;
-        String title = "-";
-        if (sigungucode.length() == 5) {
-            title = codeInfoService.getCodeName(sigungucode);
-            log.info("/tradelist/seoul/" + sigungucode);
-            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/" + title + "/" + gubn + "/" + ua, sigungucode);
-            if (StringUtils.hasText(sigungucode)) {
-                trads = tradeService.getTradeList_Sigungu(sigungucode, gubn, ua);
-            } else {
-                trads = new ArrayList<>();
-            }
-        } else{
-            trads = new ArrayList<>();
-        }
-
-        model.addAttribute("list", trads);
-        model.addAttribute("sigungucode", sigungucode);
-        model.addAttribute("gubn", gubn);
-        model.addAttribute("ua", ua);
-        model.addAttribute("title",  "[ "+ title + " ]");
-        if (sigungucode.substring(0, 2).equals("11")) {
-            return "tradelist/seoul";
-        } else if (sigungucode.substring(0, 2).equals("41")) {
-            return "tradelist/gyunggi";
-        } else {
-            return "tradelist/incheon";
-        }
-    }
-
-    /**
+    /** 최근 매매내역 100
      * @param sigunguCode
      * @param uaType
      * @param model
@@ -112,89 +69,12 @@ public class TradeController {
         }
     }
 
-    @GetMapping("/tradelist/seoul/{sigungucode}") // 추후 삭제
-    public String getTradeList_SeoulBak(@PathVariable String sigungucode, Model model) {
-        return getTradeList(sigungucode, "UA01", model);
-    }
-
-    @GetMapping("/tradelist/gyunggi/{sidocode}/{gubn}/{ua}")
-    public String getTradeList_Gyunggi(@PathVariable String sidocode,
-                                       @PathVariable int gubn,
-                                       @PathVariable int ua,
-                                       Model model) {
-        List<AptPriceResponseDto> trads;
-        String title = "-";
-        if (!sidocode.equals("0")) {
-            title = codeInfoService.getCodeName(sidocode);
-            log.info("/tradelist/gyunggi/" + sidocode);
-            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/gyunggi/" + gubn + "/" + ua, sidocode);
-            if (StringUtils.hasText(sidocode)) {
-                trads = tradeService.getTradeList_GyunggiSido(sidocode, gubn, ua);
-            } else {
-                trads = new ArrayList<>();
-            }
-        } else{
-            trads = new ArrayList<>();
-        }
-
-        model.addAttribute("list", trads);
-        model.addAttribute("title",  "[ "+ title + " ]");
-
-        return "tradelist/gyunggi";
-    }
-    
-    @GetMapping("/tradelist/gyunggi/{sidocode}") //추후삭제
-    public String getTradeList_GyunggiBak(@PathVariable String sidocode, Model model) {
-        List<AptPriceResponseDto> trads;
-        String title = "-";
-        if (!sidocode.equals("0")) {
-            title = codeInfoService.getCodeName(sidocode);
-            log.info("/tradelist/gyunggi/" + sidocode);
-            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/gyunggi/" + title, sidocode);
-            if (StringUtils.hasText(sidocode)) {
-                trads = tradeService.getTradeList_GyunggiSido(sidocode, 0, 0);
-            } else {
-                trads = new ArrayList<>();
-            }
-        } else{
-            trads = new ArrayList<>();
-        }
-
-        model.addAttribute("list", trads);
-        model.addAttribute("title",  "[ "+ title + " ]");
-
-        return "tradelist/gyunggi";
-    }
-
-    @GetMapping("/tradelist/incheon/{sigungucode}")
-    public String getTradeList_Incheon(@PathVariable String sigungucode, Model model) {
-        List<AptPriceResponseDto> trads;
-        String title = "-";
-        if (!sigungucode.equals("0")) {
-            log.info("/tradelist/incheon/" + sigungucode);
-            title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/incheon/" + title, sigungucode);
-
-            if (StringUtils.hasText(sigungucode)) {
-                trads = tradeService.getTradeList_Incheon(sigungucode);
-            } else {
-                trads = new ArrayList<>();
-            }
-        } else {
-            trads = new ArrayList<>();
-        }
-
-        model.addAttribute("title",  "[ "+ title + " ]");
-        model.addAttribute("list", trads);
-
-        return "tradelist/incheon";
-    }
-
-    @GetMapping("/tradelist/cancelDeal/{regncode}")
-    public String getCancelDealListBak(@PathVariable String regncode, Model model) {
-        return getCancelDealList(regncode, model);
-    }
-
+    /**
+     * 거래취소건 조회
+     * @param sigunguCode
+     * @param model
+     * @return
+     */
     @GetMapping("/tradelist/cancelDeal")
     public String getCancelDealList(@RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
                                     Model model) {
@@ -221,6 +101,57 @@ public class TradeController {
         return "tradelist/cancelDeal";
     }
 
+    /**
+     * 신고가내역 조회
+     * @param sigunguCode
+     * @param uaType
+     * @param model
+     * @return
+     */
+    @GetMapping("/tradelist/newHighest")
+    public String getNewHighestList(@RequestParam(value="sigunguCode", defaultValue = "11") String sigunguCode,
+                                    @RequestParam(value="uaType", defaultValue = "UA01") String uaType,
+                                    Model model) {
+        List<AptPriceResponseDto> trads;
+        String title = "-";
+        if (sigunguCode.length() == 5) {
+            title = codeInfoService.getCodeName(sigunguCode);
+            log.info("/tradelist/newHighest?sigunguCode" + sigunguCode);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/newHighest?sigunguCode=" + title, sigunguCode);
+            if (StringUtils.hasText(sigunguCode)) {
+                trads = tradeService.getNewHighestList(sigunguCode, uaType);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else{
+            trads = new ArrayList<>();
+        }
+
+        model.addAttribute("list", trads);
+        model.addAttribute("sigunguCode", sigunguCode);
+        model.addAttribute("uaType", uaType);
+        model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
+        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("headerTitle", title + " 2022 신고가내역");
+        if (sigunguCode.substring(0, 2).equals("11")) {
+            return "tradelist/newHighest/seoul";
+        } else if (sigunguCode.substring(0, 2).equals("41")) {
+            return "tradelist/newHighest/gyunggi";
+        } else {
+            return "tradelist/newHighest/incheon";
+        }
+    }
+
+    /**
+     * 아파트 실거래내역 조회
+     * @param regncode
+     * @param aptName
+     * @param ua
+     * @param term
+     * @param landDong
+     * @param model
+     * @return
+     */
     @GetMapping("/tradelist/ByName")
     public String getTradeListByName(@RequestParam(value="regncode", defaultValue = "") String regncode,
                                      @RequestParam(value="aptname", defaultValue = "") String aptName,
@@ -264,42 +195,8 @@ public class TradeController {
 
         return "tradelist/aptTradeList_ByUA";
     }
-
-    @GetMapping("/tradelist/newHighest")
-    public String getNewHighestList(@RequestParam(value="sigunguCode", defaultValue = "11") String sigunguCode,
-                                    @RequestParam(value="uaType", defaultValue = "UA01") String uaType,
-                                    Model model) {
-        List<AptPriceResponseDto> trads;
-        String title = "-";
-        if (sigunguCode.length() == 5) {
-            title = codeInfoService.getCodeName(sigunguCode);
-            log.info("/tradelist/newHighest?sigunguCode" + sigunguCode);
-            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/newHighest?sigunguCode=" + title, sigunguCode);
-            if (StringUtils.hasText(sigunguCode)) {
-                trads = tradeService.getNewHighestList(sigunguCode, uaType);
-            } else {
-                trads = new ArrayList<>();
-            }
-        } else{
-            trads = new ArrayList<>();
-        }
-
-        model.addAttribute("list", trads);
-        model.addAttribute("sigunguCode", sigunguCode);
-        model.addAttribute("uaType", uaType);
-        model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
-        model.addAttribute("title",  "[ "+ title + " ]");
-        model.addAttribute("headerTitle", title + " 2022 신고가내역");
-        if (sigunguCode.substring(0, 2).equals("11")) {
-            return "tradelist/newHighest/seoul";
-        } else if (sigunguCode.substring(0, 2).equals("41")) {
-            return "tradelist/newHighest/gyunggi";
-        } else {
-            return "tradelist/newHighest/incheon";
-        }
-    }
-
-    @GetMapping("/tradelist/ByName/{regncode}/{aptName}/{ua}/{term}")
+    
+    @GetMapping("/tradelist/ByName/{regncode}/{aptName}/{ua}/{term}") //추후 삭제
     public String getTradeListByNameBak(@PathVariable String regncode,
                                     @PathVariable String aptName,
                                     @PathVariable int ua,
@@ -309,7 +206,7 @@ public class TradeController {
         return getTradeListByName(regncode, aptName, ua, term, landDong, model);
     }
 
-    @GetMapping("/newHighestList/{sigungucode}/{ua}")
+    @GetMapping("/newHighestList/{sigungucode}/{ua}") //추후 삭제
     public String getNewHighestListBak(@PathVariable String sigungucode,
                                      @PathVariable int ua,
                                      Model model) {
@@ -321,5 +218,53 @@ public class TradeController {
             uaType = "UA03";
         }
         return getNewHighestList(sigungucode, uaType, model);
+    }
+
+    @GetMapping("/tradelist/{sigungucode}/{gubn}/{ua}") //추후 삭제
+    public String getTradeList_Seoul(@PathVariable String sigungucode,
+                                     @PathVariable int gubn,
+                                     @PathVariable int ua,
+                                     Model model) {
+        String uaType = "UA01";
+        if (ua == 84) {
+            uaType = "UA07";
+        } else {
+            uaType = "UA08";
+        }
+        return getTradeList(sigungucode, uaType, model);
+    }
+
+    @GetMapping("/tradelist/seoul/{sigungucode}") // 추후 삭제
+    public String getTradeList_SeoulBak(@PathVariable String sigungucode, Model model) {
+        return getTradeList(sigungucode, "UA01", model);
+    }
+
+    @GetMapping("/tradelist/gyunggi/{sidocode}") //추후삭제
+    public String getTradeList_GyunggiBak(@PathVariable String sidocode, Model model) {
+        return getTradeList(sidocode, "UA01", model);
+    }
+
+    @GetMapping("/tradelist/incheon/{sigungucode}") //추후 삭제
+    public String getTradeList_Incheon(@PathVariable String sigungucode, Model model) {
+        return getTradeList(sigungucode, "UA01", model);
+    }
+
+    @GetMapping("/tradelist/cancelDeal/{regncode}") //추후 삭제
+    public String getCancelDealListBak(@PathVariable String regncode, Model model) {
+        return getCancelDealList(regncode, model);
+    }
+
+    @GetMapping("/tradelist/gyunggi/{sidocode}/{gubn}/{ua}") //추후 삭제
+    public String getTradeList_Gyunggi(@PathVariable String sidocode,
+                                       @PathVariable int gubn,
+                                       @PathVariable int ua,
+                                       Model model) {
+        String uaType = "UA01";
+        if (ua == 84) {
+            uaType = "UA07";
+        } else {
+            uaType = "UA08";
+        }
+        return getTradeList(sidocode, uaType, model);
     }
 }

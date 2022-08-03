@@ -132,66 +132,6 @@ public class LeaseRepository {
                 .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
     }
 
-    /* 월세 */
-    public List<AptLeaseResponseDto> getLeaseMonthlyList_Sigungu(String sigungucode, int gubn, int ua) {
-        if (ua == 0) {
-            return em.createQuery("select a from AptLeaseRaw a"
-                            + " where a.dealYear = 2022 "
-                            + "   and a.sigunguCode = :sigunguCode "
-                            + "   and a.monthlyRent > 0 "
-                            + " order by a.dealDate desc", AptLeaseRaw.class)
-                    .setParameter("sigunguCode", sigungucode)
-                    .setMaxResults(100)
-                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
-        } else {
-            if (gubn == 1) {
-                return em.createQuery("select a from AptLeaseRaw a"
-                                + " where a.dealYear = 2022 "
-                                + "   and a.sigunguCode = :sigunguCode "
-                                + "   and a.useAreaTrunc < :ua "
-                                + "   and a.monthlyRent > 0 "
-                                + " order by a.dealDate desc", AptLeaseRaw.class)
-                        .setParameter("sigunguCode", sigungucode)
-                        .setParameter("ua", ua)
-                        .setMaxResults(100)
-                        .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
-            } else if (gubn == 2) {
-                return em.createQuery("select a from AptLeaseRaw a"
-                                + " where a.dealYear = 2022 "
-                                + "   and a.sigunguCode = :sigunguCode "
-                                + "   and a.useAreaTrunc > :ua "
-                                + "   and a.monthlyRent > 0 "
-                                + " order by a.dealDate desc", AptLeaseRaw.class)
-                        .setParameter("sigunguCode", sigungucode)
-                        .setParameter("ua", ua)
-                        .setMaxResults(100)
-                        .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
-            } else {
-                return em.createQuery("select a from AptLeaseRaw a"
-                                + " where a.dealYear = 2022 "
-                                + "   and a.sigunguCode = :sigunguCode "
-                                + "   and a.useAreaTrunc = :ua "
-                                + "   and a.monthlyRent > 0 "
-                                + " order by a.dealDate desc", AptLeaseRaw.class)
-                        .setParameter("sigunguCode", sigungucode)
-                        .setParameter("ua", ua)
-                        .setMaxResults(100)
-                        .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
-            }
-        }
-    }
-
-    public List<AptLeaseResponseDto> getLeaseList_GyunggiSido(String sidocode) {
-        return em.createQuery("select a from AptLeaseRaw a"
-                        + " where a.dealYear = 2022 and a.areaCode = '41' "
-                        + "   and a.sidoCode = :sidoCode "
-                        + "   and a.monthlyRent = 0 "
-                        + " order by a.dealDate desc", AptLeaseRaw.class)
-                .setParameter("sidoCode", sidocode)
-                .setMaxResults(100)
-                .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
-    }
-
     public List<AptLeaseResponseDto> getLeaseRenewalList_GyunggiSigungu(String sigungucode) {
         if (sigungucode.length() == 4) {
             return em.createQuery("select a from AptLeaseRaw a"
@@ -216,28 +156,6 @@ public class LeaseRepository {
                     .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
         }
 
-    }
-
-    public List<AptLeaseResponseDto> getLeaseMonthlyList_GyunggiSido(String sidocode) {
-        return em.createQuery("select a from AptLeaseRaw a"
-                        + " where a.dealYear = 2022 and a.areaCode = '41' "
-                        + "   and a.sidoCode = :sidoCode "
-                        + "   and a.monthlyRent > 0 "
-                        + " order by a.dealDate desc", AptLeaseRaw.class)
-                .setParameter("sidoCode", sidocode)
-                .setMaxResults(100)
-                .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
-    }
-
-    public List<AptLeaseResponseDto> getLeaseList_IncheonSigungu(String sigungucode) {
-        return em.createQuery("select a from AptLeaseRaw a"
-                        + " where a.dealYear = 2022 and a.areaCode = '28' "
-                        + "   and a.sigunguCode = :sigunguCode"
-                        + "   and a.monthlyRent = 0 "
-                        + " order by a.dealDate desc", AptLeaseRaw.class)
-                .setParameter("sigunguCode", sigungucode)
-                .setMaxResults(100)
-                .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
     }
 
     public List<AptLeaseResponseDto> getLeaseMonthlyList_IncheonSigungu(String sigungucode) {
