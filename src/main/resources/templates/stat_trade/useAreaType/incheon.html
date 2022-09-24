@@ -36,32 +36,37 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
-        <a>[평형]&nbsp</a>
-        <a th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType=UA01&term={term} (sigungucode=${sigungucode}, term=${term})}">전체</a>
-        <b>&nbsp/&nbsp</b>
-        <a th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType=UA02&term={term} (sigungucode=${sigungucode}, term=${term})}">소형</a>
-        <b>&nbsp/&nbsp</b>
-        <a th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType=UA08&term={term} (sigungucode=${sigungucode}, term=${term})}">전용59</a>
-        <b>&nbsp/&nbsp</b>
-        <a th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType=UA03&term={term} (sigungucode=${sigungucode}, term=${term})}">중소형</a>
-        </br>
-        <a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-        <a th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType=UA07&term={term} (sigungucode=${sigungucode}, term=${term})}">국평</a>
-        <b>&nbsp/&nbsp</b>
-        <a th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType=UA04&term={term} (sigungucode=${sigungucode}, term=${term})}">중형</a>
-        <b>&nbsp/&nbsp</b>
-        <a th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType=UA05&term={term} (sigungucode=${sigungucode}, term=${term})}">중대형</a>
-        <b>&nbsp/&nbsp</b>
-        <a th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType=UA06&term={term} (sigungucode=${sigungucode}, term=${term})}">대형</a>
-        </br>
-        <a>[기간]&nbsp</a>
-        <a th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType={ua}&term=0 (sigungucode=${sigungucode}, ua=${ua})}">올해</a>
-        <b>&nbsp/&nbsp</b>
-        <a th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType={ua}&term=5 (sigungucode=${sigungucode}, ua=${ua})}">5년</a>
-        <b>&nbsp/&nbsp</b>
-        <a th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType={ua}&term=10 (sigungucode=${sigungucode}, ua=${ua})}">10년</a>
-        <b>&nbsp/&nbsp</b>
-        <a th:href="@{/stat_trade/useareaType?sigunguCode={sigungucode}&uaType={ua}&term=15 (sigungucode=${sigungucode}, ua=${ua})}">15년</a>
+        <p>
+        <div class="d-flex gap-2 justify-content-center">
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    평형
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA01&term={term} (sigunguCode=${sigungucode}, term=${term})}">전체</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA02&term={term} (sigunguCode=${sigungucode}, term=${term})}">소형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA08&term={term} (sigunguCode=${sigungucode}, term=${term})}">전용59</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA03&term={term} (sigunguCode=${sigungucode}, term=${term})}">중소형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA07&term={term} (sigunguCode=${sigungucode}, term=${term})}">국평</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA04&term={term} (sigunguCode=${sigungucode}, term=${term})}">중형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA05&term={term} (sigunguCode=${sigungucode}, term=${term})}">중대형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA06&term={term} (sigunguCode=${sigungucode}, term=${term})}">대형</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    기간
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={ua}&term=0 (sigunguCode=${sigungucode}, ua=${ua})}">올해</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={ua}&term=5 (sigunguCode=${sigungucode}, ua=${ua})}">5년</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={ua}&term=10 (sigunguCode=${sigungucode}, ua=${ua})}">10년</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={ua}&term=15 (sigunguCode=${sigungucode}, ua=${ua})}">15년</a></li>
+                </ul>
+            </div>
+        </div>
+        </p>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">

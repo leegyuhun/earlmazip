@@ -84,7 +84,7 @@
                         <div>
                             <a th:text="${list.landDong}"></a></br>
                             <a th:text="${list.aptName}" th:href="@{/leaselist/monthly/ByName/{sigungucode}/{dong}/{aptname}/{uatrunc}/1 (sigungucode=${list.sigunguCode}, dong=${list.landDong}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc})}"></a></br>
-                            <a th:text="|${list.floor} 층|"></a>
+                            <a th:text="|[${list.buildYear}] ${list.floor} 층|"></a>
                         </div>
                     </td>
                     <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>

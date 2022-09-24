@@ -30,7 +30,7 @@ public class StatRankUaController {
     private final CodeInfoService codeInfoService;
 
     private final EcosDataService ecosDataService;
-    
+
     @GetMapping("/stat_rank_ua/{rankgubn}/{sigungucode}/{ua}") //추후 삭제
     public String getStatRankUaList_SeoulBak(@PathVariable int rankgubn,
                                           @PathVariable String sigungucode,
@@ -178,8 +178,8 @@ public class StatRankUaController {
         int idx = 1;
         for (RankUaSigunguResponseDto item: list) {
             item.setRank(idx);
-            item.setTradeUrl("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/1");
-            item.setTradeUrl2("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/3");
+            item.setTradeUrl("tradelist/ByName?sigunguCode" + item.getSigunguCode() + "&aptName=" + item.getAptName() + "&ua="+ua+"&term=1&landDong=" + item.getLandDong());
+            item.setTradeUrl2("tradelist/ByName?sigunguCode" + item.getSigunguCode() + "&aptName=" + item.getAptName() + "&ua="+ua+"&term=3&landDong=" + item.getLandDong());
             idx++;
         }
 
@@ -227,8 +227,8 @@ public class StatRankUaController {
         int idx = 1;
         for (RankUaSigunguResponseDto item: list) {
             item.setRank(idx);
-            item.setTradeUrl("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/1");
-            item.setTradeUrl2("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/3");
+            item.setTradeUrl("tradelist/ByName?sigunguCode" + item.getSigunguCode() + "&aptName=" + item.getAptName() + "&ua="+ua+"&term=1&landDong=" + item.getLandDong());
+            item.setTradeUrl2("tradelist/ByName?sigunguCode" + item.getSigunguCode() + "&aptName=" + item.getAptName() + "&ua="+ua+"&term=3&landDong=" + item.getLandDong());
             idx++;
         }
 

@@ -144,7 +144,7 @@ public class TradeController {
 
     /**
      * 아파트 실거래내역 조회
-     * @param regncode
+     * @param sigunguCode
      * @param aptName
      * @param ua
      * @param term
@@ -153,18 +153,18 @@ public class TradeController {
      * @return
      */
     @GetMapping("/tradelist/ByName")
-    public String getTradeListByName(@RequestParam(value="regncode", defaultValue = "") String regncode,
-                                     @RequestParam(value="aptname", defaultValue = "") String aptName,
+    public String getTradeListByName(@RequestParam(value="sigunguCode", defaultValue = "") String sigunguCode,
+                                     @RequestParam(value="aptName", defaultValue = "") String aptName,
                                      @RequestParam(value="ua", defaultValue = "0") int ua,
                                      @RequestParam(value="term", defaultValue = "1") int term,
                                      @RequestParam(value="landDong", defaultValue = "") String landDong,
                                      Model model) {
         List<AptPriceResponseDto> trads;
-        if (!regncode.equals("0")) {
-            apiCallStatService.writeApiCallStat("TRADE_LIST_NAME", "/tradelist/ByName?regncode=" + regncode + "&aptname=" + aptName + "&ua=" + ua, regncode);
+        if (!sigunguCode.equals("0")) {
+            apiCallStatService.writeApiCallStat("TRADE_LIST_NAME", "/tradelist/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName + "&ua=" + ua, sigunguCode);
 
-            if (StringUtils.hasText(regncode)) {
-                trads = tradeService.getAptTradeList_ByName(regncode, landDong, aptName, ua, term);
+            if (StringUtils.hasText(sigunguCode)) {
+                trads = tradeService.getAptTradeList_ByName(sigunguCode, landDong, aptName, ua, term);
             } else {
                 trads = new ArrayList<>();
             }
@@ -185,7 +185,7 @@ public class TradeController {
         model.addAttribute("title",  title);
         model.addAttribute("headerTitle", title + " 매매내역");
         model.addAttribute("landDong", landDong);
-        model.addAttribute("regncode", regncode);
+        model.addAttribute("sigunguCode", sigunguCode);
         model.addAttribute("aptName", aptName);
         model.addAttribute("ua", ua);
         model.addAttribute("dates", dates);
@@ -193,17 +193,7 @@ public class TradeController {
         model.addAttribute("termStr", Common.makeTermString(term));
         model.addAttribute("list", trads);
 
-        return "tradelist/aptTradeList_ByUA";
-    }
-    
-    @GetMapping("/tradelist/ByName/{regncode}/{aptName}/{ua}/{term}") //추후 삭제
-    public String getTradeListByNameBak(@PathVariable String regncode,
-                                    @PathVariable String aptName,
-                                    @PathVariable int ua,
-                                    @PathVariable int term,
-                                    @RequestParam(value="landDong", defaultValue = "") String landDong,
-                                    Model model) {
-        return getTradeListByName(regncode, aptName, ua, term, landDong, model);
+        return "tradelist/ByName/aptTradeList_ByUA";
     }
 
     @GetMapping("/newHighestList/{sigungucode}/{ua}") //추후 삭제

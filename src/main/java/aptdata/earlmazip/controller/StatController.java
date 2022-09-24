@@ -54,6 +54,7 @@ public class StatController {
         String title = "-";
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
+            System.out.println("/stat_trade/useareaType?" + sigunguCode + "&" + uaType + "&" + term);
             log.info("/stat_trade/useareaType?" + sigunguCode + "&" + uaType + "&" + term);
             apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/useareaType?sigunguCode=" + title, sigunguCode);
             areas = statService.getStatTradeByUseAreaList(sigunguCode,uaType, term);
@@ -508,37 +509,14 @@ public class StatController {
     }
 
     // 삭제해야됨
-    @GetMapping("/stat_trade/seoul/{sigungucode}/{term}")
-    public String getStatTradeList_SeoulBySigungu(@PathVariable String sigungucode,
-                                                  @PathVariable String term,
-                                                  Model model) {
-        return getStatUseareaType_BySigungu(sigungucode, "UA01", term, model);
-    }
-
-    // 삭제해야됨
     @GetMapping("/stat_trade/incheon/{term}")
     public String getStatTradeList_Incheon(@PathVariable String term, Model model) {
         return getStatTradeList_Area("28", term, model);
     }
 
     // 삭제해야됨
-    @GetMapping("/stat_trade/incheonBySigungu/{sigungucode}/{term}")
-    public String getStatTradeList_IncheonBySigungu(@PathVariable String sigungucode,
-                                                    @PathVariable String term,
-                                                    Model model) {
-        return getStatUseareaType_BySigungu(sigungucode, "UA01", term, model);
-    }
-
-    // 삭제해야됨
     @GetMapping("/stat_trade/gyunggi/{term}")
     public String getStatTradeGyunggi(@PathVariable String term, Model model) {
         return getStatTradeList_Area("41", term, model);
-    }
-
-    // 삭제해야됨
-    @GetMapping("/stat_trade/gyunggiByCity/{sidoCode}/{term}")
-    public String getStatTradeList_ByCity(@PathVariable String sidoCode,
-                                          @PathVariable String term,Model model) {
-        return getStatUseareaType_BySigungu(sidoCode, "UA01", term, model);
     }
 }
