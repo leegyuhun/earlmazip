@@ -71,29 +71,4 @@ public class StatTopController {
             return "stat_trade/top/seoulTop";
         }
     }
-
-    //삭제해야됨
-    @GetMapping("/stat_trade/seoul/top/{year}/{sigungucode}")
-    public String getStatTradeTopSeoulByYear(@PathVariable String year,
-                                             @PathVariable String sigungucode,
-                                             @RequestParam(value="ua", defaultValue = "UA01") String ua,
-                                             Model model) {
-        return GetStatTradeTopByYear(year, sigungucode, ua, model);
-    }
-    //삭제해야됨
-    @GetMapping("/stat_trade/gyunggi/top/{year}/{sigungucode}")
-    public String gyunggiTopList(@PathVariable String year,
-                                 @PathVariable String sigungucode,
-                                 @RequestParam(value="ua", defaultValue = "UA01") String ua,
-                                 Model model) {
-        return GetStatTradeTopByYear(year, sigungucode, ua, model);
-    }
-    //삭제해야됨
-    @GetMapping("/stat_trade/incheon/top/{year}/{sigungucode}")
-    public String incheonTopList(@PathVariable String year,
-                                 @PathVariable String sigungucode,
-                                 @RequestParam(value="ua", defaultValue = "UA01") String ua,
-                                 Model model) {
-        return GetStatTradeTopByYear(year, sigungucode, ua, model);
-    }
 }

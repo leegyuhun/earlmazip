@@ -17,6 +17,7 @@ public class ApiCallStatService {
 
     @Transactional
     public void writeApiCallStat(String gubn, String name, String code) {
+        if(code.equals("")) return;
         apiCallStatRepository.WriteApiCallStat(gubn, name, code);
     }
 

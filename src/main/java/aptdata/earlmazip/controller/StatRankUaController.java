@@ -31,61 +31,6 @@ public class StatRankUaController {
 
     private final EcosDataService ecosDataService;
 
-    @GetMapping("/stat_rank_ua/{rankgubn}/{sigungucode}/{ua}") //추후 삭제
-    public String getStatRankUaList_SeoulBak(@PathVariable int rankgubn,
-                                          @PathVariable String sigungucode,
-                                          @PathVariable int ua,Model model) {
-        String title = "-";
-        List<RankUaSigunguResponseDto> list;
-        if (!sigungucode.equals("0")) {
-            log.info("/stat_rank_ua/" + rankgubn + "/" + sigungucode + "/" + ua);
-            title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("STAT_RANK_UA", "/stat_rank_ua/" + rankgubn + "/" + title + "/" + ua, sigungucode);
-            list = statService.getStatRankUaList_Seoul(rankgubn, sigungucode, ua);
-        } else {
-            list = new ArrayList<>();
-        }
-
-        int idx = 1;
-        for (RankUaSigunguResponseDto item: list) {
-            item.setRank(idx);
-            item.setTradeUrl("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/1");
-            item.setTradeUrl2("tradelist/ByName/" + item.getSigunguCode() + "/" + item.getAptName() + "/"+ua+"/3");
-            idx++;
-        }
-
-        if (list.size() > 0) {
-            if (rankgubn == 0) {
-                title = title + " 평균매매가 TOP 20";
-            } else if (rankgubn == 1) {
-                title = title + " 매매건수 TOP 20";
-            }
-        }
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        // 현재날짜
-        String date = simpleDateFormat.format(new Date());
-        int nowInt = Integer.parseInt(date.substring(0,4));
-        int prevInt = nowInt-1;
-
-        String subTitle = "( " + prevInt + " - " + nowInt + " )";
-
-        model.addAttribute("list", list);
-        model.addAttribute("title", "[ " + title + " ]");
-        model.addAttribute("subtitle", subTitle);
-        model.addAttribute("ua", ua);
-        model.addAttribute("rankgubn", rankgubn);
-
-        if (sigungucode.equals("11680") || sigungucode.equals("11740") || sigungucode.equals("11500") || sigungucode.equals("11620") || sigungucode.equals("11530") ||
-                sigungucode.equals("11545") || sigungucode.equals("11590") || sigungucode.equals("11650") || sigungucode.equals("11710") || sigungucode.equals("11470") ||
-                sigungucode.equals("11560") || sigungucode.equals("0")) {
-            return "stat_rank_ua/seoulSouth";
-        } else {
-            return "stat_rank_ua/seoulNorth";
-
-        }
-    }
-    
     /**
      * 서울지역 전용면적별 TOP 랭크 조회
      * rankgubn(0: 평균매매가, 1: 거래건수)
