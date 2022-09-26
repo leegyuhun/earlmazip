@@ -19,28 +19,7 @@ public class ApiCallStatRepository {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         String date = simpleDateFormat.format(new Date());
 
-        List<ApiCallStat> regnItems = em.createQuery("select a from ApiCallStat a "
-                        + " where a.callDate = :date and a.apiGubn = 'SIGUNGU' "
-                        + " and a.apiName = :code",ApiCallStat.class)
-                .setParameter("date", date)
-                .setParameter("code", code)
-                .getResultList();
         ApiCallStat item;
-        if (regnItems.size() == 0) {
-            item = new ApiCallStat();
-            item.setCallDate(date);
-            item.setCallYear(date.substring(0, 4));
-            item.setCallMonth(date.substring(4, 6));
-            item.setCallDay(date.substring(6, 8));
-            item.setApiGubn("SIGUNGU");
-            item.setApiName(code);
-            item.setCnt(1);
-            em.persist(item);
-        } else {
-            item = regnItems.get(0);
-            item.setCnt(item.getCnt()+1);
-            em.merge(item);
-        }
 
         List<ApiCallStat> items = em.createQuery("select a from ApiCallStat a "
                         + " where a.callDate = :date and a.apiGubn = :gubn "

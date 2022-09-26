@@ -1,6 +1,7 @@
 package aptdata.earlmazip.controller;
 
 import aptdata.earlmazip.domain.ApiCallStat;
+import aptdata.earlmazip.repository.ApiStatisticsRepository;
 import aptdata.earlmazip.service.ApiCallStatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,20 +22,25 @@ import java.util.stream.Collectors;
 public class ApiCallStatController {
 
     private final ApiCallStatService apiCallStatService;
+    private final ApiStatisticsRepository apiStatisticsRepository;
 
     @GetMapping("/admin/apicallstat/{gubn}")
     public String LoadTodayApiCallList(@PathVariable String gubn, Model model) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
         List<ApiCallStat> apiCalls;
-
-        apiCalls = apiCallStatService.LoadTodayApiCallList(gubn);
+        if (gubn.equals("TOTAL")) {
+            apiCalls = apiStatisticsRepository.findAllToday(date);
+        } else {
+            apiCalls = apiStatisticsRepository.findGubnToday(date, gubn);
+        }
 
         List<String> names = apiCalls.stream().map(o->new String(o.getApiName())).collect(Collectors.toList());
         List<Integer> cnts = apiCalls.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
 
         if (cnts.size() > 0) {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-            // 현재날짜
-            String date = simpleDateFormat.format(new Date());
+
             ApiCallStat sum = new ApiCallStat();
             sum.setApiName("SUM");
             sum.setCallDate(date);
