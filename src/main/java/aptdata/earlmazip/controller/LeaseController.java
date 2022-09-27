@@ -174,34 +174,6 @@ public class LeaseController {
         }
     }
 
-    @GetMapping("/leaselist/monthly/{sigungucode}/{gubn}/{ua}") //추후 삭제
-    public String getLeaseMonthlyList_Seoul(@PathVariable String sigungucode,
-                                            @PathVariable int gubn,
-                                            @PathVariable int ua, Model model) {
-        String uaType = "UA01";
-        if (ua == 84) {
-            uaType = "UA07";
-        } else {
-            uaType = "UA03";
-        }
-        return getLeaseMonthlyList(sigungucode, uaType, model);
-    }
-    
-    @GetMapping("/leaselist/monthly/seoul/{sigungucode}") //추후 삭제
-    public String getLeaseMonthlyList_SeoulBak(@PathVariable String sigungucode, Model model) {
-        return getLeaseMonthlyList(sigungucode, "UA01", model);
-    }
-
-    @GetMapping("/leaselist/seoul/{sigungucode}") // 추후 삭제
-    public String getLeaseList_Seoul(@PathVariable String sigungucode, Model model) {
-        return getLeaseList_Sigungu(sigungucode, "UA01", model);
-    }
-
-    @GetMapping("/leaselist/renewal/seoul/{sigungucode}") // 추후 삭제
-    public String getLeaseRenewalList_SeoulBak(@PathVariable String sigungucode, Model model) {
-        return getLeaseRenewalList_Seoul(sigungucode, model);
-    }
-
     @GetMapping("/leaselist/renewal/gyunggi/{sigungucode}")
     public String getLeaseRenewalList_GyunggiSigungu(@PathVariable String sigungucode, Model model) {
         String title = "-";
@@ -234,20 +206,18 @@ public class LeaseController {
     public String getLeaseMonthlyList_Incheon(@PathVariable String sigungucode, Model model) {
         return getLeaseMonthlyList(sigungucode, "UA01", model);
     }
-
-    @GetMapping("/leaselist/ByName/{regncode}/{dong}/{aptName}/{ua}/{term}")
-    public String getLeaseListByName(@PathVariable String regncode,
-                                     @PathVariable String dong,
-                                     @PathVariable String aptName,
-                                     @PathVariable int ua,
-                                     @PathVariable int term,
-                                     Model model) {
+    @GetMapping("/leaselist/ByName")
+    public String getLeaseListByName(@RequestParam(value="sigunguCode", defaultValue = "") String sigunguCode,
+                                     @RequestParam(value="aptName", defaultValue = "") String aptName,
+                                     @RequestParam(value="ua", defaultValue = "0") int ua,
+                                     @RequestParam(value="term", defaultValue = "1") int term,
+                                     @RequestParam(value="landDong", defaultValue = "") String landDong,
+                                     Model model){
         List<AptLeaseResponseDto> trads;
-        if (!regncode.equals("0")) {
-            log.info("/leaselist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
-            apiCallStatService.writeApiCallStat("LEASE_LIST_NAME", "/leaselist/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term, regncode);
-            if (StringUtils.hasText(regncode)) {
-                trads = leaseService.getLeaseList_ByName(regncode, dong, aptName, ua, term);
+        if (!sigunguCode.equals("0")) {
+            apiCallStatService.writeApiCallStat("LEASE_LIST_NAME", "/leaselist/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName, sigunguCode);
+            if (StringUtils.hasText(sigunguCode)) {
+                trads = leaseService.getLeaseList_ByName(sigunguCode, landDong, aptName, ua, term);
             } else {
                 trads = new ArrayList<>();
             }
@@ -267,30 +237,28 @@ public class LeaseController {
 
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("termStr", Common.makeTermString(term));
-        model.addAttribute("regncode", regncode);
+        model.addAttribute("sigunguCode", sigunguCode);
         model.addAttribute("aptName", aptName);
         model.addAttribute("ua", ua);
-        model.addAttribute("dong", dong);
+        model.addAttribute("landDong", landDong);
         model.addAttribute("dates", dates);
         model.addAttribute("deposits", deposits);
         model.addAttribute("list", trads);
 
         return "leaselist/aptLeaseList_ByUA";
     }
-
-    @GetMapping("/leaselist/monthly/ByName/{regncode}/{dong}/{aptName}/{ua}/{term}")
-    public String getMonthlyListByName(@PathVariable String regncode,
-                                     @PathVariable String dong,
-                                     @PathVariable String aptName,
-                                     @PathVariable int ua,
-                                     @PathVariable int term,
-                                     Model model) {
+    @GetMapping("/leaselist/monthly/ByName")
+    public String getMonthlyListByName(@RequestParam(value="sigunguCode", defaultValue = "") String sigunguCode,
+                                     @RequestParam(value="aptName", defaultValue = "") String aptName,
+                                     @RequestParam(value="ua", defaultValue = "0") int ua,
+                                     @RequestParam(value="term", defaultValue = "1") int term,
+                                     @RequestParam(value="landDong", defaultValue = "") String landDong,
+                                     Model model){
         List<AptLeaseResponseDto> trads;
-        if (!regncode.equals("0")) {
-            log.info("/leaselist/monthly/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term);
-            apiCallStatService.writeApiCallStat("LEASE_LIST_NAME", "/leaselist/monthly/ByName/" + regncode + "/" + aptName + "/" + ua + "/" + term, regncode);
-            if (StringUtils.hasText(regncode)) {
-                trads = leaseService.getMonthlyList_ByName(regncode, dong, aptName, ua, term);
+        if (!sigunguCode.equals("0")) {
+            apiCallStatService.writeApiCallStat("LEASE_LIST_NAME", "/leaselist/monthly/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName, sigunguCode);
+            if (StringUtils.hasText(sigunguCode)) {
+                trads = leaseService.getMonthlyList_ByName(sigunguCode, landDong, aptName, ua, term);
             } else {
                 trads = new ArrayList<>();
             }
@@ -312,15 +280,63 @@ public class LeaseController {
 
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("termStr", Common.makeTermString(term));
-        model.addAttribute("regncode", regncode);
+        model.addAttribute("sigunguCode", sigunguCode);
         model.addAttribute("aptName", aptName);
         model.addAttribute("ua", ua);
-        model.addAttribute("dong", dong);
+        model.addAttribute("landDong", landDong);
         model.addAttribute("dates", dates);
         model.addAttribute("monthlies", monthlies);
         model.addAttribute("deposits", deposits);
         model.addAttribute("list", trads);
 
         return "leaselist/aptMonthlyList_ByUA";
+    }
+
+    @GetMapping("/leaselist/ByName/{regncode}/{dong}/{aptName}/{ua}/{term}") // 추후삭제
+    public String getLeaseListByNameBak(@PathVariable String regncode,
+                                     @PathVariable String dong,
+                                     @PathVariable String aptName,
+                                     @PathVariable int ua,
+                                     @PathVariable int term,
+                                     Model model) {
+        return getLeaseListByName(regncode, aptName, ua, term, dong, model);
+    }
+
+    @GetMapping("/leaselist/monthly/ByName/{regncode}/{dong}/{aptName}/{ua}/{term}") // 추후삭제
+    public String getMonthlyListByNameBak(@PathVariable String regncode,
+                                     @PathVariable String dong,
+                                     @PathVariable String aptName,
+                                     @PathVariable int ua,
+                                     @PathVariable int term,
+                                     Model model) {
+        return getMonthlyListByName(regncode, aptName, ua, term, dong, model);
+    }
+
+    @GetMapping("/leaselist/monthly/{sigungucode}/{gubn}/{ua}") //추후 삭제
+    public String getLeaseMonthlyList_Seoul(@PathVariable String sigungucode,
+                                            @PathVariable int gubn,
+                                            @PathVariable int ua, Model model) {
+        String uaType = "UA01";
+        if (ua == 84) {
+            uaType = "UA07";
+        } else {
+            uaType = "UA03";
+        }
+        return getLeaseMonthlyList(sigungucode, uaType, model);
+    }
+
+    @GetMapping("/leaselist/monthly/seoul/{sigungucode}") //추후 삭제
+    public String getLeaseMonthlyList_SeoulBak(@PathVariable String sigungucode, Model model) {
+        return getLeaseMonthlyList(sigungucode, "UA01", model);
+    }
+
+    @GetMapping("/leaselist/seoul/{sigungucode}") // 추후 삭제
+    public String getLeaseList_Seoul(@PathVariable String sigungucode, Model model) {
+        return getLeaseList_Sigungu(sigungucode, "UA01", model);
+    }
+
+    @GetMapping("/leaselist/renewal/seoul/{sigungucode}") // 추후 삭제
+    public String getLeaseRenewalList_SeoulBak(@PathVariable String sigungucode, Model model) {
+        return getLeaseRenewalList_Seoul(sigungucode, model);
     }
 }

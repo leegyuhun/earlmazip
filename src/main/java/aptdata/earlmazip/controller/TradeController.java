@@ -161,7 +161,7 @@ public class TradeController {
                                      Model model) {
         List<AptPriceResponseDto> trads;
         if (!sigunguCode.equals("0")) {
-            apiCallStatService.writeApiCallStat("TRADE_LIST_NAME", "/tradelist/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName + "&ua=" + ua, sigunguCode);
+            apiCallStatService.writeApiCallStat("TRADE_LIST_NAME", "/tradelist/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName, sigunguCode);
 
             if (StringUtils.hasText(sigunguCode)) {
                 trads = tradeService.getAptTradeList_ByName(sigunguCode, landDong, aptName, ua, term);

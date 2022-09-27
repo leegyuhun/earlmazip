@@ -309,9 +309,9 @@ public class StatEtcController {
         List<Integer> histCnts = histList.stream().map(o->new Integer(o.getDataValue())).collect(Collectors.toList());
         Collections.reverse(avgAmtsStr);
         Collections.reverse(avgAmts);
-        List<UnSoldDto> list = new ArrayList<>();
+        List<SimpleDto> list = new ArrayList<>();
         for (int i = dates.size() - 1; i > -1; i--) {
-            UnSoldDto item = new UnSoldDto(dates.get(i), avgAmtsStr.get(i), histCntsStr.get(i));
+            SimpleDto item = new SimpleDto(dates.get(i), avgAmtsStr.get(i), histCntsStr.get(i));
             list.add(item);
         }
         model.addAttribute("avgAmts", avgAmts);
@@ -339,13 +339,40 @@ public class StatEtcController {
         return "stat_etc/distribution/statDistribution";
     }
 
+    @GetMapping("/stat_etc/M2")
+    public String getStatEtcM2(@RequestParam(value = "term", defaultValue = "5") String term, Model model) {
+        apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/M2", "0");
+        // 2.4.10. 주택 시가총액(명목, 연말기준)
+        List<EcosDataResponseDto> list1 = ecosDataService.getEcosData("291Y424", "101", "", "30");
+
+        // 1.1.3.1.2. M2 상품별 구성내역(평잔, 원계열)
+        List<EcosDataResponseDto> list2 = ecosDataService.getEcosData("101Y004", "BBHA00", "", "30");
+
+        List<String> dates = list1.stream().map(o->new String(o.getDate())).collect(Collectors.toList());
+        List<String> values1 = list1.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+        List<String> values2 = list2.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+        List<SimpleDto> list = new ArrayList<>();
+        for (int i = dates.size() - 1; i > -1; i--) {
+            SimpleDto item = new SimpleDto(dates.get(i), values1.get(i), values2.get(i));
+            list.add(item);
+        }
+
+        model.addAttribute("title", "주택시가총액/M2");
+        model.addAttribute("dates", dates);
+        model.addAttribute("values1", values1);
+        model.addAttribute("values2", values2);
+        model.addAttribute("list", list);
+
+        return "stat_etc/statM2";
+    }
+
     @Data
-    static class UnSoldDto {
+    static class SimpleDto {
         private String date;
         private String value1;
         private String value2;
 
-        public UnSoldDto(String date, String value1, String value2) {
+        public SimpleDto(String date, String value1, String value2) {
             this.date = date;
             this.value1 = value1;
             this.value2 = value2;

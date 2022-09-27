@@ -40,14 +40,14 @@
     <table class="table table-striped">
       <thead>
       <tr class="table-dark" style="font-size:12px;" align="center">
-        <th>일자</th>
+<!--        <th>일자</th>-->
         <th>API 명</th>
         <th>조회 건수</th>
       </tr>
       </thead>
       <tbody>
       <tr style="font-size:12px;" th:each="list : ${list}">
-        <td align="center" th:text="${list.callDate}"></td>
+<!--        <td align="center" th:text="${list.callDate}"></td>-->
         <td align="center" th:text="${list.apiName}"></td>
         <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
       </tr>

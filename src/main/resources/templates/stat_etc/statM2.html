@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <p>
+            <h5 align="center" th:text="${title}"></h5>
+        </p>
+        <p>
+            <canvas id="myChart"></canvas>
+        </p>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-dark" style="font-size:12px;" align="center">
+                <th>년도</th>
+                <th>주택 시가총액</br>(명목, 연말기준)</th>
+                <th>M2</br>(평잔, 원계열)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="font-size:12px;" th:each="list : ${list}">
+                <td align="center" th:text="${list.date}"></td>
+                <td align="right" th:text="${list.value1}"></td>
+                <td align="right" th:text="${list.value2}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h7>※ 출처: 한국은행 경제통계시스템 (ecos.bok.or.kr)</h7>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const value1 =  /*[[ ${value1.toArray()} ]]*/;
+  const value2 =  /*[[ ${value2.toArray()} ]]*/;
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      type: 'line',
+      label: '주택시가총액',
+      yAxisID: 'y-line1',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      pointRadius:1,
+      data: value1
+      },{
+      type: 'line',
+      label: 'M2',
+      yAxisID: 'y-line2',
+      backgroundColor: 'rgb(95,67,175)',
+      borderColor: 'rgb(95,67,175)',
+      pointRadius:1,
+      data: value2
+      }
+    ]
+  };
+
+  const config = {
+    data: data,
+    options: {
+        scales:{
+            'y-line1':{
+                position: 'left',
+<!--                suggestedMin: 0,-->
+                ticks:{
+				    color: 'rgb(255, 99, 132)'
+				},
+                title: {
+                    display: true,
+                    text: '주택시가총액'
+                }
+            },
+            'y-line2':{
+                position: 'right',
+                suggestedMin: 0,
+                grid:{
+                    display: false
+                },
+                ticks:{
+				    color: 'rgb(95,67,175)'
+				},
+                title: {
+                    display: true,
+                    text: 'M2'
+                }
+            }
+        }
+    }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+</html>
