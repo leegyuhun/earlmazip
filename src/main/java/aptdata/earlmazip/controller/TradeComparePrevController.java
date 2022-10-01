@@ -44,7 +44,7 @@ public class TradeComparePrevController {
         if (sigunguCode.length() == 5) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/tradelist?" + sigunguCode);
-            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/comparePrev?sigunguCode=" + title + "&type=" + type +"&uaType=" + uaType, sigunguCode);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/comparePrev?sigunguCode=" + title + "&type=" + type, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 trads = tradeService.getTradeComparePrevList_SigunguUAType(sigunguCode, type, uaType);
             } else {

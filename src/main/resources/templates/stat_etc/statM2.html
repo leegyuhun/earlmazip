@@ -19,19 +19,24 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
+        <p>
+            <a style="font-size:12px;" align="center"> * 단위: 10억원</a>
+        </p>
         <table class="table table-striped">
             <thead>
             <tr class="table-dark" style="font-size:12px;" align="center">
                 <th>년도</th>
                 <th>주택 시가총액</br>(명목, 연말기준)</th>
                 <th>M2</br>(평잔, 원계열)</th>
+                <th>시가총액/M2</th>
             </tr>
             </thead>
             <tbody>
             <tr style="font-size:12px;" th:each="list : ${list}">
                 <td align="center" th:text="${list.date}"></td>
-                <td align="right" th:text="${list.value1}"></td>
-                <td align="right" th:text="${list.value2}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.value1, 1, 'COMMA')}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.value2, 1, 'COMMA')}"></td>
+                <td align="right" th:text="${list.value3}"></td>
             </tr>
             </tbody>
         </table>
@@ -45,29 +50,39 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type = "text/javascript" th:inline="javascript">
-  const value1 =  /*[[ ${value1.toArray()} ]]*/;
-  const value2 =  /*[[ ${value2.toArray()} ]]*/;
+<!--  const value1 =  /*[[ ${values1.toArray()} ]]*/;-->
+<!--  const value2 =  /*[[ ${values2.toArray()} ]]*/;-->
+  const value3 =  /*[[ ${values3.toArray()} ]]*/;
   const labels =  /*[[ ${dates.toArray()} ]]*/;
 
   const data = {
     labels: labels,
     datasets: [{
       type: 'line',
-      label: '주택시가총액',
+      label: '비율',
       yAxisID: 'y-line1',
       backgroundColor: 'rgb(255, 99, 132)',
       borderColor: 'rgb(255, 99, 132)',
       pointRadius:1,
-      data: value1
-      },{
-      type: 'line',
-      label: 'M2',
-      yAxisID: 'y-line2',
-      backgroundColor: 'rgb(95,67,175)',
-      borderColor: 'rgb(95,67,175)',
-      pointRadius:1,
-      data: value2
+      data: value3
       }
+<!--      ,{-->
+<!--      type: 'line',-->
+<!--      label: 'M2',-->
+<!--      yAxisID: 'y-line2',-->
+<!--      backgroundColor: 'rgb(95,67,175)',-->
+<!--      borderColor: 'rgb(95,67,175)',-->
+<!--      pointRadius:1,-->
+<!--      data: value2-->
+<!--      },{-->
+<!--      type: 'line',-->
+<!--      label: '비율',-->
+<!--      yAxisID: 'y-line3',-->
+<!--      backgroundColor: 'rgb(54, 162, 235)',-->
+<!--      borderColor: 'rgb(54, 162, 235)',-->
+<!--      pointRadius:1,-->
+<!--      data: value3-->
+<!--      }-->
     ]
   };
 
@@ -77,29 +92,42 @@
         scales:{
             'y-line1':{
                 position: 'left',
-<!--                suggestedMin: 0,-->
                 ticks:{
 				    color: 'rgb(255, 99, 132)'
 				},
                 title: {
                     display: true,
-                    text: '주택시가총액'
-                }
-            },
-            'y-line2':{
-                position: 'right',
-                suggestedMin: 0,
-                grid:{
-                    display: false
-                },
-                ticks:{
-				    color: 'rgb(95,67,175)'
-				},
-                title: {
-                    display: true,
-                    text: 'M2'
+                    text: '비율'
                 }
             }
+<!--            , 'y-line2':{-->
+<!--                position: 'right',-->
+<!--                suggestedMin: 0,-->
+<!--                grid:{-->
+<!--                    display: false-->
+<!--                },-->
+<!--                ticks:{-->
+<!--				    color: 'rgb(95,67,175)'-->
+<!--				},-->
+<!--                title: {-->
+<!--                    display: true,-->
+<!--                    text: 'M2'-->
+<!--                }-->
+<!--            },-->
+<!--            'y-line3':{-->
+<!--                position: 'right',-->
+<!--                suggestedMin: 0,-->
+<!--                grid:{-->
+<!--                    display: false-->
+<!--                },-->
+<!--                ticks:{-->
+<!--				    color: 'rgb(54, 162, 235)'-->
+<!--				},-->
+<!--                title: {-->
+<!--                    display: true,-->
+<!--                    text: '비율'-->
+<!--                }-->
+<!--            }-->
         }
     }
   };

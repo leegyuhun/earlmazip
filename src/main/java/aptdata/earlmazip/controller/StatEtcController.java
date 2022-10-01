@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -349,21 +350,52 @@ public class StatEtcController {
         List<EcosDataResponseDto> list2 = ecosDataService.getEcosData("101Y004", "BBHA00", "", "30");
 
         List<String> dates = list1.stream().map(o->new String(o.getDate())).collect(Collectors.toList());
-        List<String> values1 = list1.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
-        List<String> values2 = list2.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
-        List<SimpleDto> list = new ArrayList<>();
-        for (int i = dates.size() - 1; i > -1; i--) {
-            SimpleDto item = new SimpleDto(dates.get(i), values1.get(i), values2.get(i));
-            list.add(item);
+
+        List<Simple3Dto> list = new ArrayList<>();
+        for (String tmp : dates) {
+            EcosDataResponseDto dto1 = list1.stream().filter(o -> tmp.equals(o.getDate())).findFirst().orElse(null);
+            EcosDataResponseDto dto2 = list2.stream().filter(o -> tmp.equals(o.getDate())).findFirst().orElse(null);
+            if (dto2 != null) {
+                String rate = new DecimalFormat("#.00").format(dto1.getValue() / dto2.getValue());
+                Simple3Dto item = new Simple3Dto(tmp, dto1.getDataValue(), dto2.getDataValue(), rate);
+                list.add(item);
+            }
         }
+        List<String> values1 = list.stream().map(o->new String(o.getValue1())).collect(Collectors.toList());
+        List<String> values2 = list.stream().map(o->new String(o.getValue2())).collect(Collectors.toList());
+        List<String> values3 = list.stream().map(o->new String(o.getValue3())).collect(Collectors.toList());
+        Collections.reverse(list);
+
+//        List<String> values1 = list1.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+//        List<String> values2 = list2.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+//        for (int i = dates.size() - 1; i > -1; i--) {
+//            SimpleDto item = new SimpleDto(dates.get(i), values1.get(i), values2.get(i));
+//            list.add(item);
+//        }
 
         model.addAttribute("title", "주택시가총액/M2");
         model.addAttribute("dates", dates);
         model.addAttribute("values1", values1);
         model.addAttribute("values2", values2);
+        model.addAttribute("values3", values3);
         model.addAttribute("list", list);
 
         return "stat_etc/statM2";
+    }
+
+    @Data
+    static class Simple3Dto {
+        private String date;
+        private String value1;
+        private String value2;
+        private String value3;
+
+        public Simple3Dto(String date, String value1, String value2, String value3) {
+            this.date = date;
+            this.value1 = value1;
+            this.value2 = value2;
+            this.value3 = value3;
+        }
     }
 
     @Data
