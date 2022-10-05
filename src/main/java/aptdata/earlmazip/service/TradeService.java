@@ -18,9 +18,9 @@ public class TradeService {
         return tradeRepository.getTradeList_Sigungu(sigungucode, gubn, ua);
     }
 
-    public List<AptPriceResponseDto> getTradeList_SigunguUAType(String sigungucode, String uaType)
+    public List<AptPriceResponseDto> getTradeList_SigunguUAType(String sigungucode, String uaType, String landDong)
     {
-        return tradeRepository.getTradeList_SigunguUAType(sigungucode, uaType);
+        return tradeRepository.getTradeList_SigunguUAType(sigungucode, uaType, landDong);
     }
 
     public List<AptPriceResponseDto> getTradeComparePrevList_SigunguUAType(String sigungucode, String type, String uaType) {

@@ -1,8 +1,11 @@
 package aptdata.earlmazip.controller;
 
 import aptdata.earlmazip.controller.dto.AptPriceResponseDto;
+import aptdata.earlmazip.controller.dto.LandDongInfoDto;
+import aptdata.earlmazip.repository.LandDongRepository;
 import aptdata.earlmazip.service.ApiCallStatService;
 import aptdata.earlmazip.service.CodeInfoService;
+import aptdata.earlmazip.service.LandDongService;
 import aptdata.earlmazip.service.TradeService;
 import aptdata.earlmazip.utils.Common;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +31,7 @@ public class TradeController {
     private final TradeService tradeService;
     private final ApiCallStatService apiCallStatService;
     private final CodeInfoService codeInfoService;
+    private final LandDongService landDongService;
 
     /** 최근 매매내역 100
      * @param sigunguCode
@@ -38,6 +42,7 @@ public class TradeController {
     @GetMapping("/tradelist")
     public String getTradeList(@RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
                                      @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
+                                     @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                      Model model) {
         List<AptPriceResponseDto> trads;
         String title = "-";
@@ -46,7 +51,7 @@ public class TradeController {
             log.info("/tradelist?" + sigunguCode);
             apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
-                trads = tradeService.getTradeList_SigunguUAType(sigunguCode, uaType);
+                trads = tradeService.getTradeList_SigunguUAType(sigunguCode, uaType, landDong);
             } else {
                 trads = new ArrayList<>();
             }
@@ -54,6 +59,10 @@ public class TradeController {
             trads = new ArrayList<>();
         }
 
+        List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
+
+        model.addAttribute("dongList", dongList);
+        model.addAttribute("landDong", landDong);
         model.addAttribute("list", trads);
         model.addAttribute("sigungucode", sigunguCode);
         model.addAttribute("uaType", uaType);
@@ -194,67 +203,5 @@ public class TradeController {
         model.addAttribute("list", trads);
 
         return "tradelist/ByName/aptTradeList_ByUA";
-    }
-
-    @GetMapping("/newHighestList/{sigungucode}/{ua}") //추후 삭제
-    public String getNewHighestListBak(@PathVariable String sigungucode,
-                                     @PathVariable int ua,
-                                     Model model) {
-        String title = "-";
-        String uaType = "UA01";
-        if (ua == 84) {
-            uaType = "UA07";
-        } else if (ua==59) {
-            uaType = "UA03";
-        }
-        return getNewHighestList(sigungucode, uaType, model);
-    }
-
-    @GetMapping("/tradelist/{sigungucode}/{gubn}/{ua}") //추후 삭제
-    public String getTradeList_Seoul(@PathVariable String sigungucode,
-                                     @PathVariable int gubn,
-                                     @PathVariable int ua,
-                                     Model model) {
-        String uaType = "UA01";
-        if (ua == 84) {
-            uaType = "UA07";
-        } else {
-            uaType = "UA08";
-        }
-        return getTradeList(sigungucode, uaType, model);
-    }
-
-    @GetMapping("/tradelist/seoul/{sigungucode}") // 추후 삭제
-    public String getTradeList_SeoulBak(@PathVariable String sigungucode, Model model) {
-        return getTradeList(sigungucode, "UA01", model);
-    }
-
-    @GetMapping("/tradelist/gyunggi/{sidocode}") //추후삭제
-    public String getTradeList_GyunggiBak(@PathVariable String sidocode, Model model) {
-        return getTradeList(sidocode, "UA01", model);
-    }
-
-    @GetMapping("/tradelist/incheon/{sigungucode}") //추후 삭제
-    public String getTradeList_Incheon(@PathVariable String sigungucode, Model model) {
-        return getTradeList(sigungucode, "UA01", model);
-    }
-
-    @GetMapping("/tradelist/cancelDeal/{regncode}") //추후 삭제
-    public String getCancelDealListBak(@PathVariable String regncode, Model model) {
-        return getCancelDealList(regncode, model);
-    }
-
-    @GetMapping("/tradelist/gyunggi/{sidocode}/{gubn}/{ua}") //추후 삭제
-    public String getTradeList_Gyunggi(@PathVariable String sidocode,
-                                       @PathVariable int gubn,
-                                       @PathVariable int ua,
-                                       Model model) {
-        String uaType = "UA01";
-        if (ua == 84) {
-            uaType = "UA07";
-        } else {
-            uaType = "UA08";
-        }
-        return getTradeList(sidocode, uaType, model);
     }
 }

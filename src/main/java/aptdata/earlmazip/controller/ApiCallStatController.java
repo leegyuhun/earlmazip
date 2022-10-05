@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 public class ApiCallStatController {
 
     private final ApiCallStatService apiCallStatService;
-    private final ApiStatisticsRepository apiStatisticsRepository;
 
     @GetMapping("/admin/apicallstat/{gubn}")
     public String LoadTodayApiCallList(@PathVariable String gubn, Model model) {
@@ -31,9 +30,9 @@ public class ApiCallStatController {
         String date = simpleDateFormat.format(new Date());
         List<ApiCallStat> apiCalls;
         if (gubn.equals("TOTAL")) {
-            apiCalls = apiStatisticsRepository.findAllToday(date);
+            apiCalls = apiCallStatService.findAllToday(date);
         } else {
-            apiCalls = apiStatisticsRepository.findGubnToday(date, gubn);
+            apiCalls = apiCallStatService.findGubnToday(date, gubn);
         }
 
         List<String> names = apiCalls.stream().map(o->new String(o.getApiName())).collect(Collectors.toList());
