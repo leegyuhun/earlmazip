@@ -74,7 +74,8 @@
             <a th:href="@{/tradelist?sigunguCode=41590&uaType={uaType} (uaType=${uaType})}">&nbsp화성시</a>
         </div>
         <p>
-            <h4 align="center" th:text="${title}"></h4>
+            <h5 align="center" th:text="${title}"></h5>
+            <h6 align="center" th:text="|* ${uaStr}|"></h6>
         </p>
         <div>
             <ins class="kakao_ad_area" style="display:none;"
