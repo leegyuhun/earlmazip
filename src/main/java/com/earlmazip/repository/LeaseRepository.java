@@ -1,8 +1,12 @@
 package com.earlmazip.repository;
 
 import com.earlmazip.controller.dto.AptLeaseResponseDto;
+import com.earlmazip.controller.dto.TradeSearchCond;
 import com.earlmazip.domain.AptLeaseRaw;
+import com.earlmazip.domain.QAptLeaseRaw;
 import com.earlmazip.utils.Common;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -10,109 +14,50 @@ import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.springframework.util.StringUtils.hasText;
+
 @Repository
-@RequiredArgsConstructor
 public class LeaseRepository {
 
     private final EntityManager em;
+    private final JPAQueryFactory queryFactory;
 
-    /* 전세 */
-    public List<AptLeaseResponseDto> getLeaseList_Sigungu(String sigungucode, int gubn, int ua) {
-        if (ua == 0) {
-            return em.createQuery("select a from AptLeaseRaw a"
-                            + " where a.dealYear = 2022 "
-                            + "   and a.sigunguCode = :sigunguCode "
-                            + "   and a.monthlyRent = 0 "
-                            + " order by a.dealDate desc", AptLeaseRaw.class)
-                    .setParameter("sigunguCode", sigungucode)
-                    .setMaxResults(100)
-                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
-        } else {
-            if (gubn == 1) {
-                return em.createQuery("select a from AptLeaseRaw a"
-                                + " where a.dealYear = 2022 "
-                                + "   and a.sigunguCode = :sigunguCode "
-                                + "   and a.monthlyRent = 0 "
-                                + "   and a.useAreaTrunc < :ua "
-                                + " order by a.dealDate desc", AptLeaseRaw.class)
-                        .setParameter("sigunguCode", sigungucode)
-                        .setParameter("ua", ua)
-                        .setMaxResults(100)
-                        .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
-            } else if (gubn == 2) {
-                return em.createQuery("select a from AptLeaseRaw a"
-                                + " where a.dealYear = 2022 "
-                                + "   and a.sigunguCode = :sigunguCode "
-                                + "   and a.monthlyRent = 0 "
-                                + "   and a.useAreaTrunc > :ua "
-                                + " order by a.dealDate desc", AptLeaseRaw.class)
-                        .setParameter("sigunguCode", sigungucode)
-                        .setParameter("ua", ua)
-                        .setMaxResults(100)
-                        .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
-            } else {
-                return em.createQuery("select a from AptLeaseRaw a"
-                                + " where a.dealYear = 2022 "
-                                + "   and a.sigunguCode = :sigunguCode "
-                                + "   and a.monthlyRent = 0 "
-                                + "   and a.useAreaTrunc = :ua "
-                                + " order by a.dealDate desc", AptLeaseRaw.class)
-                        .setParameter("sigunguCode", sigungucode)
-                        .setParameter("ua", ua)
-                        .setMaxResults(100)
-                        .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+    public LeaseRepository(EntityManager em) {
+        this.em = em;
+        this.queryFactory = new JPAQueryFactory(em);
+    }
+
+    QAptLeaseRaw qAptLeaseRaw = QAptLeaseRaw.aptLeaseRaw;
+
+    public List<AptLeaseRaw> findLeaseList(TradeSearchCond cond) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(cond.getSigunguCode())) {
+            builder.and(qAptLeaseRaw.sigunguCode.eq(cond.getSigunguCode()));
+        }
+        if (hasText(cond.getDealYear())) {
+            builder.and(qAptLeaseRaw.dealYear.eq(cond.getDealYear()));
+            if (hasText(cond.getDealMon())) {
+                builder.and(qAptLeaseRaw.dealMon.eq(cond.getDealMon()));
             }
         }
-    }
-
-    /* 전세 */
-    public List<AptLeaseResponseDto> getLeaseList_SigunguUAType(String sigunguCode, String uaType) {
-        if (uaType.equals("UA01")) {
-            return em.createQuery("select a from AptLeaseRaw a"
-                            + " where a.dealYear = 2022 "
-                            + "   and a.sigunguCode = :sigunguCode "
-                            + "   and a.monthlyRent = 0 "
-                            + " order by a.dealDate desc", AptLeaseRaw.class)
-                    .setParameter("sigunguCode", sigunguCode)
-                    .setMaxResults(200)
-                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
-        } else {
-            return em.createQuery("select a from AptLeaseRaw a"
-                            + " where a.dealYear = 2022 "
-                            + "   and a.sigunguCode = :sigunguCode "
-                            + "   and a.monthlyRent = 0 "
-                            + "   and a.useAreaType = :uaType "
-                            + " order by a.dealDate desc", AptLeaseRaw.class)
-                    .setParameter("sigunguCode", sigunguCode)
-                    .setParameter("uaType", uaType)
-                    .setMaxResults(200)
-                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+        if (hasText(cond.getUaType())) {
+            builder.and(qAptLeaseRaw.useAreaType.eq(cond.getUaType()));
         }
-    }
-
-    /* 월세 */
-    public List<AptLeaseResponseDto> getLeaseMonthlyList_SigunguUAType(String sigunguCode, String uaType) {
-        if (uaType.equals("UA01")) {
-            return em.createQuery("select a from AptLeaseRaw a"
-                            + " where a.dealYear = 2022 "
-                            + "   and a.sigunguCode = :sigunguCode "
-                            + "   and a.monthlyRent > 0 "
-                            + " order by a.dealDate desc", AptLeaseRaw.class)
-                    .setParameter("sigunguCode", sigunguCode)
-                    .setMaxResults(200)
-                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
-        } else {
-            return em.createQuery("select a from AptLeaseRaw a"
-                            + " where a.dealYear = 2022 "
-                            + "   and a.sigunguCode = :sigunguCode "
-                            + "   and a.useAreaType = :uaType "
-                            + "   and a.monthlyRent > 0 "
-                            + " order by a.dealDate desc", AptLeaseRaw.class)
-                    .setParameter("sigunguCode", sigunguCode)
-                    .setParameter("uaType", uaType)
-                    .setMaxResults(200)
-                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+        if (hasText(cond.getLandDong())) {
+            builder.and(qAptLeaseRaw.landDong.eq(cond.getLandDong()));
         }
+        if (hasText(cond.getLeaseType())) {
+            if (cond.getLeaseType().equals("0")) {
+                builder.and(qAptLeaseRaw.monthlyRent.eq(0)); //전세 (= 0)
+            } else {
+                builder.and(qAptLeaseRaw.monthlyRent.gt(0)); //월세 (> 0)
+            }
+        }
+        return queryFactory.selectFrom(qAptLeaseRaw)
+                .where(builder)
+                .orderBy(qAptLeaseRaw.dealDate.desc())
+                .limit(200)
+                .fetch();
     }
 
     /* 서울 갱신현황 */
@@ -163,6 +108,32 @@ public class LeaseRepository {
                 .setParameter("sigunguCode", sigungucode)
                 .setMaxResults(100)
                 .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+    }
+
+    public List<AptLeaseRaw> findAptLeaseList(TradeSearchCond cond, String type, int term) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(cond.getSigunguCode())) {
+            builder.and(qAptLeaseRaw.sigunguCode.eq(cond.getSigunguCode()));
+        }
+        if (hasText(cond.getAptName())) {
+            builder.and(qAptLeaseRaw.aptName.eq(cond.getAptName()));
+        }
+        if (cond.getUseAreaTrunc() > 0) {
+            builder.and(qAptLeaseRaw.useAreaTrunc.eq(cond.getUseAreaTrunc()));
+        }
+        if (hasText(cond.getLandDong())) {
+            builder.and(qAptLeaseRaw.landDong.eq(cond.getLandDong()));
+        }
+        if (type.equals("0")) {
+            builder.and(qAptLeaseRaw.monthlyRent.eq(0)); //전세 (= 0)
+        } else {
+            builder.and(qAptLeaseRaw.monthlyRent.gt(0)); //월세 (> 0)
+        }
+        builder.and(qAptLeaseRaw.dealYear.goe(Common.calcYearByTerm(term)));
+        return queryFactory.selectFrom(qAptLeaseRaw)
+                .where(builder)
+                .orderBy(qAptLeaseRaw.dealDate.desc())
+                .fetch();
     }
 
     public List<AptLeaseResponseDto> getLeaseList_ByName(String regnCode, String dong, String aptName, int ua, int term) {

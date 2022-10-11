@@ -1,11 +1,13 @@
 package com.earlmazip.service;
 
 import com.earlmazip.controller.dto.AptLeaseResponseDto;
+import com.earlmazip.controller.dto.TradeSearchCond;
 import com.earlmazip.repository.LeaseRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -13,14 +15,8 @@ public class LeaseService {
 
     private final LeaseRepository leaseRepository;
 
-    public List<AptLeaseResponseDto> getLeaseList_Sigungu(String sigungucode, int gubn, int ua)
-    {
-        return leaseRepository.getLeaseList_Sigungu(sigungucode, gubn, ua);
-    }
-
-    public List<AptLeaseResponseDto> getLeaseList_SigunguUAType(String sigungucode, String uaType)
-    {
-        return leaseRepository.getLeaseList_SigunguUAType(sigungucode, uaType);
+    public List<AptLeaseResponseDto> findLeaseList(TradeSearchCond cond) {
+        return leaseRepository.findLeaseList(cond).stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
     }
 
     public List<AptLeaseResponseDto> getLeaseRenewalList_SeoulSigungu(String sigungucode)
@@ -28,21 +24,12 @@ public class LeaseService {
         return leaseRepository.getLeaseRenewalList_SeoulSigungu(sigungucode);
     }
 
-    public List<AptLeaseResponseDto> getLeaseMonthlyList_SigunguUAType(String sigunguCode, String uaType)
-    {
-        return leaseRepository.getLeaseMonthlyList_SigunguUAType(sigunguCode, uaType);
-    }
-
-    public List<AptLeaseResponseDto> getLeaseRenewalList_GyunggiSigungu(String sigungucode) {
-        return leaseRepository.getLeaseRenewalList_GyunggiSigungu(sigungucode);
-    }
-
-    public List<AptLeaseResponseDto> getLeaseMonthlyList_IncheonSigungu(String sigungu) {
-        return leaseRepository.getLeaseMonthlyList_IncheonSigungu(sigungu);
-    }
-
     public List<AptLeaseResponseDto> getLeaseList_ByName(String regncode, String dong, String aptName, int ua, int term) {
         return leaseRepository.getLeaseList_ByName(regncode, dong, aptName, ua, term);
+    }
+
+    public List<AptLeaseResponseDto> findAptLeaseList(TradeSearchCond cond, String type, int term) {
+        return leaseRepository.findAptLeaseList(cond, type, term).stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
     }
 
     public List<AptLeaseResponseDto> getMonthlyList_ByName(String regncode, String dong, String aptName, int ua, int term) {

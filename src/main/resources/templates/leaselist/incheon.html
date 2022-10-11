@@ -29,23 +29,34 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
-        <a>[면적]&nbsp</a>
-        <a th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA01 (sigunguCode=${sigunguCode})}">전체</a>
-        <b>&nbsp/&nbsp</b>
-        <a th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA02 (sigunguCode=${sigunguCode})}">소형</a>
-        <b>&nbsp/&nbsp</b>
-        <a th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA08 (sigunguCode=${sigunguCode})}">전용59</a>
-        <b>&nbsp/&nbsp</b>
-        <a th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA03 (sigunguCode=${sigunguCode})}">중소형</a>
-        </br>
-        <a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</a>
-        <a th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA07 (sigunguCode=${sigunguCode})}">국평</a>
-        <b>&nbsp/&nbsp</b>
-        <a th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA04 (sigunguCode=${sigunguCode})}">중형</a>
-        <b>&nbsp/&nbsp</b>
-        <a th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA05 (sigunguCode=${sigunguCode})}">중대형</a>
-        <b>&nbsp/&nbsp</b>
-        <a th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA06 (sigunguCode=${sigunguCode})}">대형</a>
+        <p>
+            <div class="d-flex gap-2 justify-content-center">
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        동 선택
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:each="dongList : ${dongList}" th:text="${dongList.landDong}" th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType={uaType}&landDong={landDong} (sigunguCode=${sigunguCode}, uaType=${uaType}, landDong=${dongList.landDong})}"></a></li>
+                    </ul>
+                </div>
+
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        평형
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA01&landDong={landDong} (sigunguCode=${sigunguCode}, landDong=${landDong})}">전체</a></li>
+                        <li><a class="dropdown-item" th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA02&landDong={landDong} (sigunguCode=${sigunguCode}, landDong=${landDong})}">소형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA08&landDong={landDong} (sigunguCode=${sigunguCode}, landDong=${landDong})}">전용59</a></li>
+                        <li><a class="dropdown-item" th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA03&landDong={landDong} (sigunguCode=${sigunguCode}, landDong=${landDong})}">중소형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA07&landDong={landDong} (sigunguCode=${sigunguCode}, landDong=${landDong})}">국평</a></li>
+                        <li><a class="dropdown-item" th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA04&landDong={landDong} (sigunguCode=${sigunguCode}, landDong=${landDong})}">중형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA05&landDong={landDong} (sigunguCode=${sigunguCode}, landDong=${landDong})}">중대형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/leaselist?sigunguCode={sigunguCode}&uaType=UA06&landDong={landDong} (sigunguCode=${sigunguCode}, landDong=${landDong})}">대형</a></li>
+                    </ul>
+                </div>
+            </div>
+        </p>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
@@ -61,7 +72,7 @@
                     <td align="left">
                         <div>
                             <a th:text="${list.landDong}"></a></br>
-                            <a th:text="${list.aptName}" th:href="@{/leaselist/ByName?sigunguCode={sigungucode}&landDong={dong}&aptName={aptname}&ua={uatrunc}&term=1 (sigungucode=${list.sigunguCode}, dong=${list.landDong}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc})}"></a></br>
+                            <a th:text="${list.aptName}" th:href="@{/leaselist/ByName?sigunguCode={sigunguCode}&landDong={dong}&aptName={aptname}&ua={uatrunc}&term=1 (sigunguCode=${list.sigunguCode}, dong=${list.landDong}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc})}"></a></br>
                             <a th:text="|[${list.buildYear}] ${list.floor} 층|"></a>
                         </div>
                     </td>

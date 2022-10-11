@@ -1,6 +1,7 @@
 package com.earlmazip.controller;
 
 import com.earlmazip.controller.dto.AptPriceResponseDto;
+import com.earlmazip.controller.dto.TradeSearchCond;
 import com.earlmazip.service.ApiCallStatService;
 import com.earlmazip.service.CodeInfoService;
 import com.earlmazip.service.TradeService;
@@ -41,7 +42,15 @@ public class TradeComparePrevController {
             title = codeInfoService.getCodeName(sigunguCode);
             apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/comparePrev?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
-                trads = tradeService.getTradeComparePrevList_SigunguUAType(sigunguCode, type, uaType);
+                TradeSearchCond cond = new TradeSearchCond();
+                cond.setSigunguCode(sigunguCode);
+                if (uaType.equals("UA01")) {
+                    cond.setUaType("");
+                } else {
+                    cond.setUaType(uaType);
+                }
+                trads = tradeService.findTradeComparePrevList(cond, type);
+//                trads = tradeService.getTradeComparePrevList_SigunguUAType(sigunguCode, type, uaType);
             } else {
                 trads = new ArrayList<>();
             }

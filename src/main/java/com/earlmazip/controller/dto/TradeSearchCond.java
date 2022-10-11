@@ -10,4 +10,9 @@ public class TradeSearchCond {
     private String dealMon;
     private String uaType;
     private String landDong;
+
+    private int useAreaTrunc;
+    private String aptName;
+    
+    private String leaseType; //0: 전세 1: 월세
 }

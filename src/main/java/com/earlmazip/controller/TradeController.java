@@ -178,7 +178,15 @@ public class TradeController {
             apiCallStatService.writeApiCallStat("TRADE_LIST_NAME", "/tradelist/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName, sigunguCode);
 
             if (StringUtils.hasText(sigunguCode)) {
-                trads = tradeService.getAptTradeList_ByName(sigunguCode, landDong, aptName, ua, term);
+                TradeSearchCond cond = new TradeSearchCond();
+                cond.setAptName(aptName);
+                cond.setSigunguCode(sigunguCode);
+                if (ua > 0) {
+                    cond.setUseAreaTrunc(ua);
+                }
+                cond.setLandDong(landDong);
+                trads = tradeService.findAptTradeList(cond, term);
+//                trads = tradeService.getAptTradeList_ByName(sigunguCode, landDong, aptName, ua, term);
             } else {
                 trads = new ArrayList<>();
             }
