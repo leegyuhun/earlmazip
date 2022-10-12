@@ -92,7 +92,7 @@ public class StatController {
     }
 
     /**
-     * 서울시 월별,전용면적별 매매가 통계
+     * 서울시 월별,전용면적별 매매가 통계 (테마)
      * @param model
      * @return
      */
@@ -235,20 +235,6 @@ public class StatController {
         model.addAttribute("title",  "[ "+ title + " ]");
 
         return "stat_trade/newHighestAndTradeCntByCity";
-    }
-
-
-    @GetMapping("/stat_trade/gyunggiBySigungu/{sigungucode}/{term}")
-    public String getStatTradeList_GyunggiBySigungu(@PathVariable String sigungucode,
-                                                  @PathVariable String term,
-                                                  Model model) {
-        List<StatResponseDto> areas;
-        String title = "-";
-        title = codeInfoService.getCodeName(sigungucode);
-        log.info("/stat_trade/gyunggiBySigungu/" + sigungucode + "/" + term);
-        apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/gyunggiBySigungu/" + title + "/" + term, sigungucode);
-
-        return getStatUseareaType_BySigungu(sigungucode, "UA01", term, model);
     }
 
     /**
@@ -449,69 +435,5 @@ public class StatController {
         model.addAttribute("tradCnt2020", tradCnt2020);
 
         return "stat_trade/statByBuildYear";
-    }
-
-    // 삭제해야됨
-    @GetMapping("/stat_trade/{areaCode}/{term}")
-    public String getStatTradeList_Area(@PathVariable String areaCode,
-                                        @PathVariable String term, Model model) {
-        String title = "-";
-        List<StatResponseDto> areas;
-        if (areaCode != "") {
-            title = codeInfoService.getCodeName(areaCode);
-            log.info("/stat_trade/" + title + "/" + term);
-            apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/" + title + "/" + term, areaCode);
-            areas = statService.getStatTradeList_Area(areaCode, term);
-        } else {
-            areas = new ArrayList<>();
-        }
-
-        List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
-        List<Float> avgprc = areas.stream().map(o->new Float((float)o.getAvgPrice()/10000)).collect(Collectors.toList());
-        List<Integer> tradcnt = areas.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
-
-        // 한국은행 기준금리
-        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("722Y001", "0101000", "", term);
-        List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
-
-        Collections.reverse(dates);
-        Collections.reverse(avgprc);
-        Collections.reverse(tradcnt);
-
-        model.addAttribute("list", areas);
-        model.addAttribute("title", title);
-        model.addAttribute("dates", dates);
-        model.addAttribute("avgprc", avgprc);
-        model.addAttribute("tradcnt", tradcnt);
-        model.addAttribute("areacode", areaCode);
-        model.addAttribute("interestRates", interestRates);
-
-        return "stat_trade/statArea";
-    }
-
-    // 삭제해야됨
-    @GetMapping("/stat_trade/useareaType/{sigungucode}/{ua}/{term}")
-    public String getStatUseareaType_BySigunguBak(@PathVariable String sigungucode,
-                                                  @PathVariable String ua,
-                                                  @PathVariable String term,
-                                                  Model model) {
-        return getStatUseareaType_BySigungu(sigungucode, ua, term, model);
-    }
-    // 삭제해야됨
-    @GetMapping("/stat_trade/seoul/{term}")
-    public String getStatTradeList_Seoul(@PathVariable String term, Model model) {
-        return getStatTradeList_Area("11", term, model);
-    }
-
-    // 삭제해야됨
-    @GetMapping("/stat_trade/incheon/{term}")
-    public String getStatTradeList_Incheon(@PathVariable String term, Model model) {
-        return getStatTradeList_Area("28", term, model);
-    }
-
-    // 삭제해야됨
-    @GetMapping("/stat_trade/gyunggi/{term}")
-    public String getStatTradeGyunggi(@PathVariable String term, Model model) {
-        return getStatTradeList_Area("41", term, model);
     }
 }
