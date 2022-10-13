@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,54 +62,31 @@ public class LeaseRepository {
                 .fetch();
     }
 
-    /* 서울 갱신현황 */
-    public List<AptLeaseResponseDto> getLeaseRenewalList_SeoulSigungu(String sigungucode) {
-        return em.createQuery("select a from AptLeaseRaw a"
-                        + " where a.dealYear = 2022 and a.areaCode = '11' "
-                        + "   and a.sigunguCode = :sigunguCode "
-                        + "   and a.befMonthlyRent = 0 "
-                        + "   and a.dealType = '갱신' "
-                        + " order by a.dealDate desc", AptLeaseRaw.class)
-                .setParameter("sigunguCode", sigungucode)
-                .setMaxResults(100)
-                .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
-    }
-
-    public List<AptLeaseResponseDto> getLeaseRenewalList_GyunggiSigungu(String sigungucode) {
-        if (sigungucode.length() == 4) {
-            return em.createQuery("select a from AptLeaseRaw a"
-                            + " where a.dealYear = 2022 and a.areaCode = '41' "
-                            + "   and a.sidoCode = :sigunguCode "
-                            + "   and a.befMonthlyRent = 0 "
-                            + "   and a.dealType = '갱신' "
-                            + " order by a.dealDate desc", AptLeaseRaw.class)
-                    .setParameter("sidoCode", sigungucode)
-                    .setMaxResults(100)
-                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
-
-        } else {
-            return em.createQuery("select a from AptLeaseRaw a"
-                            + " where a.dealYear = 2022 and a.areaCode = '41' "
-                            + "   and a.sigunguCode = :sigunguCode "
-                            + "   and a.befMonthlyRent = 0 "
-                            + "   and a.dealType = '갱신' "
-                            + " order by a.dealDate desc", AptLeaseRaw.class)
-                    .setParameter("sigunguCode", sigungucode)
-                    .setMaxResults(100)
-                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+    /**
+     * 서울 전/월세 갱신현황
+     * @param sigungucode
+     * @return
+     */
+    public List<AptLeaseRaw> findLeaseRenewalList(String sigungucode, String landDong, String uaType) {
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qAptLeaseRaw.sigunguCode.eq(sigungucode));
+        if (!uaType.equals("UA01")) {
+            builder.and(qAptLeaseRaw.useAreaType.eq(uaType));
         }
+        if (hasText(landDong)) {
+            builder.and(qAptLeaseRaw.landDong.eq(landDong));
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        builder.and(qAptLeaseRaw.dealYear.eq(date.substring(0, 4)));
+        builder.and(qAptLeaseRaw.dealType.eq("갱신"));
 
-    }
-
-    public List<AptLeaseResponseDto> getLeaseMonthlyList_IncheonSigungu(String sigungucode) {
-        return em.createQuery("select a from AptLeaseRaw a"
-                        + " where a.dealYear = 2022 and a.areaCode = '28' "
-                        + "   and a.sigunguCode = :sigunguCode "
-                        + "   and a.monthlyRent > 0 "
-                        + " order by a.dealDate desc", AptLeaseRaw.class)
-                .setParameter("sigunguCode", sigungucode)
-                .setMaxResults(100)
-                .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+        return queryFactory.selectFrom(qAptLeaseRaw)
+                .where(builder)
+                .orderBy(qAptLeaseRaw.dealDate.desc())
+                .limit(300)
+                .fetch();
     }
 
     public List<AptLeaseRaw> findAptLeaseList(TradeSearchCond cond, String type, int term) {
@@ -134,69 +113,5 @@ public class LeaseRepository {
                 .where(builder)
                 .orderBy(qAptLeaseRaw.dealDate.desc())
                 .fetch();
-    }
-
-    public List<AptLeaseResponseDto> getLeaseList_ByName(String regnCode, String dong, String aptName, int ua, int term) {
-        if (ua == 0) {
-            return em.createQuery(" select a from AptLeaseRaw a "
-                            + " where a.sigunguCode = :regncode "
-                            + "   and a.landDong = :landDong"
-                            + "   and a.dealYear >= :searchYear "
-                            + "   and a.aptName = :aptname "
-                            + "   and a.monthlyRent = 0 "
-                            + " order by a.dealDate desc", AptLeaseRaw.class)
-                    .setParameter("regncode", regnCode)
-                    .setParameter("landDong", dong)
-                    .setParameter("searchYear", Common.calcYearByTerm(term))
-                    .setParameter("aptname", aptName)
-                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
-        } else {
-            return em.createQuery(" select a from AptLeaseRaw a "
-                            + " where a.sigunguCode = :regncode "
-                            + "   and a.landDong = :landDong"
-                            + "   and a.dealYear >= :searchYear "
-                            + "   and a.aptName = :aptname "
-                            + "   and a.monthlyRent = 0 "
-                            + "   and a.useAreaTrunc = :ua "
-                            + " order by a.dealDate desc", AptLeaseRaw.class)
-                    .setParameter("regncode", regnCode)
-                    .setParameter("landDong", dong)
-                    .setParameter("searchYear", Common.calcYearByTerm(term))
-                    .setParameter("aptname", aptName)
-                    .setParameter("ua", ua)
-                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
-        }
-    }
-
-    public List<AptLeaseResponseDto> getMonthlyList_ByName(String regnCode, String dong, String aptName, int ua, int term) {
-        if (ua == 0) {
-            return em.createQuery(" select a from AptLeaseRaw a "
-                            + " where a.sigunguCode = :regncode "
-                            + "   and a.landDong = :landDong"
-                            + "   and a.dealYear >= :searchYear "
-                            + "   and a.aptName = :aptname "
-                            + "   and a.monthlyRent > 0 "
-                            + " order by a.dealDate desc", AptLeaseRaw.class)
-                    .setParameter("regncode", regnCode)
-                    .setParameter("landDong", dong)
-                    .setParameter("searchYear", Common.calcYearByTerm(term))
-                    .setParameter("aptname", aptName)
-                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
-        } else {
-            return em.createQuery(" select a from AptLeaseRaw a "
-                            + " where a.sigunguCode = :regncode "
-                            + "   and a.landDong = :landDong"
-                            + "   and a.dealYear >= :searchYear "
-                            + "   and a.aptName = :aptname "
-                            + "   and a.monthlyRent > 0 "
-                            + "   and a.useAreaTrunc = :ua "
-                            + " order by a.dealDate desc", AptLeaseRaw.class)
-                    .setParameter("regncode", regnCode)
-                    .setParameter("landDong", dong)
-                    .setParameter("searchYear", Common.calcYearByTerm(term))
-                    .setParameter("aptname", aptName)
-                    .setParameter("ua", ua)
-                    .getResultList().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
-        }
     }
 }

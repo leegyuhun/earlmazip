@@ -19,21 +19,12 @@ public class LeaseService {
         return leaseRepository.findLeaseList(cond).stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
     }
 
-    public List<AptLeaseResponseDto> getLeaseRenewalList_SeoulSigungu(String sigungucode)
+    public List<AptLeaseResponseDto> findLeaseRenewalList(String sigunguCode, String landDong, String uaType)
     {
-        return leaseRepository.getLeaseRenewalList_SeoulSigungu(sigungucode);
-    }
-
-    public List<AptLeaseResponseDto> getLeaseList_ByName(String regncode, String dong, String aptName, int ua, int term) {
-        return leaseRepository.getLeaseList_ByName(regncode, dong, aptName, ua, term);
+        return leaseRepository.findLeaseRenewalList(sigunguCode, landDong, uaType).stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
     }
 
     public List<AptLeaseResponseDto> findAptLeaseList(TradeSearchCond cond, String type, int term) {
         return leaseRepository.findAptLeaseList(cond, type, term).stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
     }
-
-    public List<AptLeaseResponseDto> getMonthlyList_ByName(String regncode, String dong, String aptName, int ua, int term) {
-        return leaseRepository.getMonthlyList_ByName(regncode, dong, aptName, ua, term);
-    }
-
 }

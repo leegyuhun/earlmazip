@@ -19,31 +19,27 @@ public class TradeService {
         return tradeRepository.findTradeList(cond).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
 
-//    public List<AptPriceResponseDto> getTradeComparePrevList_SigunguUAType(String sigungucode, String type, String uaType) {
     public List<AptPriceResponseDto> findTradeComparePrevList(TradeSearchCond cond, String type) {
         return tradeRepository.findTradeComparePrevList(cond, type).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
-//        return tradeRepository.getTradeComparePrevList_SigunguUAType(sigungucode, type, uaType);
     }
 
     public List<AptPriceResponseDto> getCancelDealList(String regncode) {
-        return tradeRepository.getCancelDealList(regncode);
+        return tradeRepository.findCancelDealList(regncode).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
 
-//    public List<AptPriceResponseDto> getAptTradeList_ByName(String regncode, String landDong, String aptName, int ua, int term) {
     public List<AptPriceResponseDto> findAptTradeList(TradeSearchCond cond, int term) {
         return tradeRepository.findAptTradeList(cond, term).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
-//        return tradeRepository.getAptTradeList_ByName(regncode, landDong, aptName, ua, term);
     }
 
     public List<AptPriceResponseDto> getNewHighestList(String sigungucode, String uaType) {
-        return tradeRepository.getNewHighestList(sigungucode, uaType);
+        return tradeRepository.findNewHighestList(sigungucode, uaType).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
 
-    public List<AptPriceResponseDto> getTradeDistribution_BySigungu(String dealYear, String sigungucode) {
-        return tradeRepository.getTradeDistribution_BySigungu(dealYear, sigungucode);
+    public List<AptPriceResponseDto> getTradeDistribution_BySigungu(String dealYear, String sigunguCode) {
+        return tradeRepository.findTradeDistribution_BySigungu(dealYear, sigunguCode).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
 
-    public List<AptPriceResponseDto> getTradeDistribution_ByName(String dealYear, String sigungucode, String landDong, String aptName) {
-        return tradeRepository.getTradeDistribution_ByName(dealYear, sigungucode, landDong, aptName);
+    public List<AptPriceResponseDto> getTradeDistribution_ByName(String dealYear, String sigunguCode, String landDong, String aptName) {
+        return tradeRepository.getTradeDistribution_ByName(dealYear, sigunguCode, landDong, aptName).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
 }

@@ -72,7 +72,12 @@ public class LeaseController {
 
         model.addAttribute("dongList", dongList);
         model.addAttribute("landDong", landDong);
-        model.addAttribute("title",  "[ "+ title + " - 최근 전세]");
+        if (landDong.equals("")) {
+            model.addAttribute("title", "[ " + title + " - 최근 전세]");
+        } else {
+            model.addAttribute("title",  "[ "+ title + " " + landDong + " - 최근 전세]");
+        }
+
         model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
         model.addAttribute("sigunguCode", sigunguCode);
         model.addAttribute("uaType", uaType);
@@ -127,7 +132,12 @@ public class LeaseController {
 
         model.addAttribute("dongList", dongList);
         model.addAttribute("landDong", landDong);
-        model.addAttribute("title",  "[ "+ title + " - 최근 월세 ]");
+        if (landDong.equals("")) {
+            model.addAttribute("title", "[ " + title + " - 최근 월세 ]");
+        } else {
+            model.addAttribute("title",  "[ "+ title + " " + landDong + " - 최근 월세 ]");
+        }
+
         model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
         model.addAttribute("sigunguCode", sigunguCode);
         model.addAttribute("uaType", uaType);
@@ -150,6 +160,8 @@ public class LeaseController {
      */
     @GetMapping("/leaselist/renewal")
     public String getLeaseRenewalList_Seoul(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
+                                            @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
+                                            @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                             Model model) {
         String title = "-";
         List<AptLeaseResponseDto> trads;
@@ -157,15 +169,25 @@ public class LeaseController {
             title = codeInfoService.getCodeName(sigunguCode);
             apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/renewal?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
-                trads = leaseService.getLeaseRenewalList_SeoulSigungu(sigunguCode);
+                trads = leaseService.findLeaseRenewalList(sigunguCode, landDong, uaType);
             } else {
                 trads = new ArrayList<>();
             }
         } else {
             trads = new ArrayList<>();
         }
+        List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
 
-        model.addAttribute("title",  "[ "+ title + " - 최근 갱신내역 ]");
+        model.addAttribute("dongList", dongList);
+        model.addAttribute("landDong", landDong);
+        model.addAttribute("uaType", uaType);
+        model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
+        model.addAttribute("sigunguCode", sigunguCode);
+        if (landDong.equals("")) {
+            model.addAttribute("title",  "[ "+ title + " - 최근 갱신내역 ]");
+        } else {
+            model.addAttribute("title",  "[ "+ title + " " + landDong + " - 최근 갱신내역 ]");
+        }
         model.addAttribute("list", trads);
 
         return "leaselist/renewal/seoul";

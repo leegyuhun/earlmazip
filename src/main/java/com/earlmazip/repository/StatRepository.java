@@ -3,6 +3,7 @@ package com.earlmazip.repository;
 import com.earlmazip.controller.dto.*;
 import com.earlmazip.domain.*;
 import com.earlmazip.utils.Common;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -11,11 +12,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-@RequiredArgsConstructor
 public class StatRepository {
     private final EntityManager em;
+    private final JPAQueryFactory queryFactory;
 
-    public List<StatResponseDto> getStatTradeList(String areaCode, String term){        
+    public StatRepository(EntityManager em) {
+        this.em = em;
+        this.queryFactory = new JPAQueryFactory(em);
+    }
+
+    public List<StatResponseDto> getStatTradeList(String areaCode, String term){
         return em.createQuery("select a from StatAreaYYMM a"
                         + " where a.areaCode = :areaCode and use_area_type = 'UA01'"
                         + " and a.dealYear >= :searchYear "

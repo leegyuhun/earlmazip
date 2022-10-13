@@ -1,23 +1,15 @@
 package com.earlmazip.repository;
 
-import com.earlmazip.controller.dto.AptPriceResponseDto;
 import com.earlmazip.controller.dto.TradeSearchCond;
-import com.earlmazip.domain.AptDistributionRaw;
-import com.earlmazip.domain.AptPriceRaw;
-import com.earlmazip.domain.CancelDealData;
-import com.earlmazip.domain.QAptPriceRaw;
-import com.earlmazip.utils.Common;
+import com.earlmazip.domain.*;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.util.StringUtils.hasText;
 
@@ -28,6 +20,8 @@ public class TradeRepository {
     private final JPAQueryFactory queryFactory;
 
     QAptPriceRaw qAptPriceRaw = QAptPriceRaw.aptPriceRaw;
+    QCancelDealData qCancelDealData = QCancelDealData.cancelDealData;
+    QAptDistributionRaw qAptDistributionRaw = QAptDistributionRaw.aptDistributionRaw;
 
     public TradeRepository(EntityManager em) {
         this.em = em;
@@ -101,23 +95,20 @@ public class TradeRepository {
                 .fetch();
     }
 
-    public List<AptPriceResponseDto> getCancelDealList(String regncode) {
-        if (regncode.length() == 5) {
-            return em.createQuery(" select a from CancelDealData a "
-                            + " where  a.dealYear >= 2021 and a.sigunguCode = :regncode "
-                            + "   and a.cnclDealDate <> '' "
-                            + " order by a.cnclDealDate desc", CancelDealData.class)
-                    .setParameter("regncode", regncode)
-                    .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
-
-        } else {
-            return em.createQuery(" select a from CancelDealData a "
-                            + " where  a.dealYear >= 2021 and a.sidoCode = :regncode "
-                            + "   and a.cnclDealDate <> '' "
-                            + " order by a.cnclDealDate desc", CancelDealData.class)
-                    .setParameter("regncode", regncode)
-                    .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    /**
+     * 거래취소건 조회
+     * @param sigunguCode
+     * @return
+     */
+    public List<CancelDealData> findCancelDealList(String sigunguCode) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(sigunguCode)) {
+            builder.and(qCancelDealData.sigunguCode.eq(sigunguCode));
         }
+        return queryFactory.selectFrom(qCancelDealData)
+                .where(builder)
+                .orderBy(qCancelDealData.cnclDealDate.desc())
+                .fetch();
     }
 
     /**
@@ -151,52 +142,62 @@ public class TradeRepository {
                 .fetch();
     }
 
-    public List<AptPriceResponseDto> getNewHighestList(String sigungucode, String uaType) {
-        if (uaType.equals("UA01")) {
-            return em.createQuery(" select a from AptPriceRaw a "
-                            + " where a.sigunguCode = :sigungucode "
-                            + "   and a.dealYear = 2022 "
-                            + "   and a.cnclDealDate = '' "
-                            + "   and a.newHighestPrice = 1 "
-                            + " order by a.dealDate desc", AptPriceRaw.class)
-                    .setParameter("sigungucode", sigungucode)
-                    .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
-        } else {
-            return em.createQuery(" select a from AptPriceRaw a "
-                            + " where a.sigunguCode = :sigungucode "
-                            + "   and a.dealYear = 2022 "
-                            + "   and a.useAreaType = :uaType "
-                            + "   and a.cnclDealDate = '' "
-                            + "   and a.newHighestPrice = 1 "
-                            + " order by a.dealDate desc", AptPriceRaw.class)
-                    .setParameter("sigungucode", sigungucode)
-                    .setParameter("uaType", uaType)
-                    .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    public List<AptPriceRaw> findNewHighestList(String sigungucode, String uaType) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(sigungucode)) {
+            builder.and(qAptPriceRaw.sigunguCode.eq(sigungucode));
         }
+        if (hasText(uaType)) {
+            if (!uaType.equals("UA01")) {
+                builder.and(qAptPriceRaw.useAreaType.eq(uaType));
+            }
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        builder.and(qAptPriceRaw.dealYear.eq(date.substring(0, 4)));
+        builder.and(qAptPriceRaw.newHighestPrice.eq(1));
+        builder.and(qAptPriceRaw.cnclDealDate.eq(""));
+
+        return queryFactory.selectFrom(qAptPriceRaw)
+                .where(builder)
+                .orderBy(qAptPriceRaw.dealDate.desc())
+                .fetch();
     }
 
-    public List<AptPriceResponseDto> getTradeDistribution_BySigungu(String dealYear, String sigungucode) {
-        return em.createQuery("select a from AptDistributionRaw a"
-                        + " where a.dealYear = :dealYear and a.sigunguCode = :sigunguCode "
-                        + " order by a.dealDate desc", AptDistributionRaw.class)
-                .setParameter("sigunguCode", sigungucode)
-                .setParameter("dealYear", dealYear)
-                .setMaxResults(500)
-                .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    public List<AptDistributionRaw> findTradeDistribution_BySigungu(String dealYear, String sigunguCode) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(sigunguCode)) {
+            builder.and(qAptDistributionRaw.sigunguCode.eq(sigunguCode));
+        }
+        if (hasText(dealYear)) {
+            builder.and(qAptDistributionRaw.dealYear.eq(dealYear));
+        }
+
+        return queryFactory.selectFrom(qAptDistributionRaw)
+                .where(builder)
+                .orderBy(qAptDistributionRaw.dealDate.desc())
+                .limit(1000)
+                .fetch();
     }
 
-    public List<AptPriceResponseDto> getTradeDistribution_ByName(String dealYear, String sigungucode, String landDong, String aptName) {
-        return em.createQuery("select a from AptDistributionRaw a"
-                        + " where a.dealYear = :dealYear "
-                        + "   and a.sigunguCode = :sigunguCode "
-                        + "   and a.landDong = :landDong "
-                        + "   and a.aptName = :aptName "
-                        + " order by a.dealDate desc", AptDistributionRaw.class)
-                .setParameter("sigunguCode", sigungucode)
-                .setParameter("landDong", landDong)
-                .setParameter("aptName", aptName)
-                .setParameter("dealYear", dealYear)
-                .setMaxResults(500)
-                .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    public List<AptDistributionRaw> getTradeDistribution_ByName(String dealYear, String sigunguCode, String landDong, String aptName) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(dealYear)) {
+            builder.and(qAptDistributionRaw.dealYear.eq(dealYear));
+        }
+        if (hasText(sigunguCode)) {
+            builder.and(qAptDistributionRaw.sigunguCode.eq(sigunguCode));
+        }
+        if (hasText(landDong)) {
+            builder.and(qAptDistributionRaw.landDong.eq(landDong));
+        }
+        if (hasText(aptName)) {
+            builder.and(qAptDistributionRaw.aptName.eq(aptName));
+        }
+        return queryFactory.selectFrom(qAptDistributionRaw)
+                .where(builder)
+                .limit(1000)
+                .fetch();
     }
 }
