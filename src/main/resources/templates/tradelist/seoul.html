@@ -7,64 +7,64 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <!--    <a th:text="${year}"></a>-->
     <div>
-        <div>
-            <a th:href="@{/tradelist?sigunguCode=11680&uaType={uaType} (uaType=${uaType})}">강남구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11740&uaType={uaType} (uaType=${uaType})}">&nbsp강동구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11305&uaType={uaType} (uaType=${uaType})}">&nbsp강북구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11500&uaType={uaType} (uaType=${uaType})}">&nbsp강서구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11620&uaType={uaType} (uaType=${uaType})}">&nbsp관악구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11215&uaType={uaType} (uaType=${uaType})}">&nbsp광진구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11530&uaType={uaType} (uaType=${uaType})}">&nbsp구로구</a>
-        </div>
-        <div>
-            <a th:href="@{/tradelist?sigunguCode=11545&uaType={uaType} (uaType=${uaType})}">금천구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11350&uaType={uaType} (uaType=${uaType})}">&nbsp노원구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11320&uaType={uaType} (uaType=${uaType})}">&nbsp도봉구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11230&uaType={uaType} (uaType=${uaType})}">&nbsp동대문&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11590&uaType={uaType} (uaType=${uaType})}">&nbsp동작구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11440&uaType={uaType} (uaType=${uaType})}">&nbsp마포구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11410&uaType={uaType} (uaType=${uaType})}">&nbsp서대문</a>
-        </div>
-        <div>
-            <a th:href="@{/tradelist?sigunguCode=11650&uaType={uaType} (uaType=${uaType})}">서초구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11200&uaType={uaType} (uaType=${uaType})}">&nbsp성동구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11290&uaType={uaType} (uaType=${uaType})}">&nbsp성북구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11710&uaType={uaType} (uaType=${uaType})}">&nbsp송파구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11470&uaType={uaType} (uaType=${uaType})}">&nbsp양천구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11560&uaType={uaType} (uaType=${uaType})}">&nbsp영등포&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11170&uaType={uaType} (uaType=${uaType})}">&nbsp용산구</a>
-        </div>
-        <div>
-            <a th:href="@{/tradelist?sigunguCode=11380&uaType={uaType} (uaType=${uaType})}">은평구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11110&uaType={uaType} (uaType=${uaType})}">&nbsp종로구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11260&uaType={uaType} (uaType=${uaType})}">&nbsp중랑구&nbsp</a>
-            <a th:href="@{/tradelist?sigunguCode=11140&uaType={uaType} (uaType=${uaType})}">&nbsp중구</a>
-        </div>
         <p>
             <h5 align="center" th:text="${title}"></h5>
             <h6 align="center" th:text="|* ${uaStr}|"></h6>
         </p>
-        <div>
-            <ins class="kakao_ad_area" style="display:none;"
-                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
-                 data-ad-width   = "320"
-                 data-ad-height  = "100"></ins>
-            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
-        </div>
 <!--        <div>-->
 <!--            <select>-->
 <!--                <option value="">동 선택</option>-->
-<!--                <option th:each="dongList : ${dongList}" th:text="${dongList.landDong}" th:href="@{/tradelist?sigunguCode={sigungucode}&uaType=UA01&landDong={landDong} (sigungucode=${sigungucode}, landDong=${dongList.landDong})}"></option>-->
+<!--                <option th:each="dongList : ${dongList}" th:text="${dongList.landDong}" th:href="@{/tradelist?sigunguCode={sigunguCode}&uaType=UA01&landDong={landDong} (sigunguCode=${sigunguCode}, landDong=${dongList.landDong})}"></option>-->
 <!--            </select>-->
 <!--        </div>-->
         <p>
             <div class="d-flex gap-2 justify-content-center">
                 <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        강북
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11305&uaType={uaType} (uaType=${uaType})}">강북구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11215&uaType={uaType} (uaType=${uaType})}">광진구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11350&uaType={uaType} (uaType=${uaType})}">노원구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11320&uaType={uaType} (uaType=${uaType})}">도봉구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11230&uaType={uaType} (uaType=${uaType})}">동대문</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11440&uaType={uaType} (uaType=${uaType})}">마포구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11410&uaType={uaType} (uaType=${uaType})}">서대문</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11200&uaType={uaType} (uaType=${uaType})}">성동구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11290&uaType={uaType} (uaType=${uaType})}">성북구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11470&uaType={uaType} (uaType=${uaType})}">양천구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11170&uaType={uaType} (uaType=${uaType})}">용산구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11380&uaType={uaType} (uaType=${uaType})}">은평구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11110&uaType={uaType} (uaType=${uaType})}">종로구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11260&uaType={uaType} (uaType=${uaType})}">중랑구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11140&uaType={uaType} (uaType=${uaType})}">중 구</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        강남
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11680&uaType={uaType} (uaType=${uaType})}">강남구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11740&uaType={uaType} (uaType=${uaType})}">강동구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11500&uaType={uaType} (uaType=${uaType})}">강서구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11620&uaType={uaType} (uaType=${uaType})}">관악구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11530&uaType={uaType} (uaType=${uaType})}">구로구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11545&uaType={uaType} (uaType=${uaType})}">금천구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11590&uaType={uaType} (uaType=${uaType})}">동작구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11650&uaType={uaType} (uaType=${uaType})}">서초구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11710&uaType={uaType} (uaType=${uaType})}">송파구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11470&uaType={uaType} (uaType=${uaType})}">양천구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode=11560&uaType={uaType} (uaType=${uaType})}">영등포</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
                     <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         동 선택
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:each="dongList : ${dongList}" th:text="${dongList.landDong}" th:href="@{/tradelist?sigunguCode={sigungucode}&uaType={uaType}&landDong={landDong} (sigungucode=${sigungucode}, uaType=${uaType}, landDong=${dongList.landDong})}"></a></li>
+                        <li><a class="dropdown-item" th:each="dongList : ${dongList}" th:text="${dongList.landDong}" th:href="@{/tradelist?sigunguCode={sigunguCode}&uaType={uaType}&landDong={landDong} (sigunguCode=${sigunguCode}, uaType=${uaType}, landDong=${dongList.landDong})}"></a></li>
                     </ul>
                 </div>
 
@@ -73,19 +73,25 @@
                         평형
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode={sigungucode}&uaType=UA01&landDong={landDong} (sigungucode=${sigungucode}, landDong=${landDong})}">전체</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode={sigungucode}&uaType=UA02&landDong={landDong} (sigungucode=${sigungucode}, landDong=${landDong})}">소형</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode={sigungucode}&uaType=UA08&landDong={landDong} (sigungucode=${sigungucode}, landDong=${landDong})}">전용59</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode={sigungucode}&uaType=UA03&landDong={landDong} (sigungucode=${sigungucode}, landDong=${landDong})}">중소형</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode={sigungucode}&uaType=UA07&landDong={landDong} (sigungucode=${sigungucode}, landDong=${landDong})}">국평</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode={sigungucode}&uaType=UA04&landDong={landDong} (sigungucode=${sigungucode}, landDong=${landDong})}">중형</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode={sigungucode}&uaType=UA05&landDong={landDong} (sigungucode=${sigungucode}, landDong=${landDong})}">중대형</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode={sigungucode}&uaType=UA06&landDong={landDong} (sigungucode=${sigungucode}, landDong=${landDong})}">대형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode={sigunguCode}&uaType=UA01&landDong={landDong} (sigunguCode=${sigunguCode}, landDong=${landDong})}">전체</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode={sigunguCode}&uaType=UA02&landDong={landDong} (sigunguCode=${sigunguCode}, landDong=${landDong})}">소형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode={sigunguCode}&uaType=UA08&landDong={landDong} (sigunguCode=${sigunguCode}, landDong=${landDong})}">전용59</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode={sigunguCode}&uaType=UA03&landDong={landDong} (sigunguCode=${sigunguCode}, landDong=${landDong})}">중소형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode={sigunguCode}&uaType=UA07&landDong={landDong} (sigunguCode=${sigunguCode}, landDong=${landDong})}">국평</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode={sigunguCode}&uaType=UA04&landDong={landDong} (sigunguCode=${sigunguCode}, landDong=${landDong})}">중형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode={sigunguCode}&uaType=UA05&landDong={landDong} (sigunguCode=${sigunguCode}, landDong=${landDong})}">중대형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode={sigunguCode}&uaType=UA06&landDong={landDong} (sigunguCode=${sigunguCode}, landDong=${landDong})}">대형</a></li>
                     </ul>
                 </div>
             </div>
         </p>
-
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
@@ -102,7 +108,7 @@
                     <td align="left">
                         <div>
                             <a th:text="${list.landDong}"></a></br>
-                            <a th:text="${list.aptName}" th:href="@{/tradelist/ByName?sigunguCode={sigungucode}&aptName={aptname}&ua={uatrunc}&term=1&landDong={landDong} (sigungucode=${list.sigunguCode}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc}, landDong=${list.landDong})}"></a></br>
+                            <a th:text="${list.aptName}" th:href="@{/tradelist/ByName?sigunguCode={sigunguCode}&aptName={aptname}&ua={uatrunc}&term=1&landDong={landDong} (sigunguCode=${list.sigunguCode}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc}, landDong=${list.landDong})}"></a></br>
                             <a th:text="|[${list.buildYear}] ${list.floor}층|"></a>
                         </div>
                     </td>

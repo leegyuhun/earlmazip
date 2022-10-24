@@ -142,7 +142,7 @@ public class TradeRepository {
                 .fetch();
     }
 
-    public List<AptPriceRaw> findNewHighestList(String sigungucode, String uaType) {
+    public List<AptPriceRaw> findNewHighestList(String sigungucode, String uaType, String landDong) {
         BooleanBuilder builder = new BooleanBuilder();
         if (hasText(sigungucode)) {
             builder.and(qAptPriceRaw.sigunguCode.eq(sigungucode));
@@ -151,6 +151,9 @@ public class TradeRepository {
             if (!uaType.equals("UA01")) {
                 builder.and(qAptPriceRaw.useAreaType.eq(uaType));
             }
+        }
+        if (hasText(landDong)) {
+            builder.and(qAptPriceRaw.landDong.eq(landDong));
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         // 현재날짜

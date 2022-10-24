@@ -65,11 +65,13 @@ public class TradeController {
         }
 
         List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
-
+        if (!landDong.equals("")) {
+            title += " " + landDong;
+        }
         model.addAttribute("dongList", dongList);
         model.addAttribute("landDong", landDong);
         model.addAttribute("list", trads);
-        model.addAttribute("sigungucode", sigunguCode);
+        model.addAttribute("sigunguCode", sigunguCode);
         model.addAttribute("uaType", uaType);
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("headerTitle", title + " 최근 매매");
@@ -125,6 +127,7 @@ public class TradeController {
     @GetMapping("/tradelist/newHighest")
     public String getNewHighestList(@RequestParam(value="sigunguCode", defaultValue = "11") String sigunguCode,
                                     @RequestParam(value="uaType", defaultValue = "UA01") String uaType,
+                                    @RequestParam(value="landDong", defaultValue = "") String landDong,
                                     Model model) {
         List<AptPriceResponseDto> trads;
         String title = "-";
@@ -133,7 +136,7 @@ public class TradeController {
             log.info("/tradelist/newHighest?sigunguCode" + sigunguCode);
             apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/newHighest?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
-                trads = tradeService.getNewHighestList(sigunguCode, uaType);
+                trads = tradeService.getNewHighestList(sigunguCode, uaType, landDong);
             } else {
                 trads = new ArrayList<>();
             }
@@ -141,9 +144,15 @@ public class TradeController {
             trads = new ArrayList<>();
         }
 
+        if (!landDong.equals("")) {
+            title += " " + landDong;
+        }
+        List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
+        model.addAttribute("dongList", dongList);
         model.addAttribute("list", trads);
         model.addAttribute("sigunguCode", sigunguCode);
         model.addAttribute("uaType", uaType);
+        model.addAttribute("landDong", landDong);
         model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("headerTitle", title + " 2022 신고가내역");

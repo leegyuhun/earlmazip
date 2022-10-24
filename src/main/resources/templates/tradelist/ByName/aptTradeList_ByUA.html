@@ -43,7 +43,7 @@
                     <th>금액</th>
                     <th>층수</th>
                     <th>신고가</th>
-                    <th>직/중개</th>
+                    <th>직/중개</br>소재지</th>
                 </tr>
             </thead>
             <tbody>
@@ -58,7 +58,13 @@
                     <td align="right" style="font-weight: bolder" th:text="${list.dealAmtStr}"></td>
                     <td align="right" th:text="${list.floor}"></td>
                     <td align="center" th:text="${list.newHighest}"></td>
-                    <td align="center" th:text="${list.dealType}"></td>
+                    <td align="center">
+                        <div>
+                            <a th:text="${list.dealType}"></a></br>
+                            <a th:text="${list.dealLoc}"></a>
+                        </div>
+                    </td>
+<!--                    <td align="center" th:text="${list.dealType}"></td>-->
                 </tr>
             </tbody>
         </table>

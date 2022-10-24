@@ -31,8 +31,8 @@ public class TradeService {
         return tradeRepository.findAptTradeList(cond, term).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
 
-    public List<AptPriceResponseDto> getNewHighestList(String sigungucode, String uaType) {
-        return tradeRepository.findNewHighestList(sigungucode, uaType).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    public List<AptPriceResponseDto> getNewHighestList(String sigungucode, String uaType, String landDong) {
+        return tradeRepository.findNewHighestList(sigungucode, uaType, landDong).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
 
     public List<AptPriceResponseDto> getTradeDistribution_BySigungu(String dealYear, String sigunguCode) {
