@@ -77,22 +77,23 @@ public class StatRankUaController {
         int nowInt = Integer.parseInt(date.substring(0,4));
         int prevInt = nowInt-1;
 
-        String subTitle = "( " + prevInt + " - " + nowInt + " )";
+        String subTitle = "( " + prevInt + " - " + nowInt + " 기준 )";
 
         model.addAttribute("list", list);
         model.addAttribute("title", "[ " + title + " ]");
         model.addAttribute("headerTitle", title);
         model.addAttribute("subtitle", subTitle);
         model.addAttribute("ua", ua);
-        model.addAttribute("rankgubn", rankgubn);
+        model.addAttribute("rankGubn", rankgubn);
 
-        if (sigungucode.equals("11680") || sigungucode.equals("11740") || sigungucode.equals("11500") || sigungucode.equals("11620") || sigungucode.equals("11530") ||
-                sigungucode.equals("11545") || sigungucode.equals("11590") || sigungucode.equals("11650") || sigungucode.equals("11710") || sigungucode.equals("11470") ||
-                sigungucode.equals("11560") || sigungucode.equals("0")) {
-            return "stat_rank_ua/seoulSouth";
-        } else {
-            return "stat_rank_ua/seoulNorth";
-        }
+        return "stat_rank_ua/seoul";
+//        if (sigungucode.equals("11680") || sigungucode.equals("11740") || sigungucode.equals("11500") || sigungucode.equals("11620") || sigungucode.equals("11530") ||
+//                sigungucode.equals("11545") || sigungucode.equals("11590") || sigungucode.equals("11650") || sigungucode.equals("11710") || sigungucode.equals("11470") ||
+//                sigungucode.equals("11560") || sigungucode.equals("0")) {
+//            return "stat_rank_ua/seoulSouth";
+//        } else {
+//            return "stat_rank_ua/seoulNorth";
+//        }
     }
 
     /**
@@ -142,7 +143,7 @@ public class StatRankUaController {
         int nowInt = Integer.parseInt(date.substring(0,4));
         int prevInt = nowInt-1;
 
-        String subTitle = "( " + prevInt + " - " + nowInt + " )";
+        String subTitle = "( " + prevInt + " - " + nowInt + " 기준 )";
 
         model.addAttribute("list", list);
         model.addAttribute("title", "[ " + title + " ]");
@@ -191,7 +192,7 @@ public class StatRankUaController {
         int nowInt = Integer.parseInt(date.substring(0,4));
         int prevInt = nowInt-1;
 
-        String subTitle = "( " + prevInt + " - " + nowInt + " )";
+        String subTitle = "( " + prevInt + " - " + nowInt + " 기준 )";
 
         model.addAttribute("list", list);
         model.addAttribute("title", "[ " + title + " ]");
