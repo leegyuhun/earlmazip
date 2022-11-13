@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "apt_distribution_raw")
+@Table(name = "apt_distribution")
 @Getter
 public class AptDistributionRaw {
     @Id

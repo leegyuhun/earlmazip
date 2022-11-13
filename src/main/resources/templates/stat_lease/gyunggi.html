@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <!--    <a th:text="${year}"></a>-->
+    <div>
+        <div>
+            <a>성남&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41131&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">수정&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41133&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">중원&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41135&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">분당</a>
+            <b>/&nbsp</b>
+            <a>고양&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41281&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">덕양&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41285&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">일산동&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41287&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">일산서</a>
+        </div>
+        <div>
+            <a>용인&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41461&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">처인&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41463&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">기흥&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41465&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">수지</a>
+            <b>/&nbsp</b>
+            <a>수원&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41111&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">장안&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41113&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">권선&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41115&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">팔달&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41117&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">영통</a>
+        </div>
+        <div>
+            <a>안산&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41271&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">상록&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41273&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">단원</a>
+            <b>/&nbsp</b>
+            <a>안양&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41171&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">만안&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41173&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">동안</a>
+        </div>
+        <div>
+            <a th:href="@{/stat_lease?sigunguCode=41820&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">가평군&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41290&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp과천시&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41210&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp광명시&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41610&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp광주시&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41310&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp구리시&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41410&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp군포시&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41570&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp김포시</a>
+        </div>
+        <div>
+            <a th:href="@{/stat_lease?sigunguCode=41360&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">남양주&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41250&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp동두천&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41190&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp부천시&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41390&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp시흥시&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41550&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp안성시&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41630&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp양주시&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41830&uaType{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp양평군</a>
+        </div>
+        <div>
+            <a th:href="@{/stat_lease?sigunguCode=41670&{uaType}&term={term} (uaType=${uaType},term=${term})}">여주시&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41800&{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp연천군&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41370&{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp오산시&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41430&{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp의왕시&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41150&{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp의정부&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41500&{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp이천시&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41480&{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp파주시</a>
+        </div>
+
+        <div>
+            <a th:href="@{/stat_lease?sigunguCode=41220&{uaType}&term={term} (uaType=${uaType},term=${term})}">평택시&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41650&{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp포천시&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41450&{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp하남시&nbsp</a>
+            <a th:href="@{/stat_lease?sigunguCode=41590&{uaType}&term={term} (uaType=${uaType},term=${term})}">&nbsp화성시</a>
+        </div>
+        <p>
+            <h5 align="center" th:text="${title}"></h5>
+        </p>
+        <p>
+            <canvas id="myChart"></canvas>
+        </p>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+<!--                    <th>지역</th>-->
+                    <th>년-월</th>
+                    <th>최저<br/>보증금</th>
+                    <th>평균<br/>보증금</th>
+                    <th>최고<br/>보증금</th>
+                    <th>거래건수</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="font-size:12px;" th:each="list : ${list}">
+<!--                    <td align="center" th:text="${list.sidoName}"></td>-->
+                    <td align="center" th:text="${list.dealYYMM}"></td>
+                    <td align="right" th:text="${list.minDepositStr}"></td>
+                    <td align="right" style="font-weight: bolder" th:text="${list.avgDepositStr}"></td>
+                    <td align="right" th:text="${list.maxDepositStr}"></td>
+<!--                    <td align="right" th:text="${#numbers.formatInteger(list.minDeposit,1,'COMMA')}"></td>-->
+<!--                    <td align="right" style="font-weight: bolder" th:text="${#numbers.formatInteger(list.avgDeposit,1,'COMMA')}"></td>-->
+<!--                    <td align="right" th:text="${#numbers.formatInteger(list.maxDeposit,1,'COMMA')}"></td>-->
+                    <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+  const avgDeposits =  /*[[ ${avgDeposits.toArray()} ]]*/;
+  const tradcnt =  /*[[ ${tradcnt.toArray()} ]]*/;
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      type: 'line',
+      label: '평균보증금',
+      yAxisID: 'y-line',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      pointRadius:1,
+      data: avgDeposits
+      },{
+        type: 'bar',
+        label: '거래건수',
+        yAxisID: 'y-bar',
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgb(54, 162, 235)',
+        data: tradcnt
+      }
+    ]
+  };
+
+  const config = {
+    data: data,
+    options: {
+        scales:{
+            'y-line':{
+                position: 'left',
+                suggestedMin: 0,
+                ticks:{
+				    color: 'rgb(255, 99, 132)'
+				},
+                title: {
+                    display: true,
+                    text: '평균보증금'
+                }
+            },
+            'y-bar':{
+                position: 'right',
+                suggestedMin: 0,
+                suggestedMax: 100,
+                grid:{
+                    display: false
+                },
+                ticks:{
+				    color: 'rgb(54, 162, 235)'
+				},
+                title: {
+                    display: true,
+                    text: '거래건수'
+                }
+            }
+        }
+    }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+</html>

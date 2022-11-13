@@ -66,9 +66,9 @@ public class StatLeaseResponseDto {
         this.avgDeposit = entity.getAvgDeposit();
         this.maxDeposit = entity.getMaxDeposit();
 
-        this.minMonthlyrent = entity.getMinMonthlyrent();
-        this.avgMonthlyrent = entity.getAvgMonthlyrent();
-        this.maxMonthlyrent = entity.getMaxMonthlyrent();
+        this.minMonthlyrent = entity.getMinMonthlyRent();
+        this.avgMonthlyrent = entity.getAvgMonthlyRent();
+        this.maxMonthlyrent = entity.getMaxMonthlyRent();
         this.cnt = entity.getCnt();
     }
 

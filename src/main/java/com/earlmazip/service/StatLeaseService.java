@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,10 @@ public class StatLeaseService {
 
     public List<StatLeaseResponseDto> statLeaseMonthlySido(String sidoCode) {
         return statRepository.statLeaseMonthlySido(sidoCode);
+    }
+
+    public List<StatLeaseResponseDto> getStatLeaseList(String sigunguCode, String uaType, String term) {
+        return statRepository.getStatLeaseList(sigunguCode, uaType, term).stream().map(StatLeaseResponseDto::new).collect(Collectors.toList());
     }
 
     public List<StatLeaseResponseDto> getStatLeaseList_Seoul(String sigunguCode, int term) {

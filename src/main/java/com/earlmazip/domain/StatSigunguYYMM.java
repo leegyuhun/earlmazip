@@ -5,7 +5,7 @@ import lombok.Getter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "stat_sigungu_yymm")
+@Table(name = "stat_sigungu")
 @Getter
 public class StatSigunguYYMM {
     @Id

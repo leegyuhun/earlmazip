@@ -69,6 +69,56 @@ public class StatLeaseController {
         return "stat_lease/gyunggiByCity";
     }
 
+    @GetMapping("/stat_lease")
+    public String getStatLeaseList(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
+                                   @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
+                                   @RequestParam(value = "term", defaultValue = "0") String term,
+                                   Model model) {
+        List<StatLeaseResponseDto> stats;
+        String title = "-";
+        if (!sigunguCode.equals("0")) {
+            title = codeInfoService.getCodeName(sigunguCode);
+            log.info("/stat_lease?" + sigunguCode);
+            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease?sigunguCode=" + title, sigunguCode);
+            if (StringUtils.hasText(sigunguCode)) {
+                stats = statLeaseService.getStatLeaseList(sigunguCode, uaType, term);
+            } else {
+                stats = new ArrayList<>();
+            }
+        } else {
+            stats = new ArrayList<>();
+        }
+        List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Float> avgDeposits = stats.stream().map(o->new Float((float) o.getAvgDeposit()/10000)).collect(Collectors.toList());
+        List<Integer> tradcnt = stats.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+
+        Collections.reverse(dates);
+        Collections.reverse(avgDeposits);
+        Collections.reverse(tradcnt);
+
+        // 한국은행 기준금리
+        List<EcosDataResponseDto> rates = ecosDataService.getEcosData("722Y001", "0101000", "", term);
+        List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
+
+        model.addAttribute("dates", dates);
+        model.addAttribute("avgDeposits", avgDeposits);
+        model.addAttribute("tradcnt", tradcnt);
+        model.addAttribute("title",  title);
+        model.addAttribute("interestRates", interestRates);
+        model.addAttribute("list", stats);
+        model.addAttribute("term", term);
+        model.addAttribute("sigunguCode", sigunguCode);
+        model.addAttribute("uaType", uaType);
+        model.addAttribute("termStr", Common.makeTermString(term));
+        if (sigunguCode.substring(0, 2).equals("11")) {
+            return "stat_lease/seoul";
+        } else if (sigunguCode.substring(0, 2).equals("41")) {
+            return "stat_lease/gyunggi";
+        } else {
+            return "stat_lease/incheon";
+        }
+    }
+
     @GetMapping("/stat_lease/seoul/{sigungucode}/{term}")
     public String getStatLeaseList_Seoul(@PathVariable String sigungucode,
                                          @PathVariable int term,

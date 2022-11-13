@@ -28,17 +28,19 @@ public class StatSigunguLease {
 
     private String leaseType;
 
+    private String useAreaType;
+
     private int minDeposit;
 
     private int avgDeposit;
 
     private int maxDeposit;
 
-    private int minMonthlyrent;
+    private int minMonthlyRent;
 
-    private int avgMonthlyrent;
+    private int avgMonthlyRent;
 
-    private int maxMonthlyrent;
+    private int maxMonthlyRent;
 
     private int cnt;
 }
