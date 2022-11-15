@@ -14,8 +14,8 @@ public class RankLease {
     private int seq;
     private String useAreaType;
     private String leaseType;
-    private String gubnCode;
-    private String gubnName;
+    private String sigunguCode;
+    private String sigunguName;
     private String landDong;
     private String dealYear;
     private String dealMon;

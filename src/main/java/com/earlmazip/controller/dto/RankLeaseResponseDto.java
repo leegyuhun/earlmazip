@@ -42,8 +42,8 @@ public class RankLeaseResponseDto {
     public RankLeaseResponseDto(RankLease entity) {
         this.useAreaType = entity.getUseAreaType();
         this.leaseType = entity.getLeaseType();
-        this.gubnCode = entity.getGubnCode();
-        this.gubnName = entity.getGubnName();
+        this.gubnCode = entity.getSigunguCode();
+        this.gubnName = entity.getSigunguName();
         this.landDong = entity.getLandDong();
         this.dealYear = entity.getDealYear();
         this.dealMon = entity.getDealMon();

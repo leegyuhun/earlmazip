@@ -6,23 +6,47 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
-        <div>
-            <a th:href="@{/stat_trade/top?sigunguCode=28710&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">강화군&nbsp</a>
-            <a th:href="@{/stat_trade/top?sigunguCode=28245&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">&nbsp계양구&nbsp</a>
-            <a th:href="@{/stat_trade/top?sigunguCode=28200&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">&nbsp남동구&nbsp</a>
-            <a th:href="@{/stat_trade/top?sigunguCode=28140&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">&nbsp동구&nbsp</a>
-            <a th:href="@{/stat_trade/top?sigunguCode=28177&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">&nbsp미추홀구</a>
-        </div>
-        <div>
-            <a th:href="@{/stat_trade/top?sigunguCode=28237&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">부평구&nbsp</a>
-            <a th:href="@{/stat_trade/top?sigunguCode=28260&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">&nbsp서구&nbsp</a>
-            <a th:href="@{/stat_trade/top?sigunguCode=28185&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">&nbsp연수구&nbsp</a>
-            <a th:href="@{/stat_trade/top?sigunguCode=28720&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">&nbsp옹진군&nbsp</a>
-            <a th:href="@{/stat_trade/top?sigunguCode=28110&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">&nbsp중구</a>
-        </div>
         <p>
             <h5 align="center" th:text="${title}"></h5>
             <h6 align="center" th:text="|* ${uaStr} |"></h6>
+        </p>
+        <p>
+            <div class="d-flex gap-2 justify-content-center">
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        구선택
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=28&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">인천 전체</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=28710&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">강화군</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=28245&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">계양구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=28200&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">남동구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=28140&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">동구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=28177&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">미추홀구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=28237&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">부평구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=28260&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">서구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=28185&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">연수구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=28720&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">올진군</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=28110&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">중구</a></li>
+                    </ul>
+                </div>
+
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        평형
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode={sigunguCode}&year={year}&uaType=UA01 (sigunguCode=${sigunguCode}, year=${year})}">전체</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode={sigunguCode}&year={year}&uaType=UA02 (sigunguCode=${sigunguCode}, year=${year})}">소형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode={sigunguCode}&year={year}&uaType=UA08 (sigunguCode=${sigunguCode}, year=${year})}">전용59</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode={sigunguCode}&year={year}&uaType=UA03 (sigunguCode=${sigunguCode}, year=${year})}">중소형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode={sigunguCode}&year={year}&uaType=UA07 (sigunguCode=${sigunguCode}, year=${year})}">국평</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode={sigunguCode}&year={year}&uaType=UA04 (sigunguCode=${sigunguCode}, year=${year})}">중형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode={sigunguCode}&year={year}&uaType=UA05 (sigunguCode=${sigunguCode}, year=${year})}">중대형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode={sigunguCode}&year={year}&uaType=UA06 (sigunguCode=${sigunguCode}, year=${year})}">대형</a></li>
+                    </ul>
+                </div>
+            </div>
         </p>
         <div>
             <ins class="kakao_ad_area" style="display:none;"
@@ -31,16 +55,11 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
+
         <div>
             <h7>※ 단지명을 클릭하면 거래내역으로 넘어갑니다.</h7>
         </div>
-        <a>[평형]&nbsp</a>
-        <a th:href="@{/stat_trade/top?sigunguCode={sigunguCode}&year={year}&uaType=UA01 (sigunguCode=${sigunguCode}, year=${year})}">전체&nbsp</a>
-        <a th:href="@{/stat_trade/top?sigunguCode={sigunguCode}&year={year}&uaType=UA08 (sigunguCode=${sigunguCode}, year=${year})}">전용59&nbsp</a>
-        <a th:href="@{/stat_trade/top?sigunguCode={sigunguCode}&year={year}&uaType=UA07 (sigunguCode=${sigunguCode}, year=${year})}">국평&nbsp</a>
-        <a th:href="@{/stat_trade/top?sigunguCode={sigunguCode}&year={year}&uaType=UA04 (sigunguCode=${sigunguCode}, year=${year})}">중형&nbsp</a>
-        <a th:href="@{/stat_trade/top?sigunguCode={sigunguCode}&year={year}&uaType=UA05 (sigunguCode=${sigunguCode}, year=${year})}">중대형&nbsp</a>
-        <a th:href="@{/stat_trade/top?sigunguCode={sigunguCode}&year={year}&uaType=UA06 (sigunguCode=${sigunguCode}, year=${year})}">대형&nbsp</a>
+
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">

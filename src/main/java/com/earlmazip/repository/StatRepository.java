@@ -58,39 +58,19 @@ public class StatRepository {
      * @return
      */
     public List<StatResponseDto> getStatTradeByUseAreaList(String regnCode, String ua, String term){
-        if (regnCode.length() == 2) {
-            return em.createQuery("select a from StatAreaYYMM a"
-                            + " where a.areaCode = :regnCode and a.useAreaType = :useAreaType"
-                            + " and a.dealYear >= :searchYear "
-                            + " order by a.dealYYMM desc", StatAreaYYMM.class)
-                    .setParameter("regnCode", regnCode)
-                    .setParameter("useAreaType", ua)
-                    .setParameter("searchYear", Common.calcYearByTerm(term))
-                    .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
-        } else if (regnCode.length() == 4) {
-            return em.createQuery("select a from StatSidoYYMM a"
-                            + " where a.sidoCode = :regnCode and a.useAreaType = :useAreaType"
-                            + " and a.dealYear >= :searchYear "
-                            + " order by a.dealYYMM desc", StatSidoYYMM.class)
-                    .setParameter("regnCode", regnCode)
-                    .setParameter("useAreaType", ua)
-                    .setParameter("searchYear", Common.calcYearByTerm(term))
-                    .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
-        } else {
-            return em.createQuery("select a from StatSigunguYYMM a"
-                            + " where a.sigunguCode = :regnCode and a.useAreaType = :useAreaType"
-                            + " and a.dealYear >= :searchYear "
-                            + " order by a.dealYYMM desc", StatSigunguYYMM.class)
-                    .setParameter("regnCode", regnCode)
-                    .setParameter("useAreaType", ua)
-                    .setParameter("searchYear", Common.calcYearByTerm(term))
-                    .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
-        }
+        return em.createQuery("select a from StatSigunguYYMM a"
+                        + " where a.sigunguCode = :regnCode and a.useAreaType = :useAreaType"
+                        + " and a.dealYear >= :searchYear "
+                        + " order by a.dealYYMM desc", StatSigunguYYMM.class)
+                .setParameter("regnCode", regnCode)
+                .setParameter("useAreaType", ua)
+                .setParameter("searchYear", Common.calcYearByTerm(term))
+                .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
     public List<AptPriceResponseDto> getStatTradeTopByYear(String year, String sigungucode, String uaType) {
         return em.createQuery(" select a from RankYear a "
-                        + " where a.gubnCode = :sigunguCode and a.dealYear = :dealYear"
+                        + " where a.sigunguCode = :sigunguCode and a.dealYear = :dealYear"
                         + "   and a.useAreaType = :ua "
                         + " order by a.dealAmt desc", RankYear.class)
                 .setParameter("sigunguCode", sigungucode)

@@ -5,30 +5,65 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
-        <div>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=28&uaType={ua}&term={term} (ua=${ua}, term=${term})}">인천 전체</a>
-        </div>
-        <div>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=28710&uaType={ua}&term={term} (ua=${ua}, term=${term})}">강화군&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=28245&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp계양구&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=28200&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp남동구&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=28140&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp동구&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=28177&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp미추홀구</a>
-        </div>
-        <div>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=28237&uaType={ua}&term={term} (ua=${ua}, term=${term})}">부평구&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=28260&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp서구&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=28185&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp연수구&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=28720&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp옹진군&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=28110&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp중구</a>
-        </div>
+        <p>
+            <div class="d-flex gap-2 justify-content-center">
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        구선택
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=28&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">인천 전체</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=28710&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">강화군</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=28245&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">계양구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=28200&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">남동구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=28140&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">동구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=28177&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">미추홀구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=28237&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">부평구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=28260&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">서구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=28185&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">연수구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=28720&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">올진군</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=28110&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">중구</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        평형
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA01&term={term} (sigunguCode=${sigungucode}, term=${term})}">전체</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA02&term={term} (sigunguCode=${sigungucode}, term=${term})}">소형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA08&term={term} (sigunguCode=${sigungucode}, term=${term})}">전용59</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA03&term={term} (sigunguCode=${sigungucode}, term=${term})}">중소형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA07&term={term} (sigunguCode=${sigungucode}, term=${term})}">국평</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA04&term={term} (sigunguCode=${sigungucode}, term=${term})}">중형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA05&term={term} (sigunguCode=${sigungucode}, term=${term})}">중대형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA06&term={term} (sigunguCode=${sigungucode}, term=${term})}">대형</a></li>
+                    </ul>
+                </div>
+
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        기간
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={ua}&term=0 (sigunguCode=${sigungucode}, ua=${ua})}">올해</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={ua}&term=5 (sigunguCode=${sigungucode}, ua=${ua})}">5년</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={ua}&term=10 (sigunguCode=${sigungucode}, ua=${ua})}">10년</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={ua}&term=15 (sigunguCode=${sigungucode}, ua=${ua})}">15년</a></li>
+                    </ul>
+                </div>
+            </div>
+        </p>
+
         <p>
             <h6 align="center" th:text="|[ ${title} ${termStr} ]|"></h6>
             <h6 align="center" th:text="|* ${uaStr} |"></h6>
         </p>
+
         <div>
             <canvas id="myChart"></canvas>
         </div>
+
         <div>
             <ins class="kakao_ad_area" style="display:none;"
                  data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
@@ -36,37 +71,7 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
-        <p>
-        <div class="d-flex gap-2 justify-content-center">
-            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
-                <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    평형
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA01&term={term} (sigunguCode=${sigungucode}, term=${term})}">전체</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA02&term={term} (sigunguCode=${sigungucode}, term=${term})}">소형</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA08&term={term} (sigunguCode=${sigungucode}, term=${term})}">전용59</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA03&term={term} (sigunguCode=${sigungucode}, term=${term})}">중소형</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA07&term={term} (sigunguCode=${sigungucode}, term=${term})}">국평</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA04&term={term} (sigunguCode=${sigungucode}, term=${term})}">중형</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA05&term={term} (sigunguCode=${sigungucode}, term=${term})}">중대형</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA06&term={term} (sigunguCode=${sigungucode}, term=${term})}">대형</a></li>
-                </ul>
-            </div>
 
-            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
-                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    기간
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={ua}&term=0 (sigunguCode=${sigungucode}, ua=${ua})}">올해</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={ua}&term=5 (sigunguCode=${sigungucode}, ua=${ua})}">5년</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={ua}&term=10 (sigunguCode=${sigungucode}, ua=${ua})}">10년</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={ua}&term=15 (sigunguCode=${sigungucode}, ua=${ua})}">15년</a></li>
-                </ul>
-            </div>
-        </div>
-        </p>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">

@@ -116,7 +116,7 @@ public class StatLeaseRepository {
     public List<RankLeaseResponseDto> getTopLeaseSigungu(String sigunguCode, String uaType, int leaseType) {
         if (leaseType == 0) {
             return em.createQuery("select a from RankLease a"
-                            + " where a.gubnCode = :sigunguCode and a.leaseType = '전세' "
+                            + " where a.sigunguCode = :sigunguCode and a.leaseType = '전세' "
                             + "   and a.useAreaType = :uaType "
                             + " order by a.deposit desc", RankLease.class)
                     .setParameter("sigunguCode", sigunguCode)
@@ -125,7 +125,7 @@ public class StatLeaseRepository {
 
         } else {
             return em.createQuery("select a from RankLease a"
-                            + " where a.gubnCode = :sigunguCode and a.leaseType = '월세' "
+                            + " where a.sigunguCode = :sigunguCode and a.leaseType = '월세' "
                             + "   and a.useAreaType = :uaType "
                             + " order by a.monthlyRent desc", RankLease.class)
                     .setParameter("sigunguCode", sigunguCode)

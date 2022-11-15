@@ -112,7 +112,7 @@ public class AptPriceResponseDto {
     }
 
     public AptPriceResponseDto(RankYear entity) {
-        this.sigunguCode = entity.getGubnCode();
+        this.sigunguCode = entity.getSigunguCode();
         this.landDong = entity.getLandDong();
         this.dealDate = entity.getDealDate();
         this.aptName = entity.getAptName();
