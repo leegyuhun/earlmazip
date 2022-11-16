@@ -22,10 +22,10 @@ public class StatRepository {
     }
 
     public List<StatResponseDto> getStatTradeList(String areaCode, String term){
-        return em.createQuery("select a from StatAreaYYMM a"
-                        + " where a.areaCode = :areaCode and use_area_type = 'UA01'"
+        return em.createQuery("select a from StatSigunguYYMM a"
+                        + " where a.sigunguCode = :areaCode and a.useAreaType = 'UA01'"
                         + " and a.dealYear >= :searchYear "
-                        + " order by a.dealYYMM desc", StatAreaYYMM.class)
+                        + " order by a.dealYYMM desc", StatSigunguYYMM.class)
                 .setParameter("areaCode", areaCode)
                 .setParameter("searchYear", Common.calcYearByTerm(term))
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
@@ -33,7 +33,7 @@ public class StatRepository {
 
     public List<StatResponseDto> getStatTradeList_BySigungu(String sigunguCode, String term){
         return em.createQuery("select a from StatSigunguYYMM a"
-                        + " where a.sigunguCode = :sigunguCode and use_area_type = 'UA01'"
+                        + " where a.sigunguCode = :sigunguCode and a.use_area_type = 'UA01'"
                         + " and a.dealYear >= :searchYear "
                         + " order by a.dealYYMM desc", StatSigunguYYMM.class)
                 .setParameter("searchYear", Common.calcYearByTerm(term))

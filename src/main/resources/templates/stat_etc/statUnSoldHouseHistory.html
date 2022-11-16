@@ -48,7 +48,8 @@
             <tr style="font-size:12px;" th:each="list : ${list}">
                 <td align="center" th:text="${list.date}"></td>
                 <td align="right" th:text="${list.value1}"></td>
-                <td align="right" th:text="${list.value2}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.value2,1,'COMMA')}"></td>
+<!--                <td align="right" th:text="${list.value2}"></td>-->
             </tr>
             </tbody>
         </table>
