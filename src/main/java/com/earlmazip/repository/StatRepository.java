@@ -3,6 +3,7 @@ package com.earlmazip.repository;
 import com.earlmazip.controller.dto.*;
 import com.earlmazip.domain.*;
 import com.earlmazip.utils.Common;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.springframework.util.StringUtils.hasText;
 
 @Repository
 public class StatRepository {
@@ -21,33 +24,22 @@ public class StatRepository {
         this.queryFactory = new JPAQueryFactory(em);
     }
 
-    public List<StatResponseDto> getStatTradeList(String areaCode, String term){
-        return em.createQuery("select a from StatSigunguYYMM a"
-                        + " where a.sigunguCode = :areaCode and a.useAreaType = 'UA01'"
-                        + " and a.dealYear >= :searchYear "
-                        + " order by a.dealYYMM desc", StatSigunguYYMM.class)
-                .setParameter("areaCode", areaCode)
-                .setParameter("searchYear", Common.calcYearByTerm(term))
-                .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
-    }
+    QStatSigunguYYMM qStatSigunguYYMM = QStatSigunguYYMM.statSigunguYYMM;
 
-    public List<StatResponseDto> getStatTradeList_BySigungu(String sigunguCode, String term){
-        return em.createQuery("select a from StatSigunguYYMM a"
-                        + " where a.sigunguCode = :sigunguCode and a.use_area_type = 'UA01'"
-                        + " and a.dealYear >= :searchYear "
-                        + " order by a.dealYYMM desc", StatSigunguYYMM.class)
-                .setParameter("searchYear", Common.calcYearByTerm(term))
-                .setParameter("sigunguCode", sigunguCode)
-                .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
-    }
+    QStatSigunguType qStatSigunguType = QStatSigunguType.statSigunguType;
 
-    public List<StatResponseDto> findSeoulYear(String year){
-        return em.createQuery("select a from StatAreaYYMM a"
-                        + " where a.areaCode = '11' and use_area_type = 'UA01'"
-                        + "   and a.dealYear = :dealYaer"
-                        + " order by a.dealYYMM desc", StatAreaYYMM.class)
-                .setParameter("dealYaer", year)
-                .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
+    public List<StatSigunguYYMM> getStatTradeList(String areaCode, String term){
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(areaCode)) {
+            builder.and(qStatSigunguYYMM.sigunguCode.eq(areaCode));
+        }
+        if (hasText(term)) {
+            builder.and(qStatSigunguYYMM.dealYear.goe(Common.calcYearByTerm(term)));
+        }
+        return queryFactory.selectFrom(qStatSigunguYYMM)
+                .where(builder)
+                .orderBy(qStatSigunguYYMM.dealYYMM.desc())
+                .fetch();
     }
 
     /**
@@ -78,25 +70,6 @@ public class StatRepository {
                 .setParameter("ua", uaType)
                 .setMaxResults(100)
                 .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
-    }
-
-    public List<StatResponseDto> getStatTradeGyunggi(String term){
-        return em.createQuery("select a from StatAreaYYMM a"
-                        + " where a.areaCode = '41' and useAreaType = 'UA01'"
-                        + " and a.dealYear >= :searchYear "
-                        + " order by a.dealYYMM desc", StatAreaYYMM.class)
-                .setParameter("searchYear", Common.calcYearByTerm(term))
-                .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
-    }
-
-    public List<StatResponseDto> getStatTradeList_ByCity(String sidoCode, String term){
-        return em.createQuery("select a from StatSidoYYMM a"
-                        + " where a.sidoCode = :sidoCode and use_area_type = 'UA01'"
-                        + " and a.dealYear >= :searchYear "
-                        + " order by a.dealYYMM desc", StatSidoYYMM.class)
-                .setParameter("sidoCode", sidoCode)
-                .setParameter("searchYear", Common.calcYearByTerm(term))
-                .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
     public List<StatResponseDto> getStatNewHighestAndTradeCount(String sidoCode) {
@@ -199,24 +172,27 @@ public class StatRepository {
         }
     }
 
-    public List<StatResponseDto> getStatByDealType(String sigunguCode, String uaType, int dealType) {
-        String mType = "중개거래";
+    public List<StatSigunguType> getStatByDealType(String sigunguCode, String uaType, int dealType) {
+
+        BooleanBuilder builder = new BooleanBuilder();
+
+        if (hasText(sigunguCode)) {
+            builder.and(qStatSigunguType.sigunguCode.eq(sigunguCode));
+        }
+        if (hasText(uaType)) {
+            builder.and(qStatSigunguType.useAreaType.eq(uaType));
+        }
         if (dealType == 0) {
-            mType = "중개거래";
+            builder.and(qStatSigunguType.dealType.eq("중개거래"));
         } else {
-            mType = "직거래";
+            builder.and(qStatSigunguType.dealType.eq("직거래"));
         }
 
-        return em.createQuery("select a from StatSigunguType a "
-                        + " where a.sigunguCode = :sigunguCode "
-                        + "   and a.useAreaType = :uaType "
-                        + "   and a.dealType = :dealType "
-                        + " order by dealYYMM desc", StatSigunguType.class)
-                .setParameter("sigunguCode", sigunguCode)
-                .setParameter("uaType", uaType)
-                .setParameter("dealType", mType)
-                .getResultList().stream().map(StatResponseDto::new)
-                .collect(Collectors.toList());
+        return queryFactory.selectFrom(qStatSigunguType)
+                .where(builder)
+                .orderBy(qStatSigunguType.dealYYMM.desc())
+                .fetch();
+
     }
 
     public List<StatResponseDto> getDistribution(String areaCode) {

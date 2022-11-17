@@ -21,6 +21,7 @@ public class StatLeaseRepository {
     private final JPAQueryFactory queryFactory;
 
     QStatSigunguLease qStatSigunguLease = QStatSigunguLease.statSigunguLease;
+    QRankLease qRankLease = QRankLease.rankLease;
 
     public StatLeaseRepository(EntityManager em) {
         this.em = em;
@@ -47,24 +48,22 @@ public class StatLeaseRepository {
                 .fetch();
     }
 
-    public List<RankLeaseResponseDto> getTopLeaseSigungu(String sigunguCode, String uaType, int leaseType) {
-        if (leaseType == 0) {
-            return em.createQuery("select a from RankLease a"
-                            + " where a.sigunguCode = :sigunguCode and a.leaseType = '전세' "
-                            + "   and a.useAreaType = :uaType "
-                            + " order by a.deposit desc", RankLease.class)
-                    .setParameter("sigunguCode", sigunguCode)
-                    .setParameter("uaType", uaType)
-                    .getResultList().stream().map(RankLeaseResponseDto::new).collect(Collectors.toList());
-
-        } else {
-            return em.createQuery("select a from RankLease a"
-                            + " where a.sigunguCode = :sigunguCode and a.leaseType = '월세' "
-                            + "   and a.useAreaType = :uaType "
-                            + " order by a.monthlyRent desc", RankLease.class)
-                    .setParameter("sigunguCode", sigunguCode)
-                    .setParameter("uaType", uaType)
-                    .getResultList().stream().map(RankLeaseResponseDto::new).collect(Collectors.toList());
+    public List<RankLease> getTopLeaseSigungu(String sigunguCode, String uaType, int leaseType) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(sigunguCode)) {
+            builder.and(qRankLease.sigunguCode.eq(sigunguCode));
         }
+        if (hasText(uaType)) {
+            builder.and(qRankLease.useAreaType.eq(uaType));
+        }
+        if (leaseType == 0) {
+            builder.and(qRankLease.leaseType.eq("전세"));
+        } else {
+            builder.and(qRankLease.leaseType.eq("월세"));
+        }
+        return queryFactory.selectFrom(qRankLease)
+                .where(builder)
+                .orderBy(qRankLease.dealDate.desc())
+                .fetch();
     }
 }

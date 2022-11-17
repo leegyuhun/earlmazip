@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -14,19 +15,11 @@ public class StatService {
     private final StatRepository statRepository;
 
     public List<StatResponseDto> getStatTradeList_Area(String areaCode, String term) {
-        return statRepository.getStatTradeList(areaCode, term);
+        return statRepository.getStatTradeList(areaCode, term).stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
     public List<StatResponseDto> getStatTradeList_Seoul(String term) {
-        return statRepository.getStatTradeList("11", term);
-    }
-
-    public List<StatResponseDto> getStatTradeList_BySigungu(String sigunguCode, String term) {
-        return statRepository.getStatTradeList_BySigungu(sigunguCode, term);
-    }
-
-    public List<StatResponseDto> findStatSeoulListYear(String year) {
-        return statRepository.findSeoulYear(year);
+        return statRepository.getStatTradeList("11", term).stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
     public List<StatResponseDto> getStatTradeByUseAreaList(String regnCode, String ua, String term) {
@@ -34,14 +27,10 @@ public class StatService {
     }
 
     public List<StatResponseDto> getStatTradeList_Gyunggi(String term) {
-        return statRepository.getStatTradeList("41", term);
+        return statRepository.getStatTradeList("41", term).stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
     public List<StatResponseDto> getStatTradeList_Incheon(String term) {
-        return statRepository.getStatTradeList("28", term);
-    }
-
-    public List<StatResponseDto> getStatTradeList_ByCity(String sidoCode, String term) {
-        return statRepository.getStatTradeList_ByCity(sidoCode, term);
+        return statRepository.getStatTradeList("28", term).stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
     public List<AptPriceResponseDto> getStatTradeTopByYear(String year, String sigungucode, String uaType) {
@@ -69,7 +58,7 @@ public class StatService {
     }
 
     public List<StatResponseDto> getStatByDealType(String sigunguCode, String uaTYpe, int dealType) {
-        return statRepository.getStatByDealType(sigunguCode, uaTYpe, dealType);
+        return statRepository.getStatByDealType(sigunguCode, uaTYpe, dealType).stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
     public List<StatResponseDto> getDistribution(String areaCode) {

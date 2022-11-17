@@ -20,7 +20,6 @@ public class StatLeaseService {
     }
 
     public List<RankLeaseResponseDto> getTopLeaseSigungu(String sigunguCode, String uaType, int leaseType) {
-        return statRepository.getTopLeaseSigungu(sigunguCode, uaType, leaseType);
-
+        return statRepository.getTopLeaseSigungu(sigunguCode, uaType, leaseType).stream().map(RankLeaseResponseDto::new).collect(Collectors.toList());
     }
 }
