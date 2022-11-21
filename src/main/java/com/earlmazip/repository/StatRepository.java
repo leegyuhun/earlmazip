@@ -36,6 +36,8 @@ public class StatRepository {
         if (hasText(term)) {
             builder.and(qStatSigunguYYMM.dealYear.goe(Common.calcYearByTerm(term)));
         }
+        builder.and(qStatSigunguYYMM.useAreaType.eq("UA01"));
+
         return queryFactory.selectFrom(qStatSigunguYYMM)
                 .where(builder)
                 .orderBy(qStatSigunguYYMM.dealYYMM.desc())
