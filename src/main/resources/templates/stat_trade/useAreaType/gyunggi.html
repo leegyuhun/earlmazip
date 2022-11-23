@@ -6,101 +6,81 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
         <a th:href="@{/stat_trade/useareaType?sigunguCode=41&uaType={ua}&term={term} (ua=${ua}, term=${term})}">경기 전체</a>
-        <div>
-            <a>성남&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41131&uaType={ua}&term={term} (ua=${ua}, term=${term})}">수정&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41133&uaType={ua}&term={term} (ua=${ua}, term=${term})}">중원&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41135&uaType={ua}&term={term} (ua=${ua}, term=${term})}">분당</a>
-            <b>/&nbsp</b>
-            <a>고양&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41281&uaType={ua}&term={term} (ua=${ua}, term=${term})}">덕양&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41285&uaType={ua}&term={term} (ua=${ua}, term=${term})}">일산동&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41287&uaType={ua}&term={term} (ua=${ua}, term=${term})}">일산서</a>
-        </div>
-        <div>
-            <a>용인&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41461&uaType={ua}&term={term} (ua=${ua}, term=${term})}">처인&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41463&uaType={ua}&term={term} (ua=${ua}, term=${term})}">기흥&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41465&uaType={ua}&term={term} (ua=${ua}, term=${term})}">수지</a>
-            <b>/&nbsp</b>
-            <a>수원&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41111&uaType={ua}&term={term} (ua=${ua}, term=${term})}">장안&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41113&uaType={ua}&term={term} (ua=${ua}, term=${term})}">권선&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41115&uaType={ua}&term={term} (ua=${ua}, term=${term})}">팔달&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41117&uaType={ua}&term={term} (ua=${ua}, term=${term})}">영통</a>
-        </div>
-        <div>
-            <a>안산&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41271&uaType={ua}&term={term} (ua=${ua}, term=${term})}">상록&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41273&uaType={ua}&term={term} (ua=${ua}, term=${term})}">단원</a>
-            <b>/&nbsp</b>
-            <a>안양&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41171&uaType={ua}&term={term} (ua=${ua}, term=${term})}">만안&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41173&uaType={ua}&term={term} (ua=${ua}, term=${term})}">동안</a>
-        </div>
-        <div>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41820&uaType={ua}&term={term} (ua=${ua}, term=${term})}">가평군&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41290&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp과천시&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41210&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp광명시&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41610&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp광주시&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41310&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp구리시&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41410&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp군포시&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41570&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp김포시</a>
-        </div>
-        <div>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41360&uaType={ua}&term={term} (ua=${ua}, term=${term})}">남양주&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41250&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp동두천&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41190&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp부천시&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41390&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp시흥시&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41550&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp안성시&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41630&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp양주시&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41830&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp양평군</a>
-        </div>
-        <div>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41670&uaType={ua}&term={term} (ua=${ua}, term=${term})}">여주시&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41800&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp연천군&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41370&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp오산시&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41430&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp의왕시&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41150&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp의정부&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41500&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp이천시&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41480&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp파주시</a>
-        </div>
 
-        <div>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41220&uaType={ua}&term={term} (ua=${ua}, term=${term})}">평택시&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41650&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp포천시&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41450&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp하남시&nbsp</a>
-            <a th:href="@{/stat_trade/useareaType?sigunguCode=41590&uaType={ua}&term={term} (ua=${ua}, term=${term})}">&nbsp화성시</a>
-        </div>
-        <p>
-            <h6 align="center" th:text="|[ ${title} ${termStr} ]|"></h6>
-            <h6 align="center" th:text="|* ${uaStr} |"></h6>
-        </p>
-        <div>
-            <canvas id="myChart"></canvas>
-        </div>
-        <div>
-            <ins class="kakao_ad_area" style="display:none;"
-                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
-                 data-ad-width   = "320"
-                 data-ad-height  = "100"></ins>
-            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
-        </div>
         <p>
         <div class="d-flex gap-2 justify-content-center">
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    구 선택
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41131&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">성남 수정구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41133&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">성남 중원구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41135&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">성남 분당구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41281&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">고양 덕양구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41285&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">고양 일산동구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41287&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">고양 일산서구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41461&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">용인 처인구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41463&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">용인 기흥구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41465&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">용인 수지구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41111&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">수원 장안구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41113&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">수원 권선구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41115&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">수원 팔달구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41117&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">수원 영통구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41271&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">안산 상록구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41273&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">안산 단원구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41171&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">안양 만안구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41173&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">안양 동안구</a></li>
+                </ul>
+            </div>
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    시 선택
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41820&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">가평군</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41290&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">과천시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41210&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">광명시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41610&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">광주시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41310&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">구리시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41410&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">군포시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41570&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">김포시</a></li>
+
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41360&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">남양주</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41250&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">동두천</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41190&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">부천시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41390&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">시흥시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41550&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">안성시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41630&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">양주시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41830&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">양평군</a></li>
+
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41670&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">여주시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41800&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">연천군</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41370&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">오산시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41430&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">의왕시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41150&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">의정부</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41500&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">이천시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41480&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">파주시</a></li>
+
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41220&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">평택시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41650&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">포천시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41450&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">하남시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode=41590&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">화성시</a></li>
+                </ul>
+            </div>
             <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
                 <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     평형
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA01&term={term} (sigunguCode=${sigungucode}, term=${term})}">전체</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA02&term={term} (sigunguCode=${sigungucode}, term=${term})}">소형</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA08&term={term} (sigunguCode=${sigungucode}, term=${term})}">전용59</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA03&term={term} (sigunguCode=${sigungucode}, term=${term})}">중소형</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA07&term={term} (sigunguCode=${sigungucode}, term=${term})}">국평</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA04&term={term} (sigunguCode=${sigungucode}, term=${term})}">중형</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA05&term={term} (sigunguCode=${sigungucode}, term=${term})}">중대형</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA06&term={term} (sigunguCode=${sigungucode}, term=${term})}">대형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA01&term={term} (sigunguCode=${sigunguCode}, term=${term})}">전체</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA02&term={term} (sigunguCode=${sigunguCode}, term=${term})}">소형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA08&term={term} (sigunguCode=${sigunguCode}, term=${term})}">전용59</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA03&term={term} (sigunguCode=${sigunguCode}, term=${term})}">중소형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA07&term={term} (sigunguCode=${sigunguCode}, term=${term})}">국평</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA04&term={term} (sigunguCode=${sigunguCode}, term=${term})}">중형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA05&term={term} (sigunguCode=${sigunguCode}, term=${term})}">중대형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA06&term={term} (sigunguCode=${sigunguCode}, term=${term})}">대형</a></li>
                 </ul>
             </div>
 
@@ -109,14 +89,32 @@
                     기간
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={ua}&term=0 (sigunguCode=${sigungucode}, ua=${ua})}">올해</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={ua}&term=5 (sigunguCode=${sigungucode}, ua=${ua})}">5년</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={ua}&term=10 (sigunguCode=${sigungucode}, ua=${ua})}">10년</a></li>
-                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={ua}&term=15 (sigunguCode=${sigungucode}, ua=${ua})}">15년</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={uaType}&term=0 (sigunguCode=${sigunguCode},  uaType=${uaType})}">올해</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={uaType}&term=5 (sigunguCode=${sigunguCode},  uaType=${uaType})}">5년</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={uaType}&term=10 (sigunguCode=${sigunguCode}, uaType=${uaType})}">10년</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={uaType}&term=15 (sigunguCode=${sigunguCode}, uaType=${uaType})}">15년</a></li>
                 </ul>
             </div>
         </div>
         </p>
+
+        <p>
+            <h6 align="center" th:text="|[ ${title} ${termStr} ]|"></h6>
+            <h6 align="center" th:text="|* ${uaStr} |"></h6>
+        </p>
+
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">

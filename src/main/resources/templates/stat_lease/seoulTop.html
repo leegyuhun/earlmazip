@@ -7,6 +7,10 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <!--    <a th:text="${year}"></a>-->
     <div>
+
+        <h5 align="center" th:text="|[ ${title} ]|"></h5>
+        <h6 align="center" th:text="|* ${subtitle}|"></h6>
+
         <p>
             <div class="d-flex gap-2 justify-content-center">
                 <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
@@ -69,9 +73,7 @@
                 </div>
             </div>
         </p>
-        <h5 align="center" th:text="|[ ${title} ]|"></h5>
-        <h6 align="center" th:text="|* ${subtitle}|"></h6>
-<!--        <h6 align="center">* 월별 전세 통계</h6>-->
+
         <div>
             <ins class="kakao_ad_area" style="display:none;"
                  data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
@@ -79,25 +81,7 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
-        <a style="font-size: 20px">[평형]&nbsp</a>
-        <a style="font-size: 20px" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType=UA01&leaseType={leaseType} (sigunguCode=${sigunguCode}, leaseType=${leaseType})}">전체&nbsp</a>
-        <a style="font-size: 20px" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType=UA08&leaseType={leaseType} (sigunguCode=${sigunguCode}, leaseType=${leaseType})}">전용59&nbsp</a>
-        <a style="font-size: 20px" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType=UA07&leaseType={leaseType} (sigunguCode=${sigunguCode}, leaseType=${leaseType})}">국평&nbsp</a>
-        <a style="font-size: 20px" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType=UA04&leaseType={leaseType} (sigunguCode=${sigunguCode}, leaseType=${leaseType})}">중형&nbsp</a>
-        <a style="font-size: 20px" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType=UA05&leaseType={leaseType} (sigunguCode=${sigunguCode}, leaseType=${leaseType})}">중대형&nbsp</a>
-        <a style="font-size: 20px" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType=UA06&leaseType={leaseType} (sigunguCode=${sigunguCode}, leaseType=${leaseType})}">대형&nbsp</a>
-<!--        <div>-->
-<!--            <a>[기간]&nbsp</a>-->
-<!--            <a th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType={uaType}&leaseType={leaseType} (sigunguCode=${sigunguCode}, uaType=${uaType}, leaseType={leaseType})}">올해&nbsp</a>-->
-<!--            <b>/&nbsp</b>-->
-<!--            <a th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType={uaType}&leaseType={leaseType} (sigunguCode=${sigunguCode}, uaType=${uaType}, leaseType={leaseType})}">2년&nbsp</a>-->
-<!--            <b>/&nbsp</b>-->
-<!--            <a th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType={uaType}&leaseType={leaseType} (sigunguCode=${sigunguCode}, uaType=${uaType}, leaseType={leaseType})}">3년&nbsp</a>-->
-<!--            <b>/&nbsp</b>-->
-<!--            <a th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType={uaType}&leaseType={leaseType} (sigunguCode=${sigunguCode}, uaType=${uaType}, leaseType={leaseType})}">5년&nbsp</a>-->
-<!--            <b>/&nbsp</b>-->
-<!--            <a th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType={uaType}&leaseType={leaseType} (sigunguCode=${sigunguCode}, uaType=${uaType}, leaseType={leaseType})}">전체&nbsp</a>-->
-<!--        </div>-->
+
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">

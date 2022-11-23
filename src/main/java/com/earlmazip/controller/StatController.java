@@ -71,12 +71,12 @@ public class StatController {
 
         model.addAttribute("title",  title);
         model.addAttribute("headerTitle", title + " 월별 통계");
-        model.addAttribute("sigungucode",  sigunguCode);
+        model.addAttribute("sigunguCode",  sigunguCode);
         model.addAttribute("term",  term);
         model.addAttribute("termStr", Common.makeTermString(term));
         model.addAttribute("list", areas);
         model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
-        model.addAttribute("ua", uaType);
+        model.addAttribute("uaType", uaType);
         model.addAttribute("dates", dates);
         model.addAttribute("avgprc", avgprc);
         model.addAttribute("tradcnt", tradcnt);
