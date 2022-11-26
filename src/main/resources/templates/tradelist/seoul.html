@@ -99,8 +99,8 @@
                     <th>일자</th>
                     <th>아파트</th>
                     <th>전용</br>(m<sup>2</sup>)</th>
-                    <th>거래가</br>직전거래가</th>
-                    <th>신고가</br>직/중개</th>
+                    <th>거래가</br>직전거래가</br>직전전세가</th>
+                    <th>신고가</br>직/중개</br>중개소재지</th>
                 </tr>
             </thead>
             <tbody>
@@ -117,14 +117,14 @@
                     <td align="right">
                         <div>
                             <a style="font-size:12px; font-weight: bolder; color:#FF6384" th:text="${list.dealAmtStr}"></a></br>
-                            <a th:text="${list.prevDealAmtStr}"></a>
-                            <a th:text="${list.prevDealAmtStr}"></a>
+                            <a th:text="${list.prevDealAmtStr}"></a></br>
+                            <a th:text="${list.prevLeaseAmtStr}"></a>
                         </div>
                     </td>
                     <td align="center">
                         <div>
                             <a th:text="${list.newHighest}"></a></br>
-                            <a th:text="${list.dealType}"></a>
+                            <a th:text="${list.dealType}"></a></br>
                             <a th:text="${list.dealLoc}"></a>
                         </div>
                     </td>

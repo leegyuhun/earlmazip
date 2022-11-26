@@ -71,8 +71,8 @@
                     <th>일자</th>
                     <th>아파트</th>
                     <th>전용</br>(m<sup>2</sup>)</th>
-                    <th>금액</br>신고가</th>
-                    <th>직/중개</th>
+                    <th>거래가</br>직전거래가</br>직전전세가</th>
+                    <th>신고가</br>직/중개</br>중개소재지</th>
                 </tr>
             </thead>
             <tbody>
@@ -88,11 +88,18 @@
                     <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>
                     <td align="right">
                         <div>
-                            <a th:text="${list.dealAmtStr}"></a></br>
-                            <a th:text="${list.newHighest}"></a>
+                            <a style="font-size:12px; font-weight: bolder; color:#FF6384" th:text="${list.dealAmtStr}"></a></br>
+                            <a th:text="${list.prevDealAmtStr}"></a></br>
+                            <a th:text="${list.prevLeaseAmtStr}"></a>
                         </div>
                     </td>
-                    <td align="center" th:text="${list.dealType}"></td>
+                    <td align="center">
+                        <div>
+                            <a th:text="${list.newHighest}"></a></br>
+                            <a th:text="${list.dealType}"></a></br>
+                            <a th:text="${list.dealLoc}"></a>
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
