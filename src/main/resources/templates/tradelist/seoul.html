@@ -64,6 +64,7 @@
                         동 선택
                     </button>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/tradelist?sigunguCode={sigunguCode}&uaType={uaType} (sigunguCode=${sigunguCode}, uaType=${uaType})}">전체</a></li>
                         <li><a class="dropdown-item" th:each="dongList : ${dongList}" th:text="${dongList.landDong}" th:href="@{/tradelist?sigunguCode={sigunguCode}&uaType={uaType}&landDong={landDong} (sigunguCode=${sigunguCode}, uaType=${uaType}, landDong=${dongList.landDong})}"></a></li>
                     </ul>
                 </div>
@@ -117,13 +118,14 @@
                         <div>
                             <a style="font-size:12px; font-weight: bolder; color:#FF6384" th:text="${list.dealAmtStr}"></a></br>
                             <a th:text="${list.prevDealAmtStr}"></a>
-
+                            <a th:text="${list.prevDealAmtStr}"></a>
                         </div>
                     </td>
                     <td align="center">
                         <div>
                             <a th:text="${list.newHighest}"></a></br>
                             <a th:text="${list.dealType}"></a>
+                            <a th:text="${list.dealLoc}"></a>
                         </div>
                     </td>
                 </tr>

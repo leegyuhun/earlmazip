@@ -28,6 +28,9 @@ public class AptPriceRaw {
     private int dealAmt;
     private int prevDealAmt;
     private String prevDealDate;
+    private int prevLeaseAmt;
+    private String prevLeaseDate;
+    private int mostHighestAmt;
     private int diffAmt;
     private float diffRate;
     private int floor;

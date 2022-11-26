@@ -358,6 +358,42 @@ public class StatController {
         }
     }
 
+    @GetMapping("/stat_trade/top")
+    public String GetStatTradeTopByYear(@RequestParam(value = "year", defaultValue = "2022") String year,
+                                        @RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
+                                        @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
+                                        Model model) {
+        List<AptPriceResponseDto> tops;
+        String title = "-";
+        if (!sigunguCode.equals("0")) {
+            title = codeInfoService.getCodeName(sigunguCode);
+            log.info("/stat_trade/top?year=" + year + "&sigunguCode=" +  sigunguCode);
+            apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/top?sigunguCode=" +  title + "year="+year, sigunguCode);
+            if (StringUtils.hasText(sigunguCode)) {
+                tops = statService.getStatTradeTopByYear(year, sigunguCode, uaType);
+            } else {
+                tops = new ArrayList<>();
+            }
+        } else {
+            tops = new ArrayList<>();
+        }
+
+        model.addAttribute("title",  title);
+        model.addAttribute("list", tops);
+        model.addAttribute("uaType", uaType);
+        model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
+        model.addAttribute("year", year);
+        model.addAttribute("sigunguCode", sigunguCode);
+
+        if (sigunguCode.substring(0, 2).equals("41")) {
+            return "stat_trade/top/gyunggiTop";
+        } else if (sigunguCode.substring(0, 2).equals("28")) {
+            return "stat_trade/top/incheonTop";
+        } else {
+            return "stat_trade/top/seoulTop";
+        }
+    }
+
     @GetMapping("/stat_trade/ByBuildYear/{regncode}/{term}")
     public String getStatBuildYearList(@PathVariable String regncode,
                                                     @PathVariable String term,
