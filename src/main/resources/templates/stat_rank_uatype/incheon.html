@@ -61,9 +61,10 @@
                     <th>아파트</th>
                     <th>전용</br>면적</th>
                     <th>건수</th>
-                    <th>최저</th>
-                    <th>평균</th>
-                    <th>최고</th>
+<!--                    <th>최저</th>-->
+<!--                    <th>평균</th>-->
+<!--                    <th>최고</th>-->
+                    <th>최저<br>평균</br>최고</th>
                     <th>신고</br>가율</th>
                 </tr>
             </thead>
@@ -79,9 +80,16 @@
                     </td>
                     <td align="right" th:text="${list.useAreaStr}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.tradeCnt,1,'COMMA')}"></td>
-                    <td align="right" th:text="${list.minAmtStr}"></td>
-                    <td align="right" style="font-weight: bolder" th:text="${list.avgAmtStr}"></td>
-                    <td align="right" th:text="${list.maxAmtStr}"></td>
+                    <td align="right">
+                        <div>
+                            <a th:text="${list.minAmtStr}"></a></br>
+                            <a style="font-size:14px; font-weight: bolder; color:#FF6384" th:text="${list.avgAmtStr}"></a></br>
+                            <a th:text="${list.maxAmtStr}"></a>
+                        </div>
+                    </td>
+<!--                    <td align="right" th:text="${list.minAmtStr}"></td>-->
+<!--                    <td align="right" style="font-weight: bolder" th:text="${list.avgAmtStr}"></td>-->
+<!--                    <td align="right" th:text="${list.maxAmtStr}"></td>-->
                     <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>
                 </tr>
             </tbody>

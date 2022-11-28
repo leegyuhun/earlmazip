@@ -5,37 +5,55 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
-        <div>
-            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28710&uaType={uaType} (uaType=${uaType})}">강화군&nbsp</a>
-            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28245&uaType={uaType} (uaType=${uaType})}">&nbsp계양구&nbsp</a>
-            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28200&uaType={uaType} (uaType=${uaType})}">&nbsp남동구&nbsp</a>
-            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28140&uaType={uaType} (uaType=${uaType})}">&nbsp동구&nbsp</a>
-            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28177&uaType={uaType} (uaType=${uaType})}">&nbsp미추홀구</a>
-        </div>
-        <div>
-            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28237&uaType={uaType} (uaType=${uaType})}">부평구&nbsp</a>
-            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28260&uaType={uaType} (uaType=${uaType})}">&nbsp서구&nbsp</a>
-            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28185&uaType={uaType} (uaType=${uaType})}">&nbsp연수구&nbsp</a>
-            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28720&uaType={uaType} (uaType=${uaType})}">&nbsp옹진군&nbsp</a>
-            <a th:href="@{/stat_trade/ByDealType?sigunguCode=28110&uaType={uaType} (uaType=${uaType})}">중구</a>
-        </div>
 
         <p>
             <h5 align="center" th:text="|[ ${title} 거래유형별 ]|"></h5>
             <h6 align="center" th:text="|* ${uaStr}|"></h6>
         </p>
+
         <p>
-            <a style="font-size: 20px">[평형]&nbsp</a>
-            <a style="font-size: 20px" th:href="@{/stat_trade/ByDealType?sigunguCode={sigungucode}&uaType=UA01 (sigungucode=${sigungucode})}">전체&nbsp</a>
-            <a style="font-size: 20px" th:href="@{/stat_trade/ByDealType?sigunguCode={sigungucode}&uaType=UA08 (sigungucode=${sigungucode})}">전용59&nbsp</a>
-            <a style="font-size: 20px" th:href="@{/stat_trade/ByDealType?sigunguCode={sigungucode}&uaType=UA07 (sigungucode=${sigungucode})}">국평&nbsp</a>
-            <a style="font-size: 20px" th:href="@{/stat_trade/ByDealType?sigunguCode={sigungucode}&uaType=UA04 (sigungucode=${sigungucode})}">중형&nbsp</a>
-            <a style="font-size: 20px" th:href="@{/stat_trade/ByDealType?sigunguCode={sigungucode}&uaType=UA05 (sigungucode=${sigungucode})}">중대형&nbsp</a>
-            <a style="font-size: 20px" th:href="@{/stat_trade/ByDealType?sigunguCode={sigungucode}&uaType=UA06 (sigungucode=${sigungucode})}">대형&nbsp</a>
+        <div class="d-flex gap-2 justify-content-center">
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    구선택
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode=28&uaType={uaType} (uaType=${uaType})}">인천 전체</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode=28710&uaType={uaType} (uaType=${uaType})}">강화군</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode=28245&uaType={uaType} (uaType=${uaType})}">계양구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode=28200&uaType={uaType} (uaType=${uaType})}">남동구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode=28140&uaType={uaType} (uaType=${uaType})}">동구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode=28177&uaType={uaType} (uaType=${uaType})}">미추홀구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode=28237&uaType={uaType} (uaType=${uaType})}">부평구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode=28260&uaType={uaType} (uaType=${uaType})}">서구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode=28185&uaType={uaType} (uaType=${uaType})}">연수구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode=28720&uaType={uaType} (uaType=${uaType})}">올진군</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode=28110&uaType={uaType} (uaType=${uaType})}">중구</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    평형
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode={sigunguCode}&uaType=UA01 (sigunguCode=${sigunguCode})}">전체</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode={sigunguCode}&uaType=UA02 (sigunguCode=${sigunguCode})}">소형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode={sigunguCode}&uaType=UA08 (sigunguCode=${sigunguCode})}">전용59</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode={sigunguCode}&uaType=UA03 (sigunguCode=${sigunguCode})}">중소형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode={sigunguCode}&uaType=UA07 (sigunguCode=${sigunguCode})}">국평</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode={sigunguCode}&uaType=UA04 (sigunguCode=${sigunguCode})}">중형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode={sigunguCode}&uaType=UA05 (sigunguCode=${sigunguCode})}">중대형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByDealType?sigunguCode={sigunguCode}&uaType=UA06 (sigunguCode=${sigunguCode})}">대형</a></li>
+                </ul>
+            </div>
+        </div>
         </p>
+
         <div>
             <canvas id="myChart"></canvas>
         </div>
+
         <div>
             <ins class="kakao_ad_area" style="display:none;"
                  data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
@@ -47,9 +65,9 @@
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
                     <th>년-월</th>
-                    <th>전체거래<br/>평균매매가</br>건수<br/>신고가율</th>
-                    <th>중개거래<br/>평균매매가</br>건수<br/>신고가율</th>
-                    <th>직거래<br/>평균매매가</br>건수<br/>신고가율</th>
+                    <th>전체거래<br/>평균매매가</br>건수<br/>신고가율<br/>평균전용(m<sup>2</sup>)</th>
+                    <th>중개거래<br/>평균매매가</br>건수<br/>신고가율<br/>평균전용(m<sup>2</sup>)</th>
+                    <th>직거래<br/>평균매매가</br>건수<br/>신고가율<br/>평균전용(m<sup>2</sup>)</th>
                 </tr>
             </thead>
             <tbody>
@@ -60,6 +78,7 @@
                             <a style="font-weight: bolder" th:text="|${list.avgPrice} 억|"></a></br>
                             <a th:text="|${#numbers.formatInteger(list.cnt,1,'COMMA')} 건|"></a></br>
                             <a th:text="|${#numbers.formatDecimal(list.highestRate,1,1,'POINT')} %|"></a></br>
+                            <a th:text="|${#numbers.formatDecimal(list.avgUseArea,1,1,'POINT')}|"></a>
                         </div>
                     </td>
                     <td align="center">
@@ -67,6 +86,7 @@
                             <a style="font-weight: bolder" th:text="|${list.avgPrice0} 억|"></a></br>
                             <a th:text="|${#numbers.formatInteger(list.cnt0,1,'COMMA')} 건|"></a></br>
                             <a th:text="|${#numbers.formatDecimal(list.highestRate0,1,1,'POINT')} %|"></a></br>
+                            <a th:text="|${#numbers.formatDecimal(list.avgUseArea0,1,1,'POINT')}|"></a>
                         </div>
                     </td>
 
@@ -75,6 +95,7 @@
                             <a style="font-weight: bolder" th:text="|${list.avgPrice1} 억|"></a></br>
                             <a th:text="|${#numbers.formatInteger(list.cnt1,1,'COMMA')} 건|"></a></br>
                             <a th:text="|${#numbers.formatDecimal(list.highestRate1,1,1,'POINT')} %|"></a></br>
+                            <a th:text="|${#numbers.formatDecimal(list.avgUseArea1,1,1,'POINT')}|"></a>
                         </div>
                     </td>
                 </tr>

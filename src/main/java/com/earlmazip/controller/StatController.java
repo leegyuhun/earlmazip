@@ -300,7 +300,7 @@ public class StatController {
         model.addAttribute("title",  title);
         model.addAttribute("title2",  title2);
         model.addAttribute("headerTitle", title + " 직/중개 통계");
-        model.addAttribute("sigungucode",  sigunguCode);
+        model.addAttribute("sigunguCode",  sigunguCode);
         model.addAttribute("list", list);
         model.addAttribute("uaType", uaType);
         model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));

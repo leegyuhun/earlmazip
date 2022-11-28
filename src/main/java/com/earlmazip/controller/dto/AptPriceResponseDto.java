@@ -37,6 +37,18 @@ public class AptPriceResponseDto {
 
     private String prevLeaseDate;
     private int mostHighestAmt;
+    private int mostLowestAmt;
+
+    private String mostHighestAmtStr;
+    private String mostLowestAmtStr;
+    public String getMostHighestAmtStr() {
+        return new DecimalFormat("0.0#").format((float)this.mostHighestAmt / 10000) + "억";
+    }
+
+    public String getMostLowestAmtStr() {
+        return new DecimalFormat("0.0#").format((float)this.mostLowestAmt / 10000) + "억";
+    }
+
     private String prevDealAmtStr;
 
     public String getPrevDealAmtStr() {
@@ -104,6 +116,7 @@ public class AptPriceResponseDto {
         this.prevLeaseAmt = entity.getPrevLeaseAmt();
         this.prevLeaseDate = entity.getPrevLeaseDate();
         this.mostHighestAmt = entity.getMostHighestAmt();
+        this.mostLowestAmt = entity.getMostLowestAmt();
         this.diffAmt = entity.getDiffAmt();
         this.diffRate = entity.getDiffRate();
     }
