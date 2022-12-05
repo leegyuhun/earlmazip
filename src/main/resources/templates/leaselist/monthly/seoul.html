@@ -58,6 +58,7 @@
                         동 선택
                     </button>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/leaselist/monthly?sigunguCode={sigunguCode}&uaType={uaType} (sigunguCode=${sigunguCode}, uaType=${uaType})}">전체</a></li>
                         <li><a class="dropdown-item" th:each="dongList : ${dongList}" th:text="${dongList.landDong}" th:href="@{/leaselist/monthly?sigunguCode={sigunguCode}&uaType={uaType}&landDong={landDong} (sigunguCode=${sigunguCode}, uaType=${uaType}, landDong=${dongList.landDong})}"></a></li>
                     </ul>
                 </div>

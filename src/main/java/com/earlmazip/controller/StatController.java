@@ -49,8 +49,12 @@ public class StatController {
         String title = "-";
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
-            System.out.println("/stat_trade/useareaType?" + sigunguCode + "&" + uaType + "&" + term);
-            log.info("/stat_trade/useareaType?" + sigunguCode + "&" + uaType + "&" + term);
+
+            log.info("/stat_trade/useareaType?sigunguCode=" + sigunguCode + "&" + uaType + "&" + term);
+
+            String url = "/stat_trade/useareaType?sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&term=" + term;
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
+
             apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/useareaType?sigunguCode=" + title, sigunguCode);
             areas = statService.getStatTradeByUseAreaList(sigunguCode,uaType, term);
         } else {
@@ -256,6 +260,8 @@ public class StatController {
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/stat_trade/ByDealType?" + sigunguCode + "&uaType" + uaType);
+            String url = "/stat_trade/ByDealType?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/ByDealType?" + title, sigunguCode);
             if (sigunguCode.length() == 5) {
                 stats = statService.getStatTradeByUseAreaList(sigunguCode, uaType, "0");
@@ -368,6 +374,8 @@ public class StatController {
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/stat_trade/top?year=" + year + "&sigunguCode=" +  sigunguCode);
+            String url = "/stat_trade/top?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/top?sigunguCode=" +  title + "year="+year, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 tops = statService.getStatTradeTopByYear(year, sigunguCode, uaType);

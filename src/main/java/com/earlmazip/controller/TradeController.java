@@ -46,6 +46,13 @@ public class TradeController {
         if (sigunguCode.length() == 5) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/tradelist?" + sigunguCode);
+            String url;
+            if(StringUtils.hasText(landDong)){
+                url = "/tradelist?sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&landDong=" + landDong;
+            } else{
+                url = "/tradelist?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
+            }
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 TradeSearchCond cond = new TradeSearchCond();
@@ -99,6 +106,7 @@ public class TradeController {
         if (!sigunguCode.equals("0")) {
             log.info("/tradelist/cancelDeal?sigunguCode=" + sigunguCode);
             title = codeInfoService.getCodeName(sigunguCode);
+            apiCallStatService.writeApiCallStatDetail("/tradelist/cancelDeal?sigunguCode=" + sigunguCode, sigunguCode, title);
             apiCallStatService.writeApiCallStat("TRADE_CANCEL", "/tradelist/cancelDeal?sigunguCode=" + title, sigunguCode);
 
             if (StringUtils.hasText(sigunguCode)) {
@@ -134,6 +142,14 @@ public class TradeController {
         if (sigunguCode.length() == 5) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/tradelist/newHighest?sigunguCode" + sigunguCode);
+
+            String url;
+            if(StringUtils.hasText(landDong)){
+                url = "/tradelist/newHighest?sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&landDong=" + landDong;
+            } else{
+                url = "/tradelist/newHighest?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
+            }
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/newHighest?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 trads = tradeService.getNewHighestList(sigunguCode, uaType, landDong);
@@ -184,6 +200,8 @@ public class TradeController {
                                      Model model) {
         List<AptPriceResponseDto> trads;
         if (!sigunguCode.equals("0")) {
+            String url = "/tradelist/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName + "&ua=" + ua + "&landDong=" + landDong;
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, codeInfoService.getCodeName(sigunguCode));
             apiCallStatService.writeApiCallStat("TRADE_LIST_NAME", "/tradelist/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName, sigunguCode);
 
             if (StringUtils.hasText(sigunguCode)) {

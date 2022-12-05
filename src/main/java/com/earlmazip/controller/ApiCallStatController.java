@@ -1,6 +1,7 @@
 package com.earlmazip.controller;
 
 import com.earlmazip.domain.ApiCallStat;
+import com.earlmazip.domain.ApiCallStatDetail;
 import com.earlmazip.service.ApiCallStatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,32 @@ import java.util.stream.Collectors;
 public class ApiCallStatController {
 
     private final ApiCallStatService apiCallStatService;
+
+    @GetMapping("/admin/apicallstatdetail")
+    public String LoadTodayApiCallList(Model model) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        List<ApiCallStatDetail> apiCalls = apiCallStatService.findAllTodayDetail(date);
+
+        List<String> names = apiCalls.stream().map(o->new String(o.getApiName())).collect(Collectors.toList());
+        List<Integer> cnts = apiCalls.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+
+        if (cnts.size() > 0) {
+
+            ApiCallStatDetail sum = new ApiCallStatDetail();
+            sum.setApiName("SUM");
+            sum.setCallDate(date);
+            sum.setCnt(cnts.stream().mapToInt(Integer::intValue).sum());
+            apiCalls.add(0, sum);
+        }
+
+        model.addAttribute("list", apiCalls);
+        model.addAttribute("names", names);
+        model.addAttribute("cnts", cnts);
+
+        return "admin/apicallstat";
+    }
 
     @GetMapping("/admin/apicallstat/{gubn}")
     public String LoadTodayApiCallList(@PathVariable String gubn, Model model) {

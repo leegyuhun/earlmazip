@@ -215,6 +215,9 @@ public class StatRankUaController {
         if (!sigunguCode.equals("0")) {
             log.info("/stat_rank_uatype?rankGubn=" + rankGubn + "&dealYear=" + dealYear + "&sigunguCode=" + sigunguCode + "&uaType=" + uaType);
             title = codeInfoService.getCodeName(sigunguCode);
+
+            String url = "/stat_rank_uatype?rankGubn" + rankGubn + "&dealYear=" + dealYear + "&sigunguCode=" + sigunguCode + "&uaType=" + uaType;
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("STAT_RANK_UA", "/stat_rank_uatype?rankGubn=" + rankGubn + "&dealYear=" + dealYear + "&sigunguCode=" + title, sigunguCode);
             list = statService.getStatRankUaTypeList(rankGubn, dealYear, sigunguCode, uaType);
         } else {

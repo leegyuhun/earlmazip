@@ -40,6 +40,8 @@ public class TradeComparePrevController {
         String title = "-";
         if (sigunguCode.length() == 5) {
             title = codeInfoService.getCodeName(sigunguCode);
+            String url = "/tradelist/comparePrev?sigunguCode=" + sigunguCode + "&type=" + type + "&uaType=" + uaType;
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/comparePrev?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 TradeSearchCond cond = new TradeSearchCond();

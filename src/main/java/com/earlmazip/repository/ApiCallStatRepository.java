@@ -1,6 +1,7 @@
 package com.earlmazip.repository;
 
 import com.earlmazip.domain.ApiCallStat;
+import com.earlmazip.domain.ApiCallStatDetail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +15,37 @@ import java.util.List;
 public class ApiCallStatRepository {
 
     private final EntityManager em;
+
+    public void WriteApiCallStatDetail(String apiName, String sigunguCode, String sigunguName) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        String date = simpleDateFormat.format(new Date());
+
+        ApiCallStatDetail item;
+
+        List<ApiCallStatDetail> items = em.createQuery("select a from ApiCallStatDetail a "
+                + " where a.callDate = :date and a.apiName = :name", ApiCallStatDetail.class)
+                .setParameter("date", date)
+                .setParameter("name", apiName)
+                .getResultList();
+
+        item = new ApiCallStatDetail();
+        if (items.size() == 0) {
+            item = new ApiCallStatDetail();
+            item.setCallDate(date);
+            item.setCallYear(date.substring(0, 4));
+            item.setCallMonth(date.substring(4, 6));
+            item.setCallDay(date.substring(6, 8));
+            item.setApiName(apiName);
+            item.setSigunguCode(sigunguCode);
+            item.setSigunguName(sigunguName);
+            item.setCnt(1);
+            em.persist(item);
+        } else {
+            item = items.get(0);
+            item.setCnt(item.getCnt()+1);
+            em.merge(item);
+        }
+    }
 
     public void WriteApiCallStat(String gubn, String name, String code) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");

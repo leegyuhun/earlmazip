@@ -2,6 +2,7 @@ package com.earlmazip.repository;
 
 import com.earlmazip.controller.dto.TradeSearchCond;
 import com.earlmazip.domain.*;
+import com.earlmazip.utils.Common;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
@@ -122,8 +123,8 @@ public class TradeRepository {
         if (hasText(cond.getSigunguCode())) {
             builder.and(qAptPriceRaw.sigunguCode.eq(cond.getSigunguCode()));
         }
-        if (hasText(cond.getDealYear())) {
-            builder.and(qAptPriceRaw.dealYear.goe(cond.getDealYear()));
+        if (term != 0) {
+            builder.and(qAptPriceRaw.dealYear.goe(Common.calcYearByTerm(term)));
         }
         if (hasText(cond.getAptName())) {
             builder.and(qAptPriceRaw.aptName.eq(cond.getAptName()));

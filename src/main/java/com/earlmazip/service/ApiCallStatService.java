@@ -1,6 +1,7 @@
 package com.earlmazip.service;
 
 import com.earlmazip.domain.ApiCallStat;
+import com.earlmazip.domain.ApiCallStatDetail;
 import com.earlmazip.repository.ApiCallStatRepository;
 import com.earlmazip.repository.ApiStatisticsRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,18 @@ public class ApiCallStatService {
         apiCallStatRepository.WriteApiCallStat(gubn, name, code);
     }
 
+    @Transactional
+    public void writeApiCallStatDetail(String apiName, String sigunguCode, String sigunguName) {
+        if(apiName.equals("")) return;
+        apiCallStatRepository.WriteApiCallStatDetail(apiName, sigunguCode, sigunguName);
+    }
+
     public List<ApiCallStat> LoadTodayApiCallList(String gubn) {
         return apiCallStatRepository.LoadTodayApiCallList(gubn);
+    }
+
+    public List<ApiCallStatDetail> findAllTodayDetail(String date) {
+        return apiStatisticsRepository.findGubnTodayDetail(date);
     }
 
     public List<ApiCallStat> findAllToday(String date) {

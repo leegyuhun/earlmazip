@@ -48,6 +48,13 @@ public class LeaseController {
         if (sigunguCode.length()==5) {
             log.info("/leaselist?sigunguCode=" + sigunguCode);
             title = codeInfoService.getCodeName(sigunguCode);
+            String url;
+            if(StringUtils.hasText(landDong)){
+                url = "/leaselist?sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&landDong=" + landDong;
+            } else{
+                url = "/leaselist?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
+            }
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 TradeSearchCond cond = new TradeSearchCond();
@@ -108,6 +115,13 @@ public class LeaseController {
         if (sigunguCode.length() == 5) {
             log.info("/leaselist/monthly?sigunguCode" + sigunguCode);
             title = codeInfoService.getCodeName(sigunguCode);
+            String url;
+            if(StringUtils.hasText(landDong)){
+                url = "/leaselist/monthly?sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&landDong=" + landDong;
+            } else{
+                url = "/leaselist/monthly?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
+            }
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/monthly?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 TradeSearchCond cond = new TradeSearchCond();
@@ -167,6 +181,13 @@ public class LeaseController {
         List<AptLeaseResponseDto> trads;
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
+            String url;
+            if(StringUtils.hasText(landDong)){
+                url = "/leaselist/renewal?sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&landDong=" + landDong;
+            } else{
+                url = "/leaselist/renewal?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
+            }
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/renewal?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 trads = leaseService.findLeaseRenewalList(sigunguCode, landDong, uaType);
@@ -202,6 +223,8 @@ public class LeaseController {
                                      Model model){
         List<AptLeaseResponseDto> trads;
         if (!sigunguCode.equals("0")) {
+            String url = "/leaselist/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName + "&ua=" + ua + "&landDong=" + landDong;
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, codeInfoService.getCodeName(sigunguCode));
             apiCallStatService.writeApiCallStat("LEASE_LIST_NAME", "/leaselist/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 TradeSearchCond cond = new TradeSearchCond();
