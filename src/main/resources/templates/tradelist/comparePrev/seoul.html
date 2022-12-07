@@ -7,43 +7,90 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <!--    <a th:text="${year}"></a>-->
     <div>
-        <div>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11680&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">강남구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11740&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp강동구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11305&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp강북구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11500&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp강서구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11620&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp관악구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11215&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp광진구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11530&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp구로구</a>
-        </div>
-        <div>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11545&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">금천구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11350&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp노원구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11320&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp도봉구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11230&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp동대문&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11590&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp동작구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11440&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp마포구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11410&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp서대문</a>
-        </div>
-        <div>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11650&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">서초구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11200&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp성동구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11290&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp성북구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11710&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp송파구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11470&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp양천구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11560&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp영등포&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11170&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp용산구</a>
-        </div>
-        <div>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11380&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">은평구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11110&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp종로구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11260&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp중랑구&nbsp</a>
-            <a th:href="@{/tradelist/comparePrev?sigunguCode=11140&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">&nbsp중구</a>
-        </div>
         <p>
             <h5 align="center" th:text="${title}"></h5>
             <h6 align="center" th:text="|* ${uaStr}|"></h6>
         </p>
+
+        <p>
+        <div class="d-flex gap-2 justify-content-center">
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    강북
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11305&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">강북구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11215&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">광진구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11350&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">노원구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11320&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">도봉구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11230&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">동대문</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11440&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">마포구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11410&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">서대문</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11200&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">성동구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11290&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">성북구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11470&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">양천구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11170&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">용산구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11380&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">은평구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11110&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">종로구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11260&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">중랑구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11140&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">중 구</a></li>
+                </ul>
+            </div>
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    강남
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11680&type={type}&uaType={uaType} (uaType=${uaType}, type=${type})}">강남구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11740&type={type}&uaType={uaType} (uaType=${uaType}, type=${type})}">강동구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11500&type={type}&uaType={uaType} (uaType=${uaType}, type=${type})}">강서구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11620&type={type}&uaType={uaType} (uaType=${uaType}, type=${type})}">관악구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11530&type={type}&uaType={uaType} (uaType=${uaType}, type=${type})}">구로구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11545&type={type}&uaType={uaType} (uaType=${uaType}, type=${type})}">금천구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11590&type={type}&uaType={uaType} (uaType=${uaType}, type=${type})}">동작구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11650&type={type}&uaType={uaType} (uaType=${uaType}, type=${type})}">서초구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11710&type={type}&uaType={uaType} (uaType=${uaType}, type=${type})}">송파구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11470&type={type}&uaType={uaType} (uaType=${uaType}, type=${type})}">양천구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=11560&type={type}&uaType={uaType} (uaType=${uaType}, type=${type})}">영등포</a></li>
+                </ul>
+            </div>
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    상승/하락
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode={sigunguCode}&type=0&uaType={uaType}&landDong={landDong} (sigunguCode=${sigunguCode}, uaType=${uaType}, landDong=${landDong})}">상승</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode={sigunguCode}&type=1&uaType={uaType}&landDong={landDong} (sigunguCode=${sigunguCode}, uaType=${uaType}, landDong=${landDong})}">하락</a></li>
+                </ul>
+            </div>
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    동 선택
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode={sigunguCode}&type={type}&uaType={uaType} (sigunguCode=${sigunguCode}, type=${type}, uaType=${uaType})}">전체</a></li>
+                    <li><a class="dropdown-item" th:each="dongList : ${dongList}" th:text="${dongList.landDong}" th:href="@{/tradelist/comparePrev?sigunguCode={sigunguCode}&uaType={uaType}&landDong={landDong} (sigunguCode=${sigunguCode}, uaType=${uaType}, landDong=${dongList.landDong})}"></a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    평형
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode={sigunguCode}&type={type}&uaType=UA01&landDong={landDong} (sigunguCode=${sigunguCode}, type=${type}, landDong=${landDong})}">전체</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode={sigunguCode}&type={type}&uaType=UA02&landDong={landDong} (sigunguCode=${sigunguCode}, type=${type}, landDong=${landDong})}">소형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode={sigunguCode}&type={type}&uaType=UA08&landDong={landDong} (sigunguCode=${sigunguCode}, type=${type}, landDong=${landDong})}">전용59</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode={sigunguCode}&type={type}&uaType=UA03&landDong={landDong} (sigunguCode=${sigunguCode}, type=${type}, landDong=${landDong})}">중소형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode={sigunguCode}&type={type}&uaType=UA07&landDong={landDong} (sigunguCode=${sigunguCode}, type=${type}, landDong=${landDong})}">국평</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode={sigunguCode}&type={type}&uaType=UA04&landDong={landDong} (sigunguCode=${sigunguCode}, type=${type}, landDong=${landDong})}">중형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode={sigunguCode}&type={type}&uaType=UA05&landDong={landDong} (sigunguCode=${sigunguCode}, type=${type}, landDong=${landDong})}">중대형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode={sigunguCode}&type={type}&uaType=UA06&landDong={landDong} (sigunguCode=${sigunguCode}, type=${type}, landDong=${landDong})}">대형</a></li>
+                </ul>
+            </div>
+        </div>
+        </p>
+
         <div>
             <ins class="kakao_ad_area" style="display:none;"
                  data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
@@ -51,28 +98,7 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
-        <a>[상승/하락]&nbsp</a>
-        <a th:href="@{/tradelist/comparePrev?sigunguCode={sigungucode}&type=0&uaType={uaType} (sigungucode=${sigungucode}, uaType=${uaType})}">상승</a>
-        <b>/&nbsp</b>
-        <a th:href="@{/tradelist/comparePrev?sigunguCode={sigungucode}&type=1&uaType={uaType} (sigungucode=${sigungucode}, uaType=${uaType})}">하락</a>
-        </br>
-        </br>
-        <a>[평형]&nbsp</a>
-        <a th:href="@{/tradelist/comparePrev?sigunguCode={sigungucode}&type={type}&uaType=UA01 (sigungucode=${sigungucode}, type=${type})}">전체&nbsp</a>
-        <b>/&nbsp</b>
-        <a th:href="@{/tradelist/comparePrev?sigunguCode={sigungucode}&type={type}&uaType=UA02 (sigungucode=${sigungucode}, type=${type})}">소형&nbsp</a>
-        <b>/&nbsp</b>
-        <a th:href="@{/tradelist/comparePrev?sigunguCode={sigungucode}&type={type}&uaType=UA08 (sigungucode=${sigungucode}, type=${type})}">전용59&nbsp</a>
-        <b>/&nbsp</b>
-        <a th:href="@{/tradelist/comparePrev?sigunguCode={sigungucode}&type={type}&uaType=UA03 (sigungucode=${sigungucode}, type=${type})}">중소형&nbsp</a>
-        <b>/&nbsp</b>
-        <a th:href="@{/tradelist/comparePrev?sigunguCode={sigungucode}&type={type}&uaType=UA07 (sigungucode=${sigungucode}, type=${type})}">국평&nbsp</a>
-        <b>/&nbsp</b>
-        <a th:href="@{/tradelist/comparePrev?sigunguCode={sigungucode}&type={type}&uaType=UA04 (sigungucode=${sigungucode}, type=${type})}">중형</a>
-        <b>/&nbsp</b>
-        <a th:href="@{/tradelist/comparePrev?sigunguCode={sigungucode}&type={type}&uaType=UA05 (sigungucode=${sigungucode}, type=${type})}">중대형</a>
-        <b>/&nbsp</b>
-        <a th:href="@{/tradelist/comparePrev?sigunguCode={sigungucode}&type={type}&uaType=UA06 (sigungucode=${sigungucode}, type=${type})}">대형</a>
+
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">

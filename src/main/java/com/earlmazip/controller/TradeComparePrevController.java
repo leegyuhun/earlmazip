@@ -1,9 +1,11 @@
 package com.earlmazip.controller;
 
 import com.earlmazip.controller.dto.AptPriceResponseDto;
+import com.earlmazip.controller.dto.LandDongInfoDto;
 import com.earlmazip.controller.dto.TradeSearchCond;
 import com.earlmazip.service.ApiCallStatService;
 import com.earlmazip.service.CodeInfoService;
+import com.earlmazip.service.LandDongService;
 import com.earlmazip.service.TradeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +25,7 @@ public class TradeComparePrevController {
     private final TradeService tradeService;
     private final ApiCallStatService apiCallStatService;
     private final CodeInfoService codeInfoService;
-
+    private final LandDongService landDongService;
 
     /**
      * @param sigunguCode
@@ -35,6 +37,7 @@ public class TradeComparePrevController {
     public String getTradeList(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                @RequestParam(value = "type", defaultValue = "0") String type,
                                @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
+                               @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                Model model) {
         List<AptPriceResponseDto> trads;
         String title = "-";
@@ -51,6 +54,9 @@ public class TradeComparePrevController {
                 } else {
                     cond.setUaType(uaType);
                 }
+                if (StringUtils.hasText(landDong)){
+                    cond.setLandDong(landDong);
+                }
                 trads = tradeService.findTradeComparePrevList(cond, type);
 //                trads = tradeService.getTradeComparePrevList_SigunguUAType(sigunguCode, type, uaType);
             } else {
@@ -59,11 +65,16 @@ public class TradeComparePrevController {
         } else{
             trads = new ArrayList<>();
         }
-
+        List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
         model.addAttribute("list", trads);
-        model.addAttribute("sigungucode", sigunguCode);
+        model.addAttribute("sigunguCode", sigunguCode);
+        model.addAttribute("dongList", dongList);
+        model.addAttribute("landDong", landDong);
         model.addAttribute("uaType", uaType);
         model.addAttribute("type", type);
+        if (!landDong.equals("")) {
+            title += " " + landDong;
+        }
         if (type.equals("0")) {
             model.addAttribute("title",  "[ "+ title + " 2022 상승거래 ]");
         } else {

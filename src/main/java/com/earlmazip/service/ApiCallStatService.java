@@ -26,7 +26,7 @@ public class ApiCallStatService {
 
     @Transactional
     public void writeApiCallStatDetail(String apiName, String sigunguCode, String sigunguName) {
-        if(apiName.equals("")) return;
+        if(apiName.equals("") || sigunguCode.equals("")) return;
         apiCallStatRepository.WriteApiCallStatDetail(apiName, sigunguCode, sigunguName);
     }
 
