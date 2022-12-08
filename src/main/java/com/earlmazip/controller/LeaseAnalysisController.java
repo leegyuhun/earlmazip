@@ -4,6 +4,7 @@ import com.earlmazip.controller.dto.StatLeaseAnalysisDto;
 import com.earlmazip.service.ApiCallStatService;
 import com.earlmazip.service.CodeInfoService;
 import com.earlmazip.service.LeaseAnalysisService;
+import com.earlmazip.utils.Common;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +27,45 @@ public class LeaseAnalysisController {
     private final ApiCallStatService apiCallStatService;
     private final CodeInfoService codeInfoService;
 
+    @GetMapping("/lease_analysis")
+    public String getLeaseAnalysis(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
+                                   @RequestParam(value = "term", defaultValue = "0") int term,
+                                   Model model) {
+        List<StatLeaseAnalysisDto> anals;
+        String title = "-";
+        if (!sigunguCode.equals("0")) {
+            log.info("/lease_analysis?sigunguCode=" + sigunguCode);
+            title = codeInfoService.getCodeName(sigunguCode);
+            apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis?sigunguCode=" + title, sigunguCode);
+            if (StringUtils.hasText(sigunguCode)) {
+                anals = leaseAnalysisService.getLeaseAnalysisList(sigunguCode, term);
+            } else {
+                anals = new ArrayList<>();
+            }
+        } else {
+            anals = new ArrayList<>();
+        }
+        List<String> dates = anals.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
+        List<Float> rates = anals.stream().map(o->new Float(o.getRate())).collect(Collectors.toList());
+        Collections.reverse(dates);
+        Collections.reverse(rates);
+
+        model.addAttribute("title",  title);
+        model.addAttribute("term", term);
+        model.addAttribute("termStr", Common.makeTermString(term));
+        model.addAttribute("sigunguCode", sigunguCode);
+        model.addAttribute("list", anals);
+        model.addAttribute("dates", dates);
+        model.addAttribute("rates", rates);
+
+        if (sigunguCode.substring(0, 2).equals("11")) {
+            return "lease_analysis/seoul";
+        } else if (sigunguCode.substring(0, 2).equals("41")) {
+            return "lease_analysis/gyunggi";
+        } else {
+            return "lease_analysis/incheon";
+        }
+    }
     @GetMapping("/lease_analysis/seoul/{gubncode}")
     public String getLeaseList_Seoul(@PathVariable String gubncode, Model model) {
         List<StatLeaseAnalysisDto> anals;
@@ -34,7 +75,7 @@ public class LeaseAnalysisController {
             title = codeInfoService.getCodeName(gubncode);
             apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis/seoul/" + title, gubncode);
             if (StringUtils.hasText(gubncode)) {
-                anals = leaseAnalysisService.getLeaseAnalysisList(gubncode);
+                anals = leaseAnalysisService.getLeaseAnalysisList(gubncode,5);
             } else {
                 anals = new ArrayList<>();
             }
@@ -63,7 +104,7 @@ public class LeaseAnalysisController {
             log.info("/lease_analysis/gyunggi/" + gubncode);
             apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis/gyunggi/" + title, gubncode);
             if (StringUtils.hasText(gubncode)) {
-                anals = leaseAnalysisService.getLeaseAnalysisList(gubncode);
+                anals = leaseAnalysisService.getLeaseAnalysisList(gubncode,5);
             } else {
                 anals = new ArrayList<>();
             }
@@ -92,7 +133,7 @@ public class LeaseAnalysisController {
             title = codeInfoService.getCodeName(gubncode);
             apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis/incheon/" + title, gubncode);
             if (StringUtils.hasText(gubncode)) {
-                anals = leaseAnalysisService.getLeaseAnalysisList(gubncode);
+                anals = leaseAnalysisService.getLeaseAnalysisList(gubncode,5);
             } else {
                 anals = new ArrayList<>();
             }

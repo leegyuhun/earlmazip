@@ -43,7 +43,7 @@ public class TradeController {
                                      Model model) {
         List<AptPriceResponseDto> trads;
         String title = "-";
-        if (sigunguCode.length() == 5) {
+        if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/tradelist?" + sigunguCode);
             String url;

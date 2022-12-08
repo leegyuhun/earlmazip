@@ -5,55 +5,85 @@
 
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
-    <!--    <a th:text="${year}"></a>-->
     <div>
-        <div>
-            <a href="/lease_analysis/gyunggi/41"> 경기 전체 </a>
-        </div>
-        <div>
-            <a href="/lease_analysis/gyunggi/4182">가평군&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4128">&nbsp고양시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4129">&nbsp과천시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4121">&nbsp광명시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4161">&nbsp광주시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4131">&nbsp구리시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4141">&nbsp군포시</a>
-        </div>
-        <div>
-            <a href="/lease_analysis/gyunggi/4157">김포시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4136">&nbsp남양주&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4125">&nbsp동두천&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4119">&nbsp부천시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4113">&nbsp성남시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4111">&nbsp수원시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4139">&nbsp시흥시</a>
-        </div>
-        <div>
-            <a href="/lease_analysis/gyunggi/4127">안산시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4155">&nbsp안성시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4117">&nbsp안양시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4163">&nbsp양주시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4183">&nbsp양평군&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4167">&nbsp여주시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4180">&nbsp연천군</a>
-        </div>
-        <div>
-            <a href="/lease_analysis/gyunggi/4137">오산시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4146">&nbsp용인시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4143">&nbsp의왕시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4115">&nbsp의정부&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4150">&nbsp이천시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4148">&nbsp파주시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4122">&nbsp평택시</a>
-        </div>
-        <div>
-            <a href="/lease_analysis/gyunggi/4165">포천시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4145">&nbsp하남시&nbsp</a>
-            <a href="/lease_analysis/gyunggi/4159">&nbsp화성시</a>
-        </div>
-
+        <h5 align="center" th:text="|[ ${title} ${termStr} ]|"></h5>
+        <h6 align="center">* 월별 월세비율</h6>
         <p>
-            <h5 align="center" th:text="${title}"></h5>
+        <div class="d-flex gap-2 justify-content-center">
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    구 선택
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41&term={term} (term=${term})}">경기 전체</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41131&term={term} (term=${term})}">성남 수정구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41133&term={term} (term=${term})}">성남 중원구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41135&term={term} (term=${term})}">성남 분당구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41281&term={term} (term=${term})}">고양 덕양구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41285&term={term} (term=${term})}">고양 일산동구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41287&term={term} (term=${term})}">고양 일산서구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41461&term={term} (term=${term})}">용인 처인구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41463&term={term} (term=${term})}">용인 기흥구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41465&term={term} (term=${term})}">용인 수지구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41111&term={term} (term=${term})}">수원 장안구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41113&term={term} (term=${term})}">수원 권선구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41115&term={term} (term=${term})}">수원 팔달구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41117&term={term} (term=${term})}">수원 영통구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41271&term={term} (term=${term})}">안산 상록구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41273&term={term} (term=${term})}">안산 단원구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41171&term={term} (term=${term})}">안양 만안구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41173&term={term} (term=${term})}">안양 동안구</a></li>
+                </ul>
+            </div>
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    시 선택
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41&term={term} (term=${term})}">경기 전체</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41820&term={term} (term=${term})}">가평군</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41290&term={term} (term=${term})}">과천시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41210&term={term} (term=${term})}">광명시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41610&term={term} (term=${term})}">광주시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41310&term={term} (term=${term})}">구리시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41410&term={term} (term=${term})}">군포시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41570&term={term} (term=${term})}">김포시</a></li>
+
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41360&term={term} (term=${term})}">남양주</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41250&term={term} (term=${term})}">동두천</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41190&term={term} (term=${term})}">부천시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41390&term={term} (term=${term})}">시흥시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41550&term={term} (term=${term})}">안성시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41630&term={term} (term=${term})}">양주시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41830&term={term} (term=${term})}">양평군</a></li>
+
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41670&term={term} (term=${term})}">여주시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41800&term={term} (term=${term})}">연천군</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41370&term={term} (term=${term})}">오산시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41430&term={term} (term=${term})}">의왕시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41150&term={term} (term=${term})}">의정부</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41500&term={term} (term=${term})}">이천시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41480&term={term} (term=${term})}">파주시</a></li>
+
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41220&term={term} (term=${term})}">평택시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41650&term={term} (term=${term})}">포천시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41450&term={term} (term=${term})}">하남시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=41590&term={term} (term=${term})}">화성시</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    기간
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode={sigunguCode}&term=0 (sigunguCode=${sigunguCode})}">올해</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode={sigunguCode}&term=5 (sigunguCode=${sigunguCode})}">5년</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode={sigunguCode}&term=10 (sigunguCode=${sigunguCode})}">10년</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode={sigunguCode}&term=15 (sigunguCode=${sigunguCode})}">15년</a></li>
+                </ul>
+            </div>
+        </div>
         </p>
 
         <div>

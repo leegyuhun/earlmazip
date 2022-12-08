@@ -13,11 +13,9 @@ public class StatLeaseAnalysis {
     @Column(name = "seq")
     private String seq;
 
-    @Column(name = "gubn_code")
-    private String gubnCode;
+    private String sigunguCode;
 
-    @Column(name = "gubn_name")
-    private String gubnName;
+    private String sigunguName;
 
     @Column(name = "deal_year")
     private String dealYear;

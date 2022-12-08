@@ -87,7 +87,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode={sigunguCode}&type={type}&uaType={uaType} (sigunguCode=${sigunguCode}, type=${type}, uaType=${uaType})}">전체</a></li>
-                        <li><a class="dropdown-item" th:each="dongList : ${dongList}" th:text="${dongList.landDong}" th:href="@{/tradelist/comparePrev?sigunguCode={sigunguCode}&type={type}&uaType={uaType}&landDong={landDong} (sigunguCode=${sigunguCode}, uaType=${uaType}, landDong=${dongList.landDong})}"></a></li>
+                        <li><a class="dropdown-item" th:each="dongList : ${dongList}" th:text="${dongList.landDong}" th:href="@{/tradelist/comparePrev?sigunguCode={sigunguCode}&type={type}&uaType={uaType}&landDong={landDong} (sigunguCode=${sigunguCode}, type=${type}, uaType=${uaType}, landDong=${dongList.landDong})}"></a></li>
                     </ul>
                 </div>
 

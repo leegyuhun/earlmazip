@@ -8,6 +8,7 @@
     <!--    <a th:text="${year}"></a>-->
     <div>
         <h5 align="center" th:text="|[ ${title} ${termStr} ]|"></h5>
+        <h6 align="center" th:text="|* ${uaStr} |"></h6>
         <h6 align="center">* 월별 전세 통계</h6>
         <p>
             <div class="d-flex gap-2 justify-content-center">
@@ -16,6 +17,7 @@
                         강북
                     </button>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=11&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">서울 전체</a></li>
                         <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=11305&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">강북구</a></li>
                         <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=11215&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">광진구</a></li>
                         <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=11350&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">노원구</a></li>
@@ -38,6 +40,7 @@
                         강남
                     </button>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=11&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">서울 전체</a></li>
                         <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=11680&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">강남구</a></li>
                         <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=11740&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">강동구</a></li>
                         <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=11500&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">강서구</a></li>

@@ -5,28 +5,42 @@
 
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
-    <!--    <a th:text="${year}"></a>-->
     <div>
-        <div>
-            <a href="/lease_analysis/incheon/28"> 인천 전체 </a>
-        </div>
-        <div>
-            <a href="/lease_analysis/incheon/28710">강화군&nbsp</a>
-            <a href="/lease_analysis/incheon/28245">&nbsp계양구&nbsp</a>
-            <a href="/lease_analysis/incheon/28200">&nbsp남동구&nbsp</a>
-            <a href="/lease_analysis/incheon/28140">&nbsp동구&nbsp</a>
-            <a href="/lease_analysis/incheon/28177">&nbsp미추홀구</a>
-        </div>
-        <div>
-            <a href="/lease_analysis/incheon/28237">부평구&nbsp</a>
-            <a href="/lease_analysis/incheon/28260">&nbsp서구&nbsp</a>
-            <a href="/lease_analysis/incheon/28185">&nbsp연수구&nbsp</a>
-            <a href="/lease_analysis/incheon/28720">&nbsp옹진군&nbsp</a>
-            <a href="/lease_analysis/incheon/28110">중구</a>
-        </div>
-
+        <h5 align="center" th:text="|[ ${title} ${termStr} ]|"></h5>
+        <h6 align="center">* 월별  월세비율</h6>
         <p>
-            <h5 align="center" th:text="${title}"></h5>
+        <div class="d-flex gap-2 justify-content-center">
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    구 선택
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=28&term={term} (term=${term})}">인천 전체</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=28710&term={term} (term=${term})}">강화군</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=28245&term={term} (term=${term})}">계양구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=28200&term={term} (term=${term})}">남동구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=28140&term={term} (term=${term})}">동구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=28177&term={term} (term=${term})}">미추홀구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=28237&term={term} (term=${term})}">부평구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=28260&term={term} (term=${term})}">서구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=28185&term={term} (term=${term})}">연수구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=28720&term={term} (term=${term})}">올진군</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=28110&term={term} (term=${term})}">중구</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    기간
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode={sigunguCode}&term=0 (sigunguCode=${sigunguCode})}">올해</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode={sigunguCode}&term=5 (sigunguCode=${sigunguCode})}">5년</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode={sigunguCode}&term=10 (sigunguCode=${sigunguCode})}">10년</a></li>
+                    <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode={sigunguCode}&term=15 (sigunguCode=${sigunguCode})}">15년</a></li>
+                </ul>
+            </div>
+        </div>
         </p>
 
         <div>
@@ -44,7 +58,6 @@
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
-<!--                    <th>지역명</th>-->
                     <th>년-월</th>
                     <th>월세 건수</th>
                     <th>전세 건수</th>
@@ -54,7 +67,6 @@
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
-<!--                    <td align="left" th:text="${list.gubnName}"></td>-->
                     <td align="center" th:text="${list.dealYYMM}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.shortCnt,1,'COMMA')}"></td>
                     <td align="right" th:text="${#numbers.formatInteger(list.longCnt,1,'COMMA')}"></td>

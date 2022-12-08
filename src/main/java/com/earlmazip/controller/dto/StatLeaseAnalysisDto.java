@@ -5,7 +5,8 @@ import lombok.Getter;
 
 @Getter
 public class StatLeaseAnalysisDto {
-    private String gubnName;
+    private String sigunguCode;
+    private String sigunguName;
     private String dealYear;
     private String dealYYMM;
     public String getDealYYMM() {
@@ -17,7 +18,8 @@ public class StatLeaseAnalysisDto {
     private float rate;
 
     public StatLeaseAnalysisDto(StatLeaseAnalysis entity) {
-        this.gubnName = entity.getGubnName();
+        this.sigunguCode = entity.getSigunguCode();
+        this.sigunguName = entity.getSigunguName();
         this.dealYear = entity.getDealYear();
         this.dealYYMM = entity.getDealYYMM();
         this.shortCnt = entity.getShortCnt();

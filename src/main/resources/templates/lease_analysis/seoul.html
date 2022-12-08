@@ -6,44 +6,65 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
-        <div>
-            <a href="/lease_analysis/seoul/11">전체</a>
-        </div>
-        <div>
-            <a href="/lease_analysis/seoul/11680">강남구&nbsp</a>
-            <a href="/lease_analysis/seoul/11740">&nbsp강동구&nbsp</a>
-            <a href="/lease_analysis/seoul/11305">&nbsp강북구&nbsp</a>
-            <a href="/lease_analysis/seoul/11500">&nbsp강서구&nbsp</a>
-            <a href="/lease_analysis/seoul/11620">&nbsp관악구&nbsp</a>
-            <a href="/lease_analysis/seoul/11215">&nbsp광진구&nbsp</a>
-            <a href="/lease_analysis/seoul/11530">&nbsp구로구</a>
-        </div>
-        <div>
-            <a href="/lease_analysis/seoul/11545">금천구&nbsp</a>
-            <a href="/lease_analysis/seoul/11350">&nbsp노원구&nbsp</a>
-            <a href="/lease_analysis/seoul/11320">&nbsp도봉구&nbsp</a>
-            <a href="/lease_analysis/seoul/11230">&nbsp동대문&nbsp</a>
-            <a href="/lease_analysis/seoul/11590">&nbsp동작구&nbsp</a>
-            <a href="/lease_analysis/seoul/11440">&nbsp마포구&nbsp</a>
-            <a href="/lease_analysis/seoul/11410">&nbsp서대문</a>
-        </div>
-        <div>
-            <a href="/lease_analysis/seoul/11650">서초구&nbsp</a>
-            <a href="/lease_analysis/seoul/11200">&nbsp성동구&nbsp</a>
-            <a href="/lease_analysis/seoul/11290">&nbsp성북구&nbsp</a>
-            <a href="/lease_analysis/seoul/11710">&nbsp송파구&nbsp</a>
-            <a href="/lease_analysis/seoul/11470">&nbsp양천구&nbsp</a>
-            <a href="/lease_analysis/seoul/11560">&nbsp영등포&nbsp</a>
-            <a href="/lease_analysis/seoul/11170">&nbsp용산구</a>
-        </div>
-        <div>
-            <a href="/lease_analysis/seoul/11380">은평구&nbsp</a>
-            <a href="/lease_analysis/seoul/11110">&nbsp종로구&nbsp</a>
-            <a href="/lease_analysis/seoul/11260">&nbsp중랑구&nbsp</a>
-            <a href="/lease_analysis/seoul/11140">&nbsp중구</a>
-        </div>
+        <h5 align="center" th:text="|[ ${title} ${termStr} ]|"></h5>
+        <h6 align="center">* 월별 월세비율</h6>
         <p>
-            <h5 align="center" th:text="${title}"></h5>
+            <div class="d-flex gap-2 justify-content-center">
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        강북
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11&term={term} (term=${term})}">서울 전체</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11305&term={term} (term=${term})}">강북구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11215&term={term} (term=${term})}">광진구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11350&term={term} (term=${term})}">노원구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11320&term={term} (term=${term})}">도봉구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11230&term={term} (term=${term})}">동대문</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11440&term={term} (term=${term})}">마포구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11410&term={term} (term=${term})}">서대문</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11200&term={term} (term=${term})}">성동구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11290&term={term} (term=${term})}">성북구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11470&term={term} (term=${term})}">양천구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11170&term={term} (term=${term})}">용산구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11380&term={term} (term=${term})}">은평구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11110&term={term} (term=${term})}">종로구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11260&term={term} (term=${term})}">중랑구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11140&term={term} (term=${term})}">중 구</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        강남
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11&term={term} (term=${term})}">서울 전체</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11680&term={term} (term=${term})}">강남구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11740&term={term} (term=${term})}">강동구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11500&term={term} (term=${term})}">강서구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11620&term={term} (term=${term})}">관악구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11530&term={term} (term=${term})}">구로구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11545&term={term} (term=${term})}">금천구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11590&term={term} (term=${term})}">동작구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11650&term={term} (term=${term})}">서초구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11710&term={term} (term=${term})}">송파구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11470&term={term} (term=${term})}">양천구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode=11560&term={term} (term=${term})}">영등포</a></li>
+                    </ul>
+                </div>
+
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        기간
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode={sigunguCode}&term=0 (sigunguCode=${sigunguCode})}">올해</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode={sigunguCode}&term=5 (sigunguCode=${sigunguCode})}">5년</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode={sigunguCode}&term=10 (sigunguCode=${sigunguCode})}">10년</a></li>
+                        <li><a class="dropdown-item" th:href="@{/lease_analysis?sigunguCode={sigunguCode}&term=15 (sigunguCode=${sigunguCode})}">15년</a></li>
+                    </ul>
+                </div>
+            </div>
         </p>
         <div>
             <canvas id="myChart"></canvas>

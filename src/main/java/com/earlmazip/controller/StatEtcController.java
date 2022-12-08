@@ -1,6 +1,7 @@
 package com.earlmazip.controller;
 
 import com.earlmazip.controller.dto.EcosDataResponseDto;
+import com.earlmazip.controller.dto.PopulationResponseDto;
 import com.earlmazip.controller.dto.StatResponseDto;
 import com.earlmazip.service.ApiCallStatService;
 import com.earlmazip.service.CodeInfoService;
@@ -74,6 +75,34 @@ public class StatEtcController {
         model.addAttribute("list", list);
 
         return "stat_etc/statPopulation";
+    }
+
+    @GetMapping("/stat_etc/populationSigungu")
+    public String getStatEtcPopulationSigungu(@RequestParam(value="sigunguCode", defaultValue = "11") String sigunguCode,
+                                              @RequestParam(value="sortType", defaultValue = "0") int sortType,
+                                              Model model) {
+        apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/populationSigungu", "0");
+        List<PopulationResponseDto> list = ecosDataService.getPopulationSigungu(sigunguCode, sortType);
+        String date = list.get(0).getDate();
+        String title = "-";
+        if(sigunguCode.substring(0, 2).equals("11")){
+            title = "서울 주민등록인구";
+        } else if (sigunguCode.substring(0, 2).equals("41")){
+            title = "경기 주민등록인구";
+        } else{
+            title = "인천 주민등록인구";
+        }
+
+        model.addAttribute("title", title);
+        model.addAttribute("date", date);
+        model.addAttribute("list", list);
+        if(sigunguCode.substring(0, 2).equals("11")) {
+            return "stat_etc/statPopulationSeoulSigungu";
+        } else if (sigunguCode.substring(0, 2).equals("41")){
+            return "stat_etc/statPopulationSeoulSigungu";
+        } else{
+            return "stat_etc/statPopulationSeoulSigungu";
+        }
     }
 
     /**

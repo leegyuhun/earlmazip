@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <p>
+            <h5 align="center" th:text="${title}"></h5>
+            <h6 align="center" th:text="|* ${date}|"></h6>
+        </p>
+        <p>
+            <div class="d-flex gap-2 justify-content-center">
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        정렬
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/stat_etc/populationSigungu?sigunguCode=11&sortType=0">기본</a></li>
+                        <li><a class="dropdown-item" href="/stat_etc/populationSigungu?sigunguCode=11&sortType=1">한국인수</a></li>
+                        <li><a class="dropdown-item" href="/stat_etc/populationSigungu?sigunguCode=11&sortType=2">외국인수</a></li>
+                        <li><a class="dropdown-item" href="/stat_etc/populationSigungu?sigunguCode=11&sortType=3">고령인구수</a></li>
+                    </ul>
+                </div>
+            </div>
+        </p>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr class="table-dark" style="font-size:12px;" align="center">
+<!--                <th>년도-분기</th>-->
+                <th>구</th>
+                <th>세대수</th>
+                <th>한국인</br>비율</th>
+                <th>외국인</br>비율</th>
+                <th>합계</th>
+                <th>고령인구</br>(65이상)</br>비율</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr style="font-size:12px;" th:each="list : ${list}">
+<!--                <td align="center" th:text="${list.date}"></td>-->
+                <td align="left" th:text="${list.sigunguName}"></td>
+                <td align="right" th:text="${#numbers.formatInteger(list.households,1,'COMMA')}"></td>
+                <td align="right">
+                    <div>
+                        <a th:text="${#numbers.formatInteger(list.koreanCount,1,'COMMA')}"></a></br>
+                        <a th:text="${list.koreanRate}"></a>
+                    </div>
+                </td>
+                <td align="right">
+                    <div>
+                        <a th:text="${#numbers.formatInteger(list.foreignerCount,1,'COMMA')}"></a></br>
+                        <a th:text="${list.foreignerRate}"></a>
+                    </div>
+                </td>
+                <td align="right" th:text="${#numbers.formatInteger(list.totalCount,1,'COMMA')}"></td>
+                <td align="right">
+                    <div>
+                        <a th:text="${#numbers.formatInteger(list.oldCount,1,'COMMA')}"></a></br>
+                        <a th:text="${list.oldRate}"></a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <h7>※ 출처: 서울 열린데이터 광장 (https://data.seoul.go.kr/)</h7>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>

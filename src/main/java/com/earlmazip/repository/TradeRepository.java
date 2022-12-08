@@ -30,14 +30,18 @@ public class TradeRepository {
     }
 
     /**
-     * 최근100 매매내역 조회
+     * 최근200 매매내역 조회
      * @param cond
      * @return
      */
     public List<AptPriceRaw> findTradeList(TradeSearchCond cond) {
         BooleanBuilder builder = new BooleanBuilder();
         if (hasText(cond.getSigunguCode())) {
-            builder.and(qAptPriceRaw.sigunguCode.eq(cond.getSigunguCode()));
+            if (cond.getSigunguCode().length() == 2) {
+                builder.and(qAptPriceRaw.areaCode.eq(cond.getSigunguCode()));
+            } else {
+                builder.and(qAptPriceRaw.sigunguCode.eq(cond.getSigunguCode()));
+            }
         }
         if (hasText(cond.getDealYear())) {
             builder.and(qAptPriceRaw.dealYear.eq(cond.getDealYear()));
@@ -55,7 +59,7 @@ public class TradeRepository {
         return queryFactory.selectFrom(qAptPriceRaw)
                 .where(builder)
                 .orderBy(qAptPriceRaw.dealDate.desc())
-                .limit(100)
+                .limit(200)
                 .fetch();
     }
 
@@ -123,9 +127,7 @@ public class TradeRepository {
         if (hasText(cond.getSigunguCode())) {
             builder.and(qAptPriceRaw.sigunguCode.eq(cond.getSigunguCode()));
         }
-        if (term != 0) {
-            builder.and(qAptPriceRaw.dealYear.goe(Common.calcYearByTerm(term)));
-        }
+        builder.and(qAptPriceRaw.dealYear.goe(Common.calcYearByTerm(term)));
         if (hasText(cond.getAptName())) {
             builder.and(qAptPriceRaw.aptName.eq(cond.getAptName()));
         }

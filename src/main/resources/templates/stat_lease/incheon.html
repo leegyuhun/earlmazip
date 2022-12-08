@@ -5,32 +5,64 @@
 
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
-    <!--    <a th:text="${year}"></a>-->
     <div>
-<!--        <p>-->
-<!--            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">-->
-<!--                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>-->
-<!--                <a class="btn btn-outline-primary" for="btnradio1" href="/tradelist/incheon/28710">강화군</a>-->
+        <h5 align="center" th:text="|[ ${title} ${termStr} ]|"></h5>
+        <h6 align="center" th:text="|* ${uaStr} |"></h6>
+        <h6 align="center">* 월별 전세 통계</h6>
+        <p>
+        <div class="d-flex gap-2 justify-content-center">
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    구선택
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=28&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">인천 전체</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=28710&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">강화군</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=28245&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">계양구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=28200&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">남동구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=28140&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">동구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=28177&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">미추홀구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=28237&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">부평구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=28260&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">서구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=28185&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">연수구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=28720&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">올진군</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=28110&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">중구</a></li>
+                </ul>
+            </div>
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    평형
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode={sigunguCode}&uaType=UA01&term={term} (sigunguCode=${sigunguCode}, term=${term})}">전체</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode={sigunguCode}&uaType=UA02&term={term} (sigunguCode=${sigunguCode}, term=${term})}">소형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode={sigunguCode}&uaType=UA08&term={term} (sigunguCode=${sigunguCode}, term=${term})}">전용59</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode={sigunguCode}&uaType=UA03&term={term} (sigunguCode=${sigunguCode}, term=${term})}">중소형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode={sigunguCode}&uaType=UA07&term={term} (sigunguCode=${sigunguCode}, term=${term})}">국평</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode={sigunguCode}&uaType=UA04&term={term} (sigunguCode=${sigunguCode}, term=${term})}">중형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode={sigunguCode}&uaType=UA05&term={term} (sigunguCode=${sigunguCode}, term=${term})}">중대형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode={sigunguCode}&uaType=UA06&term={term} (sigunguCode=${sigunguCode}, term=${term})}">대형</a></li>
+                </ul>
+            </div>
 
-<!--                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">-->
-<!--                <a class="btn btn-outline-primary" for="btnradio2" href="/tradelist/incheon/28245">계양구</a>-->
-
-<!--                <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">-->
-<!--                <a class="btn btn-outline-primary" for="btnradio3" href="/tradelist/incheon/28200">남동구</a>-->
-<!--            </div>-->
-<!--        </p>-->
-        <div>
-            <a href="/tradelist/incheon/28710">강화군&nbsp</a>
-            <a href="/tradelist/incheon/28245">&nbsp계양구&nbsp</a>
-            <a href="/tradelist/incheon/28200">&nbsp남동구&nbsp</a>
-            <a href="/tradelist/incheon/28140">&nbsp동구&nbsp</a>
-            <a href="/tradelist/incheon/28177">&nbsp미추홀구&nbsp</a>
-            <a href="/tradelist/incheon/28237">&nbsp부평구&nbsp</a>
-            <a href="/tradelist/incheon/28260">&nbsp서구&nbsp</a>
-            <a href="/tradelist/incheon/28185">&nbsp연수구&nbsp</a>
-            <a href="/tradelist/incheon/28720">&nbsp옹진군&nbsp</a>
-            <a href="/tradelist/incheon/28110">&nbsp중구</a>
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    기간
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode={sigunguCode}&uaType={uaType}&term=0 (sigunguCode=${sigunguCode},  uaType=${uaType})}">올해</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode={sigunguCode}&uaType={uaType}&term=5 (sigunguCode=${sigunguCode},  uaType=${uaType})}">5년</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode={sigunguCode}&uaType={uaType}&term=10 (sigunguCode=${sigunguCode}, uaType=${uaType})}">10년</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode={sigunguCode}&uaType={uaType}&term=15 (sigunguCode=${sigunguCode}, uaType=${uaType})}">15년</a></li>
+                </ul>
+            </div>
         </div>
+        </p>
+
+        <p>
+            <canvas id="myChart"></canvas>
+        </p>
+
         <div>
             <ins class="kakao_ad_area" style="display:none;"
                  data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
@@ -41,26 +73,20 @@
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">
-                    <th>일자</th>
-                    <th>법정동</th>
-                    <th>아파트명</th>
-                    <th>건축년도</th>
-                    <th>전용면적(m2)</th>
-                    <th>거래금액</th>
-                    <th>층수</th>
-    <!--                <th>신고가</th>-->
+                    <th>년-월</th>
+                    <th>최저<br/>보증금</th>
+                    <th>평균<br/>보증금</th>
+                    <th>최고<br/>보증금</th>
+                    <th>거래건수</th>
                 </tr>
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
-                    <td align="center" th:text="${list.dealDate}"></td>
-                    <td align="center" th:text="${list.landDong}"></td>
-                    <td align="left" th:text="${list.aptName}"></td>
-                    <td align="center" th:text="${list.buildYear}"></td>
-                    <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>
-                    <td align="right" th:text="${#numbers.formatInteger(list.dealAmt,1,'COMMA')}"></td>
-                    <td align="right" th:text="${list.floor}"></td>
-    <!--                <td align="right" th:text="${list.newHighest}"></td>-->
+                    <td align="center" th:text="${list.dealYYMM}"></td>
+                    <td align="right" th:text="${list.minDepositStr}"></td>
+                    <td align="right" style="font-weight: bolder" th:text="${list.avgDepositStr}"></td>
+                    <td align="right" th:text="${list.maxDepositStr}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
                 </tr>
             </tbody>
         </table>
@@ -69,4 +95,71 @@
     <div th:replace="fragments/footer :: footer" />
 </div> <!-- /container -->
 </body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+  const avgDeposits =  /*[[ ${avgDeposits.toArray()} ]]*/;
+  const tradcnt =  /*[[ ${tradcnt.toArray()} ]]*/;
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      type: 'line',
+      label: '평균보증금',
+      yAxisID: 'y-line',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      pointRadius:1,
+      data: avgDeposits
+      },{
+        type: 'bar',
+        label: '거래건수',
+        yAxisID: 'y-bar',
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgb(54, 162, 235)',
+        data: tradcnt
+      }
+    ]
+  };
+
+  const config = {
+    data: data,
+    options: {
+        scales:{
+            'y-line':{
+                position: 'left',
+                suggestedMin: 0,
+                ticks:{
+				    color: 'rgb(255, 99, 132)'
+				},
+                title: {
+                    display: true,
+                    text: '평균보증금'
+                }
+            },
+            'y-bar':{
+                position: 'right',
+                suggestedMin: 0,
+                suggestedMax: 100,
+                grid:{
+                    display: false
+                },
+                ticks:{
+				    color: 'rgb(54, 162, 235)'
+				},
+                title: {
+                    display: true,
+                    text: '거래건수'
+                }
+            }
+        }
+    }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
 </html>

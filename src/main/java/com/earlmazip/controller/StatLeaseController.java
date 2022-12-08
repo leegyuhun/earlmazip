@@ -61,6 +61,7 @@ public class StatLeaseController {
         List<EcosDataResponseDto> rates = ecosDataService.getEcosData("722Y001", "0101000", "", term);
         List<String> interestRates = rates.stream().map(o->new String(o.getDataValue())).collect(Collectors.toList());
 
+        model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
         model.addAttribute("dates", dates);
         model.addAttribute("avgDeposits", avgDeposits);
         model.addAttribute("tradcnt", tradcnt);
