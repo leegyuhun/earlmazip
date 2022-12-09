@@ -1,6 +1,9 @@
 package com.earlmazip.repository;
 
 import com.earlmazip.domain.CodeInfo;
+import com.earlmazip.domain.QCodeInfo;
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -8,23 +11,31 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static org.springframework.util.StringUtils.hasText;
+
 @Repository
-@Slf4j
-@RequiredArgsConstructor
 public class CodeInfoRepository {
 
     private final EntityManager em;
+    private final JPAQueryFactory queryFactory;
+
+    QCodeInfo qCodeInfo = QCodeInfo.codeInfo;
+
+    public CodeInfoRepository(EntityManager em) {
+        this.em = em;
+        this.queryFactory = new JPAQueryFactory(em);
+    }
 
     public String getCodeName(String code) {
-        List<CodeInfo> codeInfos = em.createQuery("select a from CodeInfo a where a.codeNmbr = :code", CodeInfo.class)
-                .setParameter("code", code)
-                .getResultList();
-        if (codeInfos.size() == 0){
-            return "-";
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(code)) {
+            builder.and(qCodeInfo.codeNmbr.eq(code));
         }
-        else {
-            CodeInfo codeInfo = codeInfos.get(0);
-            return codeInfo.getCodeName();
-        }
+
+        CodeInfo codeInfo = queryFactory.selectFrom(qCodeInfo)
+                .where(builder)
+                .fetchOne();
+
+        return codeInfo.getCodeName();
     }
 }

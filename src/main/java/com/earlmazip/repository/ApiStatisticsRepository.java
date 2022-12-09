@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface ApiStatisticsRepository extends JpaRepository<AptInfo, Long> {
+public interface ApiStatisticsRepository extends JpaRepository<ApiCallStat, Long> {
 
     @Query("select a from ApiCallStat a where a.callDate = :callDate and a.apiGubn <> 'MENU' and a.apiGubn <> 'SIGUNGU' order by a.cnt desc")
     List<ApiCallStat> findAllToday(@Param("callDate") String callDate);

@@ -51,12 +51,12 @@ public class StatRepository {
      * @param term
      * @return
      */
-    public List<StatResponseDto> getStatTradeByUseAreaList(String regnCode, String ua, String term){
+    public List<StatResponseDto> getStatTradeByUseAreaList(String sigunguCode, String ua, String term){
         return em.createQuery("select a from StatSigunguYYMM a"
-                        + " where a.sigunguCode = :regnCode and a.useAreaType = :useAreaType"
+                        + " where a.sigunguCode = :sigunguCode and a.useAreaType = :useAreaType"
                         + " and a.dealYear >= :searchYear "
                         + " order by a.dealYYMM desc", StatSigunguYYMM.class)
-                .setParameter("regnCode", regnCode)
+                .setParameter("sigunguCode", sigunguCode)
                 .setParameter("useAreaType", ua)
                 .setParameter("searchYear", Common.calcYearByTerm(term))
                 .getResultList().stream().map(StatResponseDto::new).collect(Collectors.toList());
@@ -74,24 +74,18 @@ public class StatRepository {
                 .getResultList().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
 
-    public List<StatResponseDto> getStatNewHighestAndTradeCount(String sidoCode) {
-        if (sidoCode.length() == 4) {
-            return em.createQuery("select a from StatSidoYYMM a "
-                            + " where a.sidoCode = :sidoCode and use_area_type = 'UA01' "
-                            + " and deal_year > 2016 "
-                            + " order by a.dealYYMM desc ", StatSidoYYMM.class)
-                    .setParameter("sidoCode", sidoCode)
-                    .getResultList().stream().map(StatResponseDto::new)
-                    .collect(Collectors.toList());
-        } else {
-            return em.createQuery("select a from StatAreaYYMM a "
-                            + " where a.areaCode = :sidoCode and use_area_type = 'UA01' "
-                            + " and deal_year > 2016 "
-                            + " order by a.dealYYMM desc ", StatAreaYYMM.class)
-                    .setParameter("sidoCode", sidoCode)
-                    .getResultList().stream().map(StatResponseDto::new)
-                    .collect(Collectors.toList());
+    public List<StatSigunguYYMM> getStatNewHighestAndTradeCount(String sigunguCode, String uaType, int term) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(sigunguCode)) {
+            builder.and(qStatSigunguYYMM.sigunguCode.eq(sigunguCode));
         }
+        builder.and(qStatSigunguYYMM.dealYear.goe(Common.calcYearByTerm(term)));
+        builder.and(qStatSigunguYYMM.useAreaType.eq(uaType));
+
+        return queryFactory.selectFrom(qStatSigunguYYMM)
+                .where(builder)
+                .orderBy(qStatSigunguYYMM.dealYYMM.desc())
+                .fetch();
     }
 
     public List<StatResponseDto> getStatTheme(String themeCode, String term) {
@@ -100,19 +94,6 @@ public class StatRepository {
                         + "   and a.date >= :searchYear "
                         + " order by a.date desc ", StatTheme.class)
                 .setParameter("themeCode", themeCode)
-                .setParameter("searchYear", Common.calcYearByTerm(term))
-                .getResultList().stream().map(StatResponseDto::new)
-                .collect(Collectors.toList());
-    }
-
-    public List<StatResponseDto> getStatBuildYearList(String regnCode, String buildYear, String term) {
-        return em.createQuery("select a from StatBuildYear a "
-                        + " where a.regnCode = :regnCode "
-                        + "   and a.buildYear = :buildYear "
-                        + "   and a.dealYear >= :searchYear "
-                        + " order by a.dealYear desc", StatBuildYear.class)
-                .setParameter("regnCode", regnCode)
-                .setParameter("buildYear", buildYear)
                 .setParameter("searchYear", Common.calcYearByTerm(term))
                 .getResultList().stream().map(StatResponseDto::new)
                 .collect(Collectors.toList());

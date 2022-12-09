@@ -1,0 +1,253 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <p>
+            <h6 align="center" th:text="|[ ${title} ${termStr} ]|"></h6>
+            <h6 align="center" th:text="|* ${uaStr} |"></h6>
+        </p>
+
+        <p>
+        <div class="d-flex gap-2 justify-content-center">
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    구 선택
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">경기 전체</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41131&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">성남 수정구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41133&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">성남 중원구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41135&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">성남 분당구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41281&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">고양 덕양구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41285&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">고양 일산동구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41287&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">고양 일산서구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41461&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">용인 처인구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41463&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">용인 기흥구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41465&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">용인 수지구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41111&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">수원 장안구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41113&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">수원 권선구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41115&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">수원 팔달구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41117&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">수원 영통구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41271&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">안산 상록구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41273&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">안산 단원구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41171&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">안양 만안구</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41173&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">안양 동안구</a></li>
+                </ul>
+            </div>
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    시 선택
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">경기 전체</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41820&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">가평군</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41290&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">과천시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41210&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">광명시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41610&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">광주시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41310&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">구리시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41410&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">군포시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41570&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">김포시</a></li>
+
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41360&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">남양주</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41250&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">동두천</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41190&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">부천시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41390&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">시흥시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41550&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">안성시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41630&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">양주시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41830&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">양평군</a></li>
+
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41670&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">여주시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41800&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">연천군</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41370&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">오산시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41430&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">의왕시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41150&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">의정부</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41500&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">이천시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41480&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">파주시</a></li>
+
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41220&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">평택시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41650&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">포천시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41450&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">하남시</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode=41590&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">화성시</a></li>
+                </ul>
+            </div>
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    평형
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode={sigunguCode}&uaType=UA01&term={term} (sigunguCode=${sigunguCode}, term=${term})}">전체</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode={sigunguCode}&uaType=UA02&term={term} (sigunguCode=${sigunguCode}, term=${term})}">소형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode={sigunguCode}&uaType=UA08&term={term} (sigunguCode=${sigunguCode}, term=${term})}">전용59</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode={sigunguCode}&uaType=UA03&term={term} (sigunguCode=${sigunguCode}, term=${term})}">중소형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode={sigunguCode}&uaType=UA07&term={term} (sigunguCode=${sigunguCode}, term=${term})}">국평</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode={sigunguCode}&uaType=UA04&term={term} (sigunguCode=${sigunguCode}, term=${term})}">중형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode={sigunguCode}&uaType=UA05&term={term} (sigunguCode=${sigunguCode}, term=${term})}">중대형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode={sigunguCode}&uaType=UA06&term={term} (sigunguCode=${sigunguCode}, term=${term})}">대형</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    기간
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode={sigunguCode}&uaType={uaType}&term=0 (sigunguCode=${sigunguCode},  uaType=${uaType})}">올해</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode={sigunguCode}&uaType={uaType}&term=5 (sigunguCode=${sigunguCode},  uaType=${uaType})}">5년</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode={sigunguCode}&uaType={uaType}&term=10 (sigunguCode=${sigunguCode}, uaType=${uaType})}">10년</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/newHighestAmt?sigunguCode={sigunguCode}&uaType={uaType}&term=15 (sigunguCode=${sigunguCode}, uaType=${uaType})}">15년</a></li>
+                </ul>
+            </div>
+        </div>
+        </p>
+
+        <p>
+            <canvas id="myChart"></canvas>
+        </p>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <p>
+            <canvas id="myChart2"></canvas>
+        </p>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+  const newHighests =  /*[[ ${newHighests.toArray()} ]]*/;
+  const avgPrices =  /*[[ ${avgPrices.toArray()} ]]*/;
+  const tradcnt =  /*[[ ${tradcnt.toArray()} ]]*/;
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      type: 'line',
+      label: '신고가율',
+      yAxisID: 'y-line',
+      backgroundColor: 'rgb(54, 162, 235)',
+      borderColor: 'rgb(54, 162, 235)',
+      pointRadius:1,
+      data: newHighests
+      },{
+        type: 'bar',
+        label: '거래량',
+        yAxisID: 'y-bar',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: tradcnt
+      }
+    ]
+  };
+
+  const data2 = {
+    labels: labels,
+    datasets: [{
+      type: 'line',
+      label: '평균매매가',
+      yAxisID: 'y-line2',
+      backgroundColor: 'rgb(255, 205, 86)',
+      borderColor: 'rgb(255, 205, 86)',
+      pointRadius:1,
+      data: avgPrices
+      },{
+        type: 'bar',
+        label: '신고가율',
+        yAxisID: 'y-bar2',
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgb(54, 162, 235)',
+        data: newHighests
+      }
+    ]
+  };
+
+  const config = {
+    data: data,
+    options: {
+        scales:{
+            'y-line':{
+                position: 'left',
+                suggestedMin: 0,
+                ticks:{
+				    color: 'rgb(54, 162, 235)'
+				},
+                title: {
+                    display: true,
+                    text: '신고가율'
+                }
+            },
+            'y-bar':{
+                position: 'right',
+                suggestedMin: 0,
+                suggestedMax: 100,
+                grid:{
+                    display: false
+                },
+                ticks:{
+				    color: 'rgb(255, 99, 132)'
+				},
+                title: {
+                    display: true,
+                    text: '거래량'
+                }
+            }
+        }
+    }
+  };
+
+  const config2 = {
+    data: data2,
+    options: {
+        scales:{
+            'y-line2':{
+                position: 'left',
+                suggestedMin: 0,
+                ticks:{
+				    color: 'rgb(255, 205, 86)'
+				},
+                title: {
+                    display: true,
+                    text: '평균매매가'
+                }
+            },
+            'y-bar2':{
+                position: 'right',
+                suggestedMin: 0,
+                suggestedMax: 100,
+                grid:{
+                    display: false
+                },
+                ticks:{
+				    color: 'rgb(54, 162, 235)'
+				},
+                title: {
+                    display: true,
+                    text: '신고가율'
+                }
+            }
+        }
+    }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+
+  const myChart2 = new Chart(
+    document.getElementById('myChart2'),
+    config2
+  );
+</script>
+</html>

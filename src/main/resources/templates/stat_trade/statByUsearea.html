@@ -6,21 +6,44 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <div>
-        <div>
-            <a href="/stat_trade/ByUsearea/11/6">서울</a>
-            <a href="/stat_trade/ByUsearea/28/6">인천</a>
-            <a href="/stat_trade/ByUsearea/41/6">경기</a>
-        </div>
         <p>
-            <h5 align="center" th:text="${title}"></h5>
+            <h5 align="center" th:text="|[ ${title} ${termStr} ]|"></h5>
         </p>
+
+        <p>
+        <div class="d-flex gap-2 justify-content-center">
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    시 선택
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByUsearea?sigunguCode=11&term={term} (term=${term})}">서울</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByUsearea?sigunguCode=41&term={term} (term=${term})}">경기</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByUsearea?sigunguCode=28&term={term} (term=${term})}">인천</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    기간
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByUsearea?sigunguCode={sigunguCode}&term=0 (sigunguCode=${sigunguCode})}">올해</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByUsearea?sigunguCode={sigunguCode}&term=5 (sigunguCode=${sigunguCode})}">5년</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByUsearea?sigunguCode={sigunguCode}&term=10 (sigunguCode=${sigunguCode})}">10년</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/ByUsearea?sigunguCode={sigunguCode}&term=15 (sigunguCode=${sigunguCode})}">15년</a></li>
+                </ul>
+            </div>
+        </div>
+        </p>
+
         <div>
-            <a style="font-size:12px; font-weight: bolder; color:#FFC300">59미만&nbsp</a>
-            <a style="font-size:12px; font-weight: bolder; color:#3F3B38">59이상-84미만&nbsp</a>
-            <a style="font-size:12px; font-weight: bolder; color:#FF6384">국평(84이상-85미만)&nbsp</a>
-            <a style="font-size:12px; font-weight: bolder; color:#36A2EB">85이상-102미만&nbsp</a>
-            <a style="font-size:12px; font-weight: bolder; color:#A7D771">102이상-135이하&nbsp</a>
-            <a style="font-size:12px; font-weight: bolder; color:#5F43AF">135초과&nbsp</a>
+            <a style="font-size:14px; font-weight: bolder; color:#FFC300">59미만&nbsp</a>
+            <a style="font-size:14px; font-weight: bolder; color:#3F3B38">전용59(59이상-60미만)&nbsp</a>
+            <a style="font-size:14px; font-weight: bolder; color:#FF6384">국평(84이상-85미만)&nbsp</a>
+            </br>
+            <a style="font-size:14px; font-weight: bolder; color:#36A2EB">102이상-135이하&nbsp</a>
+            <a style="font-size:14px; font-weight: bolder; color:#A7D785">135초과&nbsp</a>
         </div>
         <p>
             <canvas id="myChart"></canvas>
@@ -44,18 +67,16 @@
 <script type = "text/javascript" th:inline="javascript">
   const labels =  /*[[ ${dates.toArray()} ]]*/;
   const avgPricesUA02 =  /*[[ ${avgPricesUA02.toArray()} ]]*/;
-  const avgPricesUA03 =  /*[[ ${avgPricesUA03.toArray()} ]]*/;
-  const avgPricesUA04 =  /*[[ ${avgPricesUA04.toArray()} ]]*/;
   const avgPricesUA05 =  /*[[ ${avgPricesUA05.toArray()} ]]*/;
   const avgPricesUA06 =  /*[[ ${avgPricesUA06.toArray()} ]]*/;
   const avgPricesUA07 =  /*[[ ${avgPricesUA07.toArray()} ]]*/;
+  const avgPricesUA08 =  /*[[ ${avgPricesUA08.toArray()} ]]*/;
 
   const tradCntUA02 =  /*[[ ${tradCntUA02.toArray()} ]]*/;
-  const tradCntUA03 =  /*[[ ${tradCntUA03.toArray()} ]]*/;
-  const tradCntUA04 =  /*[[ ${tradCntUA04.toArray()} ]]*/;
   const tradCntUA05 =  /*[[ ${tradCntUA05.toArray()} ]]*/;
   const tradCntUA06 =  /*[[ ${tradCntUA06.toArray()} ]]*/;
   const tradCntUA07 =  /*[[ ${tradCntUA07.toArray()} ]]*/;
+  const tradCntUA08 =  /*[[ ${tradCntUA08.toArray()} ]]*/;
 
   const maxAmt = /*[[ ${maxAmt} ]]*/;
   const maxCnt = /*[[ ${maxCnt} ]]*/;
@@ -73,11 +94,11 @@
       },{
           type: 'line',
           label: ' ',
-          yAxisID: 'y-lineUA03',
+          yAxisID: 'y-lineUA08',
           backgroundColor: 'rgb(63, 59, 56)',
           borderColor: 'rgb(63, 59, 56)',
           pointRadius:1,
-          data: avgPricesUA03
+          data: avgPricesUA08
       },{
           type: 'line',
           label: ' ',
@@ -89,25 +110,17 @@
       },{
           type: 'line',
           label: ' ',
-          yAxisID: 'y-lineUA04',
+          yAxisID: 'y-lineUA05',
           backgroundColor: 'rgb(54, 162, 235)',
           borderColor: 'rgb(54, 162, 235)',
-          pointRadius:1,
-          data: avgPricesUA04
-      },{
-          type: 'line',
-          label: ' ',
-          yAxisID: 'y-lineUA05',
-          backgroundColor: 'rgb(167,215,113)',
-          borderColor: 'rgb(167,215,113)',
           pointRadius:1,
           data: avgPricesUA05
       },{
           type: 'line',
           label: ' ',
           yAxisID: 'y-lineUA06',
-          backgroundColor: 'rgb(95,67,175)',
-          borderColor: 'rgb(95,67,175)',
+          backgroundColor: 'rgb(167,215,113)',
+          borderColor: 'rgb(167,215,113)',
           pointRadius:1,
           data: avgPricesUA06
       }
@@ -127,11 +140,11 @@
       },{
           type: 'line',
           label: ' ',
-          yAxisID: 'y-lineUA03_2',
+          yAxisID: 'y-lineUA08_2',
           backgroundColor: 'rgb(63, 59, 56)',
           borderColor: 'rgb(63, 59, 56)',
           pointRadius:1,
-          data: tradCntUA03
+          data: tradCntUA08
       },{
           type: 'line',
           label: ' ',
@@ -143,25 +156,17 @@
       },{
           type: 'line',
           label: ' ',
-          yAxisID: 'y-lineUA04_2',
+          yAxisID: 'y-lineUA05_2',
           backgroundColor: 'rgb(54, 162, 235)',
           borderColor: 'rgb(54, 162, 235)',
-          pointRadius:1,
-          data: tradCntUA04
-      },{
-          type: 'line',
-          label: ' ',
-          yAxisID: 'y-lineUA05_2',
-          backgroundColor: 'rgb(167,215,113)',
-          borderColor: 'rgb(167,215,113)',
           pointRadius:1,
           data: tradCntUA05
       },{
           type: 'line',
           label: ' ',
           yAxisID: 'y-lineUA06_2',
-          backgroundColor: 'rgb(95,67,175)',
-          borderColor: 'rgb(95,67,175)',
+          backgroundColor: 'rgb(167,215,113)',
+          borderColor: 'rgb(167,215,113)',
           pointRadius:1,
           data: tradCntUA06
       }
@@ -181,7 +186,7 @@
                 suggestedMin: 0,
                 suggestedMax: maxAmt,
             },
-            'y-lineUA03':{
+            'y-lineUA08':{
                 position: 'left',
                 suggestedMin: 0,
                 suggestedMax: maxAmt,
@@ -197,15 +202,6 @@
                 }
             },
             'y-lineUA07':{
-                position: 'left',
-                display: false,
-                ticks:{
-                    display: false
-                },
-                suggestedMin: 0,
-                suggestedMax: maxAmt
-            },
-            'y-lineUA04':{
                 position: 'left',
                 display: false,
                 ticks:{
@@ -249,7 +245,7 @@
                 suggestedMin: 0,
                 suggestedMax: maxCnt,
             },
-            'y-lineUA03_2':{
+            'y-lineUA08_2':{
                 position: 'left',
                 suggestedMin: 0,
                 suggestedMax: maxCnt,
@@ -265,15 +261,6 @@
                 }
             },
             'y-lineUA07_2':{
-                position: 'left',
-                display: false,
-                ticks:{
-                    display: false
-                },
-                suggestedMin: 0,
-                suggestedMax: maxCnt
-            },
-            'y-lineUA04_2':{
                 position: 'left',
                 display: false,
                 ticks:{
