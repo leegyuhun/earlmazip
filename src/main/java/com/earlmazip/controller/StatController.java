@@ -85,12 +85,23 @@ public class StatController {
         model.addAttribute("avgprc", avgprc);
         model.addAttribute("tradcnt", tradcnt);
         model.addAttribute("interestRates", interestRates);
-        if (sigunguCode.substring(0, 2).equals("11")) {
+        String areaCode = sigunguCode.substring(0, 2);
+        if (areaCode.equals("11")) {
             return "stat_trade/useAreaType/seoul";
-        } else if (sigunguCode.substring(0, 2).equals("41")) {
+        } else if (areaCode.equals("41")) {
             return "stat_trade/useAreaType/gyunggi";
-        } else {
+        } else if(areaCode.equals("28")){
             return "stat_trade/useAreaType/incheon";
+        } else if (areaCode.equals("26")){
+            return "stat_trade/useAreaType/busan";
+        } else if (areaCode.equals("27")) {
+            return "stat_trade/useAreaType/daegu";
+        } else if (areaCode.equals("31")) {
+            return "stat_trade/useAreaType/ulsan";
+        } else if (areaCode.equals("47")) {
+            return "stat_trade/useAreaType/gsNorth";
+        } else {
+            return "stat_trade/useAreaType/gsSouth";
         }
 
     }

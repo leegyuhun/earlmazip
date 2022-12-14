@@ -30,7 +30,7 @@ public class TradeController {
     private final CodeInfoService codeInfoService;
     private final LandDongService landDongService;
 
-    /** 최근 매매내역 100
+    /** 최근 매매내역 200
      * @param sigunguCode
      * @param uaType
      * @param model
@@ -54,6 +54,7 @@ public class TradeController {
             }
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist?sigunguCode=" + title, sigunguCode);
+
             if (StringUtils.hasText(sigunguCode)) {
                 TradeSearchCond cond = new TradeSearchCond();
                 cond.setSigunguCode(sigunguCode);
@@ -83,12 +84,23 @@ public class TradeController {
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("headerTitle", title + " 최근 매매");
         model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
-        if (sigunguCode.substring(0, 2).equals("11")) {
+        String areaCode = sigunguCode.substring(0, 2);
+        if (areaCode.equals("11")) {
             return "tradelist/seoul";
-        } else if (sigunguCode.substring(0, 2).equals("41")) {
+        } else if (areaCode.equals("41")) {
             return "tradelist/gyunggi";
-        } else {
+        } else if(areaCode.equals("28")){
             return "tradelist/incheon";
+        } else if (areaCode.equals("26")){
+            return "tradelist/busan";
+        } else if (areaCode.equals("27")) {
+            return "tradelist/daegu";
+        } else if (areaCode.equals("31")) {
+            return "tradelist/ulsan";
+        } else if (areaCode.equals("47")) {
+            return "tradelist/gsNorth";
+        } else {
+            return "tradelst/gsSouth";
         }
     }
 

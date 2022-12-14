@@ -1,5 +1,6 @@
 package com.earlmazip.repository;
 
+import com.earlmazip.controller.dto.AptPriceResponseDto;
 import com.earlmazip.controller.dto.TradeSearchCond;
 import com.earlmazip.domain.*;
 import com.earlmazip.utils.Common;
@@ -11,6 +12,7 @@ import javax.persistence.EntityManager;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.util.StringUtils.hasText;
 
@@ -21,6 +23,7 @@ public class TradeRepository {
     private final JPAQueryFactory queryFactory;
 
     QAptPriceRaw qAptPriceRaw = QAptPriceRaw.aptPriceRaw;
+    QAptPriceGs qAptPriceGs = QAptPriceGs.aptPriceGs;
     QCancelDealData qCancelDealData = QCancelDealData.cancelDealData;
     QAptDistributionRaw qAptDistributionRaw = QAptDistributionRaw.aptDistributionRaw;
 
@@ -34,7 +37,7 @@ public class TradeRepository {
      * @param cond
      * @return
      */
-    public List<AptPriceRaw> findTradeList(TradeSearchCond cond) {
+    public List<AptPriceResponseDto> findTradeList(TradeSearchCond cond) {
         BooleanBuilder builder = new BooleanBuilder();
         if (hasText(cond.getSigunguCode())) {
             if (cond.getSigunguCode().length() == 2) {
@@ -60,7 +63,37 @@ public class TradeRepository {
                 .where(builder)
                 .orderBy(qAptPriceRaw.dealDate.desc())
                 .limit(200)
-                .fetch();
+                .fetch().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    }
+
+    public List<AptPriceResponseDto> findTradeList_GS(TradeSearchCond cond) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(cond.getSigunguCode())) {
+            if (cond.getSigunguCode().length() == 2) {
+                builder.and(qAptPriceGs.areaCode.eq(cond.getSigunguCode()));
+            } else {
+                builder.and(qAptPriceGs.sigunguCode.eq(cond.getSigunguCode()));
+            }
+        }
+
+        if (hasText(cond.getDealYear())) {
+            builder.and(qAptPriceGs.dealYear.eq(cond.getDealYear()));
+            if (hasText(cond.getDealMon())) {
+                builder.and(qAptPriceGs.dealMon.eq(cond.getDealMon()));
+            }
+        }
+        if (hasText(cond.getUaType())) {
+            builder.and(qAptPriceGs.useAreaType.eq(cond.getUaType()));
+        }
+        if (hasText(cond.getLandDong())) {
+            builder.and(qAptPriceGs.landDong.eq(cond.getLandDong()));
+        }
+
+        return queryFactory.selectFrom(qAptPriceGs)
+                .where(builder)
+                .orderBy(qAptPriceGs.dealDate.desc())
+                .limit(200)
+                .fetch().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
 
     /**
@@ -122,7 +155,7 @@ public class TradeRepository {
      * @param term
      * @return
      */
-    public List<AptPriceRaw> findAptTradeList(TradeSearchCond cond, int term) {
+    public List<AptPriceResponseDto> findAptTradeList(TradeSearchCond cond, int term) {
         BooleanBuilder builder = new BooleanBuilder();
         if (hasText(cond.getSigunguCode())) {
             builder.and(qAptPriceRaw.sigunguCode.eq(cond.getSigunguCode()));
@@ -142,7 +175,25 @@ public class TradeRepository {
         return queryFactory.selectFrom(qAptPriceRaw)
                 .where(builder)
                 .orderBy(qAptPriceRaw.dealDate.desc())
-                .fetch();
+                .fetch().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    }
+    public List<AptPriceResponseDto> findAptTradeList_GS(TradeSearchCond cond, int term) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(cond.getSigunguCode())) {
+            builder.and(qAptPriceGs.sigunguCode.eq(cond.getSigunguCode()));
+        }
+        builder.and(qAptPriceGs.dealYear.goe(Common.calcYearByTerm(term)));
+        if (hasText(cond.getAptName())) {
+            builder.and(qAptPriceGs.aptName.eq(cond.getAptName()));
+        }
+        if (hasText(cond.getLandDong())) {
+            builder.and(qAptPriceGs.landDong.eq(cond.getLandDong()));
+        }
+
+        return queryFactory.selectFrom(qAptPriceGs)
+                .where(builder)
+                .orderBy(qAptPriceGs.dealDate.desc())
+                .fetch().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
 
     public List<AptPriceRaw> findNewHighestList(String sigungucode, String uaType, String landDong) {

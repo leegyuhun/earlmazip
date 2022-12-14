@@ -16,7 +16,12 @@ public class TradeService {
     private final TradeRepository tradeRepository;
 
     public List<AptPriceResponseDto> findTradeList(TradeSearchCond cond) {
-        return tradeRepository.findTradeList(cond).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        String areaCode = cond.getSigunguCode().substring(0, 2);
+        if (areaCode.equals("11") || areaCode.equals("28") || areaCode.equals("41")) {
+            return tradeRepository.findTradeList(cond);
+        } else {
+            return tradeRepository.findTradeList_GS(cond);
+        }
     }
 
     public List<AptPriceResponseDto> findTradeComparePrevList(TradeSearchCond cond, String type) {
@@ -28,7 +33,12 @@ public class TradeService {
     }
 
     public List<AptPriceResponseDto> findAptTradeList(TradeSearchCond cond, int term) {
-        return tradeRepository.findAptTradeList(cond, term).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        String areaCode = cond.getSigunguCode().substring(0, 2);
+        if (areaCode.equals("11") || areaCode.equals("28") || areaCode.equals("41")) {
+            return tradeRepository.findAptTradeList(cond, term);
+        } else {
+            return tradeRepository.findAptTradeList_GS(cond, term);
+        }
     }
 
     public List<AptPriceResponseDto> getNewHighestList(String sigungucode, String uaType, String landDong) {

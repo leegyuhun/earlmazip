@@ -1,9 +1,6 @@
 package com.earlmazip.controller.dto;
 
-import com.earlmazip.domain.AptDistributionRaw;
-import com.earlmazip.domain.AptPriceRaw;
-import com.earlmazip.domain.CancelDealData;
-import com.earlmazip.domain.RankYear;
+import com.earlmazip.domain.*;
 import lombok.Getter;
 
 import java.text.DecimalFormat;
@@ -32,7 +29,11 @@ public class AptPriceResponseDto {
     private String prevLeaseAmtStr;
 
     public String getPrevLeaseAmtStr() {
-        return new DecimalFormat("0.0#").format((float)this.prevLeaseAmt / 10000) + "억";
+        if (this.prevLeaseAmt == 0) {
+            return "-";
+        } else {
+            return new DecimalFormat("0.0#").format((float)this.prevLeaseAmt / 10000) + "억";
+        }
     }
 
     private String prevLeaseDate;
@@ -119,6 +120,32 @@ public class AptPriceResponseDto {
         this.mostLowestAmt = entity.getMostLowestAmt();
         this.diffAmt = entity.getDiffAmt();
         this.diffRate = entity.getDiffRate();
+    }
+
+    public AptPriceResponseDto(AptPriceGs entity) {
+        this.sigunguCode = entity.getSigunguCode();
+        this.dealDate = entity.getDealDate();
+        this.aptName = entity.getAptName();
+        this.useArea = entity.getUseArea();
+        this.useAreaTrunc = entity.getUseAreaTrunc();
+        this.useAreaType = entity.getUseAreaType();
+        this.dealAmt = entity.getDealAmt();
+        this.prevDealAmt = entity.getPrevDealAmt();
+        this.prevLeaseAmt = entity.getPrevLeaseAmt();
+        this.prevLeaseDate = entity.getPrevLeaseDate();
+        this.mostHighestAmt = entity.getMostHighestAmt();
+        this.mostLowestAmt = entity.getMostLowestAmt();
+        this.prevDealDate = entity.getPrevDealDate();
+        this.diffAmt = entity.getDiffAmt();
+        this.diffRate = entity.getDiffRate();
+        this.floor = entity.getFloor();
+        this.buildYear = entity.getBuildYear();
+        this.landDong = entity.getLandDong();
+        this.cnclDealType = entity.getCnclDealType();
+        this.cnclDealDate = entity.getCnclDealDate();
+        this.dealType = entity.getDealType();
+        this.dealLoc = entity.getDealLoc();
+        this.newHighestPrice = entity.getNewHighestPrice();
     }
 
     public AptPriceResponseDto(CancelDealData entity) {
