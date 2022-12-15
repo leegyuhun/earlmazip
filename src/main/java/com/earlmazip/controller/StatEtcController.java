@@ -326,9 +326,18 @@ public class StatEtcController {
         } else if (areacode.equals("41")) {
             title = "경기 미분양주택현황";
             histList = ecosDataService.getEcosData("901Y074", "I410I", "", term);
-        } else {
+        } else if (areacode.equals("28")){
             title = "인천 미분양주택현황";
             histList = ecosDataService.getEcosData("901Y074", "I410E", "", term);
+        } else if (areacode.equals("26")) {
+            title = "부산 미분양주택현황";
+            histList = ecosDataService.getEcosData("901Y074", "I410C", "", term);
+        } else if (areacode.equals("27")) {
+            title = "대구 미분양주택현황";
+            histList = ecosDataService.getEcosData("901Y074", "I410D", "", term);
+        } else {
+            title = "전국 미분양주택현황";
+            histList = ecosDataService.getEcosData("901Y074", "I410A", "", term);
         }
 
         List<String> dates = histList.stream().map(o->new String(o.getDate())).collect(Collectors.toList());

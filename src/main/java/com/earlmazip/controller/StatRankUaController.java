@@ -242,13 +242,23 @@ public class StatRankUaController {
         model.addAttribute("rankGubn", rankGubn);
         model.addAttribute("dealYear", dealYear);
         model.addAttribute("sigunguCode", sigunguCode);
-
-        if (sigunguCode.substring(0, 2).equals("11")) {
+        String areaCode = sigunguCode.substring(0, 2);
+        if (areaCode.equals("11")) {
             return "stat_rank_uatype/seoul";
-        } else if (sigunguCode.substring(0, 2).equals("41")) {
+        } else if (areaCode.equals("41")) {
             return "stat_rank_uatype/gyunggi";
-        } else {
+        } else if(areaCode.equals("28")){
             return "stat_rank_uatype/incheon";
+        } else if (areaCode.equals("26")){
+            return "stat_rank_uatype/busan";
+        } else if (areaCode.equals("27")) {
+            return "stat_rank_uatype/daegu";
+        } else if (areaCode.equals("31")) {
+            return "stat_rank_uatype/ulsan";
+        } else if (areaCode.equals("47")) {
+            return "stat_rank_uatype/gsNorth";
+        } else {
+            return "stat_rank_uatype/gsSouth";
         }
     }
 }

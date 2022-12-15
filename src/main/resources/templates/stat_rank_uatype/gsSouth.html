@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <p>
+            <h6 align="center" th:text="${title}"></h6>
+            <h6 align="center" th:text="${subtitle}"></h6>
+        </p>
+        <p>
+            <div class="d-flex gap-2 justify-content-center">
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        지역선택
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48121&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">창원 의창구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48123&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">창원 성산구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48125&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">창원 마산합포구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48127&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">창원 마산회원구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48129&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">창원 진해구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48170&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">진주시</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48220&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">통영시</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48240&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">사천시</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48250&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">김해시</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48270&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">밀양시</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48310&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">거제시</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48330&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">양산시</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48720&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">의령군</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48730&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">함안군</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48740&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">창녕군</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48820&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">고성군</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48840&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">남해군</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48850&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">하동군</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48860&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">산청군</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48870&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">함양군</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48880&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">거창군</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=48890&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">합천군</a></li>
+
+                    </ul>
+                </div>
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        평형
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode={sigunguCode}&uaType=UA02 (rankGubn=${rankGubn}, dealYear=${dealYear}, sigunguCode=${sigunguCode})}">소형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode={sigunguCode}&uaType=UA08 (rankGubn=${rankGubn}, dealYear=${dealYear}, sigunguCode=${sigunguCode})}">전용59</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode={sigunguCode}&uaType=UA03 (rankGubn=${rankGubn}, dealYear=${dealYear}, sigunguCode=${sigunguCode})}">중소형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode={sigunguCode}&uaType=UA07 (rankGubn=${rankGubn}, dealYear=${dealYear}, sigunguCode=${sigunguCode})}">국평</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode={sigunguCode}&uaType=UA04 (rankGubn=${rankGubn}, dealYear=${dealYear}, sigunguCode=${sigunguCode})}">중형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode={sigunguCode}&uaType=UA05 (rankGubn=${rankGubn}, dealYear=${dealYear}, sigunguCode=${sigunguCode})}">중대형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode={sigunguCode}&uaType=UA06 (rankGubn=${rankGubn}, dealYear=${dealYear}, sigunguCode=${sigunguCode})}">대형</a></li>
+                    </ul>
+                </div>
+            </div>
+        </p>
+
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+                    <th>아파트</th>
+                    <th>전용</br>면적</th>
+                    <th>건수</th>
+                    <th>최저<br>평균</br>최고</th>
+<!--                    <th>최저</th>-->
+<!--                    <th>평균</th>-->
+<!--                    <th>최고</th>-->
+                    <th>신고</br>가율</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="font-size:12px;" th:each="list : ${list}">
+                    <td align="left">
+                        <div>
+                            <a th:text="${list.landDong}"></a></br>
+                            <a th:text="${list.aptName}" th:href="@{/tradelist/ByName?sigunguCode={sigungucode}&aptName={aptname}&ua={uatrunc}&term=1&landDong={landDong} (sigungucode=${list.sigunguCode}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc}, landDong=${list.landDong})}"></a></br>
+                            <a th:text="|[${list.buildYear}]|"></a>
+                        </div>
+                    </td>
+                    <td align="right" th:text="${list.useAreaStr}"></td>
+                    <td align="right" th:text="${#numbers.formatInteger(list.tradeCnt,1,'COMMA')}"></td>
+                    <td align="right">
+                        <div>
+                            <a th:text="${list.minAmtStr}"></a></br>
+                            <a style="font-size:14px; font-weight: bolder; color:#FF6384" th:text="${list.avgAmtStr}"></a></br>
+                            <a th:text="${list.maxAmtStr}"></a>
+                        </div>
+                    </td>
+<!--                    <td align="right" th:text="${list.minAmtStr}"></td>-->
+<!--                    <td align="right" style="font-size:14px; font-weight: bolder; color:#FF6384" th:text="${list.avgAmtStr}"></td>-->
+<!--                    <td align="right" th:text="${list.maxAmtStr}"></td>-->
+                    <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>
