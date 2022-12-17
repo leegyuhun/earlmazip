@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head th:replace="fragments/header :: header" />
 <body>
 
@@ -9,30 +9,40 @@
         <p>
             <h5 align="center" th:text="|[ ${title} ${termStr} ]|"></h5>
         </p>
+
         <p>
             <canvas id="myChart"></canvas>
         </p>
-<!--        <a style="font-size: 20px" th:href="@{/stat_trade/seoul/top/2022/{sigungucode}?ua=UA01 (sigungucode=${sigungucode})}">전체&nbsp</a>-->
-        <div>
-            <a>[지역]&nbsp</a>
-            <a th:href="@{/stat_etc/unSoldHouseHistory?areacode=11&term={term} (term=${term})}">서울&nbsp</a>
-            <b>/&nbsp</b>
-            <a th:href="@{/stat_etc/unSoldHouseHistory?areacode=41&term={term} (term=${term})}">경기&nbsp</a>
-            <b>/&nbsp</b>
-            <a th:href="@{/stat_etc/unSoldHouseHistory?areacode=28&term={term} (term=${term})}">인천</a>
-            <b>/&nbsp</b>
-            <a th:href="@{/stat_etc/unSoldHouseHistory?areacode=26&term={term} (term=${term})}">부산</a>
-            <b>/&nbsp</b>
-            <a th:href="@{/stat_etc/unSoldHouseHistory?areacode=27&term={term} (term=${term})}">대구</a>
-        </div>
-        <div>
-            <a>[기간]&nbsp</a>
-            <a th:href="@{/stat_etc/unSoldHouseHistory?areacode={areacode}&term=5 (areacode=${areacode})}">5년&nbsp</a>
-            <b>/&nbsp</b>
-            <a th:href="@{/stat_etc/unSoldHouseHistory?areacode={areacode}&term=10 (areacode=${areacode})}">10년&nbsp</a>
-            <b>/&nbsp</b>
-            <a th:href="@{/stat_etc/unSoldHouseHistory?areacode={areacode}&term=15 (areacode=${areacode})}">15년</a>
-        </div>
+
+        <p>
+            <div class="d-flex gap-4 justify-content-center">
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        지역선택
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/unSoldHouseHistory?areacode=0&term={term} (term=${term})}">전국</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/unSoldHouseHistory?areacode=11&term={term} (term=${term})}">서울</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/unSoldHouseHistory?areacode=41&term={term} (term=${term})}">경기</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/unSoldHouseHistory?areacode=28&term={term} (term=${term})}">인천</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/unSoldHouseHistory?areacode=26&term={term} (term=${term})}">부산</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/unSoldHouseHistory?areacode=27&term={term} (term=${term})}">대구</a></li>
+                    </ul>
+                </div>
+
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-outline-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        기간
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/unSoldHouseHistory?areacode={areacode}&term=5 (areacode=${areacode})}">5년</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/unSoldHouseHistory?areacode={areacode}&term=10 (areacode=${areacode})}">10년</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/unSoldHouseHistory?areacode={areacode}&term=15 (areacode=${areacode})}">15년</a></li>
+                    </ul>
+                </div>
+            </div>
+        </p>
+
         <div>
             <ins class="kakao_ad_area" style="display:none;"
                  data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"

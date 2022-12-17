@@ -17,8 +17,10 @@ public class TradeService {
 
     public List<AptPriceResponseDto> findTradeList(TradeSearchCond cond) {
         String areaCode = cond.getSigunguCode().substring(0, 2);
-        if (areaCode.equals("11") || areaCode.equals("28") || areaCode.equals("41")) {
+        if (areaCode.equals("11") || areaCode.equals("28") || areaCode.equals("41") || areaCode.equals("36")) {
             return tradeRepository.findTradeList(cond);
+        } else if (areaCode.equals("42")) {
+            return tradeRepository.findTradeList_GW(cond);
         } else {
             return tradeRepository.findTradeList_GS(cond);
         }
@@ -34,8 +36,10 @@ public class TradeService {
 
     public List<AptPriceResponseDto> findAptTradeList(TradeSearchCond cond, int term) {
         String areaCode = cond.getSigunguCode().substring(0, 2);
-        if (areaCode.equals("11") || areaCode.equals("28") || areaCode.equals("41")) {
+        if (areaCode.equals("11") || areaCode.equals("28") || areaCode.equals("41") || areaCode.equals("36")) {
             return tradeRepository.findAptTradeList(cond, term);
+        } else if (areaCode.equals("42")) {
+            return tradeRepository.findAptTradeList_GW(cond, term);
         } else {
             return tradeRepository.findAptTradeList_GS(cond, term);
         }

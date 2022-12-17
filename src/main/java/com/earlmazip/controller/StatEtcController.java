@@ -318,9 +318,17 @@ public class StatEtcController {
                                         Model model) {
         apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/unSoldHouseHistory", "0");
         List<EcosDataResponseDto> histList;
-        List<StatResponseDto> tradList = statService.getStatTradeList_Area(areacode, term);
+        List<StatResponseDto> tradList;
+        if (!areacode.equals("0")) {
+            tradList = statService.getStatTradeList_Area(areacode, term);
+        } else {
+            tradList = new ArrayList<>();
+        }
         String title = "";
-        if (areacode.equals("11")) {
+        if (areacode.equals("0")) {
+            title = "전국 미분양주택현황";
+            histList = ecosDataService.getEcosData("901Y074", "I410A", "", term);
+        } else if (areacode.equals("11")) {
             title = "서울 미분양주택현황";
             histList = ecosDataService.getEcosData("901Y074", "I410B", "", term);
         } else if (areacode.equals("41")) {
@@ -348,9 +356,16 @@ public class StatEtcController {
         Collections.reverse(avgAmtsStr);
         Collections.reverse(avgAmts);
         List<SimpleDto> list = new ArrayList<>();
-        for (int i = dates.size() - 1; i > -1; i--) {
-            SimpleDto item = new SimpleDto(dates.get(i), avgAmtsStr.get(i), histCntsStr.get(i));
-            list.add(item);
+        if (tradList.size() > 0) {
+            for (int i = dates.size() - 1; i > -1; i--) {
+                SimpleDto item = new SimpleDto(dates.get(i), avgAmtsStr.get(i), histCntsStr.get(i));
+                list.add(item);
+            }
+        } else{
+            for (int i = dates.size() - 1; i > -1; i--) {
+                SimpleDto item = new SimpleDto(dates.get(i), "0", histCntsStr.get(i));
+                list.add(item);
+            }
         }
         model.addAttribute("avgAmts", avgAmts);
         model.addAttribute("histCnts", histCnts);

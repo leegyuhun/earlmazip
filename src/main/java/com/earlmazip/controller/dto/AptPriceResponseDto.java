@@ -148,6 +148,32 @@ public class AptPriceResponseDto {
         this.newHighestPrice = entity.getNewHighestPrice();
     }
 
+    public AptPriceResponseDto(AptPriceGw entity) {
+        this.sigunguCode = entity.getSigunguCode();
+        this.dealDate = entity.getDealDate();
+        this.aptName = entity.getAptName();
+        this.useArea = entity.getUseArea();
+        this.useAreaTrunc = entity.getUseAreaTrunc();
+        this.useAreaType = entity.getUseAreaType();
+        this.dealAmt = entity.getDealAmt();
+        this.prevDealAmt = entity.getPrevDealAmt();
+        this.prevLeaseAmt = entity.getPrevLeaseAmt();
+        this.prevLeaseDate = entity.getPrevLeaseDate();
+        this.mostHighestAmt = entity.getMostHighestAmt();
+        this.mostLowestAmt = entity.getMostLowestAmt();
+        this.prevDealDate = entity.getPrevDealDate();
+        this.diffAmt = entity.getDiffAmt();
+        this.diffRate = entity.getDiffRate();
+        this.floor = entity.getFloor();
+        this.buildYear = entity.getBuildYear();
+        this.landDong = entity.getLandDong();
+        this.cnclDealType = entity.getCnclDealType();
+        this.cnclDealDate = entity.getCnclDealDate();
+        this.dealType = entity.getDealType();
+        this.dealLoc = entity.getDealLoc();
+        this.newHighestPrice = entity.getNewHighestPrice();
+    }
+
     public AptPriceResponseDto(CancelDealData entity) {
         this.dealDate = entity.getDealDate();
         this.aptName = entity.getAptName();

@@ -99,8 +99,12 @@ public class TradeController {
             return "tradelist/ulsan";
         } else if (areaCode.equals("47")) {
             return "tradelist/gsNorth";
+        } else if (areaCode.equals("48")) {
+            return "tradelist/gsSouth";
+        } else if (areaCode.equals("42")) {
+            return "tradelist/gangwon";
         } else {
-            return "tradelst/gsSouth";
+            return "tradelist/sejong";
         }
     }
 
