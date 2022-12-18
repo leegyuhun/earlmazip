@@ -257,8 +257,12 @@ public class StatRankUaController {
             return "stat_rank_uatype/ulsan";
         } else if (areaCode.equals("47")) {
             return "stat_rank_uatype/gsNorth";
-        } else {
+        } else if (areaCode.equals("48")) {
             return "stat_rank_uatype/gsSouth";
+        } else if (areaCode.equals("42")) {
+            return "stat_rank_uatype/gangwon";
+        } else {
+            return "stat_rank_uatype/sejong";
         }
     }
 }
