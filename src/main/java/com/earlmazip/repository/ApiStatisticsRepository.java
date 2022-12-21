@@ -19,4 +19,7 @@ public interface ApiStatisticsRepository extends JpaRepository<ApiCallStat, Long
 
     @Query("select a from ApiCallStatDetail a where a.callDate = :callDate order by a.cnt desc")
     List<ApiCallStatDetail> findGubnTodayDetail(@Param("callDate") String callDate);
+
+    @Query(value = "select a.sigunguName, count(1) from ApiCallStatDetail a where a.callDate = :callDate", nativeQuery = true)
+    List<ApiCallStatDetail> findTodaySigungu(@Param("callDate") String callDate);
 }

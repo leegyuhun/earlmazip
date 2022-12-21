@@ -12,7 +12,18 @@
     <div>
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <a class="nav-link" href="/">매매</a>
+                <a class="nav-link" href="/">APT</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    매매
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/stat_trade/useareaType/home">월별 매매 통계</a></li>
+                    <li><a class="dropdown-item" href="/tradelist/home">최근매매내역</a></li>
+                    <li><a class="dropdown-item" href="/tradelist/newHighest/home">2022 신고가내역</a></li>
+                    <li><a class="dropdown-item" href="/stat_trade/top/home">2022 매매가 TOP 100</a></li>
+                </ul>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/home_lease">전/월세</a>
@@ -20,8 +31,22 @@
             <li class="nav-item">
                 <a class="nav-link" href="/home_theme">테마</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/home_etc">기타</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    기타
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/stat_etc/distribution?areaCode=11">2022 분양권 서울</a></li>
+                    <li><a class="dropdown-item" href="/stat_etc/distribution?areaCode=41">2022 분양권 경기</a></li>
+                    <li><a class="dropdown-item" href="/stat_etc/distribution?areaCode=28">2022 분양권 인천</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="/stat_etc/population/10">인구통계</a></li>
+                    <li><a class="dropdown-item" href="/stat_etc/income">소득통계</a></li>
+                    <li><a class="dropdown-item" href="/stat_etc/consumerPriceIndex">물가지수</a></li>
+                    <li><a class="dropdown-item" href="/stat_etc/housePenetrationRate">주택보급률</a></li>
+                    <li><a class="dropdown-item" href="/stat_etc/unSoldHouseHistory?areacode=11&term=5">미분양주택현황</a></li>
+                    <li><a class="dropdown-item" href="/stat_etc/M2">주택시가총액/M2</a></li>
+                </ul>
             </li>
         </ul>
     </div>

@@ -61,9 +61,16 @@ public class StatLeaseRepository {
         } else {
             builder.and(qRankLease.leaseType.eq("월세"));
         }
-        return queryFactory.selectFrom(qRankLease)
-                .where(builder)
-                .orderBy(qRankLease.dealDate.desc())
-                .fetch();
+        if (leaseType == 0) {
+            return queryFactory.selectFrom(qRankLease)
+                    .where(builder)
+                    .orderBy(qRankLease.deposit.desc())
+                    .fetch();
+        } else {
+            return queryFactory.selectFrom(qRankLease)
+                    .where(builder)
+                    .orderBy(qRankLease.monthlyRent.desc())
+                    .fetch();
+        }
     }
 }

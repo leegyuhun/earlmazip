@@ -1,10 +1,7 @@
 package com.earlmazip.controller;
 
 import com.earlmazip.controller.dto.*;
-import com.earlmazip.service.ApiCallStatService;
-import com.earlmazip.service.CodeInfoService;
-import com.earlmazip.service.EcosDataService;
-import com.earlmazip.service.StatService;
+import com.earlmazip.service.*;
 import com.earlmazip.utils.Common;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
@@ -24,6 +22,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class StatController {
 
+    private final SiteInfoService siteInfoService;
+
     private final StatService statService;
 
     private final ApiCallStatService apiCallStatService;
@@ -32,6 +32,21 @@ public class StatController {
 
     private final EcosDataService ecosDataService;
 
+    @RequestMapping("/stat_trade/useareaType/home")
+    public String home_statMonthly(Model modal) {
+        String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        modal.addAttribute("udt", udt);
+        modal.addAttribute("headerTitle", "월별 매매 통계");
+        return "stat_trade/useAreaType/home";
+    }
+
+    @RequestMapping("/stat_trade/top/home")
+    public String home_statTop(Model modal) {
+        String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        modal.addAttribute("udt", udt);
+        modal.addAttribute("headerTitle", "월별 매매 통계");
+        return "stat_trade/top/home";
+    }
     /**
      * 서울/경기/인천 구별,평형대별,월별 매매 통계
      * @param sigunguCode

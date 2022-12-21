@@ -30,6 +30,10 @@ public class ApiCallStatService {
         apiCallStatRepository.WriteApiCallStatDetail(apiName, sigunguCode, sigunguName);
     }
 
+    public List<ApiCallStatDetail> findTodaySigungu(String date) {
+        return apiStatisticsRepository.findTodaySigungu(date);
+    }
+
     public List<ApiCallStat> LoadTodayApiCallList(String gubn) {
         return apiCallStatRepository.LoadTodayApiCallList(gubn);
     }

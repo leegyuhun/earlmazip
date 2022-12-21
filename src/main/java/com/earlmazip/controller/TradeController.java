@@ -3,10 +3,7 @@ package com.earlmazip.controller;
 import com.earlmazip.controller.dto.AptPriceResponseDto;
 import com.earlmazip.controller.dto.LandDongInfoDto;
 import com.earlmazip.controller.dto.TradeSearchCond;
-import com.earlmazip.service.ApiCallStatService;
-import com.earlmazip.service.CodeInfoService;
-import com.earlmazip.service.LandDongService;
-import com.earlmazip.service.TradeService;
+import com.earlmazip.service.*;
 import com.earlmazip.utils.Common;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -25,10 +23,27 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 public class TradeController {
+    private final SiteInfoService siteInfoService;
     private final TradeService tradeService;
     private final ApiCallStatService apiCallStatService;
     private final CodeInfoService codeInfoService;
     private final LandDongService landDongService;
+
+    @RequestMapping("/tradelist/home")
+    public String home_tradelist(Model modal) {
+        String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        modal.addAttribute("udt", udt);
+        modal.addAttribute("headerTitle", "월별 매매 통계");
+        return "tradelist/home";
+    }
+
+    @RequestMapping("/tradelist/newHighest/home")
+    public String home_tradelistNewHighest(Model modal) {
+        String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        modal.addAttribute("udt", udt);
+        modal.addAttribute("headerTitle", "월별 매매 통계");
+        return "tradelist/newHighest/home";
+    }
 
     /** 최근 매매내역 200
      * @param sigunguCode

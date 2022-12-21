@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+<div class="container">
+
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+
+    <div>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+
+        <h6>2022 신고가</h6>
+        <p>
+            <a class="btn btn-info" href="/tradelist/newHighest?sigunguCode=11&uaType=UA01">서울</a>
+            <a class="btn btn-info" href="/tradelist/newHighest?sigunguCode=41&uaType=UA01">경기</a>
+            <a class="btn btn-info" href="/tradelist/newHighest?sigunguCode=28&uaType=UA01">인천</a>
+        </p>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+
+</div> <!-- /container -->
+<script>
+</script>
+</body>
+</html>

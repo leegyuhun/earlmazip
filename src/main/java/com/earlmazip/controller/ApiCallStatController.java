@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,11 +24,17 @@ public class ApiCallStatController {
     private final ApiCallStatService apiCallStatService;
 
     @GetMapping("/admin/apicallstatdetail")
-    public String LoadTodayApiCallList(Model model) {
+    public String LoadTodayApiCallDetail(@RequestParam(value = "gubn", defaultValue = "") String gubn,
+                                       Model model) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         // 현재날짜
         String date = simpleDateFormat.format(new Date());
-        List<ApiCallStatDetail> apiCalls = apiCallStatService.findAllTodayDetail(date);
+        List<ApiCallStatDetail> apiCalls;
+        if (gubn.equals("sigunguCode")) {
+            apiCalls = apiCallStatService.findTodaySigungu(date);
+        } else {
+            apiCalls = apiCallStatService.findAllTodayDetail(date);
+        }
 
         List<String> names = apiCalls.stream().map(o->new String(o.getApiName())).collect(Collectors.toList());
         List<Integer> cnts = apiCalls.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
