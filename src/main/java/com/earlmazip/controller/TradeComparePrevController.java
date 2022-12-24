@@ -39,11 +39,19 @@ public class TradeComparePrevController {
                                @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                Model model) {
+        String url = "/tradelist/comparePrev?sigunguCode=" + sigunguCode + "&type=" + type + "&uaType=" + uaType;
+        if (type.length() > 1){
+            apiCallStatService.writeApiCallStat("ERROR", "(error)" + url, sigunguCode);
+            return "error";
+        }
+        if (uaType.length()>4){
+            apiCallStatService.writeApiCallStat("ERROR", "(error)" + url, sigunguCode);
+            return "error";
+        }
         List<AptPriceResponseDto> trads;
         String title = "-";
         if (sigunguCode.length() == 5) {
             title = codeInfoService.getCodeName(sigunguCode);
-            String url = "/tradelist/comparePrev?sigunguCode=" + sigunguCode + "&type=" + type + "&uaType=" + uaType;
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/comparePrev?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
