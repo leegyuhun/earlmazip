@@ -253,16 +253,30 @@ public class StatRankUaController {
             return "stat_rank_uatype/busan";
         } else if (areaCode.equals("27")) {
             return "stat_rank_uatype/daegu";
+        } else if (areaCode.equals("29")) {
+            return "stat_rank_uatype/gwangju";
+        } else if (areaCode.equals("30")) {
+            return "stat_rank_uatype/daejeon";
         } else if (areaCode.equals("31")) {
             return "stat_rank_uatype/ulsan";
+        } else if (areaCode.equals("43")) {
+            return "stat_rank_uatype/ccNorth";
+        } else if (areaCode.equals("44")) {
+            return "stat_rank_uatype/ccSouth";
+        } else if (areaCode.equals("45")) {
+            return "stat_rank_uatype/jlNorth";
+        } else if (areaCode.equals("46")) {
+            return "stat_rank_uatype/jlSouth";
         } else if (areaCode.equals("47")) {
             return "stat_rank_uatype/gsNorth";
         } else if (areaCode.equals("48")) {
             return "stat_rank_uatype/gsSouth";
         } else if (areaCode.equals("42")) {
             return "stat_rank_uatype/gangwon";
-        } else {
+        } else if (areaCode.equals("36")) {
             return "stat_rank_uatype/sejong";
+        } else {
+            return "stat_rank_uatype/jeju";
         }
     }
 }

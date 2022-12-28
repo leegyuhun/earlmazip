@@ -25,6 +25,9 @@ public class TradeRepository {
     QAptPriceRaw qAptPriceRaw = QAptPriceRaw.aptPriceRaw;
     QAptPriceGs qAptPriceGs = QAptPriceGs.aptPriceGs;
     QAptPriceGw qAptPriceGw = QAptPriceGw.aptPriceGw;
+    QAptPriceCc qAptPriceCc = QAptPriceCc.aptPriceCc;
+    QAptPriceJl qAptPriceJl = QAptPriceJl.aptPriceJl;
+    QAptPriceJj qAptPriceJj = QAptPriceJj.aptPriceJj;
     QCancelDealData qCancelDealData = QCancelDealData.cancelDealData;
     QAptDistributionRaw qAptDistributionRaw = QAptDistributionRaw.aptDistributionRaw;
 
@@ -123,6 +126,96 @@ public class TradeRepository {
         return queryFactory.selectFrom(qAptPriceGw)
                 .where(builder)
                 .orderBy(qAptPriceGw.dealDate.desc())
+                .limit(200)
+                .fetch().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    }
+
+    public List<AptPriceResponseDto> findTradeList_CC(TradeSearchCond cond) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(cond.getSigunguCode())) {
+            if (cond.getSigunguCode().length() == 2) {
+                builder.and(qAptPriceCc.areaCode.eq(cond.getSigunguCode()));
+            } else {
+                builder.and(qAptPriceCc.sigunguCode.eq(cond.getSigunguCode()));
+            }
+        }
+
+        if (hasText(cond.getDealYear())) {
+            builder.and(qAptPriceCc.dealYear.eq(cond.getDealYear()));
+            if (hasText(cond.getDealMon())) {
+                builder.and(qAptPriceCc.dealMon.eq(cond.getDealMon()));
+            }
+        }
+        if (hasText(cond.getUaType())) {
+            builder.and(qAptPriceCc.useAreaType.eq(cond.getUaType()));
+        }
+        if (hasText(cond.getLandDong())) {
+            builder.and(qAptPriceCc.landDong.eq(cond.getLandDong()));
+        }
+
+        return queryFactory.selectFrom(qAptPriceCc)
+                .where(builder)
+                .orderBy(qAptPriceCc.dealDate.desc())
+                .limit(200)
+                .fetch().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    }
+
+    public List<AptPriceResponseDto> findTradeList_JL(TradeSearchCond cond) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(cond.getSigunguCode())) {
+            if (cond.getSigunguCode().length() == 2) {
+                builder.and(qAptPriceJl.areaCode.eq(cond.getSigunguCode()));
+            } else {
+                builder.and(qAptPriceJl.sigunguCode.eq(cond.getSigunguCode()));
+            }
+        }
+
+        if (hasText(cond.getDealYear())) {
+            builder.and(qAptPriceJl.dealYear.eq(cond.getDealYear()));
+            if (hasText(cond.getDealMon())) {
+                builder.and(qAptPriceJl.dealMon.eq(cond.getDealMon()));
+            }
+        }
+        if (hasText(cond.getUaType())) {
+            builder.and(qAptPriceJl.useAreaType.eq(cond.getUaType()));
+        }
+        if (hasText(cond.getLandDong())) {
+            builder.and(qAptPriceJl.landDong.eq(cond.getLandDong()));
+        }
+
+        return queryFactory.selectFrom(qAptPriceJl)
+                .where(builder)
+                .orderBy(qAptPriceJl.dealDate.desc())
+                .limit(200)
+                .fetch().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    }
+
+    public List<AptPriceResponseDto> findTradeList_JJ(TradeSearchCond cond) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(cond.getSigunguCode())) {
+            if (cond.getSigunguCode().length() == 2) {
+                builder.and(qAptPriceJj.areaCode.eq(cond.getSigunguCode()));
+            } else {
+                builder.and(qAptPriceJj.sigunguCode.eq(cond.getSigunguCode()));
+            }
+        }
+
+        if (hasText(cond.getDealYear())) {
+            builder.and(qAptPriceJj.dealYear.eq(cond.getDealYear()));
+            if (hasText(cond.getDealMon())) {
+                builder.and(qAptPriceJj.dealMon.eq(cond.getDealMon()));
+            }
+        }
+        if (hasText(cond.getUaType())) {
+            builder.and(qAptPriceJj.useAreaType.eq(cond.getUaType()));
+        }
+        if (hasText(cond.getLandDong())) {
+            builder.and(qAptPriceJj.landDong.eq(cond.getLandDong()));
+        }
+
+        return queryFactory.selectFrom(qAptPriceJj)
+                .where(builder)
+                .orderBy(qAptPriceJj.dealDate.desc())
                 .limit(200)
                 .fetch().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
@@ -249,6 +342,72 @@ public class TradeRepository {
         return queryFactory.selectFrom(qAptPriceGw)
                 .where(builder)
                 .orderBy(qAptPriceGw.dealDate.desc())
+                .fetch().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    }
+
+    public List<AptPriceResponseDto> findAptTradeList_CC(TradeSearchCond cond, int term) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(cond.getSigunguCode())) {
+            builder.and(qAptPriceCc.sigunguCode.eq(cond.getSigunguCode()));
+        }
+        builder.and(qAptPriceCc.dealYear.goe(Common.calcYearByTerm(term)));
+        if (cond.getUseAreaTrunc() != 0) {
+            builder.and(qAptPriceCc.useAreaTrunc.eq(cond.getUseAreaTrunc()));
+        }
+        if (hasText(cond.getAptName())) {
+            builder.and(qAptPriceCc.aptName.eq(cond.getAptName()));
+        }
+        if (hasText(cond.getLandDong())) {
+            builder.and(qAptPriceCc.landDong.eq(cond.getLandDong()));
+        }
+
+        return queryFactory.selectFrom(qAptPriceCc)
+                .where(builder)
+                .orderBy(qAptPriceCc.dealDate.desc())
+                .fetch().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    }
+
+    public List<AptPriceResponseDto> findAptTradeList_JL(TradeSearchCond cond, int term) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(cond.getSigunguCode())) {
+            builder.and(qAptPriceJl.sigunguCode.eq(cond.getSigunguCode()));
+        }
+        builder.and(qAptPriceJl.dealYear.goe(Common.calcYearByTerm(term)));
+        if (cond.getUseAreaTrunc() != 0) {
+            builder.and(qAptPriceJl.useAreaTrunc.eq(cond.getUseAreaTrunc()));
+        }
+        if (hasText(cond.getAptName())) {
+            builder.and(qAptPriceJl.aptName.eq(cond.getAptName()));
+        }
+        if (hasText(cond.getLandDong())) {
+            builder.and(qAptPriceJl.landDong.eq(cond.getLandDong()));
+        }
+
+        return queryFactory.selectFrom(qAptPriceJl)
+                .where(builder)
+                .orderBy(qAptPriceJl.dealDate.desc())
+                .fetch().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    }
+
+    public List<AptPriceResponseDto> findAptTradeList_JJ(TradeSearchCond cond, int term) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(cond.getSigunguCode())) {
+            builder.and(qAptPriceJj.sigunguCode.eq(cond.getSigunguCode()));
+        }
+        builder.and(qAptPriceJj.dealYear.goe(Common.calcYearByTerm(term)));
+        if (cond.getUseAreaTrunc() != 0) {
+            builder.and(qAptPriceJj.useAreaTrunc.eq(cond.getUseAreaTrunc()));
+        }
+        if (hasText(cond.getAptName())) {
+            builder.and(qAptPriceJj.aptName.eq(cond.getAptName()));
+        }
+        if (hasText(cond.getLandDong())) {
+            builder.and(qAptPriceJj.landDong.eq(cond.getLandDong()));
+        }
+
+        return queryFactory.selectFrom(qAptPriceJj)
+                .where(builder)
+                .orderBy(qAptPriceJj.dealDate.desc())
                 .fetch().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
 

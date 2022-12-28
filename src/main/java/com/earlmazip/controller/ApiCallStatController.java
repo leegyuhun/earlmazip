@@ -63,6 +63,8 @@ public class ApiCallStatController {
         List<ApiCallStat> apiCalls;
         if (gubn.equals("TOTAL")) {
             apiCalls = apiCallStatService.findAllToday(date);
+        } else if (gubn.equals("error")){
+            apiCalls = apiCallStatService.findTodayError(date);
         } else {
             apiCalls = apiCallStatService.findGubnToday(date, gubn);
         }

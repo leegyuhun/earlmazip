@@ -110,16 +110,30 @@ public class TradeController {
             return "tradelist/busan";
         } else if (areaCode.equals("27")) {
             return "tradelist/daegu";
+        } else if (areaCode.equals("29")) {
+            return "tradelist/gwangju";
+        } else if (areaCode.equals("30")) {
+            return "tradelist/daejeon";
         } else if (areaCode.equals("31")) {
             return "tradelist/ulsan";
+        } else if (areaCode.equals("42")) {
+            return "tradelist/gangwon";
+        } else if (areaCode.equals("43")) {
+            return "tradelist/ccNorth";
+        } else if (areaCode.equals("44")) {
+            return "tradelist/ccSouth";
+        } else if (areaCode.equals("45")) {
+            return "tradelist/jlNorth";
+        } else if (areaCode.equals("46")) {
+            return "tradelist/jlSouth";
         } else if (areaCode.equals("47")) {
             return "tradelist/gsNorth";
         } else if (areaCode.equals("48")) {
             return "tradelist/gsSouth";
-        } else if (areaCode.equals("42")) {
-            return "tradelist/gangwon";
-        } else {
+        } else if (areaCode.equals("36")) {
             return "tradelist/sejong";
+        } else {
+            return "tradelist/jeju";
         }
     }
 

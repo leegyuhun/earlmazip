@@ -42,12 +42,18 @@ public class ApiCallStatService {
         return apiStatisticsRepository.findGubnTodayDetail(date);
     }
 
+
+
     public List<ApiCallStat> findAllToday(String date) {
         return apiStatisticsRepository.findAllToday(date);
     }
 
     public List<ApiCallStat> findGubnToday(String date, String gubn) {
         return apiStatisticsRepository.findGubnToday(date, gubn);
+    }
+
+    public List<ApiCallStat> findTodayError(String date) {
+        return apiStatisticsRepository.findTodayError(date);
     }
 
 }

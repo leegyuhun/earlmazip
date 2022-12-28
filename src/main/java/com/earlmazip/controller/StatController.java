@@ -111,16 +111,30 @@ public class StatController {
             return "stat_trade/useAreaType/busan";
         } else if (areaCode.equals("27")) {
             return "stat_trade/useAreaType/daegu";
+        } else if (areaCode.equals("29")) {
+            return "stat_trade/useAreaType/gwangju";
+        } else if (areaCode.equals("30")) {
+            return "stat_trade/useAreaType/daejeon";
         } else if (areaCode.equals("31")) {
             return "stat_trade/useAreaType/ulsan";
+        } else if (areaCode.equals("42")) {
+            return "stat_trade/useAreaType/gangwon";
+        } else if (areaCode.equals("43")) {
+            return "stat_trade/useAreaType/ccNorth";
+        } else if (areaCode.equals("44")) {
+            return "stat_trade/useAreaType/ccSouth";
+        } else if (areaCode.equals("45")) {
+            return "stat_trade/useAreaType/jlNorth";
+        } else if (areaCode.equals("46")) {
+            return "stat_trade/useAreaType/jlSouth";
         } else if (areaCode.equals("47")) {
             return "stat_trade/useAreaType/gsNorth";
         } else if (areaCode.equals("48")) {
             return "stat_trade/useAreaType/gsSouth";
-        } else if (areaCode.equals("42")) {
-            return "stat_trade/useAreaType/gangwon";
-        } else {
+        } else if (areaCode.equals("36")) {
             return "stat_trade/useAreaType/sejong";
+        } else {
+            return "stat_trade/useAreaType/jeju";
         }
 
     }
@@ -443,16 +457,30 @@ public class StatController {
             return "stat_trade/top/busan";
         } else if (areaCode.equals("27")) {
             return "stat_trade/top/daegu";
+        } else if (areaCode.equals("29")) {
+            return "stat_trade/top/gwangju";
+        } else if (areaCode.equals("30")) {
+            return "stat_trade/top/daejeon";
         } else if (areaCode.equals("31")) {
             return "stat_trade/top/ulsan";
+        } else if (areaCode.equals("43")) {
+            return "stat_trade/top/ccNorth";
+        } else if (areaCode.equals("44")) {
+            return "stat_trade/top/ccSouth";
+        } else if (areaCode.equals("45")) {
+            return "stat_trade/top/jlNorth";
+        } else if (areaCode.equals("46")) {
+            return "stat_trade/top/jlSouth";
         } else if (areaCode.equals("47")) {
             return "stat_trade/top/gsNorth";
         } else if (areaCode.equals("48")) {
             return "stat_trade/top/gsSouth";
         } else if (areaCode.equals("42")) {
             return "stat_trade/top/gangwon";
-        } else {
+        } else if (areaCode.equals("36")) {
             return "stat_trade/top/sejong";
+        } else {
+            return "stat_trade/top/jeju";
         }
     }
 }
