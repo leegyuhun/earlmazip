@@ -18,7 +18,7 @@ public class EcosDataService {
     private final PopulationRepository populationRepository;
 
     public List<EcosDataResponseDto> getEcosData(String statCode, String itemCode1, String itemCode2, String term) {
-        return ecosDataRepository.getEcosData(statCode, itemCode1, itemCode2, term);
+        return ecosDataRepository.getEcosData(statCode, itemCode1, itemCode2, term).stream().map(EcosDataResponseDto::new).collect(Collectors.toList());
     }
 
     public List<PopulationResponseDto> getPopulationSigungu(String sigunguCode, int sortType) {

@@ -5,52 +5,20 @@
 
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
-    <!--    <a th:text="${year}"></a>-->
     <div>
         <p>
             <h5 align="center" th:text="|${title} - 신고가|"></h5>
             <h6 align="center" th:text="|* ${uaStr} |"></h6>
         </p>
+
         <p>
             <div class="d-flex gap-2 justify-content-center">
                 <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
                     <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        강북
+                        구선택
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11305&uaType={uaType} (uaType=${uaType})}">강북구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11215&uaType={uaType} (uaType=${uaType})}">광진구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11350&uaType={uaType} (uaType=${uaType})}">노원구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11320&uaType={uaType} (uaType=${uaType})}">도봉구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11230&uaType={uaType} (uaType=${uaType})}">동대문</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11440&uaType={uaType} (uaType=${uaType})}">마포구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11410&uaType={uaType} (uaType=${uaType})}">서대문</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11200&uaType={uaType} (uaType=${uaType})}">성동구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11290&uaType={uaType} (uaType=${uaType})}">성북구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11470&uaType={uaType} (uaType=${uaType})}">양천구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11170&uaType={uaType} (uaType=${uaType})}">용산구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11380&uaType={uaType} (uaType=${uaType})}">은평구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11110&uaType={uaType} (uaType=${uaType})}">종로구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11260&uaType={uaType} (uaType=${uaType})}">중랑구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11140&uaType={uaType} (uaType=${uaType})}">중 구</a></li>
-                    </ul>
-                </div>
-                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
-                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        강남
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11680&uaType={uaType} (uaType=${uaType})}">강남구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11740&uaType={uaType} (uaType=${uaType})}">강동구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11500&uaType={uaType} (uaType=${uaType})}">강서구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11620&uaType={uaType} (uaType=${uaType})}">관악구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11530&uaType={uaType} (uaType=${uaType})}">구로구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11545&uaType={uaType} (uaType=${uaType})}">금천구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11590&uaType={uaType} (uaType=${uaType})}">동작구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11650&uaType={uaType} (uaType=${uaType})}">서초구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11710&uaType={uaType} (uaType=${uaType})}">송파구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11470&uaType={uaType} (uaType=${uaType})}">양천구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/newHighest?sigunguCode=11560&uaType={uaType} (uaType=${uaType})}">영등포</a></li>
+                        <li><a class="dropdown-item" th:each="sigunguList : ${sigunguList}" th:text="${sigunguList.sigunguName}" th:href="@{/tradelist/newHighest?sigunguCode={sigunguCode}&uaType={uaType}&landDong={landDong} (sigunguCode=${sigunguList.sigunguCode}, uaType=${uaType}, landDong=${landDong})}"></a></li>
                     </ul>
                 </div>
                 <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
@@ -80,6 +48,7 @@
                 </div>
             </div>
         </p>
+
         <div>
             <ins class="kakao_ad_area" style="display:none;"
                  data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
@@ -87,6 +56,7 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
+
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">

@@ -1,6 +1,7 @@
 package com.earlmazip.controller;
 
 import com.earlmazip.controller.dto.*;
+import com.earlmazip.domain.SigunguCode;
 import com.earlmazip.service.*;
 import com.earlmazip.utils.Common;
 import lombok.Data;
@@ -47,6 +48,14 @@ public class StatController {
         modal.addAttribute("headerTitle", "월별 매매 통계");
         return "stat_trade/top/home";
     }
+
+    @RequestMapping("/stat_trade/ByDealType/home")
+    public String home_statDealType(Model modal) {
+        String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        modal.addAttribute("udt", udt);
+        modal.addAttribute("headerTitle", "월별 매매 통계");
+        return "stat_trade/dealType/home";
+    }
     /**
      * 서울/경기/인천 구별,평형대별,월별 매매 통계
      * @param sigunguCode
@@ -87,7 +96,9 @@ public class StatController {
         Collections.reverse(dates);
         Collections.reverse(avgprc);
         Collections.reverse(tradcnt);
-
+        String areaCode = sigunguCode.substring(0, 2);
+        List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
+        model.addAttribute("sigunguList", sigunguList);
         model.addAttribute("title",  title);
         model.addAttribute("headerTitle", title + " 월별 통계");
         model.addAttribute("sigunguCode",  sigunguCode);
@@ -100,43 +111,15 @@ public class StatController {
         model.addAttribute("avgprc", avgprc);
         model.addAttribute("tradcnt", tradcnt);
         model.addAttribute("interestRates", interestRates);
-        String areaCode = sigunguCode.substring(0, 2);
         if (areaCode.equals("11")) {
             return "stat_trade/useAreaType/seoul";
         } else if (areaCode.equals("41")) {
             return "stat_trade/useAreaType/gyunggi";
-        } else if(areaCode.equals("28")){
-            return "stat_trade/useAreaType/incheon";
-        } else if (areaCode.equals("26")){
-            return "stat_trade/useAreaType/busan";
-        } else if (areaCode.equals("27")) {
-            return "stat_trade/useAreaType/daegu";
-        } else if (areaCode.equals("29")) {
-            return "stat_trade/useAreaType/gwangju";
-        } else if (areaCode.equals("30")) {
-            return "stat_trade/useAreaType/daejeon";
-        } else if (areaCode.equals("31")) {
-            return "stat_trade/useAreaType/ulsan";
-        } else if (areaCode.equals("42")) {
-            return "stat_trade/useAreaType/gangwon";
-        } else if (areaCode.equals("43")) {
-            return "stat_trade/useAreaType/ccNorth";
-        } else if (areaCode.equals("44")) {
-            return "stat_trade/useAreaType/ccSouth";
-        } else if (areaCode.equals("45")) {
-            return "stat_trade/useAreaType/jlNorth";
-        } else if (areaCode.equals("46")) {
-            return "stat_trade/useAreaType/jlSouth";
-        } else if (areaCode.equals("47")) {
-            return "stat_trade/useAreaType/gsNorth";
-        } else if (areaCode.equals("48")) {
-            return "stat_trade/useAreaType/gsSouth";
-        } else if (areaCode.equals("36")) {
-            return "stat_trade/useAreaType/sejong";
+        } else if (areaCode.equals("28") || areaCode.equals("26") || areaCode.equals("27") || areaCode.equals("29") || areaCode.equals("30") || areaCode.equals("31")) {
+            return "stat_trade/useAreaType/guSelect";
         } else {
-            return "stat_trade/useAreaType/jeju";
+            return "stat_trade/useAreaType/regionSelect";
         }
-
     }
 
     /**
@@ -357,6 +340,10 @@ public class StatController {
         Collections.reverse(avgprc0);
         Collections.reverse(avgprc1);
 
+        String areaCode = sigunguCode.substring(0, 2);
+        List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
+
+        model.addAttribute("sigunguList", sigunguList);
         model.addAttribute("title",  title);
         model.addAttribute("title2",  title2);
         model.addAttribute("headerTitle", title + " 직/중개 통계");
@@ -369,12 +356,15 @@ public class StatController {
         model.addAttribute("avgprc", avgprc);
         model.addAttribute("avgprc0", avgprc0);
         model.addAttribute("avgprc1", avgprc1);
-        if (sigunguCode.substring(0, 2).equals("11")) {
+
+        if (areaCode.equals("11")) {
             return "stat_trade/dealType/seoul";
-        } else if (sigunguCode.substring(0, 2).equals("41")) {
+        } else if (areaCode.equals("41")) {
             return "stat_trade/dealType/gyunggi";
+        } else if (areaCode.equals("28") || areaCode.equals("26") || areaCode.equals("27") || areaCode.equals("29") || areaCode.equals("30") || areaCode.equals("31")) {
+            return "stat_trade/dealType/guSelect";
         } else {
-            return "stat_trade/dealType/incheon";
+            return "stat_trade/dealType/regionSelect";
         }
     }
 
@@ -439,48 +429,23 @@ public class StatController {
         } else {
             tops = new ArrayList<>();
         }
-
+        String areaCode = sigunguCode.substring(0, 2);
+        List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
+        model.addAttribute("sigunguList", sigunguList);
         model.addAttribute("title",  title);
         model.addAttribute("list", tops);
         model.addAttribute("uaType", uaType);
         model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
         model.addAttribute("year", year);
         model.addAttribute("sigunguCode", sigunguCode);
-        String areaCode = sigunguCode.substring(0, 2);
         if (areaCode.equals("11")) {
             return "stat_trade/top/seoul";
         } else if (areaCode.equals("41")) {
             return "stat_trade/top/gyunggi";
-        } else if(areaCode.equals("28")){
-            return "stat_trade/top/incheon";
-        } else if (areaCode.equals("26")){
-            return "stat_trade/top/busan";
-        } else if (areaCode.equals("27")) {
-            return "stat_trade/top/daegu";
-        } else if (areaCode.equals("29")) {
-            return "stat_trade/top/gwangju";
-        } else if (areaCode.equals("30")) {
-            return "stat_trade/top/daejeon";
-        } else if (areaCode.equals("31")) {
-            return "stat_trade/top/ulsan";
-        } else if (areaCode.equals("43")) {
-            return "stat_trade/top/ccNorth";
-        } else if (areaCode.equals("44")) {
-            return "stat_trade/top/ccSouth";
-        } else if (areaCode.equals("45")) {
-            return "stat_trade/top/jlNorth";
-        } else if (areaCode.equals("46")) {
-            return "stat_trade/top/jlSouth";
-        } else if (areaCode.equals("47")) {
-            return "stat_trade/top/gsNorth";
-        } else if (areaCode.equals("48")) {
-            return "stat_trade/top/gsSouth";
-        } else if (areaCode.equals("42")) {
-            return "stat_trade/top/gangwon";
-        } else if (areaCode.equals("36")) {
-            return "stat_trade/top/sejong";
+        } else if (areaCode.equals("28") || areaCode.equals("26") || areaCode.equals("27") || areaCode.equals("29") || areaCode.equals("30") || areaCode.equals("31")) {
+            return "stat_trade/top/guSelect";
         } else {
-            return "stat_trade/top/jeju";
+            return "stat_trade/top/regionSelect";
         }
     }
 }

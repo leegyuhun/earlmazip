@@ -2,6 +2,8 @@ package com.earlmazip.repository;
 
 import com.earlmazip.domain.CodeInfo;
 import com.earlmazip.domain.QCodeInfo;
+import com.earlmazip.domain.QSigunguCode;
+import com.earlmazip.domain.SigunguCode;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,8 @@ public class CodeInfoRepository {
 
     QCodeInfo qCodeInfo = QCodeInfo.codeInfo;
 
+    QSigunguCode qSigunguCode = QSigunguCode.sigunguCode1;
+
     public CodeInfoRepository(EntityManager em) {
         this.em = em;
         this.queryFactory = new JPAQueryFactory(em);
@@ -37,5 +41,14 @@ public class CodeInfoRepository {
                 .fetchOne();
 
         return codeInfo.getCodeName();
+    }
+
+    public List<SigunguCode> getSigunguList(String areaCode) {
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qSigunguCode.areaCode.eq(areaCode));
+
+        return queryFactory.selectFrom(qSigunguCode)
+                .where(builder)
+                .fetch();
     }
 }

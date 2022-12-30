@@ -7,11 +7,33 @@
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
     <!--    <a th:text="${year}"></a>-->
     <div>
-        <div>
-            <a href="/stat_etc/distribution?areaCode=11">서울&nbsp</a>
-            <a href="/stat_etc/distribution?areaCode=41">&nbsp경기&nbsp</a>
-            <a href="/stat_etc/distribution?areaCode=28">&nbsp인천&nbsp</a>
-        </div>
+        <p>
+            <div class="d-flex gap-2 justify-content-center">
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        지역선택
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/distribution?areaCode=11}">서울</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/distribution?areaCode=41}">경기</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/distribution?areaCode=28}">인천</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/distribution?areaCode=26}">부산</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/distribution?areaCode=27}">대구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/distribution?areaCode=29}">광주</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/distribution?areaCode=30}">대전</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/distribution?areaCode=31}">울산</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/distribution?areaCode=47}">경북</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/distribution?areaCode=48}">경남</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/distribution?areaCode=42}">강원</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/distribution?areaCode=43}">충북</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/distribution?areaCode=44}">충남</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/distribution?areaCode=45}">전북</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/distribution?areaCode=46}">전남</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_etc/distribution?areaCode=50}">제주</a></li>
+                    </ul>
+                </div>
+            </div>
+        </p>
         <p>
             <h4 align="center" th:text="${title}"></h4>
         </p>

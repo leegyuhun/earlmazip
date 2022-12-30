@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <!--    <a th:text="${year}"></a>-->
+    <div>
+        <p>
+            <h4 align="center" th:text="${title}"></h4>
+        </p>
+
+        <p>
+            <div class="d-flex gap-2 justify-content-center">
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        강북
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11305}">강북구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11215}">광진구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11350}">노원구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11320}">도봉구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11230}">동대문</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11440}">마포구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11410}">서대문</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11200}">성동구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11290}">성북구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11470}">양천구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11170}">용산구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11380}">은평구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11110}">종로구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11260}">중랑구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11140}">중 구</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        강남
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11680}">강남구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11740}">강동구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11500}">강서구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11620}">관악구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11530}">구로구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11545}">금천구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11590}">동작구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11650}">서초구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11710}">송파구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11470}">양천구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tradelist/cancelDeal?sigunguCode=11560}">영등포</a></li>
+                    </ul>
+                </div>
+            </div>
+        </p>
+
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+                    <th>취소일자</br>계약일자</th>
+                    <th>아파트</th>
+                    <th>전용</br>(m<sup>2</sup>)</th>
+                    <th>금액</br>신고가</th>
+                    <th>직/중개</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="font-size:12px;" th:each="list : ${list}">
+                    <td align="center">
+                        <div>
+                            <a style="font-weight: bolder"  align="center" th:text="${list.cnclDealDate}"></a></br>
+                            <a th:text="${list.dealDate}"></a>
+                        </div>
+                    </td>
+                    <td align="left">
+                        <div>
+                            <a th:text="${list.landDong}"></a></br>
+                            <a style="font-weight: bolder" th:text="${list.aptName}"></a></br>
+                            <a th:text="|[${list.buildYear}] ${list.floor}층|"></a>
+                        </div>
+                    </td>
+                    <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>
+                    <td align="right">
+                        <div>
+                            <a style="font-weight: bolder" th:text="${list.dealAmtStr}"></a></br>
+                            <a th:text="${list.newHighest}"></a>
+                        </div>
+                    </td>
+                    <td align="center" th:text="${list.dealType}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>

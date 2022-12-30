@@ -78,8 +78,8 @@ public class LeaseRepository {
         }
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         // 현재날짜
-        String date = simpleDateFormat.format(new Date());
-        builder.and(qAptLeaseRaw.dealYear.eq(date.substring(0, 4)));
+//        String date = simpleDateFormat.format(new Date());
+//        builder.and(qAptLeaseRaw.dealYear.eq(date.substring(0, 4)));
         builder.and(qAptLeaseRaw.dealType.eq("갱신"));
 
         return queryFactory.selectFrom(qAptLeaseRaw)

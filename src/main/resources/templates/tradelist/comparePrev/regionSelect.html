@@ -15,19 +15,10 @@
             <div class="d-flex gap-2 justify-content-center">
                 <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
                     <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        구선택
+                        지역 선택
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=28710&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">강화군</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=28245&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">계양구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=28200&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">남동구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=28140&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">동구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=28177&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">미추홀구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=28237&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">부평구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=28260&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">서구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=28185&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">연수구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=28720&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">올진군</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tradelist/comparePrev?sigunguCode=28110&type={type}&uaType={uaType} (type=${type}, uaType=${uaType})}">중구</a></li>
+                        <li><a class="dropdown-item" th:each="sigunguList : ${sigunguList}" th:text="${sigunguList.sigunguName}" th:href="@{/tradelist/comparePrev?sigunguCode={sigunguCode}&type={type}&uaType={uaType}&landDong={landDong} (sigunguCode=${sigunguList.sigunguCode}, type=${type}, uaType=${uaType}, landDong=${landDong})}"></a></li>
                     </ul>
                 </div>
                 <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">

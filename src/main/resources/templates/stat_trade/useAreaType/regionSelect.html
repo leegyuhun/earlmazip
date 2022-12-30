@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <p>
+        <div class="d-flex gap-4 justify-content-center">
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    지역 선택
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:each="sigunguList : ${sigunguList}" th:text="${sigunguList.sigunguName}" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={uaType}&term={term} (sigunguCode=${sigunguList.sigunguCode}, uaType=${uaType}, term=${term})}"></a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    평형
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA01&term={term} (sigunguCode=${sigunguCode}, term=${term})}">전체</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA02&term={term} (sigunguCode=${sigunguCode}, term=${term})}">소형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA08&term={term} (sigunguCode=${sigunguCode}, term=${term})}">전용59</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA03&term={term} (sigunguCode=${sigunguCode}, term=${term})}">중소형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA07&term={term} (sigunguCode=${sigunguCode}, term=${term})}">국평</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA04&term={term} (sigunguCode=${sigunguCode}, term=${term})}">중형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA05&term={term} (sigunguCode=${sigunguCode}, term=${term})}">중대형</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType=UA06&term={term} (sigunguCode=${sigunguCode}, term=${term})}">대형</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    기간
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={uaType}&term=0 (sigunguCode=${sigunguCode}, uaType=${uaType})}">올해</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={uaType}&term=5 (sigunguCode=${sigunguCode}, uaType=${uaType})}">5년</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={uaType}&term=10 (sigunguCode=${sigunguCode}, uaType=${uaType})}">10년</a></li>
+                    <li><a class="dropdown-item" th:href="@{/stat_trade/useareaType?sigunguCode={sigunguCode}&uaType={uaType}&term=15 (sigunguCode=${sigunguCode}, uaType=${uaType})}">15년</a></li>
+                </ul>
+            </div>
+        </div>
+        </p>
+        <p>
+            <h5 align="center" th:text="|[ ${title} ${termStr} ]|"></h5>
+            <h6 align="center" th:text="|* ${uaStr} |"></h6>
+        </p>
+        <div>
+            <canvas id="myChart"></canvas>
+        </div>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+                    <th>년-월</th>
+                    <th>최저</th>
+                    <th>평균</th>
+                    <th>최고</th>
+                    <th>거래건수<br/>신고가율</th>
+                    <th>평균<br/>전용<br/>(m<sup>2</sup>)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="font-size:12px;" th:each="list : ${list}">
+                    <td align="center" th:text="${list.dealYYMM}"></td>
+                    <td align="right" th:text="${list.minPriceStr}"></td>
+                    <td align="right" style="font-weight: bolder" th:text="${list.avgPriceStr}"></td>
+                    <td align="right" th:text="${list.maxPriceStr}"></td>
+                    <td>
+                        <div align="right">
+                            <a th:text="|${#numbers.formatInteger(list.cnt,1,'COMMA')} 건|"></a></br>
+                            <a style="font-weight: bolder" th:text="|${#numbers.formatDecimal(list.highestRate,1,1,'POINT')} %|"></a>
+                        </div>
+                    </td>
+<!--                    <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>-->
+<!--                    <td align="right" th:text="${#numbers.formatDecimal(list.highestRate,1,1,'POINT')}"></td>-->
+                    <td align="right" th:text="${#numbers.formatDecimal(list.avgUseArea,1,1,'POINT')}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type = "text/javascript" th:inline="javascript">
+  const labels =  /*[[ ${dates.toArray()} ]]*/;
+  const avgPrices =  /*[[ ${avgprc.toArray()} ]]*/;
+  const tradcnt =  /*[[ ${tradcnt.toArray()} ]]*/;
+  const interestRates =  /*[[ ${interestRates.toArray()} ]]*/;
+
+  const data = {
+    labels: labels,
+    datasets: [{
+      type: 'line',
+      label: '평균 매매가',
+      yAxisID: 'y-line',
+      backgroundColor: 'rgb(255, 99, 132)',
+      borderColor: 'rgb(255, 99, 132)',
+      pointRadius:1,
+      data: avgPrices
+      },{
+        type: 'line',
+        label: '기준금리',
+        yAxisID: 'y-line2',
+        backgroundColor: 'rgb(64, 64, 64)',
+        borderColor: 'rgb(64, 64, 64)',
+        pointRadius:1,
+        data: interestRates
+      },{
+        type: 'bar',
+        label: '거래건수',
+        yAxisID: 'y-bar',
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgb(54, 162, 235)',
+        data: tradcnt
+      }
+    ]
+  };
+
+  const config = {
+    data: data,
+    options: {
+        scales:{
+            'y-line':{
+                position: 'left',
+                suggestedMin: 0,
+                ticks:{
+				    color: 'rgb(255, 99, 132)'
+				},
+                title: {
+                    display: true,
+                    color: 'rgb(255, 99, 132)',
+                    text: '평균매매가(억)'
+                }
+            },
+            'y-line2':{
+                position: 'left',
+                suggestedMin: 0,
+                suggestedMax: 7,
+                ticks:{
+				    color: 'rgb(64, 64, 64)'
+				},
+				grid:{
+                    display: false
+                },
+                title: {
+                    display: true,
+                    color: 'rgb(64, 64, 64)',
+                    text: '한국은행 기준금리'
+                }
+            },
+            'y-bar':{
+                position: 'right',
+                suggestedMin: 0,
+                grid:{
+                    display: false
+                },
+                ticks:{
+				    color: 'rgb(54, 162, 235)'
+				},
+                title: {
+                    display: true,
+                    color: 'rgb(54, 162, 235)',
+                    text: '거래건수'
+                }
+            }
+        }
+    }
+  };
+</script>
+<script>
+  const myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
+
+</html>

@@ -3,6 +3,7 @@ package com.earlmazip.controller;
 import com.earlmazip.controller.dto.AptPriceResponseDto;
 import com.earlmazip.controller.dto.LandDongInfoDto;
 import com.earlmazip.controller.dto.TradeSearchCond;
+import com.earlmazip.domain.SigunguCode;
 import com.earlmazip.service.*;
 import com.earlmazip.utils.Common;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +44,14 @@ public class TradeController {
         modal.addAttribute("udt", udt);
         modal.addAttribute("headerTitle", "월별 매매 통계");
         return "tradelist/newHighest/home";
+    }
+
+    @RequestMapping("/tradelist/cancelDeal/home")
+    public String home_tradelistCancelDeal(Model modal) {
+        String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        modal.addAttribute("udt", udt);
+        modal.addAttribute("headerTitle", "월별 매매 통계");
+        return "tradelist/cancelDeal/home";
     }
 
     /** 최근 매매내역 200
@@ -86,11 +95,13 @@ public class TradeController {
         } else{
             trads = new ArrayList<>();
         }
-
+        String areaCode = sigunguCode.substring(0, 2);
+        List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
         List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
         if (!landDong.equals("")) {
             title += " " + landDong;
         }
+        model.addAttribute("sigunguList", sigunguList);
         model.addAttribute("dongList", dongList);
         model.addAttribute("landDong", landDong);
         model.addAttribute("list", trads);
@@ -99,41 +110,14 @@ public class TradeController {
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("headerTitle", title + " 최근 매매");
         model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
-        String areaCode = sigunguCode.substring(0, 2);
         if (areaCode.equals("11")) {
             return "tradelist/seoul";
         } else if (areaCode.equals("41")) {
             return "tradelist/gyunggi";
-        } else if(areaCode.equals("28")){
-            return "tradelist/incheon";
-        } else if (areaCode.equals("26")){
-            return "tradelist/busan";
-        } else if (areaCode.equals("27")) {
-            return "tradelist/daegu";
-        } else if (areaCode.equals("29")) {
-            return "tradelist/gwangju";
-        } else if (areaCode.equals("30")) {
-            return "tradelist/daejeon";
-        } else if (areaCode.equals("31")) {
-            return "tradelist/ulsan";
-        } else if (areaCode.equals("42")) {
-            return "tradelist/gangwon";
-        } else if (areaCode.equals("43")) {
-            return "tradelist/ccNorth";
-        } else if (areaCode.equals("44")) {
-            return "tradelist/ccSouth";
-        } else if (areaCode.equals("45")) {
-            return "tradelist/jlNorth";
-        } else if (areaCode.equals("46")) {
-            return "tradelist/jlSouth";
-        } else if (areaCode.equals("47")) {
-            return "tradelist/gsNorth";
-        } else if (areaCode.equals("48")) {
-            return "tradelist/gsSouth";
-        } else if (areaCode.equals("36")) {
-            return "tradelist/sejong";
+        } else if (areaCode.equals("28") || areaCode.equals("26") || areaCode.equals("27") || areaCode.equals("29") || areaCode.equals("30") || areaCode.equals("31")) {
+            return "tradelist/guSelect";
         } else {
-            return "tradelist/jeju";
+            return "tradelist/regionSelect";
         }
     }
 
@@ -162,12 +146,21 @@ public class TradeController {
         } else {
             trads = new ArrayList<>();
         }
-
+        String areaCode = sigunguCode.substring(0, 2);
+        List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
+        model.addAttribute("sigunguList", sigunguList);
         model.addAttribute("title",  "[ "+ title + " ]");
         model.addAttribute("headerTitle", title + " 취소거래");
         model.addAttribute("list", trads);
-
-        return "tradelist/cancelDeal";
+        if (areaCode.equals("11")) {
+            return "tradelist/cancelDeal/seoul";
+        } else if (areaCode.equals("41")) {
+            return "tradelist/cancelDeal/gyunggi";
+        } else if (areaCode.equals("28") || areaCode.equals("26") || areaCode.equals("27") || areaCode.equals("29") || areaCode.equals("30") || areaCode.equals("31")) {
+            return "tradelist/cancelDeal/guSelect";
+        } else {
+            return "tradelist/cancelDeal/regionSelect";
+        }
     }
 
     /**
@@ -208,7 +201,11 @@ public class TradeController {
         if (!landDong.equals("")) {
             title += " " + landDong;
         }
+        String areaCode = sigunguCode.substring(0, 2);
+
         List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
+        List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
+        model.addAttribute("sigunguList", sigunguList);
         model.addAttribute("dongList", dongList);
         model.addAttribute("list", trads);
         model.addAttribute("sigunguCode", sigunguCode);
@@ -216,13 +213,15 @@ public class TradeController {
         model.addAttribute("landDong", landDong);
         model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
         model.addAttribute("title",  "[ "+ title + " ]");
-        model.addAttribute("headerTitle", title + " 2022 신고가내역");
-        if (sigunguCode.substring(0, 2).equals("11")) {
+        model.addAttribute("headerTitle", title + " 신고가내역");
+        if (areaCode.equals("11")) {
             return "tradelist/newHighest/seoul";
-        } else if (sigunguCode.substring(0, 2).equals("41")) {
+        } else if (areaCode.equals("41")) {
             return "tradelist/newHighest/gyunggi";
+        } else if (areaCode.equals("28") || areaCode.equals("26") || areaCode.equals("27") || areaCode.equals("29") || areaCode.equals("30") || areaCode.equals("31")) {
+            return "tradelist/newHighest/guSelect";
         } else {
-            return "tradelist/newHighest/incheon";
+            return "tradelist/newHighest/regionSelect";
         }
     }
 

@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+<div class="container">
+
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+
+    <div>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <h6>거래유형별 통계</h6>
+        <p>
+            <a class="btn btn-primary" href="/stat_trade/ByDealType?sigunguCode=11&uaType=UA01">서울</a>
+            <a class="btn btn-primary" href="/stat_trade/ByDealType?sigunguCode=41&uaType=UA01">경기</a>
+            <a class="btn btn-primary" href="/stat_trade/ByDealType?sigunguCode=28&uaType=UA01">인천</a>
+            <a class="btn btn-primary" href="/stat_trade/ByDealType?sigunguCode=42&uaType=UA01">강원</a>
+            </br>
+            </br>
+            <a class="btn btn-primary" href="/stat_trade/ByDealType?sigunguCode=36110&uaType=UA01">세종</a>
+            <a class="btn btn-primary" href="/stat_trade/ByDealType?sigunguCode=30&uaType=UA01">대전</a>
+            <a class="btn btn-primary" href="/stat_trade/ByDealType?sigunguCode=43&uaType=UA01">충북</a>
+            <a class="btn btn-primary" href="/stat_trade/ByDealType?sigunguCode=44&uaType=UA01">충남</a>
+            </br>
+            </br>
+            <a class="btn btn-primary" href="/stat_trade/ByDealType?sigunguCode=26&uaType=UA01">부산</a>
+            <a class="btn btn-primary" href="/stat_trade/ByDealType?sigunguCode=27&uaType=UA01">대구</a>
+            <a class="btn btn-primary" href="/stat_trade/ByDealType?sigunguCode=31&uaType=UA01">울산</a>
+            <a class="btn btn-primary" href="/stat_trade/ByDealType?sigunguCode=47&uaType=UA01">경북</a>
+            <a class="btn btn-primary" href="/stat_trade/ByDealType?sigunguCode=48&uaType=UA01">경남</a>
+            </br>
+            </br>
+            <a class="btn btn-primary" href="/stat_trade/ByDealType?sigunguCode=29&uaType=UA01">광주</a>
+            <a class="btn btn-primary" href="/stat_trade/ByDealType?sigunguCode=45&uaType=UA01">전북</a>
+            <a class="btn btn-primary" href="/stat_trade/ByDealType?sigunguCode=46&uaType=UA01">전남</a>
+            <a class="btn btn-primary" href="/stat_trade/ByDealType?sigunguCode=50&uaType=UA01">제주</a>
+        </p>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+
+</div> <!-- /container -->
+<script>
+</script>
+</body>
+</html>

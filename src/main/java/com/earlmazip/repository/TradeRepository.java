@@ -226,25 +226,20 @@ public class TradeRepository {
      * @param type
      * @return
      */
-    public List<AptPriceRaw> findTradeComparePrevList(TradeSearchCond cond, String type) {
+    public List<AptPriceRaw> getTradeListComparePrev(TradeSearchCond cond, String type) {
         BooleanBuilder builder = new BooleanBuilder();
-        if (hasText(cond.getSigunguCode())) {
-            builder.and(qAptPriceRaw.sigunguCode.eq(cond.getSigunguCode()));
-        }
-
+        builder.and(qAptPriceRaw.sigunguCode.eq(cond.getSigunguCode()));
         if (hasText(cond.getUaType())) {
             builder.and(qAptPriceRaw.useAreaType.eq(cond.getUaType()));
         }
         if (hasText(cond.getLandDong())) {
             builder.and(qAptPriceRaw.landDong.eq(cond.getLandDong()));
         }
-
         if (type.equals("0")) {
             builder.and(qAptPriceRaw.prevDealAmt.lt(qAptPriceRaw.dealAmt));
         } else {
             builder.and(qAptPriceRaw.prevDealAmt.gt(qAptPriceRaw.dealAmt));
         }
-
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         // 현재날짜
         String date = simpleDateFormat.format(new Date());
@@ -254,6 +249,135 @@ public class TradeRepository {
         return queryFactory.selectFrom(qAptPriceRaw)
                 .where(builder)
                 .orderBy(qAptPriceRaw.dealDate.desc())
+                .fetch();
+    }
+
+    public List<AptPriceGs> getTradeListComparePrev_GS(TradeSearchCond cond, String type) {
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qAptPriceGs.sigunguCode.eq(cond.getSigunguCode()));
+        if (hasText(cond.getUaType())) {
+            builder.and(qAptPriceGs.useAreaType.eq(cond.getUaType()));
+        }
+        if (hasText(cond.getLandDong())) {
+            builder.and(qAptPriceGs.landDong.eq(cond.getLandDong()));
+        }
+        if (type.equals("0")) {
+            builder.and(qAptPriceGs.prevDealAmt.lt(qAptPriceGs.dealAmt));
+        } else {
+            builder.and(qAptPriceGs.prevDealAmt.gt(qAptPriceGs.dealAmt));
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        builder.and(qAptPriceGs.dealYear.eq(date.substring(0, 4)));
+        builder.and(qAptPriceGs.cnclDealDate.eq(""));
+
+        return queryFactory.selectFrom(qAptPriceGs)
+                .where(builder)
+                .orderBy(qAptPriceGs.dealDate.desc())
+                .fetch();
+    }
+
+    public List<AptPriceGw> getTradeListComparePrev_GW(TradeSearchCond cond, String type) {
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qAptPriceGw.sigunguCode.eq(cond.getSigunguCode()));
+        if (hasText(cond.getUaType())) {
+            builder.and(qAptPriceGw.useAreaType.eq(cond.getUaType()));
+        }
+        if (hasText(cond.getLandDong())) {
+            builder.and(qAptPriceGw.landDong.eq(cond.getLandDong()));
+        }
+        if (type.equals("0")) {
+            builder.and(qAptPriceGw.prevDealAmt.lt(qAptPriceGw.dealAmt));
+        } else {
+            builder.and(qAptPriceGw.prevDealAmt.gt(qAptPriceGw.dealAmt));
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        builder.and(qAptPriceGw.dealYear.eq(date.substring(0, 4)));
+        builder.and(qAptPriceGw.cnclDealDate.eq(""));
+
+        return queryFactory.selectFrom(qAptPriceGw)
+                .where(builder)
+                .orderBy(qAptPriceGw.dealDate.desc())
+                .fetch();
+    }
+
+    public List<AptPriceCc> getTradeListComparePrev_CC(TradeSearchCond cond, String type) {
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qAptPriceCc.sigunguCode.eq(cond.getSigunguCode()));
+        if (hasText(cond.getUaType())) {
+            builder.and(qAptPriceCc.useAreaType.eq(cond.getUaType()));
+        }
+        if (hasText(cond.getLandDong())) {
+            builder.and(qAptPriceCc.landDong.eq(cond.getLandDong()));
+        }
+        if (type.equals("0")) {
+            builder.and(qAptPriceCc.prevDealAmt.lt(qAptPriceCc.dealAmt));
+        } else {
+            builder.and(qAptPriceCc.prevDealAmt.gt(qAptPriceCc.dealAmt));
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        builder.and(qAptPriceCc.dealYear.eq(date.substring(0, 4)));
+        builder.and(qAptPriceCc.cnclDealDate.eq(""));
+
+        return queryFactory.selectFrom(qAptPriceCc)
+                .where(builder)
+                .orderBy(qAptPriceCc.dealDate.desc())
+                .fetch();
+    }
+
+    public List<AptPriceJl> getTradeListComparePrev_JL(TradeSearchCond cond, String type) {
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qAptPriceJl.sigunguCode.eq(cond.getSigunguCode()));
+        if (hasText(cond.getUaType())) {
+            builder.and(qAptPriceJl.useAreaType.eq(cond.getUaType()));
+        }
+        if (hasText(cond.getLandDong())) {
+            builder.and(qAptPriceJl.landDong.eq(cond.getLandDong()));
+        }
+        if (type.equals("0")) {
+            builder.and(qAptPriceJl.prevDealAmt.lt(qAptPriceJl.dealAmt));
+        } else {
+            builder.and(qAptPriceJl.prevDealAmt.gt(qAptPriceJl.dealAmt));
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        builder.and(qAptPriceJl.dealYear.eq(date.substring(0, 4)));
+        builder.and(qAptPriceJl.cnclDealDate.eq(""));
+
+        return queryFactory.selectFrom(qAptPriceJl)
+                .where(builder)
+                .orderBy(qAptPriceJl.dealDate.desc())
+                .fetch();
+    }
+    public List<AptPriceJj> getTradeListComparePrev_JJ(TradeSearchCond cond, String type) {
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qAptPriceJj.sigunguCode.eq(cond.getSigunguCode()));
+        if (hasText(cond.getUaType())) {
+            builder.and(qAptPriceJj.useAreaType.eq(cond.getUaType()));
+        }
+        if (hasText(cond.getLandDong())) {
+            builder.and(qAptPriceJj.landDong.eq(cond.getLandDong()));
+        }
+        if (type.equals("0")) {
+            builder.and(qAptPriceJj.prevDealAmt.lt(qAptPriceJj.dealAmt));
+        } else {
+            builder.and(qAptPriceJj.prevDealAmt.gt(qAptPriceJj.dealAmt));
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        builder.and(qAptPriceJj.dealYear.eq(date.substring(0, 4)));
+        builder.and(qAptPriceJj.cnclDealDate.eq(""));
+
+        return queryFactory.selectFrom(qAptPriceJj)
+                .where(builder)
+                .orderBy(qAptPriceJj.dealDate.desc())
                 .fetch();
     }
 
@@ -427,13 +551,149 @@ public class TradeRepository {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         // 현재날짜
         String date = simpleDateFormat.format(new Date());
-        builder.and(qAptPriceRaw.dealYear.eq(date.substring(0, 4)));
+        builder.and(qAptPriceRaw.dealYear.goe(date.substring(0, 4)));
         builder.and(qAptPriceRaw.newHighestPrice.eq(1));
         builder.and(qAptPriceRaw.cnclDealDate.eq(""));
 
         return queryFactory.selectFrom(qAptPriceRaw)
                 .where(builder)
                 .orderBy(qAptPriceRaw.dealDate.desc())
+                .limit(200)
+                .fetch();
+    }
+
+    public List<AptPriceGw> findNewHighestList_GW(String sigungucode, String uaType, String landDong) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(sigungucode)) {
+            builder.and(qAptPriceGw.sigunguCode.eq(sigungucode));
+        }
+        if (hasText(uaType)) {
+            if (!uaType.equals("UA01")) {
+                builder.and(qAptPriceGw.useAreaType.eq(uaType));
+            }
+        }
+        if (hasText(landDong)) {
+            builder.and(qAptPriceGw.landDong.eq(landDong));
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        builder.and(qAptPriceGw.dealYear.goe(date.substring(0, 4)));
+        builder.and(qAptPriceGw.newHighestPrice.eq(1));
+        builder.and(qAptPriceGw.cnclDealDate.eq(""));
+
+        return queryFactory.selectFrom(qAptPriceGw)
+                .where(builder)
+                .orderBy(qAptPriceGw.dealDate.desc())
+                .limit(200)
+                .fetch();
+    }
+
+    public List<AptPriceGs> findNewHighestList_GS(String sigungucode, String uaType, String landDong) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(sigungucode)) {
+            builder.and(qAptPriceGs.sigunguCode.eq(sigungucode));
+        }
+        if (hasText(uaType)) {
+            if (!uaType.equals("UA01")) {
+                builder.and(qAptPriceGs.useAreaType.eq(uaType));
+            }
+        }
+        if (hasText(landDong)) {
+            builder.and(qAptPriceGs.landDong.eq(landDong));
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        builder.and(qAptPriceGs.dealYear.goe(date.substring(0, 4)));
+        builder.and(qAptPriceGs.newHighestPrice.eq(1));
+        builder.and(qAptPriceGs.cnclDealDate.eq(""));
+
+        return queryFactory.selectFrom(qAptPriceGs)
+                .where(builder)
+                .orderBy(qAptPriceGs.dealDate.desc())
+                .limit(200)
+                .fetch();
+    }
+
+    public List<AptPriceCc> findNewHighestList_CC(String sigungucode, String uaType, String landDong) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(sigungucode)) {
+            builder.and(qAptPriceCc.sigunguCode.eq(sigungucode));
+        }
+        if (hasText(uaType)) {
+            if (!uaType.equals("UA01")) {
+                builder.and(qAptPriceCc.useAreaType.eq(uaType));
+            }
+        }
+        if (hasText(landDong)) {
+            builder.and(qAptPriceCc.landDong.eq(landDong));
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        builder.and(qAptPriceCc.dealYear.goe(date.substring(0, 4)));
+        builder.and(qAptPriceCc.newHighestPrice.eq(1));
+        builder.and(qAptPriceCc.cnclDealDate.eq(""));
+
+        return queryFactory.selectFrom(qAptPriceCc)
+                .where(builder)
+                .orderBy(qAptPriceCc.dealDate.desc())
+                .limit(200)
+                .fetch();
+    }
+
+    public List<AptPriceJl> findNewHighestList_JL(String sigungucode, String uaType, String landDong) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(sigungucode)) {
+            builder.and(qAptPriceJl.sigunguCode.eq(sigungucode));
+        }
+        if (hasText(uaType)) {
+            if (!uaType.equals("UA01")) {
+                builder.and(qAptPriceJl.useAreaType.eq(uaType));
+            }
+        }
+        if (hasText(landDong)) {
+            builder.and(qAptPriceJl.landDong.eq(landDong));
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        builder.and(qAptPriceJl.dealYear.goe(date.substring(0, 4)));
+        builder.and(qAptPriceJl.newHighestPrice.eq(1));
+        builder.and(qAptPriceJl.cnclDealDate.eq(""));
+
+        return queryFactory.selectFrom(qAptPriceJl)
+                .where(builder)
+                .orderBy(qAptPriceJl.dealDate.desc())
+                .limit(200)
+                .fetch();
+    }
+
+    public List<AptPriceJj> findNewHighestList_JJ(String sigungucode, String uaType, String landDong) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(sigungucode)) {
+            builder.and(qAptPriceJj.sigunguCode.eq(sigungucode));
+        }
+        if (hasText(uaType)) {
+            if (!uaType.equals("UA01")) {
+                builder.and(qAptPriceJj.useAreaType.eq(uaType));
+            }
+        }
+        if (hasText(landDong)) {
+            builder.and(qAptPriceJj.landDong.eq(landDong));
+        }
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        // 현재날짜
+        String date = simpleDateFormat.format(new Date());
+        builder.and(qAptPriceJj.dealYear.goe(date.substring(0, 4)));
+        builder.and(qAptPriceJj.newHighestPrice.eq(1));
+        builder.and(qAptPriceJj.cnclDealDate.eq(""));
+
+        return queryFactory.selectFrom(qAptPriceJj)
+                .where(builder)
+                .orderBy(qAptPriceJj.dealDate.desc())
+                .limit(200)
                 .fetch();
     }
 
@@ -449,7 +709,7 @@ public class TradeRepository {
         return queryFactory.selectFrom(qAptDistributionRaw)
                 .where(builder)
                 .orderBy(qAptDistributionRaw.dealDate.desc())
-                .limit(1000)
+                .limit(500)
                 .fetch();
     }
 
@@ -469,7 +729,7 @@ public class TradeRepository {
         }
         return queryFactory.selectFrom(qAptDistributionRaw)
                 .where(builder)
-                .limit(1000)
+                .limit(500)
                 .fetch();
     }
 }

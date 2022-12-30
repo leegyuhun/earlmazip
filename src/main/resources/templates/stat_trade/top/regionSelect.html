@@ -23,46 +23,13 @@
                 </div>
                 <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
                     <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        강북
+                        지역선택
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">서울전체</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11305&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">강북구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11215&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">광진구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11350&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">노원구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11320&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">도봉구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11230&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">동대문</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11440&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">마포구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11410&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">서대문</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11200&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">성동구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11290&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">성북구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11470&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">양천구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11170&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">용산구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11380&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">은평구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11110&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">종로구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11260&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">중랑구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11140&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">중 구</a></li>
+                        <li><a class="dropdown-item" th:each="sigunguList : ${sigunguList}" th:text="${sigunguList.sigunguName}" th:href="@{/stat_trade/top?sigunguCode={sigunguCode}&year={year}&uaType={uaType} (sigunguCode=${sigunguList.sigunguCode}, uaType=${uaType}, year=${year})}"></a></li>
                     </ul>
                 </div>
-                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
-                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        강남
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">서울전체</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11680&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">강남구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11740&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">강동구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11500&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">강서구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11620&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">관악구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11530&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">구로구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11545&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">금천구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11590&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">동작구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11650&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">서초구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11710&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">송파구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11470&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">양천구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_trade/top?sigunguCode=11560&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">영등포</a></li>
-                    </ul>
-                </div>
+
                 <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
                     <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         평형

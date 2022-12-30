@@ -23,7 +23,7 @@ public class StatService {
     }
 
     public List<StatResponseDto> getStatTradeByUseAreaList(String sigunguCode, String ua, String term) {
-        return statRepository.getStatTradeByUseAreaList(sigunguCode, ua, term);
+        return statRepository.getStatTradeByUseAreaList(sigunguCode, ua, term).stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
     public List<StatResponseDto> getStatTradeList_Gyunggi(String term) {
@@ -34,7 +34,7 @@ public class StatService {
     }
 
     public List<AptPriceResponseDto> getStatTradeTopByYear(String year, String sigungucode, String uaType) {
-        return statRepository.getStatTradeTopByYear(year, sigungucode, uaType);
+        return statRepository.getStatTradeTopByYear(year, sigungucode, uaType).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
 
     public List<StatResponseDto> getStatNewHighestAndTradeCount(String sigunguCode, String uaType, int term) {
@@ -43,10 +43,6 @@ public class StatService {
 
     public List<StatResponseDto> getStatTheme(String themeCode, String term) {
         return statRepository.getStatTheme(themeCode, term);
-    }
-
-    public List<RankUaSigunguResponseDto> getStatRankUaList_Seoul(int rankGubn, String sigunguCode, int ua) {
-        return statRepository.getStatRankUaList_Seoul(rankGubn, sigunguCode, ua);
     }
 
     public List<RankUaSigunguResponseDto> getStatRankUaTypeList(int rankGubn, int dealYear, String sigunguCode, String uaType) {

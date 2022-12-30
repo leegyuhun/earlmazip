@@ -15,6 +15,16 @@
             <div class="d-flex gap-2 justify-content-center">
                 <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
                     <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        년도
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear=2023&sigunguCode={sigunguCode}&uaType={uaType} (rankGubn=${rankGubn}, sigunguCode=${sigunguCode}, uaType=${uaType})}">2023</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear=2022&sigunguCode={sigunguCode}&uaType={uaType} (rankGubn=${rankGubn}, sigunguCode=${sigunguCode}, uaType=${uaType})}">2022</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear=2021&sigunguCode={sigunguCode}&uaType={uaType} (rankGubn=${rankGubn}, sigunguCode=${sigunguCode}, uaType=${uaType})}">2021</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         구 선택
                     </button>
                     <ul class="dropdown-menu">

@@ -32,8 +32,21 @@ public class TradeService {
         }
     }
 
-    public List<AptPriceResponseDto> findTradeComparePrevList(TradeSearchCond cond, String type) {
-        return tradeRepository.findTradeComparePrevList(cond, type).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    public List<AptPriceResponseDto> getTradeListComparePrev(TradeSearchCond cond, String type) {
+        String areaCode = cond.getSigunguCode().substring(0, 2);
+        if (areaCode.equals("11") || areaCode.equals("28") || areaCode.equals("41")) {
+            return tradeRepository.getTradeListComparePrev(cond, type).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        } else if (areaCode.equals("42")) {
+            return tradeRepository.getTradeListComparePrev_GW(cond, type).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        } else if (areaCode.equals("26") || areaCode.equals("27") || areaCode.equals("31") || areaCode.equals("47") || areaCode.equals("48")) {
+            return tradeRepository.getTradeListComparePrev_GS(cond, type).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        } else if (areaCode.equals("30") || areaCode.equals("36") || areaCode.equals("43") || areaCode.equals("44")) {
+            return tradeRepository.getTradeListComparePrev_CC(cond, type).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        } else if (areaCode.equals("29") || areaCode.equals("45") || areaCode.equals("46")) {
+            return tradeRepository.getTradeListComparePrev_JL(cond, type).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        } else {
+            return tradeRepository.getTradeListComparePrev_JJ(cond, type).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        }
     }
 
     public List<AptPriceResponseDto> getCancelDealList(String regncode) {
@@ -58,7 +71,20 @@ public class TradeService {
     }
 
     public List<AptPriceResponseDto> getNewHighestList(String sigungucode, String uaType, String landDong) {
-        return tradeRepository.findNewHighestList(sigungucode, uaType, landDong).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        String areaCode = sigungucode.substring(0, 2);
+        if (areaCode.equals("11") || areaCode.equals("28") || areaCode.equals("41")) {
+            return tradeRepository.findNewHighestList(sigungucode, uaType, landDong).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        } else if (areaCode.equals("42")) {
+            return tradeRepository.findNewHighestList_GW(sigungucode, uaType, landDong).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        } else if (areaCode.equals("26") || areaCode.equals("27") || areaCode.equals("31") || areaCode.equals("47") || areaCode.equals("48")) {
+            return tradeRepository.findNewHighestList_GS(sigungucode, uaType, landDong).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        } else if (areaCode.equals("30") || areaCode.equals("36") || areaCode.equals("43") || areaCode.equals("44")) {
+            return tradeRepository.findNewHighestList_CC(sigungucode, uaType, landDong).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        } else if (areaCode.equals("29") || areaCode.equals("45") || areaCode.equals("46")) {
+            return tradeRepository.findNewHighestList_JL(sigungucode, uaType, landDong).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        } else {
+            return tradeRepository.findNewHighestList_JJ(sigungucode, uaType, landDong).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+        }
     }
 
     public List<AptPriceResponseDto> getTradeDistribution_BySigungu(String dealYear, String sigunguCode) {

@@ -1,16 +1,15 @@
 package com.earlmazip.controller;
 
 import com.earlmazip.controller.dto.RankUaSigunguResponseDto;
-import com.earlmazip.service.ApiCallStatService;
-import com.earlmazip.service.CodeInfoService;
-import com.earlmazip.service.EcosDataService;
-import com.earlmazip.service.StatService;
+import com.earlmazip.domain.SigunguCode;
+import com.earlmazip.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.SimpleDateFormat;
@@ -31,182 +30,19 @@ public class StatRankUaController {
 
     private final EcosDataService ecosDataService;
 
-    /**
-     * 서울지역 전용면적별 TOP 랭크 조회
-     * rankgubn(0: 평균매매가, 1: 거래건수)
-     * ua(현재 59, 84만)
-     * @param rankgubn
-     * @param sigungucode
-     * @param ua
-     * @param model
-     * @return
-     */
-    @GetMapping("/stat_rank_ua/seoul/{rankgubn}/{sigungucode}/{ua}")
-    public String getStatRankUaList_Seoul(@PathVariable int rankgubn,
-                                          @PathVariable String sigungucode,
-                                          @PathVariable int ua,Model model) {
-        String title = "-";
-        List<RankUaSigunguResponseDto> list;
-        if (!sigungucode.equals("0")) {
-            log.info("/stat_rank_ua/seoul/" + rankgubn + "/" + sigungucode + "/" + ua);
-            title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("STAT_RANK_UA", "/stat_rank_ua/seoul/" + rankgubn + "/" + title + "/" + ua, sigungucode);
-            list = statService.getStatRankUaList_Seoul(rankgubn, sigungucode, ua);
-        } else {
-            list = new ArrayList<>();
-        }
+    private final SiteInfoService siteInfoService;
 
-//        int idx = 1;
-//        for (RankUaSigunguResponseDto item: list) {
-//            item.setRank(idx);
-//            item.setTradeUrl("tradelist/ByName?regncode=" + item.getSigunguCode() + "&aptname=" + item.getAptName() + "&ua="+ua+"&term=1&landDong=" + item.getLandDong());
-//            idx++;
-//        }
-
-        if (list.size() > 0) {
-            if (rankgubn == 0) {
-                title = title + " 전용" + ua + " 평균매매가 TOP 20";
-            } else if (rankgubn == 1) {
-                title = title + " 전용" + ua + " 매매건수 TOP 20";
-            }
-        }
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        // 현재날짜
-        String date = simpleDateFormat.format(new Date());
-        int nowInt = Integer.parseInt(date.substring(0,4));
-        int prevInt = nowInt-1;
-
-        String subTitle = "( " + prevInt + " - " + nowInt + " 기준 )";
-
-        model.addAttribute("list", list);
-        model.addAttribute("title", "[ " + title + " ]");
-        model.addAttribute("headerTitle", title);
-        model.addAttribute("subtitle", subTitle);
-        model.addAttribute("ua", ua);
-        model.addAttribute("rankGubn", rankgubn);
-
-        return "stat_rank_ua/seoul";
-//        if (sigungucode.equals("11680") || sigungucode.equals("11740") || sigungucode.equals("11500") || sigungucode.equals("11620") || sigungucode.equals("11530") ||
-//                sigungucode.equals("11545") || sigungucode.equals("11590") || sigungucode.equals("11650") || sigungucode.equals("11710") || sigungucode.equals("11470") ||
-//                sigungucode.equals("11560") || sigungucode.equals("0")) {
-//            return "stat_rank_ua/seoulSouth";
-//        } else {
-//            return "stat_rank_ua/seoulNorth";
-//        }
-    }
-
-    /**
-     * 경기지역 전용면적별 TOP 랭크 조회
-     * rankgubn(0: 평균매매가, 1: 거래건수)
-     * ua(현재 59, 84만)
-     * @param rankgubn
-     * @param sigungucode
-     * @param ua
-     * @param model
-     * @return
-     */
-    @GetMapping("/stat_rank_ua/gyunggi/{rankgubn}/{sigungucode}/{ua}")
-    public String getStatRankUaList_Gyunggi(@PathVariable int rankgubn,
-                                          @PathVariable String sigungucode,
-                                          @PathVariable int ua,Model model) {
-        String title = "-";
-        List<RankUaSigunguResponseDto> list;
-        if (!sigungucode.equals("0")) {
-            log.info("/stat_rank_ua/gyunggi/" + rankgubn + "/" + sigungucode + "/" + ua);
-            title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("STAT_RANK_UA", "/stat_rank_ua/gyunggi/" + rankgubn + "/" + title + "/" + ua, sigungucode);
-            list = statService.getStatRankUaList_Seoul(rankgubn, sigungucode, ua);
-        } else {
-            list = new ArrayList<>();
-        }
-
-        int idx = 1;
-        for (RankUaSigunguResponseDto item: list) {
-            item.setRank(idx);
-            item.setTradeUrl("tradelist/ByName?sigunguCode" + item.getSigunguCode() + "&aptName=" + item.getAptName() + "&ua="+ua+"&term=1&landDong=" + item.getLandDong());
-            item.setTradeUrl2("tradelist/ByName?sigunguCode" + item.getSigunguCode() + "&aptName=" + item.getAptName() + "&ua="+ua+"&term=3&landDong=" + item.getLandDong());
-            idx++;
-        }
-
-        if (list.size() > 0) {
-            if (rankgubn == 0) {
-                title = title + " 전용" + ua + " 평균매매가 TOP 20";
-            } else if (rankgubn == 1) {
-                title = title + " 전용" + ua + " 매매건수 TOP 20";
-            }
-        }
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        // 현재날짜
-        String date = simpleDateFormat.format(new Date());
-        int nowInt = Integer.parseInt(date.substring(0,4));
-        int prevInt = nowInt-1;
-
-        String subTitle = "( " + prevInt + " - " + nowInt + " 기준 )";
-
-        model.addAttribute("list", list);
-        model.addAttribute("title", "[ " + title + " ]");
-        model.addAttribute("headerTitle", title);
-        model.addAttribute("subtitle", subTitle);
-        model.addAttribute("ua", ua);
-        model.addAttribute("rankgubn", rankgubn);
-
-        return "stat_rank_ua/gyunggi";
-    }
-
-    @GetMapping("/stat_rank_ua/incheon/{rankgubn}/{sigungucode}/{ua}")
-    public String getStatRankUaList_Incheon(@PathVariable int rankgubn,
-                                            @PathVariable String sigungucode,
-                                            @PathVariable int ua,Model model) {
-        String title = "-";
-        List<RankUaSigunguResponseDto> list;
-        if (!sigungucode.equals("0")) {
-            log.info("/stat_rank_ua/incheon/" + rankgubn + "/" + sigungucode + "/" + ua);
-            title = codeInfoService.getCodeName(sigungucode);
-            apiCallStatService.writeApiCallStat("STAT_RANK_UA", "/stat_rank_ua/incheon/" + rankgubn + "/" + title + "/" + ua, sigungucode);
-            list = statService.getStatRankUaList_Seoul(rankgubn, sigungucode, ua);
-        } else {
-            list = new ArrayList<>();
-        }
-
-        int idx = 1;
-        for (RankUaSigunguResponseDto item: list) {
-            item.setRank(idx);
-            item.setTradeUrl("tradelist/ByName?sigunguCode" + item.getSigunguCode() + "&aptName=" + item.getAptName() + "&ua="+ua+"&term=1&landDong=" + item.getLandDong());
-            item.setTradeUrl2("tradelist/ByName?sigunguCode" + item.getSigunguCode() + "&aptName=" + item.getAptName() + "&ua="+ua+"&term=3&landDong=" + item.getLandDong());
-            idx++;
-        }
-
-        if (list.size() > 0) {
-            if (rankgubn == 0) {
-                title = title + " 전용" + ua + " 평균매매가 TOP 20";
-            } else if (rankgubn == 1) {
-                title = title + " 전용" + ua + " 매매건수 TOP 20";
-            }
-        }
-
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
-        // 현재날짜
-        String date = simpleDateFormat.format(new Date());
-        int nowInt = Integer.parseInt(date.substring(0,4));
-        int prevInt = nowInt-1;
-
-        String subTitle = "( " + prevInt + " - " + nowInt + " 기준 )";
-
-        model.addAttribute("list", list);
-        model.addAttribute("title", "[ " + title + " ]");
-        model.addAttribute("headerTitle", title);
-        model.addAttribute("subtitle", subTitle);
-        model.addAttribute("ua", ua);
-        model.addAttribute("rankgubn", rankgubn);
-
-        return "stat_rank_ua/incheon";
+    @RequestMapping("/stat_rank_uatype/home")
+    public String home_statRankUaType(Model modal) {
+        String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        modal.addAttribute("udt", udt);
+        modal.addAttribute("headerTitle", "평균매매가 TOP 20");
+        return "stat_rank_uatype/home";
     }
 
     @GetMapping("/stat_rank_uatype")
     public String getStatRankUatype(@RequestParam(value = "rankGubn", defaultValue = "0") int rankGubn,
-                                    @RequestParam(value = "dealYear", defaultValue = "2021") int dealYear,
+                                    @RequestParam(value = "dealYear", defaultValue = "2022") int dealYear,
                                     @RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
                                     @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                     Model model) {
@@ -231,9 +67,11 @@ public class StatRankUaController {
                 title = dealYear + " " + title + " 매매건수 TOP 20";
             }
         }
-
+        String areaCode = sigunguCode.substring(0, 2);
         String subTitle = "* " + codeInfoService.getCodeName(uaType);
+        List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
 
+        model.addAttribute("sigunguList", sigunguList);
         model.addAttribute("list", list);
         model.addAttribute("title", "[ " + title + " ]");
         model.addAttribute("headerTitle", title);
@@ -242,41 +80,14 @@ public class StatRankUaController {
         model.addAttribute("rankGubn", rankGubn);
         model.addAttribute("dealYear", dealYear);
         model.addAttribute("sigunguCode", sigunguCode);
-        String areaCode = sigunguCode.substring(0, 2);
         if (areaCode.equals("11")) {
             return "stat_rank_uatype/seoul";
         } else if (areaCode.equals("41")) {
             return "stat_rank_uatype/gyunggi";
-        } else if(areaCode.equals("28")){
-            return "stat_rank_uatype/incheon";
-        } else if (areaCode.equals("26")){
-            return "stat_rank_uatype/busan";
-        } else if (areaCode.equals("27")) {
-            return "stat_rank_uatype/daegu";
-        } else if (areaCode.equals("29")) {
-            return "stat_rank_uatype/gwangju";
-        } else if (areaCode.equals("30")) {
-            return "stat_rank_uatype/daejeon";
-        } else if (areaCode.equals("31")) {
-            return "stat_rank_uatype/ulsan";
-        } else if (areaCode.equals("43")) {
-            return "stat_rank_uatype/ccNorth";
-        } else if (areaCode.equals("44")) {
-            return "stat_rank_uatype/ccSouth";
-        } else if (areaCode.equals("45")) {
-            return "stat_rank_uatype/jlNorth";
-        } else if (areaCode.equals("46")) {
-            return "stat_rank_uatype/jlSouth";
-        } else if (areaCode.equals("47")) {
-            return "stat_rank_uatype/gsNorth";
-        } else if (areaCode.equals("48")) {
-            return "stat_rank_uatype/gsSouth";
-        } else if (areaCode.equals("42")) {
-            return "stat_rank_uatype/gangwon";
-        } else if (areaCode.equals("36")) {
-            return "stat_rank_uatype/sejong";
+        } else if (areaCode.equals("28") || areaCode.equals("26") || areaCode.equals("27") || areaCode.equals("29") || areaCode.equals("30") || areaCode.equals("31")) {
+            return "stat_rank_uatype/guSelect";
         } else {
-            return "stat_rank_uatype/jeju";
+            return "stat_rank_uatype/regionSelect";
         }
     }
 }
