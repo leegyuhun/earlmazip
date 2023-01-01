@@ -151,11 +151,13 @@ public class StatRepository {
 
     }
 
-    public List<StatResponseDto> getDistribution(String areaCode) {
+    public List<StatResponseDto> getDistribution(String areaCode, String dealYear) {
         return em.createQuery("select a from StatDistribution a "
                         + " where a.areaCode = :areaCode "
+                        + "   and a.dealYear = :dealYear "
                         + " order by sigunguName desc", StatDistribution.class)
                 .setParameter("areaCode", areaCode)
+                .setParameter("dealYear", dealYear)
                 .getResultList().stream().map(StatResponseDto::new)
                 .collect(Collectors.toList());
     }

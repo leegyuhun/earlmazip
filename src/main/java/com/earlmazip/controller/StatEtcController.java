@@ -381,12 +381,15 @@ public class StatEtcController {
 
     @GetMapping("/stat_etc/distribution")
     public String getDistribution(@RequestParam(value="areaCode", defaultValue = "11") String areaCode,
+                                  @RequestParam(value="dealYear", defaultValue = "2023") String dealYear,
                                         Model model) {
-        apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/distribution", "0");
-        List<StatResponseDto> stat = statService.getDistribution(areaCode);
+        apiCallStatService.writeApiCallStat("STAT_ETC", "/stat_etc/distribution?areaCode=" + areaCode + "&dealYear=" + dealYear, "0");
+        List<StatResponseDto> stat = statService.getDistribution(areaCode, dealYear);
         String title = "";
 
         model.addAttribute("title", codeInfoService.getCodeName(areaCode));
+        model.addAttribute("areaCode", areaCode);
+        model.addAttribute("dealYear", dealYear);
         model.addAttribute("list", stat);
 
         return "stat_etc/distribution/statDistribution";

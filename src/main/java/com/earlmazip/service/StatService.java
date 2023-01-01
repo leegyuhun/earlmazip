@@ -53,7 +53,7 @@ public class StatService {
         return statRepository.getStatByDealType(sigunguCode, uaTYpe, dealType).stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 
-    public List<StatResponseDto> getDistribution(String areaCode) {
-        return statRepository.getDistribution(areaCode);
+    public List<StatResponseDto> getDistribution(String areaCode, String dealYear) {
+        return statRepository.getDistribution(areaCode, dealYear);
     }
 }

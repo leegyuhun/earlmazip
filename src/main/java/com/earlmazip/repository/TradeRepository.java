@@ -551,7 +551,9 @@ public class TradeRepository {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         // 현재날짜
         String date = simpleDateFormat.format(new Date());
-        builder.and(qAptPriceRaw.dealYear.goe(date.substring(0, 4)));
+        int tmp = Integer.parseInt(date.substring(0, 4))-1;
+        String lastYear = Integer.toString(tmp);
+        builder.and(qAptPriceRaw.dealYear.goe(lastYear));
         builder.and(qAptPriceRaw.newHighestPrice.eq(1));
         builder.and(qAptPriceRaw.cnclDealDate.eq(""));
 
@@ -578,7 +580,9 @@ public class TradeRepository {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         // 현재날짜
         String date = simpleDateFormat.format(new Date());
-        builder.and(qAptPriceGw.dealYear.goe(date.substring(0, 4)));
+        int tmp = Integer.parseInt(date.substring(0, 4))-1;
+        String lastYear = Integer.toString(tmp);
+        builder.and(qAptPriceRaw.dealYear.goe(lastYear));
         builder.and(qAptPriceGw.newHighestPrice.eq(1));
         builder.and(qAptPriceGw.cnclDealDate.eq(""));
 
@@ -605,7 +609,9 @@ public class TradeRepository {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         // 현재날짜
         String date = simpleDateFormat.format(new Date());
-        builder.and(qAptPriceGs.dealYear.goe(date.substring(0, 4)));
+        int tmp = Integer.parseInt(date.substring(0, 4))-1;
+        String lastYear = Integer.toString(tmp);
+        builder.and(qAptPriceRaw.dealYear.goe(lastYear));
         builder.and(qAptPriceGs.newHighestPrice.eq(1));
         builder.and(qAptPriceGs.cnclDealDate.eq(""));
 
@@ -632,7 +638,9 @@ public class TradeRepository {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         // 현재날짜
         String date = simpleDateFormat.format(new Date());
-        builder.and(qAptPriceCc.dealYear.goe(date.substring(0, 4)));
+        int tmp = Integer.parseInt(date.substring(0, 4))-1;
+        String lastYear = Integer.toString(tmp);
+        builder.and(qAptPriceRaw.dealYear.goe(lastYear));
         builder.and(qAptPriceCc.newHighestPrice.eq(1));
         builder.and(qAptPriceCc.cnclDealDate.eq(""));
 
@@ -659,7 +667,9 @@ public class TradeRepository {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         // 현재날짜
         String date = simpleDateFormat.format(new Date());
-        builder.and(qAptPriceJl.dealYear.goe(date.substring(0, 4)));
+        int tmp = Integer.parseInt(date.substring(0, 4))-1;
+        String lastYear = Integer.toString(tmp);
+        builder.and(qAptPriceRaw.dealYear.goe(lastYear));
         builder.and(qAptPriceJl.newHighestPrice.eq(1));
         builder.and(qAptPriceJl.cnclDealDate.eq(""));
 
@@ -686,7 +696,9 @@ public class TradeRepository {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         // 현재날짜
         String date = simpleDateFormat.format(new Date());
-        builder.and(qAptPriceJj.dealYear.goe(date.substring(0, 4)));
+        int tmp = Integer.parseInt(date.substring(0, 4))-1;
+        String lastYear = Integer.toString(tmp);
+        builder.and(qAptPriceRaw.dealYear.goe(lastYear));
         builder.and(qAptPriceJj.newHighestPrice.eq(1));
         builder.and(qAptPriceJj.cnclDealDate.eq(""));
 
