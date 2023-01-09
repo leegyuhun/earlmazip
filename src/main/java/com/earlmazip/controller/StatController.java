@@ -301,9 +301,9 @@ public class StatController {
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/ByDealType?" + title, sigunguCode);
             if (sigunguCode.length() == 5) {
-                stats = statService.getStatTradeByUseAreaList(sigunguCode, uaType, "0");
+                stats = statService.getStatTradeByUseAreaList(sigunguCode, uaType, "1");
             } else {
-                stats = statService.getStatTradeByUseAreaList(sigunguCode, uaType, "0");
+                stats = statService.getStatTradeByUseAreaList(sigunguCode, uaType, "1");
             }
             stats0 = statService.getStatByDealType(sigunguCode, uaType, 0); //중개거래
             stats1 = statService.getStatByDealType(sigunguCode, uaType, 1); //직거래

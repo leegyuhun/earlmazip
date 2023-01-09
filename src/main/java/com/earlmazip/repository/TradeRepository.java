@@ -243,12 +243,14 @@ public class TradeRepository {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         // 현재날짜
         String date = simpleDateFormat.format(new Date());
-        builder.and(qAptPriceRaw.dealYear.eq(date.substring(0, 4)));
+//        builder.and(qAptPriceRaw.dealYear.eq(date.substring(0, 4)));
+        builder.and(qAptPriceRaw.dealYear.goe(Common.calcYearByTerm(1)));
         builder.and(qAptPriceRaw.cnclDealDate.eq(""));
 
         return queryFactory.selectFrom(qAptPriceRaw)
                 .where(builder)
                 .orderBy(qAptPriceRaw.dealDate.desc())
+                .limit(200)
                 .fetch();
     }
 

@@ -101,9 +101,9 @@ public class TradeComparePrevController {
             title += " " + landDong;
         }
         if (type.equals("0")) {
-            model.addAttribute("title",  "[ "+ title + " "+date.substring(0, 4)+" 상승거래 ]");
+            model.addAttribute("title",  "[ "+ title + " 상승거래 ]");
         } else {
-            model.addAttribute("title",  "[ "+ title + " "+date.substring(0, 4)+" 하락거래 ]");
+            model.addAttribute("title",  "[ "+ title + " 하락거래 ]");
         }
         model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
         if (areaCode.equals("11")) {
