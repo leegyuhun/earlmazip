@@ -24,10 +24,13 @@ public class AptPriceResponseDto {
     private int useAreaTrunc;
     private String useAreaType;
     private int dealAmt;
+    private String dealAmtStr;
+    public String getDealAmtStr() {
+        return new DecimalFormat("0.0#").format((float)this.dealAmt / 10000) + "억";
+    }
     private int prevDealAmt;
     private int prevLeaseAmt;
     private String prevLeaseAmtStr;
-
     public String getPrevLeaseAmtStr() {
         if (this.prevLeaseAmt == 0) {
             return "-";
@@ -35,17 +38,14 @@ public class AptPriceResponseDto {
             return new DecimalFormat("0.0#").format((float)this.prevLeaseAmt / 10000) + "억";
         }
     }
-
     private String prevLeaseDate;
     private int mostHighestAmt;
     private int mostLowestAmt;
-
     private String mostHighestAmtStr;
     private String mostLowestAmtStr;
     public String getMostHighestAmtStr() {
         return new DecimalFormat("0.0#").format((float)this.mostHighestAmt / 10000) + "억";
     }
-
     public String getMostLowestAmtStr() {
         return new DecimalFormat("0.0#").format((float)this.mostLowestAmt / 10000) + "억";
     }
@@ -59,15 +59,16 @@ public class AptPriceResponseDto {
     private String prevDealDate;
 
     public String getPrevDealDate() {
-        return prevDealDate.substring(2,4) + "." + prevDealDate.substring(4,6) + "." + prevDealDate.substring(6,8);
+        if (this.prevDealDate.length() == 8) {
+            return this.prevDealDate.substring(2, 4) + "." + this.prevDealDate.substring(4, 6) + "." + this.prevDealDate.substring(6, 8);
+        } else {
+            return this.prevDealDate;
+        }
+
     }
 
     private int diffAmt;
     private float diffRate;
-    private String dealAmtStr;
-    public String getDealAmtStr() {
-        return new DecimalFormat("0.0#").format((float)this.dealAmt / 10000) + "억";
-    }
     private int floor;
     private String buildYear;
     private String landDong;

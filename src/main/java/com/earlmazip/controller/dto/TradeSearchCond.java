@@ -11,6 +11,8 @@ public class TradeSearchCond {
     private String uaType;
     private String landDong;
 
+    private String useAreaType;
+
     private int useAreaTrunc;
     private String aptName;
     
