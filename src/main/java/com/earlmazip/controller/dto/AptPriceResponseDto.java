@@ -13,6 +13,8 @@ public class AptPriceResponseDto {
     }
     private String dealDate;
     private String aptName;
+    private int floor;
+    private String buildYear;
     private float useArea;
     public float getUseArea() {
         return (float) (Math.floor(useArea * 100)/100);
@@ -29,6 +31,21 @@ public class AptPriceResponseDto {
         return new DecimalFormat("0.0#").format((float)this.dealAmt / 10000) + "억";
     }
     private int prevDealAmt;
+    private String prevDealAmtStr;
+    public String getPrevDealAmtStr() {
+        return new DecimalFormat("0.0#").format((float)this.prevDealAmt / 10000) + "억";
+    }
+    private String prevDealDate;
+    public String getPrevDealDate() {
+        if (this.prevDealDate.length() == 8) {
+            return this.prevDealDate.substring(2, 4) + "." + this.prevDealDate.substring(4, 6) + "." + this.prevDealDate.substring(6, 8);
+        } else {
+            return this.prevDealDate;
+        }
+
+    }
+    private int diffAmt;
+    private float diffRate;
     private int prevLeaseAmt;
     private String prevLeaseAmtStr;
     public String getPrevLeaseAmtStr() {
@@ -49,28 +66,6 @@ public class AptPriceResponseDto {
     public String getMostLowestAmtStr() {
         return new DecimalFormat("0.0#").format((float)this.mostLowestAmt / 10000) + "억";
     }
-
-    private String prevDealAmtStr;
-
-    public String getPrevDealAmtStr() {
-        return new DecimalFormat("0.0#").format((float)this.prevDealAmt / 10000) + "억";
-    }
-
-    private String prevDealDate;
-
-    public String getPrevDealDate() {
-        if (this.prevDealDate.length() == 8) {
-            return this.prevDealDate.substring(2, 4) + "." + this.prevDealDate.substring(4, 6) + "." + this.prevDealDate.substring(6, 8);
-        } else {
-            return this.prevDealDate;
-        }
-
-    }
-
-    private int diffAmt;
-    private float diffRate;
-    private int floor;
-    private String buildYear;
     private String landDong;
     private String cnclDealType;
     private String cnclDealDate;

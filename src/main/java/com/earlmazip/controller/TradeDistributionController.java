@@ -55,6 +55,7 @@ public class TradeDistributionController {
 
         model.addAttribute("list", trads);
         model.addAttribute("sigunguCode", sigunguCode);
+        model.addAttribute("dealYear", dealYear);
         model.addAttribute("title",  "[ " + title + " "+dealYear + " 분양권 전매거래 ]");
 
         return "tradelist/distribution/aptDistributionList";

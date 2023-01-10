@@ -1,5 +1,6 @@
 package com.earlmazip.service;
 
+import com.earlmazip.controller.dto.AptLeaseResponseDto;
 import com.earlmazip.controller.dto.AptPriceResponseDto;
 import com.earlmazip.controller.dto.TradeSearchCond;
 import com.earlmazip.repository.ApiRepository;
@@ -29,5 +30,9 @@ public class ApiService {
         } else {
             return apiRepository.getTradeListMonthlyV1_JJ(cond);
         }
+    }
+
+    public List<AptLeaseResponseDto> getLeaseListMonthlyV1(TradeSearchCond cond) {
+        return apiRepository.getLeaseListMonthlyV1(cond);
     }
 }

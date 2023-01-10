@@ -1,9 +1,6 @@
 package com.earlmazip.controller;
 
-import com.earlmazip.controller.dto.AptPriceResponseDto;
-import com.earlmazip.controller.dto.AptResponseDto;
-import com.earlmazip.controller.dto.Message;
-import com.earlmazip.controller.dto.TradeSearchCond;
+import com.earlmazip.controller.dto.*;
 import com.earlmazip.repository.AptSearch;
 import com.earlmazip.service.ApiCallStatService;
 import com.earlmazip.service.ApiService;
@@ -36,33 +33,36 @@ public class ApiController {
             @RequestParam(value = "year", defaultValue = "") String year,
             @RequestParam(value = "mon", defaultValue = "") String mon,
             @RequestParam(value = "landDong", defaultValue = "") String landDong,
-            @RequestParam(value = "uaType", defaultValue = "UA01") String uaType) {
+            @RequestParam(value = "uaType", defaultValue = "") String uaType) {
         Message msg = new Message();
         try {
-            TradeSearchCond con = new TradeSearchCond();
             List<AptPriceResponseDto> tradeList = new ArrayList<>();
-            String title = codeInfoService.getCodeName(sigunguCode);
-            String url = "/api/v1/tradelistMonthly?sigunguCode=" + sigunguCode + "&year=" + year + "&mon=" + mon + "&landDong=" + landDong + "&uaTYpe=" + uaType;
-            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
-            apiCallStatService.writeApiCallStat("API", "/api/v1/tradelistMonthly?sigunguCode=" + sigunguCode + "&year=" + year + "&mon=" + mon + "&landDong=" + landDong + "&uaTYpe=" + uaType, sigunguCode);
 
-            if (sigunguCode.isEmpty() || year.isEmpty()) {
+            if (sigunguCode.isEmpty() || year.isEmpty() || mon.isEmpty()) {
                 msg.setStatus(Message.StatusEnum.BAD_REQUEST);
                 if (sigunguCode.isEmpty()) {
                     msg.setMessage("Param [sigunguCode] is Empty.");
-                } else {
+                } else if (year.isEmpty()) {
                     msg.setMessage("Param [year] is Empty.");
+                } else {
+                    msg.setMessage("Param [mon] is Empty.");
                 }
                 msg.setCount(tradeList.size());
                 msg.setData(tradeList);
 
                 return new ResponseEntity<Message>(msg, HttpStatus.BAD_REQUEST);
             } else {
+                TradeSearchCond con = new TradeSearchCond();
+                String title = codeInfoService.getCodeName(sigunguCode);
+                String url = "/api/v1/tradelistMonthly?sigunguCode=" + sigunguCode + "&year=" + year + "&mon=" + mon + "&landDong=" + landDong + "&uaTYpe=" + uaType;
+                apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
+                apiCallStatService.writeApiCallStat("API", "/api/v1/tradelistMonthly?sigunguCode=" + sigunguCode + "&year=" + year + "&mon=" + mon + "&landDong=" + landDong + "&uaTYpe=" + uaType, sigunguCode);
+
                 con.setSigunguCode(sigunguCode);
                 con.setDealYear(year);
                 con.setDealMon(mon);
                 con.setLandDong(landDong);
-                con.setUseAreaType(uaType);
+                con.setUaType(uaType);
 
                 tradeList = apiService.getTradeListMonthlyV1(con);
 
@@ -70,6 +70,60 @@ public class ApiController {
                 msg.setMessage("success");
                 msg.setCount(tradeList.size());
                 msg.setData(tradeList);
+
+                return new ResponseEntity<Message>(msg, HttpStatus.OK);
+            }
+        } catch (Exception exception) {
+            msg.setStatus(Message.StatusEnum.BAD_REQUEST);
+            msg.setMessage(exception.getMessage());
+            return new ResponseEntity<>(msg, HttpStatus.ACCEPTED);
+        }
+    }
+
+    @GetMapping("/api/v1/leaselistMonthly")
+    public ResponseEntity<Message> getLeaseListMonthlyV1(
+            @RequestParam(value = "sigunguCode", defaultValue = "") String sigunguCode,
+            @RequestParam(value = "year", defaultValue = "") String year,
+            @RequestParam(value = "mon", defaultValue = "") String mon,
+            @RequestParam(value = "leaseType", defaultValue = "") String leaseType,
+            @RequestParam(value = "landDong", defaultValue = "") String landDong,
+            @RequestParam(value = "uaType", defaultValue = "") String uaType) {
+        Message msg = new Message();
+        try {
+            List<AptLeaseResponseDto> leaseList = new ArrayList<>();
+            if (sigunguCode.isEmpty() || year.isEmpty() || mon.isEmpty()) {
+                msg.setStatus(Message.StatusEnum.BAD_REQUEST);
+                if (sigunguCode.isEmpty()) {
+                    msg.setMessage("Param [sigunguCode] is Empty.");
+                } else if (year.isEmpty()) {
+                    msg.setMessage("Param [year] is Empty.");
+                } else {
+                    msg.setMessage("Param [mon] is Empty.");
+                }
+                msg.setCount(leaseList.size());
+                msg.setData(leaseList);
+
+                return new ResponseEntity<Message>(msg, HttpStatus.BAD_REQUEST);
+            } else {
+                TradeSearchCond con = new TradeSearchCond();
+                String title = codeInfoService.getCodeName(sigunguCode);
+                String url = "/api/v1/leaselistMonthly?sigunguCode=" + sigunguCode + "&year=" + year + "&mon=" + mon + "&landDong=" + landDong + "&uaTYpe=" + uaType;
+                apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
+                apiCallStatService.writeApiCallStat("API", "/api/v1/leaselistMonthly?sigunguCode=" + sigunguCode + "&year=" + year + "&mon=" + mon + "&landDong=" + landDong + "&uaTYpe=" + uaType, sigunguCode);
+
+                con.setSigunguCode(sigunguCode);
+                con.setDealYear(year);
+                con.setDealMon(mon);
+                con.setLeaseType(leaseType);
+                con.setLandDong(landDong);
+                con.setUaType(uaType);
+
+                leaseList = apiService.getLeaseListMonthlyV1(con);
+
+                msg.setStatus(Message.StatusEnum.OK);
+                msg.setMessage("success");
+                msg.setCount(leaseList.size());
+                msg.setData(leaseList);
 
                 return new ResponseEntity<Message>(msg, HttpStatus.OK);
             }

@@ -1,5 +1,6 @@
 package com.earlmazip.repository;
 
+import com.earlmazip.controller.dto.AptLeaseResponseDto;
 import com.earlmazip.controller.dto.AptPriceResponseDto;
 import com.earlmazip.controller.dto.TradeSearchCond;
 import com.earlmazip.domain.*;
@@ -28,6 +29,8 @@ public class ApiRepository {
     QAptPriceCc qAptPriceCc = QAptPriceCc.aptPriceCc;
     QAptPriceJl qAptPriceJl = QAptPriceJl.aptPriceJl;
     QAptPriceJj qAptPriceJj = QAptPriceJj.aptPriceJj;
+
+    QAptLeaseRaw qAptLeaseRaw = QAptLeaseRaw.aptLeaseRaw;
 
     public ApiRepository(EntityManager em) {
         this.em = em;
@@ -216,5 +219,36 @@ public class ApiRepository {
                 .orderBy(qAptPriceJj.dealDate.desc())
                 .limit(500)
                 .fetch().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    }
+
+    public List<AptLeaseResponseDto> getLeaseListMonthlyV1(TradeSearchCond cond) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(cond.getSigunguCode())) {
+            builder.and(qAptLeaseRaw.sigunguCode.eq(cond.getSigunguCode()));
+        }
+        if (hasText(cond.getDealYear())) {
+            builder.and(qAptLeaseRaw.dealYear.eq(cond.getDealYear()));
+            if (hasText(cond.getDealMon())) {
+                builder.and(qAptLeaseRaw.dealMon.eq(cond.getDealMon()));
+            }
+        }
+        if (hasText(cond.getUaType())) {
+            builder.and(qAptLeaseRaw.useAreaType.eq(cond.getUaType()));
+        }
+        if (hasText(cond.getLandDong())) {
+            builder.and(qAptLeaseRaw.landDong.eq(cond.getLandDong()));
+        }
+        if (hasText(cond.getLeaseType())) {
+            if (cond.getLeaseType().equals("0")) {
+                builder.and(qAptLeaseRaw.monthlyRent.eq(0)); //전세 (= 0)
+            } else {
+                builder.and(qAptLeaseRaw.monthlyRent.gt(0)); //월세 (> 0)
+            }
+        }
+        return queryFactory.selectFrom(qAptLeaseRaw)
+                .where(builder)
+                .orderBy(qAptLeaseRaw.dealDate.desc())
+                .limit(500)
+                .fetch().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
     }
 }

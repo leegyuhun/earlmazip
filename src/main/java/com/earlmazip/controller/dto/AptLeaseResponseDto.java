@@ -3,6 +3,8 @@ package com.earlmazip.controller.dto;
 import com.earlmazip.domain.AptLeaseRaw;
 import lombok.Getter;
 
+import java.text.DecimalFormat;
+
 @Getter
 public class AptLeaseResponseDto {
     private String sigunguCode;
@@ -22,18 +24,41 @@ public class AptLeaseResponseDto {
     private String useAreaType;
     private int befDeposit;
     private int deposit;
-    private String befMonthlyRentStr;
+    private String depositStr;
+
+    public String getDepositStr() {
+        if (this.deposit < 10000) {
+            if (this.deposit < 1000) {
+                return Integer.toString(this.deposit);
+            } else {
+                return new DecimalFormat("#,###").format((float)this.deposit);
+            }
+        } else {
+            return new DecimalFormat("0.0#").format((float)this.deposit / 10000) + "억";
+        }
+    }
+
+    private int monthlyRent;
     private String monthlyRentStr;
+    public String getMonthlyRentStr() {
+        if (this.monthlyRent == 0) {
+            return "-";
+        } else {
+            return Integer.toString(this.monthlyRent);
+        }
+    }
+    private int befMonthlyRent;
+    private String befMonthlyRentStr;
+    public String getBefMonthlyRentStr() {
+        if (this.befMonthlyRent == 0) {
+            return "-";
+        } else {
+            return Integer.toString(this.befMonthlyRent);
+        }
+    }
     private int floor;
     private String buildYear;
     private String landDong;
-//    public String getLandDong(){
-//        if (this.landDong.length() > 2 && this.landDong.contains("동")) {
-//            return this.landDong.replace("동", "");
-//        } else {
-//            return this.landDong;
-//        }
-//    }
 
     public AptLeaseResponseDto(AptLeaseRaw entity) {
         this.sigunguCode = entity.getSigunguCode();
@@ -43,17 +68,14 @@ public class AptLeaseResponseDto {
         this.useAreaTrunc = entity.getUseAreaTrunc();
         this.useAreaType = entity.getUseAreaType();
         this.deposit = entity.getDeposit();
+        this.monthlyRent = entity.getMonthlyRent();
+        this.befMonthlyRent = entity.getBefMonthlyRent();
         this.floor = entity.getFloor();
         this.buildYear = entity.getBuildYear();
         this.landDong = entity.getLandDong();
-
         this.dealType = entity.getDealType();
         this.dealTerm = entity.getDealTerm();
         this.renewalUse = entity.getRenewalUse();
         this.befDeposit = entity.getBefDeposit();
-        if (entity.getMonthlyRent() == 0) { this.monthlyRentStr = "-"; }
-        else { this.monthlyRentStr = Integer.toString(entity.getMonthlyRent()); }
-        if (entity.getBefMonthlyRent() == 0) { this.befMonthlyRentStr = "-"; }
-        else { this.befMonthlyRentStr = Integer.toString(entity.getBefMonthlyRent()); }
     }
 }

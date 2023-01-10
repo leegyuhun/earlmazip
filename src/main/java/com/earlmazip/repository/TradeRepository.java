@@ -729,9 +729,9 @@ public class TradeRepository {
 
     public List<AptDistributionRaw> getTradeDistribution_ByName(String dealYear, String sigunguCode, String landDong, String aptName) {
         BooleanBuilder builder = new BooleanBuilder();
-        if (hasText(dealYear)) {
-            builder.and(qAptDistributionRaw.dealYear.eq(dealYear));
-        }
+//        if (hasText(dealYear)) {
+//            builder.and(qAptDistributionRaw.dealYear.eq(dealYear));
+//        }
         if (hasText(sigunguCode)) {
             builder.and(qAptDistributionRaw.sigunguCode.eq(sigunguCode));
         }
@@ -743,6 +743,7 @@ public class TradeRepository {
         }
         return queryFactory.selectFrom(qAptDistributionRaw)
                 .where(builder)
+                .orderBy(qAptDistributionRaw.dealDate.desc())
                 .limit(500)
                 .fetch();
     }
