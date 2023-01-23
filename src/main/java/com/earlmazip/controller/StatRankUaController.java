@@ -35,6 +35,7 @@ public class StatRankUaController {
     @RequestMapping("/stat_rank_uatype/home")
     public String home_statRankUaType(Model modal) {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        apiCallStatService.writeApiCallStatDetail("/stat_rank_uatype/home", "0", "0");
         modal.addAttribute("udt", udt);
         modal.addAttribute("headerTitle", "평균매매가 TOP 20");
         return "stat_rank_uatype/home";

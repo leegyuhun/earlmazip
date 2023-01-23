@@ -85,7 +85,7 @@ public class LeaseRepository {
         return queryFactory.selectFrom(qAptLeaseRaw)
                 .where(builder)
                 .orderBy(qAptLeaseRaw.dealDate.desc())
-                .limit(300)
+                .limit(200)
                 .fetch();
     }
 

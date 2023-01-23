@@ -3,6 +3,7 @@ package com.earlmazip.controller;
 import com.earlmazip.controller.dto.AptLeaseResponseDto;
 import com.earlmazip.controller.dto.LandDongInfoDto;
 import com.earlmazip.controller.dto.TradeSearchCond;
+import com.earlmazip.domain.SigunguCode;
 import com.earlmazip.service.ApiCallStatService;
 import com.earlmazip.service.CodeInfoService;
 import com.earlmazip.service.LandDongService;
@@ -198,7 +199,10 @@ public class LeaseController {
             trads = new ArrayList<>();
         }
         List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
+        String areaCode = sigunguCode.substring(0, 2);
+        List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
 
+        model.addAttribute("sigunguList", sigunguList);
         model.addAttribute("dongList", dongList);
         model.addAttribute("landDong", landDong);
         model.addAttribute("uaType", uaType);
@@ -210,8 +214,15 @@ public class LeaseController {
             model.addAttribute("title",  "[ "+ title + " " + landDong + " - 최근 갱신내역 ]");
         }
         model.addAttribute("list", trads);
-
-        return "leaselist/renewal/seoul";
+        if (areaCode.equals("11")) {
+            return "leaselist/renewal/seoul";
+        } else if (areaCode.equals("41")) {
+            return "leaselist/renewal/gyunggi";
+        } else if (areaCode.equals("28") || areaCode.equals("26") || areaCode.equals("27") || areaCode.equals("29") || areaCode.equals("30") || areaCode.equals("31")) {
+            return "leaselist/renewal/guSelect";
+        } else {
+            return "leaselist/renewal/regionSelect";
+        }
     }
 
     @GetMapping("/leaselist/ByName")

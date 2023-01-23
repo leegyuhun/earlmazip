@@ -33,6 +33,8 @@ public class TradeController {
     @RequestMapping("/tradelist/home")
     public String home_tradelist(Model modal) {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        System.out.println("/tradelist/home");
+        apiCallStatService.writeApiCallStatDetail("/tradelist/home", "0", "0");
         modal.addAttribute("udt", udt);
         modal.addAttribute("headerTitle", "월별 매매 통계");
         return "tradelist/home";
@@ -41,6 +43,7 @@ public class TradeController {
     @RequestMapping("/tradelist/newHighest/home")
     public String home_tradelistNewHighest(Model modal) {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        apiCallStatService.writeApiCallStatDetail("/tradelist/newHighest/home", "0", "0");
         modal.addAttribute("udt", udt);
         modal.addAttribute("headerTitle", "월별 매매 통계");
         return "tradelist/newHighest/home";
@@ -49,6 +52,7 @@ public class TradeController {
     @RequestMapping("/tradelist/cancelDeal/home")
     public String home_tradelistCancelDeal(Model modal) {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        apiCallStatService.writeApiCallStatDetail("/tradelist/cancelDeal/home", "0", "0");
         modal.addAttribute("udt", udt);
         modal.addAttribute("headerTitle", "월별 매매 통계");
         return "tradelist/cancelDeal/home";
