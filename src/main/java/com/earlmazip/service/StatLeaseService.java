@@ -19,7 +19,7 @@ public class StatLeaseService {
         return statRepository.getStatLeaseList(sigunguCode, uaType, term).stream().map(StatLeaseResponseDto::new).collect(Collectors.toList());
     }
 
-    public List<RankLeaseResponseDto> getTopLeaseSigungu(String sigunguCode, String uaType, int leaseType) {
-        return statRepository.getTopLeaseSigungu(sigunguCode, uaType, leaseType).stream().map(RankLeaseResponseDto::new).collect(Collectors.toList());
+    public List<RankLeaseResponseDto> getTopLeaseSigungu(String sigunguCode, String uaType, int leaseType, int dealYear) {
+        return statRepository.getTopLeaseSigungu(sigunguCode, uaType, leaseType, dealYear).stream().map(RankLeaseResponseDto::new).collect(Collectors.toList());
     }
 }

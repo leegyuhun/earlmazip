@@ -15,25 +15,34 @@
             <div class="d-flex gap-2 justify-content-center">
                 <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
                     <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        년도
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&dealYear=2023&uaType={uaType}&leaseType={leaseType} (sigunguCode=${sigunguCode}, uaType=${uaType}, leaseType=${leaseType})}">2023</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&dealYear=2022&uaType={uaType}&leaseType={leaseType} (sigunguCode=${sigunguCode}, uaType=${uaType}, leaseType=${leaseType})}">2022</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         강북
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">서울 전체</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11305&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">강북구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11215&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">광진구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11350&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">노원구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11320&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">도봉구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11230&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">동대문</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11440&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">마포구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11410&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">서대문</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11200&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">성동구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11290&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">성북구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11470&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">양천구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11170&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">용산구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11380&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">은평구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11110&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">종로구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11260&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">중랑구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11140&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">중 구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">서울 전체</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11305&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">강북구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11215&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">광진구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11350&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">노원구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11320&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">도봉구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11230&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">동대문</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11440&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">마포구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11410&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">서대문</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11200&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">성동구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11290&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">성북구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11470&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">양천구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11170&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">용산구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11380&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">은평구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11110&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">종로구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11260&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">중랑구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11140&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">중 구</a></li>
                     </ul>
                 </div>
                 <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
@@ -41,18 +50,18 @@
                         강남
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">서울 전체</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11680&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">강남구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11740&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">강동구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11500&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">강서구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11620&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">관악구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11530&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">구로구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11545&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">금천구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11590&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">동작구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11650&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">서초구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11710&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">송파구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11470&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">양천구</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11560&uaType={uaType}&leaseType={leaseType} (uaType=${uaType}, leaseType=${leaseType})}">영등포</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">서울 전체</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11680&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">강남구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11740&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">강동구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11500&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">강서구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11620&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">관악구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11530&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">구로구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11545&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">금천구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11590&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">동작구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11650&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">서초구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11710&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">송파구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11470&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">양천구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode=11560&dealYear={dealYear}&uaType={uaType}&leaseType={leaseType} (dealYear=${dealYear}, uaType=${uaType}, leaseType=${leaseType})}">영등포</a></li>
                     </ul>
                 </div>
 
@@ -61,14 +70,14 @@
                         평형
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType=UA01&leaseType={leaseType} (sigunguCode=${sigunguCode}, leaseType=${leaseType})}">전체</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType=UA02&leaseType={leaseType} (sigunguCode=${sigunguCode}, leaseType=${leaseType})}">소형</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType=UA08&leaseType={leaseType} (sigunguCode=${sigunguCode}, leaseType=${leaseType})}">전용59</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType=UA03&leaseType={leaseType} (sigunguCode=${sigunguCode}, leaseType=${leaseType})}">중소형</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType=UA07&leaseType={leaseType} (sigunguCode=${sigunguCode}, leaseType=${leaseType})}">국평</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType=UA04&leaseType={leaseType} (sigunguCode=${sigunguCode}, leaseType=${leaseType})}">중형</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType=UA05&leaseType={leaseType} (sigunguCode=${sigunguCode}, leaseType=${leaseType})}">중대형</a></li>
-                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&uaType=UA06&leaseType={leaseType} (sigunguCode=${sigunguCode}, leaseType=${leaseType})}">대형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&dealYear={dealYear}&uaType=UA01&leaseType={leaseType} (sigunguCode=${sigunguCode}, dealYear=${dealYear}, leaseType=${leaseType})}">전체</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&dealYear={dealYear}&uaType=UA02&leaseType={leaseType} (sigunguCode=${sigunguCode}, dealYear=${dealYear}, leaseType=${leaseType})}">소형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&dealYear={dealYear}&uaType=UA08&leaseType={leaseType} (sigunguCode=${sigunguCode}, dealYear=${dealYear}, leaseType=${leaseType})}">전용59</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&dealYear={dealYear}&uaType=UA03&leaseType={leaseType} (sigunguCode=${sigunguCode}, dealYear=${dealYear}, leaseType=${leaseType})}">중소형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&dealYear={dealYear}&uaType=UA07&leaseType={leaseType} (sigunguCode=${sigunguCode}, dealYear=${dealYear}, leaseType=${leaseType})}">국평</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&dealYear={dealYear}&uaType=UA04&leaseType={leaseType} (sigunguCode=${sigunguCode}, dealYear=${dealYear}, leaseType=${leaseType})}">중형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&dealYear={dealYear}&uaType=UA05&leaseType={leaseType} (sigunguCode=${sigunguCode}, dealYear=${dealYear}, leaseType=${leaseType})}">중대형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease/top?sigunguCode={sigunguCode}&dealYear={dealYear}&uaType=UA06&leaseType={leaseType} (sigunguCode=${sigunguCode}, dealYear=${dealYear}, leaseType=${leaseType})}">대형</a></li>
                     </ul>
                 </div>
             </div>

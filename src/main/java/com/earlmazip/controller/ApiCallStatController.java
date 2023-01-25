@@ -2,7 +2,9 @@ package com.earlmazip.controller;
 
 import com.earlmazip.domain.ApiCallStat;
 import com.earlmazip.domain.ApiCallStatDetail;
+import com.earlmazip.domain.IpCount;
 import com.earlmazip.service.ApiCallStatService;
+import com.earlmazip.service.IpCountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -23,9 +25,11 @@ public class ApiCallStatController {
 
     private final ApiCallStatService apiCallStatService;
 
+    private final IpCountService ipCountService;
+
     @GetMapping("/admin/apicallstatdetail")
     public String LoadTodayApiCallDetail(@RequestParam(value = "gubn", defaultValue = "") String gubn,
-                                       Model model) {
+                                         Model model) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         // 현재날짜
         String date = simpleDateFormat.format(new Date());
@@ -36,8 +40,8 @@ public class ApiCallStatController {
             apiCalls = apiCallStatService.findAllTodayDetail(date);
         }
 
-        List<String> names = apiCalls.stream().map(o->new String(o.getApiName())).collect(Collectors.toList());
-        List<Integer> cnts = apiCalls.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        List<String> names = apiCalls.stream().map(o -> new String(o.getApiName())).collect(Collectors.toList());
+        List<Integer> cnts = apiCalls.stream().map(o -> new Integer(o.getCnt())).collect(Collectors.toList());
 
         if (cnts.size() > 0) {
 
@@ -63,14 +67,14 @@ public class ApiCallStatController {
         List<ApiCallStat> apiCalls;
         if (gubn.equals("TOTAL")) {
             apiCalls = apiCallStatService.findAllToday(date);
-        } else if (gubn.equals("error")){
+        } else if (gubn.equals("error")) {
             apiCalls = apiCallStatService.findTodayError(date);
         } else {
             apiCalls = apiCallStatService.findGubnToday(date, gubn);
         }
 
-        List<String> names = apiCalls.stream().map(o->new String(o.getApiName())).collect(Collectors.toList());
-        List<Integer> cnts = apiCalls.stream().map(o->new Integer(o.getCnt())).collect(Collectors.toList());
+        List<String> names = apiCalls.stream().map(o -> new String(o.getApiName())).collect(Collectors.toList());
+        List<Integer> cnts = apiCalls.stream().map(o -> new Integer(o.getCnt())).collect(Collectors.toList());
 
         if (cnts.size() > 0) {
 
@@ -86,5 +90,23 @@ public class ApiCallStatController {
         model.addAttribute("cnts", cnts);
 
         return "admin/apicallstat";
+    }
+
+    @GetMapping("/admin/ipCount")
+    public String GetIPHistory(Model model) {
+        List<IpCount> items = ipCountService.GetIpHistory();
+
+        List<String> names = items.stream().map(o -> new String(o.getIpAddress())).collect(Collectors.toList());
+        List<Integer> cnts = items.stream().map(o -> new Integer(o.getCnt())).collect(Collectors.toList());
+
+        if (cnts.size() > 0) {
+            IpCount sum = new IpCount();
+            sum.setIpAddress("SUM");
+            sum.setCnt(cnts.stream().mapToInt(Integer::intValue).sum());
+            items.add(0, sum);
+        }
+        model.addAttribute("list", items);
+
+        return "admin/ipHistory";
     }
 }

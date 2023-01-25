@@ -48,7 +48,7 @@ public class StatLeaseRepository {
                 .fetch();
     }
 
-    public List<RankLease> getTopLeaseSigungu(String sigunguCode, String uaType, int leaseType) {
+    public List<RankLease> getTopLeaseSigungu(String sigunguCode, String uaType, int leaseType, int dealYear) {
         BooleanBuilder builder = new BooleanBuilder();
         if (hasText(sigunguCode)) {
             builder.and(qRankLease.sigunguCode.eq(sigunguCode));
@@ -60,6 +60,9 @@ public class StatLeaseRepository {
             builder.and(qRankLease.leaseType.eq("전세"));
         } else {
             builder.and(qRankLease.leaseType.eq("월세"));
+        }
+        if (dealYear > 2021) {
+            builder.and(qRankLease.dealYear.eq(Integer.toString(dealYear)));
         }
         if (leaseType == 0) {
             return queryFactory.selectFrom(qRankLease)

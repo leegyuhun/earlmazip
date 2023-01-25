@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +31,7 @@ public class TradeController {
     private final ApiCallStatService apiCallStatService;
     private final CodeInfoService codeInfoService;
     private final LandDongService landDongService;
+    private final RequestService requestService;
 
     @RequestMapping("/tradelist/home")
     public String home_tradelist(Model modal) {
@@ -68,9 +71,11 @@ public class TradeController {
     public String getTradeList(@RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
                                      @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                      @RequestParam(value = "landDong", defaultValue = "") String landDong,
-                                     Model model) {
+                                     HttpServletRequest request,
+                                     Model model) throws UnknownHostException {
         List<AptPriceResponseDto> trads;
         String title = "-";
+        requestService.getClientIPAddress(request);
         if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/tradelist?" + sigunguCode);
@@ -133,9 +138,11 @@ public class TradeController {
      */
     @GetMapping("/tradelist/cancelDeal")
     public String getCancelDealList(@RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
-                                    Model model) {
+                                    HttpServletRequest request,
+                                    Model model) throws UnknownHostException {
         List<AptPriceResponseDto> trads;
         String title = "-";
+        requestService.getClientIPAddress(request);
         if (!sigunguCode.equals("0")) {
             log.info("/tradelist/cancelDeal?sigunguCode=" + sigunguCode);
             title = codeInfoService.getCodeName(sigunguCode);
@@ -178,9 +185,11 @@ public class TradeController {
     public String getNewHighestList(@RequestParam(value="sigunguCode", defaultValue = "11") String sigunguCode,
                                     @RequestParam(value="uaType", defaultValue = "UA01") String uaType,
                                     @RequestParam(value="landDong", defaultValue = "") String landDong,
-                                    Model model) {
+                                    HttpServletRequest request,
+                                    Model model) throws UnknownHostException {
         List<AptPriceResponseDto> trads;
         String title = "-";
+        requestService.getClientIPAddress(request);
         if (sigunguCode.length() == 5) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/tradelist/newHighest?sigunguCode" + sigunguCode);
@@ -245,8 +254,10 @@ public class TradeController {
                                      @RequestParam(value="ua", defaultValue = "0") int ua,
                                      @RequestParam(value="term", defaultValue = "1") int term,
                                      @RequestParam(value="landDong", defaultValue = "") String landDong,
-                                     Model model) {
+                                     HttpServletRequest request,
+                                     Model model) throws UnknownHostException {
         List<AptPriceResponseDto> trads;
+        requestService.getClientIPAddress(request);
         if (!sigunguCode.equals("0")) {
             String url = "/tradelist/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName + "&ua=" + ua + "&landDong=" + landDong;
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, codeInfoService.getCodeName(sigunguCode));

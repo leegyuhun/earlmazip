@@ -5,6 +5,7 @@ import com.earlmazip.domain.SigunguCode;
 import com.earlmazip.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +35,8 @@ public class StatRankUaController {
 
     private final SiteInfoService siteInfoService;
 
+    private final RequestService requestService;
+
     @RequestMapping("/stat_rank_uatype/home")
     public String home_statRankUaType(Model modal) {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
@@ -46,8 +51,10 @@ public class StatRankUaController {
                                     @RequestParam(value = "dealYear", defaultValue = "2022") int dealYear,
                                     @RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
                                     @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
-                                    Model model) {
+                                    HttpServletRequest request,
+                                    Model model) throws UnknownHostException {
         String title = "-";
+        requestService.getClientIPAddress(request);
         List<RankUaSigunguResponseDto> list;
         if (!sigunguCode.equals("0")) {
             log.info("/stat_rank_uatype?rankGubn=" + rankGubn + "&dealYear=" + dealYear + "&sigunguCode=" + sigunguCode + "&uaType=" + uaType);

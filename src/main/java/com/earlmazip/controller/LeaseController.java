@@ -4,10 +4,7 @@ import com.earlmazip.controller.dto.AptLeaseResponseDto;
 import com.earlmazip.controller.dto.LandDongInfoDto;
 import com.earlmazip.controller.dto.TradeSearchCond;
 import com.earlmazip.domain.SigunguCode;
-import com.earlmazip.service.ApiCallStatService;
-import com.earlmazip.service.CodeInfoService;
-import com.earlmazip.service.LandDongService;
-import com.earlmazip.service.LeaseService;
+import com.earlmazip.service.*;
 import com.earlmazip.utils.Common;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +30,7 @@ public class LeaseController {
     private final ApiCallStatService apiCallStatService;
     private final CodeInfoService codeInfoService;
     private final LandDongService landDongService;
+    private final RequestService requestService;
 
     /**
      * 월별 전세가 통계
@@ -43,9 +43,11 @@ public class LeaseController {
     public String getLeaseList_Sigungu(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                   @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                   @RequestParam(value = "landDong", defaultValue = "") String landDong,
-                                  Model model) {
+                                  HttpServletRequest request,
+                                  Model model) throws UnknownHostException {
         String title = "-";
         List<AptLeaseResponseDto> trads;
+        requestService.getClientIPAddress(request);
         if (sigunguCode.length()==5) {
             log.info("/leaselist?sigunguCode=" + sigunguCode);
             title = codeInfoService.getCodeName(sigunguCode);
@@ -110,9 +112,11 @@ public class LeaseController {
     public String getLeaseMonthlyList(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                       @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                       @RequestParam(value = "landDong", defaultValue = "") String landDong,
-                                      Model model) {
+                                      HttpServletRequest request,
+                                      Model model) throws UnknownHostException {
         String title = "-";
         List<AptLeaseResponseDto> trads;
+        requestService.getClientIPAddress(request);
         if (sigunguCode.length() == 5) {
             log.info("/leaselist/monthly?sigunguCode" + sigunguCode);
             title = codeInfoService.getCodeName(sigunguCode);
@@ -177,9 +181,11 @@ public class LeaseController {
     public String getLeaseRenewalList_Seoul(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                             @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                             @RequestParam(value = "landDong", defaultValue = "") String landDong,
-                                            Model model) {
+                                            HttpServletRequest request,
+                                            Model model) throws UnknownHostException {
         String title = "-";
         List<AptLeaseResponseDto> trads;
+        requestService.getClientIPAddress(request);
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
             String url;
@@ -231,8 +237,10 @@ public class LeaseController {
                                      @RequestParam(value="ua", defaultValue = "0") int ua,
                                      @RequestParam(value="term", defaultValue = "1") int term,
                                      @RequestParam(value="landDong", defaultValue = "") String landDong,
-                                     Model model){
+                                     HttpServletRequest request,
+                                     Model model) throws UnknownHostException {
         List<AptLeaseResponseDto> trads;
+        requestService.getClientIPAddress(request);
         if (!sigunguCode.equals("0")) {
             String url = "/leaselist/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName + "&ua=" + ua + "&landDong=" + landDong;
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, codeInfoService.getCodeName(sigunguCode));
@@ -282,8 +290,10 @@ public class LeaseController {
                                      @RequestParam(value="ua", defaultValue = "0") int ua,
                                      @RequestParam(value="term", defaultValue = "1") int term,
                                      @RequestParam(value="landDong", defaultValue = "") String landDong,
-                                     Model model){
+                                       HttpServletRequest request,
+                                     Model model) throws UnknownHostException {
         List<AptLeaseResponseDto> trads;
+        requestService.getClientIPAddress(request);
         if (!sigunguCode.equals("0")) {
             apiCallStatService.writeApiCallStat("LEASE_LIST_NAME", "/leaselist/monthly/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {

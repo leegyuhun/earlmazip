@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +30,7 @@ public class TradeComparePrevController {
     private final ApiCallStatService apiCallStatService;
     private final CodeInfoService codeInfoService;
     private final LandDongService landDongService;
+    private final RequestService requestService;
 
     @RequestMapping("/tradelist/comparePrev/home")
     public String home_tradelistcomparePrev(Model modal) {
@@ -48,8 +51,10 @@ public class TradeComparePrevController {
                                @RequestParam(value = "type", defaultValue = "0") String type,
                                @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                @RequestParam(value = "landDong", defaultValue = "") String landDong,
-                               Model model) {
+                               HttpServletRequest request,
+                               Model model) throws UnknownHostException {
         String url = "/tradelist/comparePrev?sigunguCode=" + sigunguCode + "&type=" + type + "&uaType=" + uaType;
+        requestService.getClientIPAddress(request);
         if (type.length() > 1){
             apiCallStatService.writeApiCallStat("ERROR", "(error)" + url, sigunguCode);
             return "error";

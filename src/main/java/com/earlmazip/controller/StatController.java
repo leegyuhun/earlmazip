@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.UnknownHostException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -32,6 +34,8 @@ public class StatController {
     private final CodeInfoService codeInfoService;
 
     private final EcosDataService ecosDataService;
+
+    private final RequestService requestService;
 
     @RequestMapping("/stat_trade/useareaType/home")
     public String home_statMonthly(Model modal) {
@@ -68,9 +72,11 @@ public class StatController {
     public String getStatUseareaType_BySigungu(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                                @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                                @RequestParam(value = "term", defaultValue = "0") String term,
-                                               Model model) {
+                                               HttpServletRequest request,
+                                               Model model) throws UnknownHostException {
         List<StatResponseDto> areas;
         String title = "-";
+        requestService.getClientIPAddress(request);
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
 
@@ -232,9 +238,11 @@ public class StatController {
     public String getStatNewHighestAndTradeCount(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                                  @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                                  @RequestParam(value = "term", defaultValue = "0") int term,
-                                                 Model model) {
+                                                 HttpServletRequest request,
+                                                 Model model) throws UnknownHostException {
         List<StatResponseDto> stats;
         String title = "-";
+        requestService.getClientIPAddress(request);
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/stat_trade/newHighest?sigunguCode=" + sigunguCode);
@@ -288,12 +296,14 @@ public class StatController {
     @GetMapping("/stat_trade/ByDealType")
     public String getStatByDealType(@RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
                                     @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
-                                    Model model) {
+                                    HttpServletRequest request,
+                                    Model model) throws UnknownHostException {
         List<StatResponseDto> stats;
         List<StatResponseDto> stats0;
         List<StatResponseDto> stats1;
         String title = "-";
         String title2 = "-";
+        requestService.getClientIPAddress(request);
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/stat_trade/ByDealType?" + sigunguCode + "&uaType" + uaType);
@@ -412,9 +422,11 @@ public class StatController {
     public String GetStatTradeTopByYear(@RequestParam(value = "year", defaultValue = "2022") String year,
                                         @RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                         @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
-                                        Model model) {
+                                        HttpServletRequest request,
+                                        Model model) throws UnknownHostException {
         List<AptPriceResponseDto> tops;
         String title = "-";
+        requestService.getClientIPAddress(request);
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/stat_trade/top?year=" + year + "&sigunguCode=" +  sigunguCode);

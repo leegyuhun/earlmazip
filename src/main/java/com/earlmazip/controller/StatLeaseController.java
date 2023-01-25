@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +31,8 @@ public class StatLeaseController {
     private final CodeInfoService codeInfoService;
 
     private final EcosDataService ecosDataService;
+
+    private final RequestService requestService;
 
     @GetMapping("/stat_lease")
     public String getStatLeaseList(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
@@ -85,16 +89,19 @@ public class StatLeaseController {
     public String getTopLeaseSigungu(@RequestParam(value="sigunguCode", defaultValue = "") String sigunguCode,
                                      @RequestParam(value="uaType", defaultValue = "UA01") String uaType,
                                       @RequestParam(value="leaseType", defaultValue = "0") int leaseType,
-                                      Model model) {
+                                     @RequestParam(value="dealYear", defaultValue = "2022") int dealYear,
+                                     HttpServletRequest request,
+                                      Model model) throws UnknownHostException {
         List<RankLeaseResponseDto> ranks;
         String title = "-";
+        requestService.getClientIPAddress(request);
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
-            log.info("/stat_lease/top?sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&leaseType=" + leaseType);
-            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease/top?sigunguCode=" + title + "&uaType=" + uaType + "&leaseType=" + leaseType, sigunguCode);
+            log.info("/stat_lease/top?dealYear="+dealYear+"&sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&leaseType=" + leaseType);
+            apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease/top?dealYear="+dealYear+"&sigunguCode=" + title + "&uaType=" + uaType + "&leaseType=" + leaseType, sigunguCode);
 
             if (StringUtils.hasText(sigunguCode)) {
-                ranks = statLeaseService.getTopLeaseSigungu(sigunguCode, uaType, leaseType);
+                ranks = statLeaseService.getTopLeaseSigungu(sigunguCode, uaType, leaseType, dealYear);
             } else {
                 ranks = new ArrayList<>();
             }
@@ -106,10 +113,11 @@ public class StatLeaseController {
         model.addAttribute("sigunguCode", sigunguCode);
         model.addAttribute("uaType", uaType);
         model.addAttribute("leaseType", leaseType);
+        model.addAttribute("dealYear", dealYear);
         if (leaseType == 0) {
-            model.addAttribute("title",  title + " 2022 전세 TOP 100");
+            model.addAttribute("title",  title + " "  + dealYear + " 전세 TOP 100");
         } else {
-            model.addAttribute("title",  title + " 2022 월세 TOP 100");
+            model.addAttribute("title",  title + " "  + dealYear + " 월세 TOP 100");
         }
         model.addAttribute("subtitle", codeInfoService.getCodeName(uaType));
 
