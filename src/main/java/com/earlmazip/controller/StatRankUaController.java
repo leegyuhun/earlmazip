@@ -37,6 +37,10 @@ public class StatRankUaController {
 
     private final RequestService requestService;
 
+    private final IpCountService ipCountService;
+
+    private final IpBlockService ipBlockService;
+
     @RequestMapping("/stat_rank_uatype/home")
     public String home_statRankUaType(Model modal) {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
@@ -53,8 +57,14 @@ public class StatRankUaController {
                                     @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                     HttpServletRequest request,
                                     Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         String title = "-";
-        requestService.getClientIPAddress(request);
         List<RankUaSigunguResponseDto> list;
         if (!sigunguCode.equals("0")) {
             log.info("/stat_rank_uatype?rankGubn=" + rankGubn + "&dealYear=" + dealYear + "&sigunguCode=" + sigunguCode + "&uaType=" + uaType);

@@ -32,6 +32,7 @@ public class StatEtcController {
     private final CodeInfoService codeInfoService;
     private final ApiCallStatService apiCallStatService;
 
+
     /**
      * 인구통계 (추계인구, 고령인구비율, 합계 출산율)
      * @param term

@@ -1,9 +1,7 @@
 package com.earlmazip.controller;
 
 import com.earlmazip.controller.dto.StatLeaseAnalysisDto;
-import com.earlmazip.service.ApiCallStatService;
-import com.earlmazip.service.CodeInfoService;
-import com.earlmazip.service.LeaseAnalysisService;
+import com.earlmazip.service.*;
 import com.earlmazip.utils.Common;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,11 +26,22 @@ public class LeaseAnalysisController {
     private final LeaseAnalysisService leaseAnalysisService;
     private final ApiCallStatService apiCallStatService;
     private final CodeInfoService codeInfoService;
+    private final RequestService requestService;
+    private final IpCountService ipCountService;
+    private final IpBlockService ipBlockService;
 
     @GetMapping("/lease_analysis")
     public String getLeaseAnalysis(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                    @RequestParam(value = "term", defaultValue = "0") int term,
-                                   Model model) {
+                                   HttpServletRequest request,
+                                   Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         List<StatLeaseAnalysisDto> anals;
         String title = "-";
         if (!sigunguCode.equals("0")) {
@@ -67,7 +78,16 @@ public class LeaseAnalysisController {
         }
     }
     @GetMapping("/lease_analysis/seoul/{gubncode}")
-    public String getLeaseList_Seoul(@PathVariable String gubncode, Model model) {
+    public String getLeaseList_Seoul(@PathVariable String gubncode,
+                                     HttpServletRequest request,
+                                     Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         List<StatLeaseAnalysisDto> anals;
         String title = "-";
         if (!gubncode.equals("0")) {

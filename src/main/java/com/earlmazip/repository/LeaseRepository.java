@@ -34,7 +34,11 @@ public class LeaseRepository {
     public List<AptLeaseRaw> findLeaseList(TradeSearchCond cond) {
         BooleanBuilder builder = new BooleanBuilder();
         if (hasText(cond.getSigunguCode())) {
-            builder.and(qAptLeaseRaw.sigunguCode.eq(cond.getSigunguCode()));
+            if (cond.getSigunguCode().length() == 2) {
+                builder.and(qAptLeaseRaw.areaCode.eq(cond.getSigunguCode()));
+            } else {
+                builder.and(qAptLeaseRaw.sigunguCode.eq(cond.getSigunguCode()));
+            }
         }
         if (hasText(cond.getDealYear())) {
             builder.and(qAptLeaseRaw.dealYear.eq(cond.getDealYear()));

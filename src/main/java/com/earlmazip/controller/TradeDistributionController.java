@@ -1,9 +1,7 @@
 package com.earlmazip.controller;
 
 import com.earlmazip.controller.dto.AptPriceResponseDto;
-import com.earlmazip.service.ApiCallStatService;
-import com.earlmazip.service.CodeInfoService;
-import com.earlmazip.service.TradeService;
+import com.earlmazip.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -12,6 +10,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,6 +24,9 @@ public class TradeDistributionController {
     private final TradeService tradeService;
     private final ApiCallStatService apiCallStatService;
     private final CodeInfoService codeInfoService;
+    private final RequestService requestService;
+    private final IpCountService ipCountService;
+    private final IpBlockService ipBlockService;
 
 
     /**
@@ -34,7 +37,15 @@ public class TradeDistributionController {
     @GetMapping("/tradelist/distribution")
     public String getTradeListDistribution(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                            @RequestParam(value = "dealYear", defaultValue = "2023") String dealYear,
-                               Model model) {
+                                           HttpServletRequest request,
+                               Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         List<AptPriceResponseDto> trads;
         String title = "-";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
@@ -65,7 +76,15 @@ public class TradeDistributionController {
     public String getTradeListDistribution_ByName(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                                   @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                                   @RequestParam(value = "aptName", defaultValue = "") String aptName,
-                               Model model) {
+                                                  HttpServletRequest request,
+                               Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         List<AptPriceResponseDto> trads;
         String title = "-";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");

@@ -45,7 +45,8 @@ public class IpCountRepository {
         String date = simpleDateFormat.format(new Date());
 
         return em.createQuery("select a from IpCount a "
-                        + " where a.countDate = :date", IpCount.class)
+                        + " where a.countDate = :date"
+                        + " order by a.cnt desc", IpCount.class)
                 .setParameter("date", date)
                 .getResultList();
     }

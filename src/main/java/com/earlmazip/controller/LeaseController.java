@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,9 +32,43 @@ public class LeaseController {
     private final CodeInfoService codeInfoService;
     private final LandDongService landDongService;
     private final RequestService requestService;
+    private final IpCountService ipCountService;
+    private final IpBlockService ipBlockService;
+    private final SiteInfoService siteInfoService;
+
+
+    @RequestMapping("leaselist/home")
+    public String home_leaselist(Model model) {
+        String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        System.out.println("/leaselist/home");
+        apiCallStatService.writeApiCallStatDetail("/leaselist/home", "0", "0");
+        model.addAttribute("udt", udt);
+        model.addAttribute("headerTitle", "최근전세내역");
+        return "leaselist/home";
+    }
+
+    @RequestMapping("leaselist/monthly/home")
+    public String home_leaselistMonthly(Model model) {
+        String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        System.out.println("/leaselist/monthly/home");
+        apiCallStatService.writeApiCallStatDetail("/leaselist/monthly/home", "0", "0");
+        model.addAttribute("udt", udt);
+        model.addAttribute("headerTitle", "최근월세내역");
+        return "leaselist/monthly/home";
+    }
+
+    @RequestMapping("leaselist/renewal/home")
+    public String home_leaselistRenewal(Model model) {
+        String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        System.out.println("/leaselist/renewal/home");
+        apiCallStatService.writeApiCallStatDetail("/leaselist/renewal/home", "0", "0");
+        model.addAttribute("udt", udt);
+        model.addAttribute("headerTitle", "최근갱신내역");
+        return "leaselist/renewal/home";
+    }
 
     /**
-     * 월별 전세가 통계
+     * 최근전세내역
      * @param sigunguCode
      * @param uaType
      * @param model
@@ -45,9 +80,15 @@ public class LeaseController {
                                   @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                   HttpServletRequest request,
                                   Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         String title = "-";
         List<AptLeaseResponseDto> trads;
-        requestService.getClientIPAddress(request);
         if (sigunguCode.length()==5) {
             log.info("/leaselist?sigunguCode=" + sigunguCode);
             title = codeInfoService.getCodeName(sigunguCode);
@@ -77,8 +118,9 @@ public class LeaseController {
         } else {
             trads = new ArrayList<>();
         }
-
+        String areaCode = sigunguCode.substring(0, 2);
         List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
+        List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
 
         model.addAttribute("dongList", dongList);
         model.addAttribute("landDong", landDong);
@@ -88,21 +130,24 @@ public class LeaseController {
             model.addAttribute("title",  "[ "+ title + " " + landDong + " - 최근 전세]");
         }
 
+        model.addAttribute("sigunguList", sigunguList);
         model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
         model.addAttribute("sigunguCode", sigunguCode);
         model.addAttribute("uaType", uaType);
         model.addAttribute("list", trads);
-        if (sigunguCode.substring(0, 2).equals("11")) {
+        if (areaCode.equals("11")) {
             return "leaselist/seoul";
-        } else if (sigunguCode.substring(0, 2).equals("41")) {
+        } else if (areaCode.equals("41")) {
             return "leaselist/gyunggi";
+        } else if (areaCode.equals("28") || areaCode.equals("26") || areaCode.equals("27") || areaCode.equals("29") || areaCode.equals("30") || areaCode.equals("31")) {
+            return "leaselist/guSelect";
         } else {
-            return "leaselist/incheon";
+            return "leaselist/regionSelect";
         }
     }
 
     /**
-     * 월별 월세가 통계
+     * 최근 월세 내역
      * @param sigunguCode
      * @param uaType
      * @param model
@@ -114,9 +159,15 @@ public class LeaseController {
                                       @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                       HttpServletRequest request,
                                       Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         String title = "-";
         List<AptLeaseResponseDto> trads;
-        requestService.getClientIPAddress(request);
         if (sigunguCode.length() == 5) {
             log.info("/leaselist/monthly?sigunguCode" + sigunguCode);
             title = codeInfoService.getCodeName(sigunguCode);
@@ -148,7 +199,10 @@ public class LeaseController {
         }
 
         List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
+        String areaCode = sigunguCode.substring(0, 2);
+        List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
 
+        model.addAttribute("sigunguList", sigunguList);
         model.addAttribute("dongList", dongList);
         model.addAttribute("landDong", landDong);
         if (landDong.equals("")) {
@@ -156,23 +210,24 @@ public class LeaseController {
         } else {
             model.addAttribute("title",  "[ "+ title + " " + landDong + " - 최근 월세 ]");
         }
-
         model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
         model.addAttribute("sigunguCode", sigunguCode);
         model.addAttribute("uaType", uaType);
         model.addAttribute("list", trads);
 
-        if (sigunguCode.substring(0, 2).equals("11")) {
+        if (areaCode.equals("11")) {
             return "leaselist/monthly/seoul";
-        } else if (sigunguCode.substring(0, 2).equals("41")) {
+        } else if (areaCode.equals("41")) {
             return "leaselist/monthly/gyunggi";
+        } else if (areaCode.equals("28") || areaCode.equals("26") || areaCode.equals("27") || areaCode.equals("29") || areaCode.equals("30") || areaCode.equals("31")) {
+            return "leaselist/monthly/guSelect";
         } else {
-            return "leaselist/monthly/incheon";
+            return "leaselist/monthly/regionSelect";
         }
     }
 
     /**
-     * 서울 전세 갱신현황
+     * 최근 갱신내역
      * @param sigunguCode
      * @param model
      * @return
@@ -183,9 +238,15 @@ public class LeaseController {
                                             @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                             HttpServletRequest request,
                                             Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         String title = "-";
         List<AptLeaseResponseDto> trads;
-        requestService.getClientIPAddress(request);
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
             String url;
@@ -239,8 +300,14 @@ public class LeaseController {
                                      @RequestParam(value="landDong", defaultValue = "") String landDong,
                                      HttpServletRequest request,
                                      Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         List<AptLeaseResponseDto> trads;
-        requestService.getClientIPAddress(request);
         if (!sigunguCode.equals("0")) {
             String url = "/leaselist/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName + "&ua=" + ua + "&landDong=" + landDong;
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, codeInfoService.getCodeName(sigunguCode));
@@ -292,8 +359,14 @@ public class LeaseController {
                                      @RequestParam(value="landDong", defaultValue = "") String landDong,
                                        HttpServletRequest request,
                                      Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         List<AptLeaseResponseDto> trads;
-        requestService.getClientIPAddress(request);
         if (!sigunguCode.equals("0")) {
             apiCallStatService.writeApiCallStat("LEASE_LIST_NAME", "/leaselist/monthly/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {

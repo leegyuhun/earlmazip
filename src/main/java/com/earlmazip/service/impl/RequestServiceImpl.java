@@ -14,10 +14,6 @@ import java.net.UnknownHostException;
 
 @Service
 public class RequestServiceImpl implements RequestService {
-
-    @Autowired
-    private IpCountService ipCountService;
-
     private Logger logger = LoggerFactory.getLogger(RequestServiceImpl.class);
 
     private final String LOCALHOST_IPV4 = "127.0.0.1";
@@ -49,7 +45,6 @@ public class RequestServiceImpl implements RequestService {
         if (StringUtils.hasLength(clientIPAddress) && clientIPAddress.length() > 15 && clientIPAddress.indexOf(",") > 0) {
             clientIPAddress = clientIPAddress.substring(0, clientIPAddress.indexOf(","));
         }
-        ipCountService.ipCounting(clientIPAddress);
         return clientIPAddress;
     }
 }

@@ -17,7 +17,7 @@
                         지역선택
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:each="sigunguList : ${sigunguList}" th:text="${sigunguList.sigunguName}" th:href="@{/tradelist?sigunguCode={sigunguCode}&uaType={uaType}&landDong={landDong} (sigunguCode=${sigunguList.sigunguCode}, uaType=${uaType}, landDong=${landDong})}"></a></li>
+                        <li><a class="dropdown-item" th:each="sigunguList : ${sigunguList}" th:text="${sigunguList.sigunguName}" th:href="@{/tradelist?sigunguCode={sigunguCode}&uaType={uaType} (sigunguCode=${sigunguList.sigunguCode}, uaType=${uaType})}"></a></li>
                     </ul>
                 </div>
                 <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 public class StatLeaseController {
-
+    private final SiteInfoService siteInfoService;
     private final StatLeaseService statLeaseService;
 
     private final ApiCallStatService apiCallStatService;
@@ -34,11 +35,32 @@ public class StatLeaseController {
 
     private final RequestService requestService;
 
+    private final IpCountService ipCountService;
+
+    private final IpBlockService ipBlockService;
+
+    @RequestMapping("/stat_lease/top/home")
+    public String home_statLeaseTop(Model modal) {
+        String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        apiCallStatService.writeApiCallStatDetail("/stat_lease/top/home", "0", "0");
+        modal.addAttribute("udt", udt);
+        modal.addAttribute("headerTitle", "전/월세 TOP 100");
+        return "stat_lease/top/home";
+    }
+
     @GetMapping("/stat_lease")
     public String getStatLeaseList(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                    @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                    @RequestParam(value = "term", defaultValue = "0") String term,
-                                   Model model) {
+                                   HttpServletRequest request,
+                                   Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         List<StatLeaseResponseDto> stats;
         String title = "-";
         if (!sigunguCode.equals("0")) {
@@ -92,9 +114,15 @@ public class StatLeaseController {
                                      @RequestParam(value="dealYear", defaultValue = "2022") int dealYear,
                                      HttpServletRequest request,
                                       Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         List<RankLeaseResponseDto> ranks;
         String title = "-";
-        requestService.getClientIPAddress(request);
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/stat_lease/top?dealYear="+dealYear+"&sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&leaseType=" + leaseType);
@@ -122,11 +150,11 @@ public class StatLeaseController {
         model.addAttribute("subtitle", codeInfoService.getCodeName(uaType));
 
         if (sigunguCode.substring(0, 2).equals("11")) {
-            return "stat_lease/seoulTop";
+            return "stat_lease/top/seoul";
         } else if (sigunguCode.substring(0, 2).equals("41")) {
-            return "stat_lease/gyunggiTop";
+            return "stat_lease/top/gyunggi";
         } else {
-            return "stat_lease/incheonTop";
+            return "stat_lease/top/incheon";
         }
     }
 }

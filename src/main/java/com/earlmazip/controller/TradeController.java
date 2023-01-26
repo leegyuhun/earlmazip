@@ -32,6 +32,8 @@ public class TradeController {
     private final CodeInfoService codeInfoService;
     private final LandDongService landDongService;
     private final RequestService requestService;
+    private final IpCountService ipCountService;
+    private final IpBlockService ipBlockService;
 
     @RequestMapping("/tradelist/home")
     public String home_tradelist(Model modal) {
@@ -73,9 +75,15 @@ public class TradeController {
                                      @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                      HttpServletRequest request,
                                      Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         List<AptPriceResponseDto> trads;
         String title = "-";
-        requestService.getClientIPAddress(request);
         if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/tradelist?" + sigunguCode);
@@ -140,9 +148,15 @@ public class TradeController {
     public String getCancelDealList(@RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
                                     HttpServletRequest request,
                                     Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         List<AptPriceResponseDto> trads;
         String title = "-";
-        requestService.getClientIPAddress(request);
         if (!sigunguCode.equals("0")) {
             log.info("/tradelist/cancelDeal?sigunguCode=" + sigunguCode);
             title = codeInfoService.getCodeName(sigunguCode);
@@ -187,9 +201,15 @@ public class TradeController {
                                     @RequestParam(value="landDong", defaultValue = "") String landDong,
                                     HttpServletRequest request,
                                     Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         List<AptPriceResponseDto> trads;
         String title = "-";
-        requestService.getClientIPAddress(request);
         if (sigunguCode.length() == 5) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/tradelist/newHighest?sigunguCode" + sigunguCode);
@@ -256,8 +276,14 @@ public class TradeController {
                                      @RequestParam(value="landDong", defaultValue = "") String landDong,
                                      HttpServletRequest request,
                                      Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         List<AptPriceResponseDto> trads;
-        requestService.getClientIPAddress(request);
         if (!sigunguCode.equals("0")) {
             String url = "/tradelist/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName + "&ua=" + ua + "&landDong=" + landDong;
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, codeInfoService.getCodeName(sigunguCode));

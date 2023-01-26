@@ -31,6 +31,8 @@ public class TradeComparePrevController {
     private final CodeInfoService codeInfoService;
     private final LandDongService landDongService;
     private final RequestService requestService;
+    private final IpCountService ipCountService;
+    private final IpBlockService ipBlockService;
 
     @RequestMapping("/tradelist/comparePrev/home")
     public String home_tradelistcomparePrev(Model modal) {
@@ -53,8 +55,14 @@ public class TradeComparePrevController {
                                @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                HttpServletRequest request,
                                Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         String url = "/tradelist/comparePrev?sigunguCode=" + sigunguCode + "&type=" + type + "&uaType=" + uaType;
-        requestService.getClientIPAddress(request);
         if (type.length() > 1){
             apiCallStatService.writeApiCallStat("ERROR", "(error)" + url, sigunguCode);
             return "error";

@@ -37,6 +37,10 @@ public class StatController {
 
     private final RequestService requestService;
 
+    private final IpCountService ipCountService;
+
+    private final IpBlockService ipBlockService;
+
     @RequestMapping("/stat_trade/useareaType/home")
     public String home_statMonthly(Model modal) {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
@@ -76,7 +80,12 @@ public class StatController {
                                                Model model) throws UnknownHostException {
         List<StatResponseDto> areas;
         String title = "-";
-        requestService.getClientIPAddress(request);
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
 
@@ -240,9 +249,15 @@ public class StatController {
                                                  @RequestParam(value = "term", defaultValue = "0") int term,
                                                  HttpServletRequest request,
                                                  Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         List<StatResponseDto> stats;
         String title = "-";
-        requestService.getClientIPAddress(request);
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/stat_trade/newHighest?sigunguCode=" + sigunguCode);
@@ -298,12 +313,18 @@ public class StatController {
                                     @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                     HttpServletRequest request,
                                     Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         List<StatResponseDto> stats;
         List<StatResponseDto> stats0;
         List<StatResponseDto> stats1;
         String title = "-";
         String title2 = "-";
-        requestService.getClientIPAddress(request);
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/stat_trade/ByDealType?" + sigunguCode + "&uaType" + uaType);
@@ -424,9 +445,16 @@ public class StatController {
                                         @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                         HttpServletRequest request,
                                         Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
         List<AptPriceResponseDto> tops;
         String title = "-";
-        requestService.getClientIPAddress(request);
+
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
             log.info("/stat_trade/top?year=" + year + "&sigunguCode=" +  sigunguCode);

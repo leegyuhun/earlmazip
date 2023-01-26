@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:replace="fragments/header :: header">
+    <title>Hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+
+<div class="container">
+
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+
+    <div>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+        <h6>전세 TOP 100</h6>
+        <p>
+            <a class="btn btn-danger" href="/stat_lease/top?sigunguCode=11&leaseType=0">서울</a>
+            <a class="btn btn-danger" href="/stat_lease/top?sigunguCode=41&leaseType=0">경기</a>
+            <a class="btn btn-danger" href="/stat_lease/top?sigunguCode=28&leaseType=0">인천</a>
+            <a class="btn btn-danger" href="/stat_lease/top?sigunguCode=42&leaseType=0">강원</a>
+            </br>
+            </br>
+            <a class="btn btn-danger" href="/stat_lease/top?sigunguCode=36110&leaseType=0">세종</a>
+            <a class="btn btn-danger" href="/stat_lease/top?sigunguCode=30&leaseType=0">대전</a>
+            <a class="btn btn-danger" href="/stat_lease/top?sigunguCode=43&leaseType=0">충북</a>
+            <a class="btn btn-danger" href="/stat_lease/top?sigunguCode=44&leaseType=0">충남</a>
+            </br>
+            </br>
+            <a class="btn btn-danger" href="/stat_lease/top?sigunguCode=26&leaseType=0">부산</a>
+            <a class="btn btn-danger" href="/stat_lease/top?sigunguCode=27&leaseType=0">대구</a>
+            <a class="btn btn-danger" href="/stat_lease/top?sigunguCode=31&leaseType=0">울산</a>
+            <a class="btn btn-danger" href="/stat_lease/top?sigunguCode=47&leaseType=0">경북</a>
+            <a class="btn btn-danger" href="/stat_lease/top?sigunguCode=48&leaseType=0">경남</a>
+            </br>
+            </br>
+            <a class="btn btn-danger" href="/stat_lease/top?sigunguCode=29&leaseType=0">광주</a>
+            <a class="btn btn-danger" href="/stat_lease/top?sigunguCode=45&leaseType=0">전북</a>
+            <a class="btn btn-danger" href="/stat_lease/top?sigunguCode=46&leaseType=0">전남</a>
+            <a class="btn btn-danger" href="/stat_lease/top?sigunguCode=50&leaseType=0">제주</a>
+        </p>
+
+        <h6>월세 TOP 100</h6>
+        <p>
+            <a class="btn btn-outline-danger" href="/stat_lease/top?sigunguCode=11&leaseType=1">서울</a>
+            <a class="btn btn-outline-danger" href="/stat_lease/top?sigunguCode=41&leaseType=1">경기</a>
+            <a class="btn btn-outline-danger" href="/stat_lease/top?sigunguCode=28&leaseType=1">인천</a>
+            <a class="btn btn-outline-danger" href="/stat_lease/top?sigunguCode=42&leaseType=1">강원</a>
+            </br>
+            </br>
+            <a class="btn btn-outline-danger" href="/stat_lease/top?sigunguCode=36110&leaseTy1e=0">세종</a>
+            <a class="btn btn-outline-danger" href="/stat_lease/top?sigunguCode=30&leaseType=1">대전</a>
+            <a class="btn btn-outline-danger" href="/stat_lease/top?sigunguCode=43&leaseType=1">충북</a>
+            <a class="btn btn-outline-danger" href="/stat_lease/top?sigunguCode=44&leaseType=1">충남</a>
+            </br>
+            </br>
+            <a class="btn btn-outline-danger" href="/stat_lease/top?sigunguCode=26&leaseType=1">부산</a>
+            <a class="btn btn-outline-danger" href="/stat_lease/top?sigunguCode=27&leaseType=1">대구</a>
+            <a class="btn btn-outline-danger" href="/stat_lease/top?sigunguCode=31&leaseType=1">울산</a>
+            <a class="btn btn-outline-danger" href="/stat_lease/top?sigunguCode=47&leaseType=1">경북</a>
+            <a class="btn btn-outline-danger" href="/stat_lease/top?sigunguCode=48&leaseType=1">경남</a>
+            </br>
+            </br>
+            <a class="btn btn-outline-danger" href="/stat_lease/top?sigunguCode=29&leaseType=1">광주</a>
+            <a class="btn btn-outline-danger" href="/stat_lease/top?sigunguCode=45&leaseType=1">전북</a>
+            <a class="btn btn-outline-danger" href="/stat_lease/top?sigunguCode=46&leaseType=1">전남</a>
+            <a class="btn btn-outline-danger" href="/stat_lease/top?sigunguCode=50&leaseType=1">제주</a>
+        </p>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+
+</div> <!-- /container -->
+<script>
+</script>
+</body>
+</html>
