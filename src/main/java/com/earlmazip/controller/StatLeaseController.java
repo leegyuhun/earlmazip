@@ -1,6 +1,7 @@
 package com.earlmazip.controller;
 
 import com.earlmazip.controller.dto.*;
+import com.earlmazip.domain.SigunguCode;
 import com.earlmazip.service.*;
 import com.earlmazip.utils.Common;
 import lombok.RequiredArgsConstructor;
@@ -136,7 +137,10 @@ public class StatLeaseController {
         } else {
             ranks = new ArrayList<>();
         }
+        String areaCode = sigunguCode.substring(0, 2);
+        List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
 
+        model.addAttribute("sigunguList", sigunguList);
         model.addAttribute("list", ranks);
         model.addAttribute("sigunguCode", sigunguCode);
         model.addAttribute("uaType", uaType);
@@ -149,12 +153,14 @@ public class StatLeaseController {
         }
         model.addAttribute("subtitle", codeInfoService.getCodeName(uaType));
 
-        if (sigunguCode.substring(0, 2).equals("11")) {
+        if (areaCode.equals("11")) {
             return "stat_lease/top/seoul";
-        } else if (sigunguCode.substring(0, 2).equals("41")) {
+        } else if (areaCode.equals("41")) {
             return "stat_lease/top/gyunggi";
+        } else if (areaCode.equals("28") || areaCode.equals("26") || areaCode.equals("27") || areaCode.equals("29") || areaCode.equals("30") || areaCode.equals("31")) {
+            return "stat_lease/top/guSelect";
         } else {
-            return "stat_lease/top/incheon";
+            return "stat_lease/top/regionSelect";
         }
     }
 }
