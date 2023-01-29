@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+  <div th:replace="fragments/bodyHeader :: bodyHeader" />
+  <div>
+    <table class="table table-striped">
+      <thead>
+          <tr class="table-dark" style="font-size:12px;" align="center">
+    <!--        <th>일자</th>-->
+            <th>IP</th>
+            <th>차단 건수</th>
+            <th>최근 차단</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr style="font-size:12px;" th:each="list : ${list}">
+            <td align="center" th:text="${list.ipAddress}"></td>
+            <td align="right" th:text="${#numbers.formatInteger(list.blockCnt,1,'COMMA')}"></td>
+              <td align="center" th:text="${list.udt}"></td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>

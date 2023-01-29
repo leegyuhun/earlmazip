@@ -25,8 +25,6 @@ public class ApiCallStatController {
 
     private final ApiCallStatService apiCallStatService;
 
-    private final IpCountService ipCountService;
-
     @GetMapping("/admin/apicallstatdetail")
     public String LoadTodayApiCallDetail(@RequestParam(value = "gubn", defaultValue = "") String gubn,
                                          Model model) {
@@ -90,23 +88,5 @@ public class ApiCallStatController {
         model.addAttribute("cnts", cnts);
 
         return "admin/apicallstat";
-    }
-
-    @GetMapping("/admin/ipCount")
-    public String GetIPHistory(Model model) {
-        List<IpCount> items = ipCountService.GetIpHistory();
-
-        List<String> names = items.stream().map(o -> new String(o.getIpAddress())).collect(Collectors.toList());
-        List<Integer> cnts = items.stream().map(o -> new Integer(o.getCnt())).collect(Collectors.toList());
-
-        if (cnts.size() > 0) {
-            IpCount sum = new IpCount();
-            sum.setIpAddress("SUM");
-            sum.setCnt(cnts.stream().mapToInt(Integer::intValue).sum());
-            items.add(0, sum);
-        }
-        model.addAttribute("list", items);
-
-        return "admin/ipHistory";
     }
 }

@@ -1,5 +1,6 @@
 package com.earlmazip.service;
 
+import com.earlmazip.domain.IpBlock;
 import com.earlmazip.domain.IpCount;
 import com.earlmazip.repository.IpBlockRepository;
 import com.earlmazip.repository.IpCountRepository;
@@ -19,5 +20,16 @@ public class IpBlockService {
         if (ipAddress.equals("")) return true;
 
         return ipBlockRepository.IsBlockIP(ipAddress);
+    }
+
+    @Transactional
+    public Boolean AddBlockIP(String ipAddress) {
+        if (ipAddress.equals("")) return true;
+
+        return ipBlockRepository.AddBlockIP(ipAddress);
+    }
+
+    public List<IpBlock> GetIPBlock() {
+        return  ipBlockRepository.GetIPBlock();
     }
 }

@@ -6,20 +6,27 @@
 <div class="container">
   <div th:replace="fragments/bodyHeader :: bodyHeader" />
   <div>
+      <a th:text="차단기록" th:href="@{/admin/ipBlockHistory}"/></a>
     <table class="table table-striped">
       <thead>
-      <tr class="table-dark" style="font-size:12px;" align="center">
-<!--        <th>일자</th>-->
-        <th>IP</th>
-        <th>접속 건수</th>
-      </tr>
+          <tr class="table-dark" style="font-size:12px;" align="center">
+    <!--        <th>일자</th>-->
+            <th>IP</th>
+            <th>접속 건수</th>
+            <th>위치 확인</th>
+          </tr>
       </thead>
       <tbody>
-      <tr style="font-size:12px;" th:each="list : ${list}">
-<!--        <td align="center" th:text="${list.callDate}"></td>-->
-        <td align="center" th:text="${list.ipAddress}"></td>
-        <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
-      </tr>
+          <tr style="font-size:12px;" th:each="list : ${list}">
+    <!--        <td align="center" th:text="${list.ipAddress}"></td>-->
+            <td align="center">
+                <a th:text="${list.ipAddress}" th:href="@{/admin/ipBlock?ipAddress={ipAddress} (ipAddress=${list.ipAddress})}"/></a>
+            </td>
+              <td align="center">
+                  <a th:text="확인" th:href="@{https://www.ipipipip.net/index.php?ln=ko&menu=ip-address-location-geolocation-lookup-home&ipaddress={ipAddress} (ipAddress=${list.ipAddress})}" target="_blank"/></a>
+              </td>
+            <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
+          </tr>
       </tbody>
     </table>
   </div>

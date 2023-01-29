@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <form role="form" action="/admin/ipBlock/new" th:object="${ipBlock}" method="post">
+        <div class="form_group">
+            <label th:for="ipAddress">IP</label>
+            <input type="text" th:field="*{ipAddress}" class="form-control" placeholder="차단할 IP 입력"/>
+            <button type="submit" class="btn btn-primary">차단</button>
+        </div>
+    </form>
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+</html>
