@@ -1,33 +1,44 @@
 package com.earlmazip.controller;
 
-import com.earlmazip.controller.dto.*;
-import com.earlmazip.repository.AptSearch;
+import com.earlmazip.controller.dto.AptLeaseResponseDto;
+import com.earlmazip.controller.dto.AptPriceResponseDto;
+import com.earlmazip.controller.dto.Message;
+import com.earlmazip.controller.dto.TradeSearchCond;
 import com.earlmazip.service.ApiCallStatService;
 import com.earlmazip.service.ApiService;
-import com.earlmazip.service.AptService;
 import com.earlmazip.service.CodeInfoService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
 @Slf4j
 @RequiredArgsConstructor
+@RequestMapping("/api")
 public class ApiController {
     private final ApiCallStatService apiCallStatService;
     private final ApiService apiService;
     private final CodeInfoService codeInfoService;
 
-    @GetMapping("/api/v1/tradelistMonthly")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "sigunguCode", value = "구코드", required = true, dataType = "String", paramType = "query")
+            , @ApiImplicitParam(name = "year", value = "년도", required = true, dataType = "String", paramType = "query")
+            , @ApiImplicitParam(name = "mon", value = "월", required = true, dataType = "String", paramType = "query")
+            , @ApiImplicitParam(name = "landDong", value = "법정동", required = false, dataType = "String", paramType = "query")
+            , @ApiImplicitParam(name = "uaType", value = "평형대(NULL:전체,UA02:소형,UA03:중소형,UA04:중형,UA05:중대형,UA06:대형,UA07:국평,UA08:전용59)", required = false, dataType = "String", paramType = "query")
+    })
+    @GetMapping("/v1/tradelistMonthly")
     public ResponseEntity<Message> getTradeListMonthlyV1(
             @RequestParam(value = "sigunguCode", defaultValue = "") String sigunguCode,
             @RequestParam(value = "year", defaultValue = "") String year,
@@ -35,6 +46,7 @@ public class ApiController {
             @RequestParam(value = "landDong", defaultValue = "") String landDong,
             @RequestParam(value = "uaType", defaultValue = "") String uaType) {
         Message msg = new Message();
+        System.out.println("?sigunguCode=" + sigunguCode + "&year=" + year + "&mon" + mon + "&landDong=" + landDong + "&uaType=" + uaType);
         try {
             List<AptPriceResponseDto> tradeList = new ArrayList<>();
 
@@ -80,7 +92,15 @@ public class ApiController {
         }
     }
 
-    @GetMapping("/api/v1/leaselistMonthly")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "sigunguCode", value = "구코드", required = true, dataType = "String", paramType = "query")
+            , @ApiImplicitParam(name = "year", value = "년도", required = true, dataType = "String", paramType = "query")
+            , @ApiImplicitParam(name = "mon", value = "월", required = true, dataType = "String", paramType = "query")
+            , @ApiImplicitParam(name = "leaseType", value = "임대유형(전세:0,월세:1)", required = true, dataType = "String", paramType = "query")
+            , @ApiImplicitParam(name = "landDong", value = "법정동", required = false, dataType = "String", paramType = "query")
+            , @ApiImplicitParam(name = "uaType", value = "평형대(NULL:전체,UA02:소형,UA03:중소형,UA04:중형,UA05:중대형,UA06:대형,UA07:국평,UA08:전용59)", required = false, dataType = "String", paramType = "query")
+    })
+    @GetMapping("/v1/leaselistMonthly")
     public ResponseEntity<Message> getLeaseListMonthlyV1(
             @RequestParam(value = "sigunguCode", defaultValue = "") String sigunguCode,
             @RequestParam(value = "year", defaultValue = "") String year,
