@@ -32,6 +32,8 @@ public class StatRepository {
 
     QRankYear qRankYear = QRankYear.rankYear;
 
+    QRankOffice qRankOffice = QRankOffice.rankOffice;
+
     public List<StatSigunguYYMM> getStatTradeList(String areaCode, String term){
         BooleanBuilder builder = new BooleanBuilder();
         if (hasText(areaCode)) {
@@ -81,6 +83,18 @@ public class StatRepository {
         return queryFactory.selectFrom(qRankYear)
                 .where(builder)
                 .orderBy(qRankYear.dealAmt.desc())
+                .fetch();
+    }
+
+    public List<RankOffice> getStatTradeOfficeTopByYear(String year, String sigungucode, String uaType) {
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(qRankOffice.dealYear.eq(year));
+        builder.and(qRankOffice.sigunguCode.eq(sigungucode));
+        builder.and(qRankOffice.useAreaType.eq(uaType));
+
+        return queryFactory.selectFrom(qRankOffice)
+                .where(builder)
+                .orderBy(qRankOffice.dealAmt.desc())
                 .fetch();
     }
 

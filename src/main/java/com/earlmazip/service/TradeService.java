@@ -32,6 +32,10 @@ public class TradeService {
         }
     }
 
+    public List<AptPriceResponseDto> findTradeList_Office(TradeSearchCond cond) {
+        return tradeRepository.findTradeList_Office(cond);
+    }
+
     public List<AptPriceResponseDto> getTradeListComparePrev(TradeSearchCond cond, String type) {
         String areaCode = cond.getSigunguCode().substring(0, 2);
         if (areaCode.equals("11") || areaCode.equals("28") || areaCode.equals("41")) {
@@ -68,6 +72,10 @@ public class TradeService {
         } else {
             return tradeRepository.findAptTradeList_JJ(cond, term);
         }
+    }
+
+    public List<AptPriceResponseDto> findOfficeTradeList(TradeSearchCond cond, int term) {
+        return tradeRepository.findOfficeTradeList(cond, term);
     }
 
     public List<AptPriceResponseDto> getNewHighestList(String sigungucode, String uaType, String landDong) {

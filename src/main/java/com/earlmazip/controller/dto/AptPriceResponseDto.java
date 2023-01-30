@@ -277,6 +277,19 @@ public class AptPriceResponseDto {
         this.newHighestPrice = entity.getNewHighestPrice();
     }
 
+    public AptPriceResponseDto(RankOffice entity) {
+        this.sigunguCode = entity.getSigunguCode();
+        this.landDong = entity.getLandDong();
+        this.dealDate = entity.getDealDate();
+        this.aptName = entity.getOfficeName();
+        this.useArea = entity.getUseArea();
+        this.useAreaTrunc = entity.getUseAreaTrunc();
+        this.dealAmt = entity.getDealAmt();
+        this.floor = entity.getFloor();
+        this.buildYear = entity.getBuildYear();
+        this.dealType = entity.getDealType();
+    }
+
     public AptPriceResponseDto(AptDistributionRaw entity) {
         this.sigunguCode = entity.getSigunguCode();
         this.dealDate = entity.getDealDate();
@@ -296,5 +309,22 @@ public class AptPriceResponseDto {
         this.dealType = entity.getDealType();
         this.dealLoc = entity.getDealLoc();
         this.newHighestPrice = entity.getNewHighestPrice();
+    }
+
+    public AptPriceResponseDto(OfficePrice entity) {
+        this.sigunguCode = entity.getSigunguCode();
+        this.dealDate = entity.getDealDate();
+        this.aptName = entity.getOfficeName();
+        this.floor = entity.getFloor();
+        this.buildYear = entity.getBuildYear();
+        this.useArea = entity.getUseArea();
+        this.useAreaTrunc = entity.getUseAreaTrunc();
+        this.useAreaType = entity.getUseAreaType();
+        this.dealAmt = entity.getDealAmt();
+        this.landDong = entity.getLandDong();
+        this.cnclDealType = entity.getCnclDealType();
+        this.cnclDealDate = entity.getCnclDealDate();
+        this.dealType = entity.getDealType();
+        this.dealLoc = entity.getDealLoc();
     }
 }

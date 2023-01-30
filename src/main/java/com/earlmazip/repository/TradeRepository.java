@@ -28,6 +28,7 @@ public class TradeRepository {
     QAptPriceCc qAptPriceCc = QAptPriceCc.aptPriceCc;
     QAptPriceJl qAptPriceJl = QAptPriceJl.aptPriceJl;
     QAptPriceJj qAptPriceJj = QAptPriceJj.aptPriceJj;
+    QOfficePrice qOfficePrice = QOfficePrice.officePrice;
     QCancelDealData qCancelDealData = QCancelDealData.cancelDealData;
     QAptDistributionRaw qAptDistributionRaw = QAptDistributionRaw.aptDistributionRaw;
 
@@ -216,6 +217,35 @@ public class TradeRepository {
         return queryFactory.selectFrom(qAptPriceJj)
                 .where(builder)
                 .orderBy(qAptPriceJj.dealDate.desc())
+                .limit(200)
+                .fetch().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    }
+
+    public List<AptPriceResponseDto> findTradeList_Office(TradeSearchCond cond) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(cond.getSigunguCode())) {
+            if (cond.getSigunguCode().length() == 2) {
+                builder.and(qOfficePrice.areaCode.eq(cond.getSigunguCode()));
+            } else {
+                builder.and(qOfficePrice.sigunguCode.eq(cond.getSigunguCode()));
+            }
+        }
+        if (hasText(cond.getDealYear())) {
+            builder.and(qOfficePrice.dealYear.eq(cond.getDealYear()));
+            if (hasText(cond.getDealMon())) {
+                builder.and(qOfficePrice.dealMon.eq(cond.getDealMon()));
+            }
+        }
+        if (hasText(cond.getUaType())) {
+            builder.and(qOfficePrice.useAreaType.eq(cond.getUaType()));
+        }
+        if (hasText(cond.getLandDong())) {
+            builder.and(qOfficePrice.landDong.eq(cond.getLandDong()));
+        }
+
+        return queryFactory.selectFrom(qOfficePrice)
+                .where(builder)
+                .orderBy(qOfficePrice.dealDate.desc())
                 .limit(200)
                 .fetch().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
@@ -534,6 +564,29 @@ public class TradeRepository {
         return queryFactory.selectFrom(qAptPriceJj)
                 .where(builder)
                 .orderBy(qAptPriceJj.dealDate.desc())
+                .fetch().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    }
+
+    public List<AptPriceResponseDto> findOfficeTradeList(TradeSearchCond cond, int term) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(cond.getSigunguCode())) {
+            builder.and(qOfficePrice.sigunguCode.eq(cond.getSigunguCode()));
+        }
+        builder.and(qOfficePrice.dealYear.goe(Common.calcYearByTerm(term)));
+        if (hasText(cond.getAptName())) {
+            builder.and(qOfficePrice.officeName.eq(cond.getAptName()));
+        }
+        if (cond.getUseAreaTrunc() != 0) {
+            builder.and(qOfficePrice.useAreaTrunc.eq(cond.getUseAreaTrunc()));
+        }
+        if (hasText(cond.getLandDong())) {
+            builder.and(qOfficePrice.landDong.eq(cond.getLandDong()));
+        }
+        builder.and(qOfficePrice.cnclDealDate.eq(""));
+
+        return queryFactory.selectFrom(qOfficePrice)
+                .where(builder)
+                .orderBy(qOfficePrice.dealDate.desc())
                 .fetch().stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
 

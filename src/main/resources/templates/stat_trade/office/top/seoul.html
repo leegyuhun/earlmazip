@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+    <div>
+        <p>
+            <h5 align="center" th:text="|[ ${year} ${title} TOP 100 ]|"></h5>
+            <h6 align="center" th:text="|* ${uaStr} |"></h6>
+        </p>
+        <p>
+            <div class="d-flex gap-4 justify-content-center">
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        년도
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode={sigunguCode}&year=2023&uaType={uaType} (sigunguCode=${sigunguCode}, uaType=${uaType})}">2023</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode={sigunguCode}&year=2022&uaType={uaType} (sigunguCode=${sigunguCode}, uaType=${uaType})}">2022</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        강북
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">서울전체</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11305&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">강북구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11215&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">광진구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11350&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">노원구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11320&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">도봉구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11230&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">동대문</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11440&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">마포구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11410&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">서대문</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11200&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">성동구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11290&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">성북구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11470&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">양천구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11170&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">용산구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11380&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">은평구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11110&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">종로구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11260&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">중랑구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11140&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">중 구</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        강남
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">서울전체</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11680&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">강남구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11740&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">강동구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11500&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">강서구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11620&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">관악구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11530&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">구로구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11545&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">금천구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11590&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">동작구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11650&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">서초구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11710&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">송파구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11470&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">양천구</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode=11560&year={year}&uaType={uaType} (year=${year}, uaType=${uaType})}">영등포</a></li>
+                    </ul>
+                </div>
+                <div class="dropdown d-block position-static pt-0 mx-0 rounded-1 shadow overflow-hidden w-180px">
+                    <button type="button" class="btn btn-danger btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        평형
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode={sigunguCode}&year={year}&uaType=UA01 (sigunguCode=${sigunguCode}, year=${year})}">전체</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode={sigunguCode}&year={year}&uaType=UA02 (sigunguCode=${sigunguCode}, year=${year})}">소형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode={sigunguCode}&year={year}&uaType=UA08 (sigunguCode=${sigunguCode}, year=${year})}">전용59</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode={sigunguCode}&year={year}&uaType=UA03 (sigunguCode=${sigunguCode}, year=${year})}">중소형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode={sigunguCode}&year={year}&uaType=UA07 (sigunguCode=${sigunguCode}, year=${year})}">국평</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode={sigunguCode}&year={year}&uaType=UA04 (sigunguCode=${sigunguCode}, year=${year})}">중형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode={sigunguCode}&year={year}&uaType=UA05 (sigunguCode=${sigunguCode}, year=${year})}">중대형</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_trade/office/top?sigunguCode={sigunguCode}&year={year}&uaType=UA06 (sigunguCode=${sigunguCode}, year=${year})}">대형</a></li>
+                    </ul>
+                </div>
+            </div>
+        </p>
+        <div>
+            <ins class="kakao_ad_area" style="display:none;"
+                 data-ad-unit    = "DAN-jcQR8RwkXK2z2xvE"
+                 data-ad-width   = "320"
+                 data-ad-height  = "100"></ins>
+            <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+        </div>
+
+        <div>
+            <h7>※ 단지명을 클릭하면 거래내역으로 넘어갑니다.</h7>
+        </div>
+
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr style="font-size:12px;" align="center">
+                    <th>일자</br>오피스텔</th>
+                    <th>전용</br>(m<sup>2</sup>)</th>
+                    <th>거래가</th>
+                    <th>직/중개</br>중개소재지</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="font-size:12px;" th:each="list : ${list}">
+                    <td align="left">
+                        <div>
+                            <a th:text="${list.dealDate}"></a></br>
+                            <a th:text="${list.landDong}"></a></br>
+                            <a style="font-weight: bolder;" th:text="${list.aptName}" th:href="@{/tradelist/office/ByName?sigunguCode={sigunguCode}&officeName={aptname}&ua={uatrunc}&term=1&landDong={landDong} (sigunguCode=${list.sigunguCode}, aptname=${list.aptName}, uatrunc=${list.useAreaTrunc}, landDong=${list.landDong})}"></a></br>
+                            <a th:text="|[${list.buildYear}] ${list.floor}층|"></a>
+                        </div>
+                    </td>
+                    <td align="right" th:text="${#numbers.formatDecimal(list.useArea,1,2,'POINT')}"></td>
+                    <td align="right" style="font-size:14px; font-weight: bolder; color:#FF6384" th:text="${list.dealAmtStr}"></td>
+                    <td align="center">
+                        <div>
+                            <a th:text="${list.dealType}"></a></br>
+                            <a th:text="${list.dealLoc}"></a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:replace="fragments/footer :: footer" />
+</div> <!-- /container -->
+</body>
+<script>
+    function findSeoulYear(year){
+        var form = document.createElement("form");
+            form.setAttribute("method", "get");
+            form.setAttribute("action", "/statistics/seoul/" + year);
+            document.body.appendChild(form);
+            form.submit();
+    }
+</script>
+</html>

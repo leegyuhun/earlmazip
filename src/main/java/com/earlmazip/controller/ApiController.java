@@ -1,9 +1,6 @@
 package com.earlmazip.controller;
 
-import com.earlmazip.controller.dto.AptLeaseResponseDto;
-import com.earlmazip.controller.dto.AptPriceResponseDto;
-import com.earlmazip.controller.dto.Message;
-import com.earlmazip.controller.dto.TradeSearchCond;
+import com.earlmazip.controller.dto.*;
 import com.earlmazip.service.ApiCallStatService;
 import com.earlmazip.service.ApiService;
 import com.earlmazip.service.CodeInfoService;
@@ -144,6 +141,61 @@ public class ApiController {
                 msg.setMessage("success");
                 msg.setCount(leaseList.size());
                 msg.setData(leaseList);
+
+                return new ResponseEntity<Message>(msg, HttpStatus.OK);
+            }
+        } catch (Exception exception) {
+            msg.setStatus(Message.StatusEnum.BAD_REQUEST);
+            msg.setMessage(exception.getMessage());
+            return new ResponseEntity<>(msg, HttpStatus.ACCEPTED);
+        }
+    }
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "sigunguCode", value = "구코드", required = true, dataType = "String", paramType = "query")
+            , @ApiImplicitParam(name = "year", value = "년도", required = true, dataType = "String", paramType = "query")
+            , @ApiImplicitParam(name = "uaType", value = "평형대(UA01:전체,UA02:소형,UA03:중소형,UA04:중형,UA05:중대형,UA06:대형,UA07:국평,UA08:전용59)", required = false, dataType = "String", paramType = "query")
+    })
+    @GetMapping("/v1/statTradelistMonthly")
+    public ResponseEntity<Message> getStatTradeListMonthlyV1(
+            @RequestParam(value = "sigunguCode", defaultValue = "") String sigunguCode,
+            @RequestParam(value = "year", defaultValue = "") String year,
+            @RequestParam(value = "uaType", defaultValue = "UA01") String uaType) {
+        Message msg = new Message();
+        System.out.println("?sigunguCode=" + sigunguCode + "&year=" + year + "&uaType=" + uaType);
+        try {
+            List<StatResponseDto> tradeList = new ArrayList<>();
+
+            if (sigunguCode.isEmpty() || year.isEmpty()) {
+                msg.setStatus(Message.StatusEnum.BAD_REQUEST);
+                if (sigunguCode.isEmpty()) {
+                    msg.setMessage("Param [sigunguCode] is Empty.");
+                } else if (year.isEmpty()) {
+                    msg.setMessage("Param [year] is Empty.");
+                } else {
+                    msg.setMessage("Param [mon] is Empty.");
+                }
+                msg.setCount(tradeList.size());
+                msg.setData(tradeList);
+
+                return new ResponseEntity<Message>(msg, HttpStatus.BAD_REQUEST);
+            } else {
+                TradeSearchCond con = new TradeSearchCond();
+                String title = codeInfoService.getCodeName(sigunguCode);
+                String url = "/api/v1/statTradelistMonthly?sigunguCode=" + sigunguCode + "&year=" + year + "&uaTYpe=" + uaType;
+                apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
+                apiCallStatService.writeApiCallStat("API", "/api/v1/statTradelistMonthly?sigunguCode=" + sigunguCode + "&year=" + year + "&uaTYpe=" + uaType, sigunguCode);
+
+                con.setSigunguCode(sigunguCode);
+                con.setDealYear(year);
+                con.setUaType(uaType);
+
+                tradeList = apiService.getStatTradeListMonthlyV1(sigunguCode, year, uaType);
+
+                msg.setStatus(Message.StatusEnum.OK);
+                msg.setMessage("success");
+                msg.setCount(tradeList.size());
+                msg.setData(tradeList);
 
                 return new ResponseEntity<Message>(msg, HttpStatus.OK);
             }

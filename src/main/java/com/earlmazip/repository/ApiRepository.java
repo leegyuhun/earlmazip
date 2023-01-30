@@ -2,6 +2,7 @@ package com.earlmazip.repository;
 
 import com.earlmazip.controller.dto.AptLeaseResponseDto;
 import com.earlmazip.controller.dto.AptPriceResponseDto;
+import com.earlmazip.controller.dto.StatResponseDto;
 import com.earlmazip.controller.dto.TradeSearchCond;
 import com.earlmazip.domain.*;
 import com.earlmazip.utils.Common;
@@ -31,6 +32,8 @@ public class ApiRepository {
     QAptPriceJj qAptPriceJj = QAptPriceJj.aptPriceJj;
 
     QAptLeaseRaw qAptLeaseRaw = QAptLeaseRaw.aptLeaseRaw;
+
+    QStatSigunguYYMM qStatSigunguYYMM = QStatSigunguYYMM.statSigunguYYMM;
 
     public ApiRepository(EntityManager em) {
         this.em = em;
@@ -250,5 +253,25 @@ public class ApiRepository {
                 .orderBy(qAptLeaseRaw.dealDate.desc())
                 .limit(500)
                 .fetch().stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+    }
+
+    public List<StatResponseDto> getStatTradeListMonthlyV1(String sigunguCode, String year, String uaType) {
+        BooleanBuilder builder = new BooleanBuilder();
+        if (hasText(sigunguCode)) {
+            builder.and(qStatSigunguYYMM.sigunguCode.eq(sigunguCode));
+        }
+
+        if (hasText(year)) {
+            builder.and(qStatSigunguYYMM.dealYear.eq(year));
+        }
+
+        if (hasText(uaType)) {
+            builder.and(qStatSigunguYYMM.useAreaType.eq(uaType));
+        }
+
+        return queryFactory.selectFrom(qStatSigunguYYMM)
+                .where(builder)
+                .orderBy(qStatSigunguYYMM.dealYYMM.desc())
+                .fetch().stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
 }

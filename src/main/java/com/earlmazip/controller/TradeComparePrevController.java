@@ -64,7 +64,13 @@ public class TradeComparePrevController {
         }
         ipCountService.ipCounting(clientIP);
 
-        String url = "/tradelist/comparePrev?sigunguCode=" + sigunguCode + "&type=" + type + "&uaType=" + uaType;
+        String url ="";
+        if (landDong.equals("")) {
+            url = "/tradelist/comparePrev?sigunguCode=" + sigunguCode + "&type=" + type + "&uaType=" + uaType;
+        } else {
+            url = "/tradelist/comparePrev?sigunguCode=" + sigunguCode + "&type=" + type + "&uaType=" + uaType + "&landDong=" + landDong;
+        }
+        log.info(url);
         if (type.length() > 1){
             apiCallStatService.writeApiCallStat("ERROR", "(error)" + url, sigunguCode);
             return "error";

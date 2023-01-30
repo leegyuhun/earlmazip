@@ -92,7 +92,6 @@ public class LeaseController {
         String title = "-";
         List<AptLeaseResponseDto> trads;
         if (sigunguCode.length()==5) {
-            log.info("/leaselist?sigunguCode=" + sigunguCode);
             title = codeInfoService.getCodeName(sigunguCode);
             String url;
             if(StringUtils.hasText(landDong)){
@@ -100,6 +99,7 @@ public class LeaseController {
             } else{
                 url = "/leaselist?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
             }
+            log.info(url);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
@@ -171,7 +171,6 @@ public class LeaseController {
         String title = "-";
         List<AptLeaseResponseDto> trads;
         if (sigunguCode.length() == 5) {
-            log.info("/leaselist/monthly?sigunguCode" + sigunguCode);
             title = codeInfoService.getCodeName(sigunguCode);
             String url;
             if(StringUtils.hasText(landDong)){
@@ -179,6 +178,7 @@ public class LeaseController {
             } else{
                 url = "/leaselist/monthly?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
             }
+            log.info(url);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/monthly?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {

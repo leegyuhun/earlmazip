@@ -55,7 +55,7 @@ public class StatController {
     public String home_statTop(Model modal) {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
         modal.addAttribute("udt", udt);
-        modal.addAttribute("headerTitle", "월별 매매 통계");
+        modal.addAttribute("headerTitle", "매매가 TOP 100");
         return "stat_trade/top/home";
     }
 
@@ -63,8 +63,15 @@ public class StatController {
     public String home_statDealType(Model modal) {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
         modal.addAttribute("udt", udt);
-        modal.addAttribute("headerTitle", "월별 매매 통계");
+        modal.addAttribute("headerTitle", "거래유형별 통계");
         return "stat_trade/dealType/home";
+    }
+    @GetMapping("/stat_trade/office/top/home")
+    public String home_statTopOffice(Model modal) {
+        String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        modal.addAttribute("udt", udt);
+        modal.addAttribute("headerTitle", "오피스텔 TOP 100");
+        return "stat_trade/office/top/home";
     }
     /**
      * 서울/경기/인천 구별,평형대별,월별 매매 통계
@@ -91,11 +98,10 @@ public class StatController {
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
 
-            log.info("/stat_trade/useareaType?sigunguCode=" + sigunguCode + "&" + uaType + "&" + term);
 
             String url = "/stat_trade/useareaType?sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&term=" + term;
+            log.info(url);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
-
             apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/useareaType?sigunguCode=" + title, sigunguCode);
             areas = statService.getStatTradeByUseAreaList(sigunguCode,uaType, term);
         } else {
@@ -262,7 +268,9 @@ public class StatController {
         String title = "-";
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
-            log.info("/stat_trade/newHighest?sigunguCode=" + sigunguCode);
+            String url = "/stat_trade/newHighest?sigunguCode=" + sigunguCode + "&uaTYpe=" + uaType;
+            log.info(url);
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("STAT_THEME", "/stat_trade/newHighest?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 stats = statService.getStatNewHighestAndTradeCount(sigunguCode, uaType, term);
@@ -329,8 +337,8 @@ public class StatController {
         String title2 = "-";
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
-            log.info("/stat_trade/ByDealType?" + sigunguCode + "&uaType" + uaType);
             String url = "/stat_trade/ByDealType?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
+            log.info(url);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/ByDealType?" + title, sigunguCode);
             if (sigunguCode.length() == 5) {
@@ -459,8 +467,8 @@ public class StatController {
 
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
-            log.info("/stat_trade/top?year=" + year + "&sigunguCode=" +  sigunguCode);
             String url = "/stat_trade/top?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
+            log.info(url);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/top?sigunguCode=" +  title + "year="+year, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
@@ -488,6 +496,56 @@ public class StatController {
             return "stat_trade/top/guSelect";
         } else {
             return "stat_trade/top/regionSelect";
+        }
+    }
+
+    @GetMapping("/stat_trade/office/top")
+    public String GetStatTradeOfficeTopByYear(@RequestParam(value = "year", defaultValue = "2022") String year,
+                                        @RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
+                                        @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
+                                        HttpServletRequest request,
+                                        Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
+        List<AptPriceResponseDto> tops;
+        String title = "-";
+
+        if (!sigunguCode.equals("0")) {
+            title = codeInfoService.getCodeName(sigunguCode);
+            String url = "/stat_trade/office/top?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
+            log.info(url);
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
+            apiCallStatService.writeApiCallStat("STAT_TOP", "/stat_trade/office/top?sigunguCode=" +  title + "year="+year, sigunguCode);
+            if (StringUtils.hasText(sigunguCode)) {
+                tops = statService.getStatTradeOfficeTopByYear(year, sigunguCode, uaType);
+            } else {
+                tops = new ArrayList<>();
+            }
+        } else {
+            tops = new ArrayList<>();
+        }
+        String areaCode = sigunguCode.substring(0, 2);
+        List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
+        model.addAttribute("sigunguList", sigunguList);
+        model.addAttribute("title",  title);
+        model.addAttribute("list", tops);
+        model.addAttribute("uaType", uaType);
+        model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
+        model.addAttribute("year", year);
+        model.addAttribute("sigunguCode", sigunguCode);
+        if (areaCode.equals("11")) {
+            return "stat_trade/office/top/seoul";
+        } else if (areaCode.equals("41")) {
+            return "stat_trade/office/top/gyunggi";
+        } else if (areaCode.equals("28") || areaCode.equals("26") || areaCode.equals("27") || areaCode.equals("29") || areaCode.equals("30") || areaCode.equals("31")) {
+            return "stat_trade/office/top/guSelect";
+        } else {
+            return "stat_trade/office/top/regionSelect";
         }
     }
 }

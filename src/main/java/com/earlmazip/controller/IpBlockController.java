@@ -67,8 +67,10 @@ public class IpBlockController {
     public String AddIPBlock(@Valid IpBlock ipBlock, BindingResult result) {
 
         if (ipBlockService.AddBlockIP(ipBlock.getIpAddress())) {
+            log.info("[ IP Block Success! ] [ " + ipBlock.getIpAddress() + " ]");
             return "admin/ipHistory";
         } else {
+            log.error("[ IP Block Fail! ] [ " + ipBlock.getIpAddress() + " ]");
             return "admin/ipBlock";
         }
     }

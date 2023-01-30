@@ -37,6 +37,10 @@ public class StatService {
         return statRepository.getStatTradeTopByYear(year, sigungucode, uaType).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
     }
 
+    public List<AptPriceResponseDto> getStatTradeOfficeTopByYear(String year, String sigungucode, String uaType) {
+        return statRepository.getStatTradeOfficeTopByYear(year, sigungucode, uaType).stream().map(AptPriceResponseDto::new).collect(Collectors.toList());
+    }
+
     public List<StatResponseDto> getStatNewHighestAndTradeCount(String sigunguCode, String uaType, int term) {
         return statRepository.getStatNewHighestAndTradeCount(sigunguCode, uaType, term).stream().map(StatResponseDto::new).collect(Collectors.toList());
     }
