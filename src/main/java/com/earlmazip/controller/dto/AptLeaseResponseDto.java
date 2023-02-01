@@ -1,6 +1,7 @@
 package com.earlmazip.controller.dto;
 
 import com.earlmazip.domain.AptLeaseRaw;
+import com.earlmazip.domain.OfficeLease;
 import lombok.Getter;
 
 import java.text.DecimalFormat;
@@ -64,6 +65,25 @@ public class AptLeaseResponseDto {
         this.sigunguCode = entity.getSigunguCode();
         this.dealDate = entity.getDealDate();
         this.aptName = entity.getAptName();
+        this.useArea = entity.getUseArea();
+        this.useAreaTrunc = entity.getUseAreaTrunc();
+        this.useAreaType = entity.getUseAreaType();
+        this.deposit = entity.getDeposit();
+        this.monthlyRent = entity.getMonthlyRent();
+        this.befMonthlyRent = entity.getBefMonthlyRent();
+        this.floor = entity.getFloor();
+        this.buildYear = entity.getBuildYear();
+        this.landDong = entity.getLandDong();
+        this.dealType = entity.getDealType();
+        this.dealTerm = entity.getDealTerm();
+        this.renewalUse = entity.getRenewalUse();
+        this.befDeposit = entity.getBefDeposit();
+    }
+
+    public AptLeaseResponseDto(OfficeLease entity) {
+        this.sigunguCode = entity.getSigunguCode();
+        this.dealDate = entity.getDealDate();
+        this.aptName = entity.getOfficeName();
         this.useArea = entity.getUseArea();
         this.useAreaTrunc = entity.getUseAreaTrunc();
         this.useAreaType = entity.getUseAreaType();

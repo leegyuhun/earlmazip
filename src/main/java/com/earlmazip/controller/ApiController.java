@@ -7,6 +7,7 @@ import com.earlmazip.service.CodeInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,7 @@ public class ApiController {
             , @ApiImplicitParam(name = "landDong", value = "법정동", required = false, dataType = "String", paramType = "query")
             , @ApiImplicitParam(name = "uaType", value = "평형대(NULL:전체,UA02:소형,UA03:중소형,UA04:중형,UA05:중대형,UA06:대형,UA07:국평,UA08:전용59)", required = false, dataType = "String", paramType = "query")
     })
+    @ApiResponse(code=200, message = "OK")
     @GetMapping("/v1/tradelistMonthly")
     public ResponseEntity<Message> getTradeListMonthlyV1(
             @RequestParam(value = "sigunguCode", defaultValue = "") String sigunguCode,

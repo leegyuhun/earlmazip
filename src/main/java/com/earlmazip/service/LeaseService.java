@@ -19,6 +19,10 @@ public class LeaseService {
         return leaseRepository.findLeaseList(cond).stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
     }
 
+    public List<AptLeaseResponseDto> findLeaseList_Office(TradeSearchCond cond) {
+        return leaseRepository.findLeaseList_Office(cond).stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());
+    }
+
     public List<AptLeaseResponseDto> findLeaseRenewalList(String sigunguCode, String landDong, String uaType)
     {
         return leaseRepository.findLeaseRenewalList(sigunguCode, landDong, uaType).stream().map(AptLeaseResponseDto::new).collect(Collectors.toList());

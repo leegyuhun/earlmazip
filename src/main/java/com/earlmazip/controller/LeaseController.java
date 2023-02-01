@@ -69,6 +69,26 @@ public class LeaseController {
         return "leaselist/renewal/home";
     }
 
+    @RequestMapping("leaselist/office/home")
+    public String home_leaselistOffice(Model model) {
+        String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        System.out.println("/leaselist/office/home");
+        apiCallStatService.writeApiCallStatDetail("/leaselist/office/home", "0", "0");
+        model.addAttribute("udt", udt);
+        model.addAttribute("headerTitle", "최근월세내역");
+        return "leaselist/office/home";
+    }
+
+    @RequestMapping("leaselist/office/monthly/home")
+    public String home_leaselistOfficeMonthly(Model model) {
+        String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        System.out.println("/leaselist/office/monthly/home");
+        apiCallStatService.writeApiCallStatDetail("/leaselist/office/monthly/home", "0", "0");
+        model.addAttribute("udt", udt);
+        model.addAttribute("headerTitle", "최근월세내역");
+        return "leaselist/office/monthly/home";
+    }
+
     /**
      * 최근전세내역
      * @param sigunguCode
@@ -145,6 +165,80 @@ public class LeaseController {
             return "leaselist/guSelect";
         } else {
             return "leaselist/regionSelect";
+        }
+    }
+
+    @GetMapping("/leaselist/office")
+    public String getLeaseList_Office(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
+                                  @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
+                                  @RequestParam(value = "landDong", defaultValue = "") String landDong,
+                                  HttpServletRequest request,
+                                  Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (sigunguCode.length() < 2) {
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
+        String title = "-";
+        List<AptLeaseResponseDto> trads;
+        if (sigunguCode.length()==5) {
+            title = codeInfoService.getCodeName(sigunguCode);
+            String url;
+            if(StringUtils.hasText(landDong)){
+                url = "/leaselist/office?sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&landDong=" + landDong;
+            } else{
+                url = "/leaselist/office?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
+            }
+            log.info(url);
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/office?sigunguCode=" + title, sigunguCode);
+            if (StringUtils.hasText(sigunguCode)) {
+                TradeSearchCond cond = new TradeSearchCond();
+                cond.setSigunguCode(sigunguCode);
+                if (uaType.equals("UA01")) {
+                    cond.setUaType("");
+                } else {
+                    cond.setUaType(uaType);
+                }
+                cond.setLandDong(landDong);
+                cond.setLeaseType("0");
+                trads = leaseService.findLeaseList_Office(cond);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else {
+            trads = new ArrayList<>();
+        }
+        String areaCode = sigunguCode.substring(0, 2);
+        List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
+        List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
+
+        model.addAttribute("dongList", dongList);
+        model.addAttribute("landDong", landDong);
+        if (landDong.equals("")) {
+            model.addAttribute("title", "[ " + title + " - 최근 전세]");
+        } else {
+            model.addAttribute("title",  "[ "+ title + " " + landDong + " - 최근 전세]");
+        }
+
+        model.addAttribute("sigunguList", sigunguList);
+        model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
+        model.addAttribute("sigunguCode", sigunguCode);
+        model.addAttribute("uaType", uaType);
+        model.addAttribute("list", trads);
+        if (areaCode.equals("11")) {
+            return "leaselist/office/seoul";
+        } else if (areaCode.equals("41")) {
+            return "leaselist/office/gyunggi";
+        } else if (areaCode.equals("28") || areaCode.equals("26") || areaCode.equals("27") || areaCode.equals("29") || areaCode.equals("30") || areaCode.equals("31")) {
+            return "leaselist/office/guSelect";
+        } else {
+            return "leaselist/office/regionSelect";
         }
     }
 
@@ -225,6 +319,82 @@ public class LeaseController {
             return "leaselist/monthly/guSelect";
         } else {
             return "leaselist/monthly/regionSelect";
+        }
+    }
+
+    @GetMapping("/leaselist/office/monthly")
+    public String getLeaseMonthlyList_Office(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
+                                      @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
+                                      @RequestParam(value = "landDong", defaultValue = "") String landDong,
+                                      HttpServletRequest request,
+                                      Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (sigunguCode.length() < 2) {
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
+        String title = "-";
+        List<AptLeaseResponseDto> trads;
+        if (sigunguCode.length() == 5) {
+            title = codeInfoService.getCodeName(sigunguCode);
+            String url;
+            if(StringUtils.hasText(landDong)){
+                url = "/leaselist/office/monthly?sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&landDong=" + landDong;
+            } else{
+                url = "/leaselist/office/monthly?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
+            }
+            log.info(url);
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/office/monthly?sigunguCode=" + title, sigunguCode);
+            if (StringUtils.hasText(sigunguCode)) {
+                TradeSearchCond cond = new TradeSearchCond();
+                cond.setSigunguCode(sigunguCode);
+                if (uaType.equals("UA01")) {
+                    cond.setUaType("");
+                } else {
+                    cond.setUaType(uaType);
+                }
+                cond.setLandDong(landDong);
+                cond.setLeaseType("1");
+                trads = leaseService.findLeaseList_Office(cond);
+//                trads = leaseService.getLeaseMonthlyList_SigunguUAType(sigunguCode, uaType);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else {
+            trads = new ArrayList<>();
+        }
+
+        List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
+        String areaCode = sigunguCode.substring(0, 2);
+        List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
+
+        model.addAttribute("sigunguList", sigunguList);
+        model.addAttribute("dongList", dongList);
+        model.addAttribute("landDong", landDong);
+        if (landDong.equals("")) {
+            model.addAttribute("title", "[ " + title + " - 최근 월세 ]");
+        } else {
+            model.addAttribute("title",  "[ "+ title + " " + landDong + " - 최근 월세 ]");
+        }
+        model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
+        model.addAttribute("sigunguCode", sigunguCode);
+        model.addAttribute("uaType", uaType);
+        model.addAttribute("list", trads);
+
+        if (areaCode.equals("11")) {
+            return "leaselist/office/monthly/seoul";
+        } else if (areaCode.equals("41")) {
+            return "leaselist/office/monthly/gyunggi";
+        } else if (areaCode.equals("28") || areaCode.equals("26") || areaCode.equals("27") || areaCode.equals("29") || areaCode.equals("30") || areaCode.equals("31")) {
+            return "leaselist/office/monthly/guSelect";
+        } else {
+            return "leaselist/office/monthly/regionSelect";
         }
     }
 
