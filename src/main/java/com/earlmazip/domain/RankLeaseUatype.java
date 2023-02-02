@@ -7,28 +7,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "rank_lease")
+@Table(name = "rank_lease_uatype")
 @Getter
-public class RankLease {
+public class RankLeaseUatype {
     @Id
     private int seq;
-    private String useAreaType;
-    private String leaseType;
+    private int rankGubn;
+    private int dealYear;
     private String gubnCode;
     private String sigunguCode;
     private String sigunguName;
     private String landDong;
-    private String dealYear;
-    private String dealMon;
-    private String dealDate;
-    private String dealType;
-    private String dealTerm;
-    private String renewalUse;
     private String aptName;
-    private String buildYear;
     private float useArea;
     private int useAreaTrunc;
-    private int deposit;
-    private int monthlyRent;
-    private int floor;
+    private String useAreaType;
+    private String buildYear;
+    private int tradeCnt;
+    private int minDeposit;
+    private int avgDeposit;
+    private int maxDeposit;
 }

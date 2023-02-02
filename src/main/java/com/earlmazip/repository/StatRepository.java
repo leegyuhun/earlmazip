@@ -30,6 +30,8 @@ public class StatRepository {
 
     QRankUatypeSigungu qRankUatypeSigungu = QRankUatypeSigungu.rankUatypeSigungu;
 
+    QRankLeaseUatype qRankLeaseUatype = QRankLeaseUatype.rankLeaseUatype;
+
     QRankYear qRankYear = QRankYear.rankYear;
 
     QRankOffice qRankOffice = QRankOffice.rankOffice;
@@ -77,7 +79,8 @@ public class StatRepository {
     public List<RankYear> getStatTradeTopByYear(String year, String sigungucode, String uaType) {
         BooleanBuilder builder = new BooleanBuilder();
         builder.and(qRankYear.dealYear.eq(year));
-        builder.and(qRankYear.sigunguCode.eq(sigungucode));
+//        builder.and(qRankYear.sigunguCode.eq(sigungucode));
+        builder.and(qRankYear.gubnCode.eq(sigungucode));
         builder.and(qRankYear.useAreaType.eq(uaType));
 
         return queryFactory.selectFrom(qRankYear)
@@ -89,7 +92,8 @@ public class StatRepository {
     public List<RankOffice> getStatTradeOfficeTopByYear(String year, String sigungucode, String uaType) {
         BooleanBuilder builder = new BooleanBuilder();
         builder.and(qRankOffice.dealYear.eq(year));
-        builder.and(qRankOffice.sigunguCode.eq(sigungucode));
+//        builder.and(qRankOffice.sigunguCode.eq(sigungucode));
+        builder.and(qRankOffice.gubnCode.eq(sigungucode));
         builder.and(qRankOffice.useAreaType.eq(uaType));
 
         return queryFactory.selectFrom(qRankOffice)
@@ -127,7 +131,8 @@ public class StatRepository {
         BooleanBuilder builder = new BooleanBuilder();
         builder.and(qRankUatypeSigungu.rankGubn.eq(rankGubn));
         builder.and(qRankUatypeSigungu.dealYear.eq(dealYear));
-        builder.and(qRankUatypeSigungu.sigunguCode.eq(sigunguCode));
+        builder.and(qRankUatypeSigungu.gubnCode.eq(sigunguCode));
+//        builder.and(qRankUatypeSigungu.sigunguCode.eq(sigunguCode));
         builder.and(qRankUatypeSigungu.useAreaType.eq(uaType));
         if (rankGubn == 0) {
             return queryFactory.selectFrom(qRankUatypeSigungu)
@@ -138,6 +143,27 @@ public class StatRepository {
             return queryFactory.selectFrom(qRankUatypeSigungu)
                     .where(builder)
                     .orderBy(qRankUatypeSigungu.tradeCnt.desc())
+                    .fetch().stream().map(RankUaSigunguResponseDto::new).collect(Collectors.toList());
+        }
+    }
+
+    public List<RankUaSigunguResponseDto> getStatRankLeaseUaTypeList(int rankGubn, int dealYear, String sigunguCode, String uaType) {
+        BooleanBuilder builder = new BooleanBuilder();
+
+        builder.and(qRankLeaseUatype.rankGubn.eq(rankGubn));
+        builder.and(qRankLeaseUatype.dealYear.eq(dealYear));
+        builder.and(qRankLeaseUatype.gubnCode.eq(sigunguCode));
+//        builder.and(qRankLeaseUatype.sigunguCode.eq(sigunguCode));
+        builder.and(qRankLeaseUatype.useAreaType.eq(uaType));
+        if (rankGubn == 0) {
+            return queryFactory.selectFrom(qRankLeaseUatype)
+                    .where(builder)
+                    .orderBy(qRankLeaseUatype.avgDeposit.desc())
+                    .fetch().stream().map(RankUaSigunguResponseDto::new).collect(Collectors.toList());
+        }else{
+            return queryFactory.selectFrom(qRankLeaseUatype)
+                    .where(builder)
+                    .orderBy(qRankLeaseUatype.tradeCnt.desc())
                     .fetch().stream().map(RankUaSigunguResponseDto::new).collect(Collectors.toList());
         }
     }

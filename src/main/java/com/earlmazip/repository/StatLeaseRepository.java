@@ -51,7 +51,8 @@ public class StatLeaseRepository {
     public List<RankLease> getTopLeaseSigungu(String sigunguCode, String uaType, int leaseType, int dealYear) {
         BooleanBuilder builder = new BooleanBuilder();
         if (hasText(sigunguCode)) {
-            builder.and(qRankLease.sigunguCode.eq(sigunguCode));
+//            builder.and(qRankLease.sigunguCode.eq(sigunguCode));
+            builder.and(qRankLease.gubnCode.eq(sigunguCode));
         }
         if (hasText(uaType)) {
             builder.and(qRankLease.useAreaType.eq(uaType));

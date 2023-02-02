@@ -53,6 +53,10 @@ public class StatService {
         return statRepository.getStatRankUaTypeList(rankGubn, dealYear, sigunguCode, uaType);
     }
 
+    public List<RankUaSigunguResponseDto> getStatRankLeaseUaTypeList(int rankGubn, int dealYear, String sigunguCode, String uaType) {
+        return statRepository.getStatRankLeaseUaTypeList(rankGubn, dealYear, sigunguCode, uaType);
+    }
+
     public List<StatResponseDto> getStatByDealType(String sigunguCode, String uaTYpe, int dealType) {
         return statRepository.getStatByDealType(sigunguCode, uaTYpe, dealType).stream().map(StatResponseDto::new).collect(Collectors.toList());
     }

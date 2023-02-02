@@ -13,6 +13,7 @@ public class RankYear {
     @Id
     private int seq;
     private String useAreaType;
+    private String gubnCode;
     private String sigunguCode;
     private String sigunguName;
     private String landDong;

@@ -14,6 +14,7 @@ public class RankUatypeSigungu {
     private int seq;
     private int rankGubn;
     private int dealYear;
+    private String gubnCode;
     private String sigunguCode;
     private String sigunguName;
     private String landDong;

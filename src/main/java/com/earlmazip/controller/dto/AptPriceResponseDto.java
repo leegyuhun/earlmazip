@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 
 @Getter
 public class AptPriceResponseDto {
+    private String gubnCode;
     private String sigunguCode;
     public String getDealDate() {
         return dealDate.substring(2,4) + "." + dealDate.substring(4,6) + "." + dealDate.substring(6,8);
@@ -264,6 +265,7 @@ public class AptPriceResponseDto {
     }
 
     public AptPriceResponseDto(RankYear entity) {
+        this.gubnCode = entity.getGubnCode();
         this.sigunguCode = entity.getSigunguCode();
         this.landDong = entity.getLandDong();
         this.dealDate = entity.getDealDate();
@@ -278,6 +280,7 @@ public class AptPriceResponseDto {
     }
 
     public AptPriceResponseDto(RankOffice entity) {
+        this.gubnCode = entity.getGubnCode();
         this.sigunguCode = entity.getSigunguCode();
         this.landDong = entity.getLandDong();
         this.dealDate = entity.getDealDate();

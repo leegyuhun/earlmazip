@@ -12,6 +12,7 @@ import javax.persistence.Table;
 public class RankOffice {
     @Id
     private int seq;
+    private String gubnCode;
     private String sigunguCode;
     private String sigunguName;
     private String landDong;
