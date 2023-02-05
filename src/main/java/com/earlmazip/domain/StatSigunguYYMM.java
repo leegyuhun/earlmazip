@@ -18,6 +18,8 @@ public class StatSigunguYYMM {
 
     private String dealYear;
 
+    private String dealMon;
+
     @Column(name = "deal_yymm")
     private String dealYYMM;
 

@@ -11,6 +11,7 @@ public class StatResponseDto {
     private String code;
     private String name;
     private String dealYear;
+    private String dealMon;
     private String dealYYMM;
 //    public String getDealYYMM() {
 //        return dealYYMM.substring(0,4) + "-" + dealYYMM.substring(4,6);
@@ -91,6 +92,8 @@ public class StatResponseDto {
         this.seq = entity.getSeq();
         this.code = entity.getSigunguCode();
         this.name = entity.getSigunguName();
+        this.dealYear = entity.getDealYear();
+        this.dealMon = entity.getDealMon();
         this.dealYYMM = entity.getDealYYMM();
         this.minPrice = entity.getMinPrice();
         this.avgPrice = entity.getAvgPrice();
@@ -117,6 +120,7 @@ public class StatResponseDto {
         this.code = entity.getSigunguCode();
         this.name = entity.getSigunguName();
         this.dealYear = entity.getDealYear();
+        this.dealMon = entity.getDealMon();
         this.dealYYMM = entity.getDealYYMM();
         this.dealType = entity.getDealType();
         this.useAreaType = entity.getUseAreaType();

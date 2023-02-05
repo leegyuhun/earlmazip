@@ -149,6 +149,79 @@ public class TradeController {
         }
     }
 
+    @GetMapping("/tradelist/ByDealYearMon")
+    public String getTradeListByDealYearMon(@RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
+                                            @RequestParam(value = "dealYear", defaultValue = "") String dealYear,
+                                            @RequestParam(value = "dealMon", defaultValue = "") String dealMon,
+                               @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
+                               @RequestParam(value = "landDong", defaultValue = "") String landDong,
+                               HttpServletRequest request,
+                               Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
+        List<AptPriceResponseDto> trads;
+        String title = "-";
+        if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
+            title = codeInfoService.getCodeName(sigunguCode);
+            String url;
+            if(StringUtils.hasText(landDong)){
+                url = "/tradelist?sigunguCode=" + sigunguCode + "&dealYear=" + dealYear +"&dealMon" + dealMon + "&uaType=" + uaType + "&landDong=" + landDong;
+            } else{
+                url = "/tradelist?sigunguCode=" + sigunguCode + "&dealYear=" + dealYear +"&dealMon" + dealMon +"&uaType=" + uaType;
+            }
+            log.info("[" + clientIP + "] " + url);
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
+            apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist?sigunguCode=" + title, sigunguCode);
+
+            if (StringUtils.hasText(sigunguCode)) {
+                TradeSearchCond cond = new TradeSearchCond();
+                cond.setSigunguCode(sigunguCode);
+                cond.setDealYear(dealYear);
+                cond.setDealMon(dealMon);
+                if (uaType.equals("UA01")) {
+                    cond.setUaType("");
+                } else {
+                    cond.setUaType(uaType);
+                }
+                cond.setLandDong(landDong);
+                trads = tradeService.findTradeList(cond);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else{
+            trads = new ArrayList<>();
+        }
+        String areaCode = sigunguCode.substring(0, 2);
+        List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
+        List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
+        if (!landDong.equals("")) {
+            title += " " + landDong;
+        }
+        model.addAttribute("sigunguList", sigunguList);
+        model.addAttribute("dongList", dongList);
+        model.addAttribute("landDong", landDong);
+        model.addAttribute("list", trads);
+        model.addAttribute("sigunguCode", sigunguCode);
+        model.addAttribute("uaType", uaType);
+        model.addAttribute("title",  "[ "+ title + " ]");
+        model.addAttribute("headerTitle", title + " 최근 매매");
+        model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
+        if (areaCode.equals("11")) {
+            return "tradelist/seoul";
+        } else if (areaCode.equals("41")) {
+            return "tradelist/gyunggi";
+        } else if (areaCode.equals("28") || areaCode.equals("26") || areaCode.equals("27") || areaCode.equals("29") || areaCode.equals("30") || areaCode.equals("31")) {
+            return "tradelist/guSelect";
+        } else {
+            return "tradelist/regionSelect";
+        }
+    }
+
     @GetMapping("/tradelist/office")
     public String getTradeList_office(@RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
                                      @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,

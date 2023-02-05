@@ -73,7 +73,12 @@
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
-                    <td align="center" th:text="${list.dealYYMM}"></td>
+<!--                    <td align="center" th:text="${list.dealYYMM}"></td>-->
+                    <td align="center">
+                        <div>
+                            <a style="font-weight:bolder" th:text="${list.dealYYMM}" th:href="@{/tradelist/ByDealYearMon?sigunguCode={sigunguCode}&dealYear={dealYear}&dealMon={dealMon}&uaType={uaType} (sigunguCode=${sigunguCode}, dealYear=${list.dealYear}, dealMon=${list.dealMon}, uaType=${uaType})}"></a>
+                        </div>
+                    </td>
                     <td align="right" th:text="${list.minPriceStr}"></td>
                     <td align="right" style="font-weight: bolder" th:text="${list.avgPriceStr}"></td>
                     <td align="right" th:text="${list.maxPriceStr}"></td>
