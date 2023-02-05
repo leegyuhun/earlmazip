@@ -17,7 +17,7 @@
                         강북
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=11&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">서울 전체</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=11&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">서울</a></li>
                         <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=11305&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">강북구</a></li>
                         <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=11215&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">광진구</a></li>
                         <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=11350&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">노원구</a></li>
@@ -40,7 +40,7 @@
                         강남
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=11&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">서울 전체</a></li>
+                        <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=11&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">서울</a></li>
                         <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=11680&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">강남구</a></li>
                         <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=11740&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">강동구</a></li>
                         <li><a class="dropdown-item" th:href="@{/stat_lease?sigunguCode=11500&uaType={uaType}&term={term} (uaType=${uaType}, term=${term})}">강서구</a></li>
@@ -106,7 +106,12 @@
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
-                    <td align="center" th:text="${list.dealYYMM}"></td>
+                    <td align="center">
+                        <div>
+                            <a style="font-weight:bolder" th:text="${list.dealYYMM}" th:href="@{/leaselist/ByDealYearMon?sigunguCode={sigunguCode}&dealYear={dealYear}&dealMon={dealMon}&uaType={uaType} (sigunguCode=${sigunguCode}, dealYear=${list.dealYear}, dealMon=${list.dealMon}, uaType=${uaType})}"></a>
+                        </div>
+                    </td>
+<!--                    <td align="center" th:text="${list.dealYYMM}"></td>-->
                     <td align="right" th:text="${list.minDepositStr}"></td>
                     <td align="right" style="font-weight: bolder" th:text="${list.avgDepositStr}"></td>
                     <td align="right" th:text="${list.maxDepositStr}"></td>

@@ -11,6 +11,7 @@ public class RankLeaseResponseDto {
     private String leaseType;
     private String gubnCode;
     private String gubnName;
+    private String sigunguName;
     private String landDong;
     private String dealYear;
     private String dealMon;
@@ -44,6 +45,7 @@ public class RankLeaseResponseDto {
         this.leaseType = entity.getLeaseType();
         this.gubnCode = entity.getSigunguCode();
         this.gubnName = entity.getSigunguName();
+        this.sigunguName = entity.getSigunguName();
         this.landDong = entity.getLandDong();
         this.dealYear = entity.getDealYear();
         this.dealMon = entity.getDealMon();

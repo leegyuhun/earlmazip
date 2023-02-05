@@ -119,12 +119,88 @@ public class LeaseController {
             } else{
                 url = "/leaselist?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
             }
-            log.info(url);
+            log.info("[" + clientIP + "] " + url);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 TradeSearchCond cond = new TradeSearchCond();
                 cond.setSigunguCode(sigunguCode);
+                if (uaType.equals("UA01")) {
+                    cond.setUaType("");
+                } else {
+                    cond.setUaType(uaType);
+                }
+                cond.setLandDong(landDong);
+                cond.setLeaseType("0");
+                trads = leaseService.findLeaseList(cond);
+//                trads = leaseService.getLeaseList_SigunguUAType(sigunguCode, uaType);
+            } else {
+                trads = new ArrayList<>();
+            }
+        } else {
+            trads = new ArrayList<>();
+        }
+        String areaCode = sigunguCode.substring(0, 2);
+        List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
+        List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
+
+        model.addAttribute("dongList", dongList);
+        model.addAttribute("landDong", landDong);
+        if (landDong.equals("")) {
+            model.addAttribute("title", "[ " + title + " - 최근 전세]");
+        } else {
+            model.addAttribute("title",  "[ "+ title + " " + landDong + " - 최근 전세]");
+        }
+
+        model.addAttribute("sigunguList", sigunguList);
+        model.addAttribute("uaStr", codeInfoService.getCodeName(uaType));
+        model.addAttribute("sigunguCode", sigunguCode);
+        model.addAttribute("uaType", uaType);
+        model.addAttribute("list", trads);
+        if (areaCode.equals("11")) {
+            return "leaselist/seoul";
+        } else if (areaCode.equals("41")) {
+            return "leaselist/gyunggi";
+        } else if (areaCode.equals("28") || areaCode.equals("26") || areaCode.equals("27") || areaCode.equals("29") || areaCode.equals("30") || areaCode.equals("31")) {
+            return "leaselist/guSelect";
+        } else {
+            return "leaselist/regionSelect";
+        }
+    }
+
+    @GetMapping("/leaselist/ByDealYearMon")
+    public String getLeaseList_SigunguByDealYearMon(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
+                                                    @RequestParam(value = "dealYear", defaultValue = "") String dealYear,
+                                                    @RequestParam(value = "dealMon", defaultValue = "") String dealMon,
+                                                    @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
+                                                    @RequestParam(value = "landDong", defaultValue = "") String landDong,
+                                                    HttpServletRequest request,
+                                                    Model model) throws UnknownHostException {
+        String clientIP = requestService.getClientIPAddress(request);
+        System.out.println("clientIP = " + clientIP);
+        if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        ipCountService.ipCounting(clientIP);
+
+        String title = "-";
+        List<AptLeaseResponseDto> trads;
+        if (sigunguCode.length()==5) {
+            title = codeInfoService.getCodeName(sigunguCode);
+            String url;
+            if(StringUtils.hasText(landDong)){
+                url = "/leaselist/ByDealYearMon?sigunguCode=" + sigunguCode + "&dealYear=" + dealYear +"&dealMon" + dealMon + "&uaType=" + uaType + "&landDong=" + landDong;
+            } else{
+                url = "/leaselist/ByDealYearMon?sigunguCode=" + sigunguCode + "&dealYear=" + dealYear +"&dealMon" + dealMon + "&uaType=" + uaType;
+            }
+            log.info("[" + clientIP + "] " + url);
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
+            apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/ByDealYearMon?sigunguCode=" + title, sigunguCode);
+            if (StringUtils.hasText(sigunguCode)) {
+                TradeSearchCond cond = new TradeSearchCond();
+                cond.setSigunguCode(sigunguCode);
+                cond.setDealYear(dealYear);
+                cond.setDealMon(dealMon);
                 if (uaType.equals("UA01")) {
                     cond.setUaType("");
                 } else {
@@ -194,7 +270,7 @@ public class LeaseController {
             } else{
                 url = "/leaselist/office?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
             }
-            log.info(url);
+            log.info("[" + clientIP + "] " + url);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/office?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
@@ -272,7 +348,7 @@ public class LeaseController {
             } else{
                 url = "/leaselist/monthly?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
             }
-            log.info(url);
+            log.info("[" + clientIP + "] " + url);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/monthly?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
@@ -348,7 +424,7 @@ public class LeaseController {
             } else{
                 url = "/leaselist/office/monthly?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
             }
-            log.info(url);
+            log.info("[" + clientIP + "] " + url);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/office/monthly?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
@@ -427,6 +503,7 @@ public class LeaseController {
             } else{
                 url = "/leaselist/renewal?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
             }
+            log.info("[" + clientIP + "] " + url);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("LEASE_LIST", "/leaselist/renewal?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
@@ -482,6 +559,7 @@ public class LeaseController {
         List<AptLeaseResponseDto> trads;
         if (!sigunguCode.equals("0")) {
             String url = "/leaselist/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName + "&ua=" + ua + "&landDong=" + landDong;
+            log.info("[" + clientIP + "] " + url);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, codeInfoService.getCodeName(sigunguCode));
             apiCallStatService.writeApiCallStat("LEASE_LIST_NAME", "/leaselist/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
@@ -540,6 +618,8 @@ public class LeaseController {
 
         List<AptLeaseResponseDto> trads;
         if (!sigunguCode.equals("0")) {
+            String url = "/leaselist/monthly/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName;
+            log.info("[" + clientIP + "] " + url);
             apiCallStatService.writeApiCallStat("LEASE_LIST_NAME", "/leaselist/monthly/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 TradeSearchCond cond = new TradeSearchCond();

@@ -72,7 +72,7 @@ public class StatRankUaController {
             title = codeInfoService.getCodeName(sigunguCode);
 
             String url = "/stat_rank_uatype?rankGubn" + rankGubn + "&dealYear=" + dealYear + "&sigunguCode=" + sigunguCode + "&uaType=" + uaType;
-            log.info(url);
+            log.info("[" + clientIP + "] " + url);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("STAT_RANK_UA", "/stat_rank_uatype?rankGubn=" + rankGubn + "&dealYear=" + dealYear + "&sigunguCode=" + title, sigunguCode);
             list = statService.getStatRankUaTypeList(rankGubn, dealYear, sigunguCode, uaType);

@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -25,12 +26,22 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 public class LeaseAnalysisController {
+    private final SiteInfoService siteInfoService;
     private final LeaseAnalysisService leaseAnalysisService;
     private final ApiCallStatService apiCallStatService;
     private final CodeInfoService codeInfoService;
     private final RequestService requestService;
     private final IpCountService ipCountService;
     private final IpBlockService ipBlockService;
+
+    @RequestMapping("/lease_analysis/home")
+    public String home_statLeaseTop(Model modal) {
+        String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        apiCallStatService.writeApiCallStatDetail("/lease_analysis/home", "0", "0");
+        modal.addAttribute("udt", udt);
+        modal.addAttribute("headerTitle", "월별 월세 비율");
+        return "lease_analysis/home";
+    }
 
     @GetMapping("/lease_analysis")
     public String getLeaseAnalysis(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
@@ -47,7 +58,8 @@ public class LeaseAnalysisController {
         List<StatLeaseAnalysisDto> anals;
         String title = "-";
         if (!sigunguCode.equals("0")) {
-            log.info("/lease_analysis?sigunguCode=" + sigunguCode);
+            String url = "/lease_analysis?sigunguCode=" + sigunguCode;
+            log.info("[" + clientIP + "] " + url);
             title = codeInfoService.getCodeName(sigunguCode);
             apiCallStatService.writeApiCallStat("LEASE_ANAL", "/lease_analysis?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {

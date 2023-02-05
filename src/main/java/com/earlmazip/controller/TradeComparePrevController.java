@@ -70,7 +70,7 @@ public class TradeComparePrevController {
         } else {
             url = "/tradelist/comparePrev?sigunguCode=" + sigunguCode + "&type=" + type + "&uaType=" + uaType + "&landDong=" + landDong;
         }
-        log.info(url);
+        log.info("[" + clientIP + "] " + url);
         if (type.length() > 1){
             apiCallStatService.writeApiCallStat("ERROR", "(error)" + url, sigunguCode);
             return "error";

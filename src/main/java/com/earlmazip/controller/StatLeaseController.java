@@ -42,6 +42,15 @@ public class StatLeaseController {
 
     private final IpBlockService ipBlockService;
 
+    @RequestMapping("/stat_lease/home")
+    public String home_statLease(Model modal) {
+        String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
+        apiCallStatService.writeApiCallStatDetail("/stat_lease/home", "0", "0");
+        modal.addAttribute("udt", udt);
+        modal.addAttribute("headerTitle", "전세 월별 통계");
+        return "stat_lease/home";
+    }
+
     @RequestMapping("/stat_lease/top/home")
     public String home_statLeaseTop(Model modal) {
         String udt = siteInfoService.findSiteInfo("TRADELIST_UDT");
@@ -68,7 +77,8 @@ public class StatLeaseController {
         String title = "-";
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
-            log.info("/stat_lease?" + sigunguCode);
+            String url = "/stat_lease?" + sigunguCode + "&uaType=" + uaType + "&term=" + term;
+            log.info("[" + clientIP + "] " + url);
             apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 stats = statLeaseService.getStatLeaseList(sigunguCode, uaType, term);
@@ -128,7 +138,8 @@ public class StatLeaseController {
         String title = "-";
         if (!sigunguCode.equals("0")) {
             title = codeInfoService.getCodeName(sigunguCode);
-            log.info("/stat_lease/top?dealYear="+dealYear+"&sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&leaseType=" + leaseType);
+            String url = "/stat_lease/top?dealYear="+dealYear+"&sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&leaseType=" + leaseType;
+            log.info("[" + clientIP + "] " + url);
             apiCallStatService.writeApiCallStat("STAT_LEASE", "/stat_lease/top?dealYear="+dealYear+"&sigunguCode=" + title + "&uaType=" + uaType + "&leaseType=" + leaseType, sigunguCode);
 
             if (StringUtils.hasText(sigunguCode)) {

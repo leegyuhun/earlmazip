@@ -55,7 +55,8 @@ public class TradeDistributionController {
         String date = simpleDateFormat.format(new Date());
         if (sigunguCode.length() == 5) {
             title = codeInfoService.getCodeName(sigunguCode);
-            log.info("/tradelist?" + sigunguCode);
+            String url = "/tradelist/distribution?sigunguCode=" + sigunguCode + "&dealYear=" + dealYear;
+            log.info("[" + clientIP + "] " + url);
             apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/distribution?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
                 trads = tradeService.getTradeDistribution_BySigungu(dealYear, sigunguCode);
@@ -93,6 +94,8 @@ public class TradeDistributionController {
         // 현재날짜
         String date = simpleDateFormat.format(new Date());
         if (sigunguCode.length() == 5) {
+            String url = "/tradelist/distribution?sigunguCode=" + sigunguCode + "&aptName=" + aptName + "&landDong=" + landDong;
+            log.info("[" + clientIP + "] " + url);
 //            title = codeInfoService.getCodeName(sigunguCode);
             log.info("/tradelist?" + sigunguCode);
             apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/distribution/ByName?sigunguCode=" + title + "&aptName=" + aptName, sigunguCode);

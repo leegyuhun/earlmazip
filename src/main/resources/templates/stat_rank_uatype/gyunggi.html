@@ -28,6 +28,7 @@
                         구 선택
                     </button>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=41&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">경기</a></li>
                         <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=41131&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">성남 수정구</a></li>
                         <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=41133&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">성남 중원구</a></li>
                         <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=41135&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">성남 분당구</a></li>
@@ -52,6 +53,7 @@
                         시 선택
                     </button>
                     <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=41&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">경기</a></li>
                         <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=41820&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">가평군</a></li>
                         <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=41290&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">과천시</a></li>
                         <li><a class="dropdown-item" th:href="@{/stat_rank_uatype?rankGubn={rankGubn}&dealYear={dealYear}&sigunguCode=41210&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, uaType=${uaType})}">광명시</a></li>
@@ -108,7 +110,9 @@
                  data-ad-height  = "100"></ins>
             <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
         </div>
-
+        <div>
+            <a style="font-size: 20px" th:href="@{/stat_rank_uatype/lease?rankGubn{rankGubn}&dealYear={dealYear}&sigunguCode={sigunguCode}&uaType={uaType} (rankGubn=${rankGubn}, dealYear=${dealYear}, sigunguCode=${sigunguCode})}">전세 TOP 20 보기</a>
+        </div>
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr style="font-size:12px;" align="center">

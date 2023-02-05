@@ -9,6 +9,7 @@ import java.text.DecimalFormat;
 public class StatLeaseResponseDto {
     private String sidoName;
     private String dealYear;
+    private String dealMon;
     private String dealYYMM;
     public String getDealYYMM() {
         return dealYYMM.substring(0,4) + "-" + dealYYMM.substring(4,6);
@@ -45,6 +46,7 @@ public class StatLeaseResponseDto {
     public StatLeaseResponseDto(StatSidoLease entity) {
         this.sidoName = entity.getSidoName();
         this.dealYear = entity.getDealYear();
+        this.dealMon = entity.getDealMon();
         this.dealYYMM = entity.getDealYYMM();
         this.leaseType = entity.getLeaseType();
         this.minDeposit = entity.getMinDeposit();
@@ -60,6 +62,7 @@ public class StatLeaseResponseDto {
     public StatLeaseResponseDto(StatSigunguLease entity) {
         this.sidoName = entity.getSigunguName();
         this.dealYear = entity.getDealYear();
+        this.dealMon = entity.getDealMon();
         this.dealYYMM = entity.getDealYYMM();
         this.leaseType = entity.getLeaseType();
         this.minDeposit = entity.getMinDeposit();

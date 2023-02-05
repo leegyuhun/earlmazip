@@ -103,7 +103,7 @@ public class TradeController {
             } else{
                 url = "/tradelist?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
             }
-            log.info(url);
+            log.info("[" + clientIP + "] " + url);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist?sigunguCode=" + title, sigunguCode);
 
@@ -172,7 +172,7 @@ public class TradeController {
             } else{
                 url = "/tradelist/office?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
             }
-            log.info(url);
+            log.info("[" + clientIP + "] " + url);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/office?sigunguCode=" + title, sigunguCode);
 
@@ -236,6 +236,7 @@ public class TradeController {
         List<AptPriceResponseDto> trads;
         if (!sigunguCode.equals("0")) {
             String url = "/tradelist/office/ByName?sigunguCode=" + sigunguCode + "&aptName=" + officeName + "&ua=" + ua + "&landDong=" + landDong;
+            log.info("[" + clientIP + "] " + url);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, codeInfoService.getCodeName(sigunguCode));
             apiCallStatService.writeApiCallStat("TRADE_LIST_NAME", "/tradelist/office/ByName?sigunguCode=" + sigunguCode + "&officeName=" + officeName, sigunguCode);
 
@@ -299,9 +300,10 @@ public class TradeController {
         List<AptPriceResponseDto> trads;
         String title = "-";
         if (!sigunguCode.equals("0")) {
-            log.info("/tradelist/cancelDeal?sigunguCode=" + sigunguCode);
+            String url = "/tradelist/cancelDeal?sigunguCode=" + sigunguCode;
+            log.info("[" + clientIP + "] " + url);
             title = codeInfoService.getCodeName(sigunguCode);
-            apiCallStatService.writeApiCallStatDetail("/tradelist/cancelDeal?sigunguCode=" + sigunguCode, sigunguCode, title);
+            apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("TRADE_CANCEL", "/tradelist/cancelDeal?sigunguCode=" + title, sigunguCode);
 
             if (StringUtils.hasText(sigunguCode)) {
@@ -359,7 +361,7 @@ public class TradeController {
             } else{
                 url = "/tradelist/newHighest?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
             }
-            log.info(url);
+            log.info("[" + clientIP + "] " + url);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/newHighest?sigunguCode=" + title, sigunguCode);
             if (StringUtils.hasText(sigunguCode)) {
@@ -426,6 +428,7 @@ public class TradeController {
         List<AptPriceResponseDto> trads;
         if (!sigunguCode.equals("0")) {
             String url = "/tradelist/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName + "&ua=" + ua + "&landDong=" + landDong;
+            log.info("[" + clientIP + "] " + url);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, codeInfoService.getCodeName(sigunguCode));
             apiCallStatService.writeApiCallStat("TRADE_LIST_NAME", "/tradelist/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName, sigunguCode);
 
