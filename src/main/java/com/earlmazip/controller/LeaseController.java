@@ -111,7 +111,7 @@ public class LeaseController {
 
         String title = "-";
         List<AptLeaseResponseDto> trads;
-        if (sigunguCode.length()==5) {
+        if (sigunguCode.length() == 5) {
             title = codeInfoService.getCodeName(sigunguCode);
             String url;
             if(StringUtils.hasText(landDong)){
@@ -137,8 +137,11 @@ public class LeaseController {
             } else {
                 trads = new ArrayList<>();
             }
-        } else {
+        } else if (sigunguCode.length() == 2) {
             trads = new ArrayList<>();
+        } else {
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /leaselist?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
         String areaCode = sigunguCode.substring(0, 2);
         List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
@@ -185,7 +188,7 @@ public class LeaseController {
 
         String title = "-";
         List<AptLeaseResponseDto> trads;
-        if (sigunguCode.length()==5) {
+        if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             title = codeInfoService.getCodeName(sigunguCode);
             String url;
             if(StringUtils.hasText(landDong)){
@@ -214,7 +217,8 @@ public class LeaseController {
                 trads = new ArrayList<>();
             }
         } else {
-            trads = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /leaselist/ByDealYearMon?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
         String areaCode = sigunguCode.substring(0, 2);
         List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
@@ -262,7 +266,7 @@ public class LeaseController {
 
         String title = "-";
         List<AptLeaseResponseDto> trads;
-        if (sigunguCode.length()==5) {
+        if (sigunguCode.length() == 5) {
             title = codeInfoService.getCodeName(sigunguCode);
             String url;
             if(StringUtils.hasText(landDong)){
@@ -287,8 +291,11 @@ public class LeaseController {
             } else {
                 trads = new ArrayList<>();
             }
-        } else {
+        } else if (sigunguCode.length() == 2) {
             trads = new ArrayList<>();
+        } else {
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /leaselist/office?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
         String areaCode = sigunguCode.substring(0, 2);
         List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
@@ -366,8 +373,11 @@ public class LeaseController {
             } else {
                 trads = new ArrayList<>();
             }
-        } else {
+        } else if (sigunguCode.length() == 2) {
             trads = new ArrayList<>();
+        } else {
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /leaselist/monthly?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
 
         List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
@@ -416,7 +426,7 @@ public class LeaseController {
 
         String title = "-";
         List<AptLeaseResponseDto> trads;
-        if (sigunguCode.length() == 5) {
+        if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             title = codeInfoService.getCodeName(sigunguCode);
             String url;
             if(StringUtils.hasText(landDong)){
@@ -443,7 +453,8 @@ public class LeaseController {
                 trads = new ArrayList<>();
             }
         } else {
-            trads = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /leaselist/office/monthly?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
 
         List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
@@ -495,7 +506,7 @@ public class LeaseController {
 
         String title = "-";
         List<AptLeaseResponseDto> trads;
-        if (!sigunguCode.equals("0")) {
+        if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             title = codeInfoService.getCodeName(sigunguCode);
             String url;
             if(StringUtils.hasText(landDong)){
@@ -512,7 +523,8 @@ public class LeaseController {
                 trads = new ArrayList<>();
             }
         } else {
-            trads = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /leaselist/renewal?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
         List<LandDongInfoDto> dongList = landDongService.getLandDongList_BySigunguCode(sigunguCode);
         String areaCode = sigunguCode.substring(0, 2);
@@ -557,7 +569,7 @@ public class LeaseController {
         ipCountService.ipCounting(clientIP);
 
         List<AptLeaseResponseDto> trads;
-        if (!sigunguCode.equals("0")) {
+        if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             String url = "/leaselist/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName + "&ua=" + ua + "&landDong=" + landDong;
             log.info("[" + clientIP + "] " + url);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, codeInfoService.getCodeName(sigunguCode));
@@ -576,7 +588,8 @@ public class LeaseController {
                 trads = new ArrayList<>();
             }
         } else {
-            trads = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /leaselist/ByName?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
 
         List<String> dates = trads.stream().map(o->new String(o.getDealDate())).collect(Collectors.toList());
@@ -617,7 +630,7 @@ public class LeaseController {
         ipCountService.ipCounting(clientIP);
 
         List<AptLeaseResponseDto> trads;
-        if (!sigunguCode.equals("0")) {
+        if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             String url = "/leaselist/monthly/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName;
             log.info("[" + clientIP + "] " + url);
             apiCallStatService.writeApiCallStat("LEASE_LIST_NAME", "/leaselist/monthly/ByName?sigunguCode=" + sigunguCode + "&aptName=" + aptName, sigunguCode);
@@ -635,7 +648,8 @@ public class LeaseController {
                 trads = new ArrayList<>();
             }
         } else {
-            trads = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /leaselist/monthly/ByName?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
 
         List<String> dates = trads.stream().map(o->new String(o.getDealDate())).collect(Collectors.toList());

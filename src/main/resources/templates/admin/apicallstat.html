@@ -7,9 +7,15 @@
   <div th:replace="fragments/bodyHeader :: bodyHeader" />
   <div>
     <div>
+        <a th:text="차단기록" th:href="@{/admin/ipBlockHistory}"/></a>
+        <a th:text="IP기록" th:href="@{/admin/ipCount}"/></a>
+    </div>
+      </br>
+      </br>
+    <div>
       <a href="/admin/apicallstat/TOTAL">전체&nbsp</a>
-      <a href="/admin/apicallstat/SIGUNGU">&nbsp지역&nbsp</a>
-        <a href="/admin/apicallstatdetail">&nbspDetail&nbsp</a>
+<!--      <a href="/admin/apicallstat/SIGUNGU">&nbsp지역&nbsp</a>-->
+      <a href="/admin/apicallstatdetail">&nbspDetail&nbsp</a>
     </div>
     <div>
       <a>TRADE&nbsp</a>

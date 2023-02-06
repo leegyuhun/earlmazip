@@ -53,8 +53,8 @@ public class StatRankUaController {
     }
 
     @GetMapping("/stat_rank_uatype")
-    public String getStatRankUatype(@RequestParam(value = "rankGubn", defaultValue = "0") int rankGubn,
-                                    @RequestParam(value = "dealYear", defaultValue = "2022") int dealYear,
+    public String getStatRankUatype(@RequestParam(value = "rankGubn", defaultValue = "11") int rankGubn,
+                                    @RequestParam(value = "dealYear", defaultValue = "2023") int dealYear,
                                     @RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
                                     @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                     HttpServletRequest request,
@@ -77,7 +77,8 @@ public class StatRankUaController {
             apiCallStatService.writeApiCallStat("STAT_RANK_UA", "/stat_rank_uatype?rankGubn=" + rankGubn + "&dealYear=" + dealYear + "&sigunguCode=" + title, sigunguCode);
             list = statService.getStatRankUaTypeList(rankGubn, dealYear, sigunguCode, uaType);
         } else {
-            list = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /stat_rank_uatype?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
 
         if (list.size() > 0) {

@@ -57,7 +57,7 @@ public class LeaseAnalysisController {
 
         List<StatLeaseAnalysisDto> anals;
         String title = "-";
-        if (!sigunguCode.equals("0")) {
+        if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             String url = "/lease_analysis?sigunguCode=" + sigunguCode;
             log.info("[" + clientIP + "] " + url);
             title = codeInfoService.getCodeName(sigunguCode);
@@ -68,7 +68,8 @@ public class LeaseAnalysisController {
                 anals = new ArrayList<>();
             }
         } else {
-            anals = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /lease_analysis?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
         List<String> dates = anals.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Float> rates = anals.stream().map(o->new Float(o.getRate())).collect(Collectors.toList());

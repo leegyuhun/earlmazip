@@ -75,7 +75,7 @@ public class StatLeaseController {
 
         List<StatLeaseResponseDto> stats;
         String title = "-";
-        if (!sigunguCode.equals("0")) {
+        if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             title = codeInfoService.getCodeName(sigunguCode);
             String url = "/stat_lease?" + sigunguCode + "&uaType=" + uaType + "&term=" + term;
             log.info("[" + clientIP + "] " + url);
@@ -86,7 +86,8 @@ public class StatLeaseController {
                 stats = new ArrayList<>();
             }
         } else {
-            stats = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /stat_lease?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
         List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Float> avgDeposits = stats.stream().map(o->new Float((float) o.getAvgDeposit()/10000)).collect(Collectors.toList());
@@ -124,7 +125,7 @@ public class StatLeaseController {
     public String getTopLeaseSigungu(@RequestParam(value="sigunguCode", defaultValue = "") String sigunguCode,
                                      @RequestParam(value="uaType", defaultValue = "UA01") String uaType,
                                       @RequestParam(value="leaseType", defaultValue = "0") int leaseType,
-                                     @RequestParam(value="dealYear", defaultValue = "2022") int dealYear,
+                                     @RequestParam(value="dealYear", defaultValue = "2023") int dealYear,
                                      HttpServletRequest request,
                                       Model model) throws UnknownHostException {
         String clientIP = requestService.getClientIPAddress(request);
@@ -136,7 +137,7 @@ public class StatLeaseController {
 
         List<RankLeaseResponseDto> ranks;
         String title = "-";
-        if (!sigunguCode.equals("0")) {
+        if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             title = codeInfoService.getCodeName(sigunguCode);
             String url = "/stat_lease/top?dealYear="+dealYear+"&sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&leaseType=" + leaseType;
             log.info("[" + clientIP + "] " + url);
@@ -148,7 +149,8 @@ public class StatLeaseController {
                 ranks = new ArrayList<>();
             }
         } else {
-            ranks = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /stat_lease/top?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
         String areaCode = sigunguCode.substring(0, 2);
         List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);

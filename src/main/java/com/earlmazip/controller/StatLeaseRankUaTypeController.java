@@ -50,8 +50,8 @@ public class StatLeaseRankUaTypeController {
 
     @GetMapping("/stat_rank_uatype/lease")
     public String getStatRankUatype(@RequestParam(value = "rankGubn", defaultValue = "0") int rankGubn,
-                                    @RequestParam(value = "dealYear", defaultValue = "2022") int dealYear,
-                                    @RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
+                                    @RequestParam(value = "dealYear", defaultValue = "2023") int dealYear,
+                                    @RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                     @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                     HttpServletRequest request,
                                     Model model) throws UnknownHostException {
@@ -64,7 +64,7 @@ public class StatLeaseRankUaTypeController {
 
         String title = "-";
         List<RankUaSigunguResponseDto> list;
-        if (!sigunguCode.equals("0")) {
+        if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             title = codeInfoService.getCodeName(sigunguCode);
 
             String url = "/stat_rank_uatype/lease?rankGubn" + rankGubn + "&dealYear=" + dealYear + "&sigunguCode=" + sigunguCode + "&uaType=" + uaType;
@@ -73,7 +73,8 @@ public class StatLeaseRankUaTypeController {
             apiCallStatService.writeApiCallStat("STAT_RANK_UA", "/stat_rank_uatype/lease?rankGubn=" + rankGubn + "&dealYear=" + dealYear + "&sigunguCode=" + title, sigunguCode);
             list = statService.getStatRankLeaseUaTypeList(rankGubn, dealYear, sigunguCode, uaType);
         } else {
-            list = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /stat_rank_uatype/lease?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
 
         if (list.size() > 0) {

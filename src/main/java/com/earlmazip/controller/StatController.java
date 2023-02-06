@@ -95,7 +95,7 @@ public class StatController {
             return "error";
         }
         ipCountService.ipCounting(clientIP);
-        if (!sigunguCode.equals("0")) {
+        if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             title = codeInfoService.getCodeName(sigunguCode);
             String url = "/stat_trade/useareaType?sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&term=" + term;
             log.info("[" + clientIP + "] " + url);
@@ -103,7 +103,8 @@ public class StatController {
             apiCallStatService.writeApiCallStat("STAT_TRADE", "/stat_trade/useareaType?sigunguCode=" + title, sigunguCode);
             areas = statService.getStatTradeByUseAreaList(sigunguCode,uaType, term);
         } else {
-            areas = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /stat_trade/useareaType?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
         List<String> dates = areas.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
 //        List<Integer> avgprc = areas.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
@@ -264,7 +265,7 @@ public class StatController {
 
         List<StatResponseDto> stats;
         String title = "-";
-        if (!sigunguCode.equals("0")) {
+        if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             title = codeInfoService.getCodeName(sigunguCode);
             String url = "/stat_trade/newHighest?sigunguCode=" + sigunguCode + "&uaTYpe=" + uaType;
             log.info("[" + clientIP + "] " + url);
@@ -276,7 +277,8 @@ public class StatController {
                 stats = new ArrayList<>();
             }
         } else {
-            stats = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /stat_trade/newHighestAmt?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
         List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
         List<Integer> avgPrices = stats.stream().map(o->new Integer(o.getAvgPrice())).collect(Collectors.toList());
@@ -333,7 +335,7 @@ public class StatController {
         List<StatResponseDto> stats1;
         String title = "-";
         String title2 = "-";
-        if (!sigunguCode.equals("0")) {
+        if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             title = codeInfoService.getCodeName(sigunguCode);
             String url = "/stat_trade/ByDealType?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
             log.info("[" + clientIP + "] " + url);
@@ -347,9 +349,8 @@ public class StatController {
             stats0 = statService.getStatByDealType(sigunguCode, uaType, 0); //중개거래
             stats1 = statService.getStatByDealType(sigunguCode, uaType, 1); //직거래
         } else {
-            stats = new ArrayList<>();
-            stats0 = new ArrayList<>();
-            stats1 = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /stat_trade/ByDealType?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
 
         List<String> dates = stats.stream().map(o->new String(o.getDealYYMM())).collect(Collectors.toList());
@@ -448,7 +449,7 @@ public class StatController {
     }
 
     @GetMapping("/stat_trade/top")
-    public String GetStatTradeTopByYear(@RequestParam(value = "year", defaultValue = "2022") String year,
+    public String GetStatTradeTopByYear(@RequestParam(value = "year", defaultValue = "2023") String year,
                                         @RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                         @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                         HttpServletRequest request,
@@ -463,7 +464,7 @@ public class StatController {
         List<AptPriceResponseDto> tops;
         String title = "-";
 
-        if (!sigunguCode.equals("0")) {
+        if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             title = codeInfoService.getCodeName(sigunguCode);
             String url = "/stat_trade/top?year=" + year + "&sigunguCode=" + sigunguCode + "&uaType=" + uaType;
             log.info("[" + clientIP + "] " + url);
@@ -475,7 +476,8 @@ public class StatController {
                 tops = new ArrayList<>();
             }
         } else {
-            tops = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /stat_trade/top?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
         String areaCode = sigunguCode.substring(0, 2);
         List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
@@ -498,7 +500,7 @@ public class StatController {
     }
 
     @GetMapping("/stat_trade/office/top")
-    public String GetStatTradeOfficeTopByYear(@RequestParam(value = "year", defaultValue = "2022") String year,
+    public String GetStatTradeOfficeTopByYear(@RequestParam(value = "year", defaultValue = "2023") String year,
                                         @RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                         @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                         HttpServletRequest request,
@@ -513,7 +515,7 @@ public class StatController {
         List<AptPriceResponseDto> tops;
         String title = "-";
 
-        if (!sigunguCode.equals("0")) {
+        if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             title = codeInfoService.getCodeName(sigunguCode);
             String url = "/stat_trade/office/top?year=" + year + "&sigunguCode=" + sigunguCode + "&uaType=" + uaType;
             log.info("[" + clientIP + "] " + url);
@@ -525,7 +527,8 @@ public class StatController {
                 tops = new ArrayList<>();
             }
         } else {
-            tops = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /stat_trade/office/top?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
         String areaCode = sigunguCode.substring(0, 2);
         List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);

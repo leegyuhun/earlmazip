@@ -81,7 +81,7 @@ public class TradeComparePrevController {
         }
         List<AptPriceResponseDto> trads;
         String title = "-";
-        if (sigunguCode.length() == 5) {
+        if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             title = codeInfoService.getCodeName(sigunguCode);
             apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
             apiCallStatService.writeApiCallStat("TRADE_LIST", "/tradelist/comparePrev?sigunguCode=" + title, sigunguCode);
@@ -102,7 +102,8 @@ public class TradeComparePrevController {
                 trads = new ArrayList<>();
             }
         } else{
-            trads = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /tradelist/comparePrev?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
         String areaCode = sigunguCode.substring(0, 2);
 

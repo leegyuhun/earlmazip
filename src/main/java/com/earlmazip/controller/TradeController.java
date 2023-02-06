@@ -121,7 +121,8 @@ public class TradeController {
                 trads = new ArrayList<>();
             }
         } else{
-            trads = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /tradelist?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
         String areaCode = sigunguCode.substring(0, 2);
         List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
@@ -194,7 +195,8 @@ public class TradeController {
                 trads = new ArrayList<>();
             }
         } else{
-            trads = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /tradelist/ByDealYearMon?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
         String areaCode = sigunguCode.substring(0, 2);
         List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
@@ -263,7 +265,8 @@ public class TradeController {
                 trads = new ArrayList<>();
             }
         } else{
-            trads = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /tradelist/office?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
         String areaCode = sigunguCode.substring(0, 2);
         List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
@@ -385,7 +388,8 @@ public class TradeController {
                 trads = new ArrayList<>();
             }
         } else {
-            trads = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /tradelist/cancelDeal?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
         String areaCode = sigunguCode.substring(0, 2);
         List<SigunguCode> sigunguList = codeInfoService.getSigunguList(areaCode);
@@ -443,7 +447,8 @@ public class TradeController {
                 trads = new ArrayList<>();
             }
         } else{
-            trads = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /tradelist/newHighest?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
 
         if (!landDong.equals("")) {
@@ -519,7 +524,8 @@ public class TradeController {
                 trads = new ArrayList<>();
             }
         } else {
-            trads = new ArrayList<>();
+            apiCallStatService.writeApiCallStat("ERROR", "(error) /tradelist/ByName?sigunguCode=" + sigunguCode, sigunguCode);
+            return "error";
         }
 
         List<String> dates = trads.stream().map(o->new String(o.getDealDate())).collect(Collectors.toList());
