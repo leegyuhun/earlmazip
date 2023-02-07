@@ -436,9 +436,9 @@ public class TradeController {
         if (sigunguCode.length() == 5) {
             title = codeInfoService.getCodeName(sigunguCode);
             String url;
-            if(StringUtils.hasText(landDong)){
+            if (StringUtils.hasText(landDong)) {
                 url = "/tradelist/newHighest?sigunguCode=" + sigunguCode + "&uaType=" + uaType + "&landDong=" + landDong;
-            } else{
+            } else {
                 url = "/tradelist/newHighest?sigunguCode=" + sigunguCode + "&uaType=" + uaType;
             }
             log.info("[" + clientIP + "] " + url);
@@ -449,6 +449,8 @@ public class TradeController {
             } else {
                 trads = new ArrayList<>();
             }
+        } else if (sigunguCode.length() == 2) {
+            trads = new ArrayList<>();
         } else{
             apiCallStatService.writeApiCallStat("ERROR", "(error) /tradelist/newHighest?sigunguCode=" + sigunguCode, sigunguCode);
             return "error";
