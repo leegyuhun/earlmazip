@@ -73,6 +73,7 @@ public class IpCountRepository {
             result.setCountMonth(date.substring(4,6));
             result.setCountDay(date.substring(6,8));
             result.setCountDate(date);
+            result.setIpAddress(pIpCount.getIpAddress());
             result.setCountryCode(pIpCount.getCountryCode());
             result.setIspAddr(pIpCount.getIspAddr());
             result.setIspName(pIpCount.getIspName());
