@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,6 +38,7 @@ public class LeaseController {
     private final IpCountService ipCountService;
     private final IpBlockService ipBlockService;
     private final SiteInfoService siteInfoService;
+    private final IpInfoController ipInfoController;
 
 
     @RequestMapping("leaselist/home")
@@ -101,8 +103,9 @@ public class LeaseController {
                                   @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                   @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                   HttpServletRequest request,
-                                  Model model) throws UnknownHostException {
+                                  Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
+        ipInfoController.MergeIpInformation(clientIP);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
             return "error";

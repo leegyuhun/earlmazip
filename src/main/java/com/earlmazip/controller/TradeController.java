@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,6 +37,7 @@ public class TradeController {
     private final RequestService requestService;
     private final IpCountService ipCountService;
     private final IpBlockService ipBlockService;
+    private final IpInfoController ipInfoController;
 
     @RequestMapping("/tradelist/home")
     public String home_tradelist(Model modal) {
@@ -85,8 +87,9 @@ public class TradeController {
                                      @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                      @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                      HttpServletRequest request,
-                                     Model model) throws UnknownHostException {
+                                     Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
+        ipInfoController.MergeIpInformation(clientIP);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
             return "error";

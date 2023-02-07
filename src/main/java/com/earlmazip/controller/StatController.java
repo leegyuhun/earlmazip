@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -28,20 +29,14 @@ import java.util.stream.Collectors;
 public class StatController {
 
     private final SiteInfoService siteInfoService;
-
     private final StatService statService;
-
     private final ApiCallStatService apiCallStatService;
-
     private final CodeInfoService codeInfoService;
-
     private final EcosDataService ecosDataService;
-
     private final RequestService requestService;
-
     private final IpCountService ipCountService;
-
     private final IpBlockService ipBlockService;
+    private final IpInfoController ipInfoController;
 
     @RequestMapping("/stat_trade/useareaType/home")
     public String home_statMonthly(Model modal) {
@@ -86,10 +81,11 @@ public class StatController {
                                                @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                                @RequestParam(value = "term", defaultValue = "0") String term,
                                                HttpServletRequest request,
-                                               Model model) throws UnknownHostException {
+                                               Model model) throws IOException {
         List<StatResponseDto> areas;
         String title = "-";
         String clientIP = requestService.getClientIPAddress(request);
+        ipInfoController.MergeIpInformation(clientIP);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
             return "error";

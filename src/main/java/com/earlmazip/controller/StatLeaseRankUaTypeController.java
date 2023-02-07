@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,20 +25,13 @@ import java.util.List;
 public class StatLeaseRankUaTypeController {
 
     private final StatService statService;
-
     private final ApiCallStatService apiCallStatService;
-
     private final CodeInfoService codeInfoService;
-
-    private final EcosDataService ecosDataService;
-
     private final SiteInfoService siteInfoService;
-
     private final RequestService requestService;
-
     private final IpCountService ipCountService;
-
     private final IpBlockService ipBlockService;
+    private final IpInfoController ipInfoController;
 
     @RequestMapping("/stat_rank_uatype/lease/home")
     public String home_statRankUaType(Model modal) {
@@ -54,8 +48,9 @@ public class StatLeaseRankUaTypeController {
                                     @RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                     @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                     HttpServletRequest request,
-                                    Model model) throws UnknownHostException {
+                                    Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
+        ipInfoController.MergeIpInformation(clientIP);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
             return "error";

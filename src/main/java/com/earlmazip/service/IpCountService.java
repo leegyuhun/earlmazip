@@ -20,6 +20,11 @@ public class IpCountService {
         ipCountRepository.IpCounting(ipAddress);
     }
 
+    @Transactional
+    public void updateIpInfo(IpCount pIpCount) {
+        ipCountRepository.IpInfoUpdate(pIpCount);
+    }
+
     public List<IpCount> GetIpHistory() {
         return ipCountRepository.GetIpHistory();
     }

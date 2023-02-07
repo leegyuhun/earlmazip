@@ -26,4 +26,14 @@ public class IpCount {
     private String ipAddress;
 
     private int cnt;
+
+    private String countryCode;
+
+    private String ispName;
+
+    private String ispAddr;
+
+    private String userName;
+
+    private String userAddr;
 }
