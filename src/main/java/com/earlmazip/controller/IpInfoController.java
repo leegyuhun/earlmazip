@@ -56,18 +56,23 @@ public class IpInfoController {
             IpCount ipCount = new IpCount();
             JSONObject whois = (JSONObject)response.get("whois");
             ipCount.setIpAddress(whois.getString("query"));
-            ipCount.setCountryCode(whois.getString("countryCode"));
+            if (whois.has("countryCode")) {
+                ipCount.setCountryCode(whois.getString("countryCode"));
+            }
             if (ipCount.getCountryCode().equals("KR")) {
                 JSONObject korean = (JSONObject)whois.get("korean");
-                JSONObject ISP = (JSONObject)korean.get("ISP");
-                JSONObject netinfo = (JSONObject)ISP.get("netinfo");
-                ipCount.setIspName(netinfo.getString("orgName"));
-                ipCount.setIspAddr(netinfo.getString("addr"));
-
-                JSONObject user = (JSONObject)korean.get("user");
-                JSONObject netinfo2 = (JSONObject)user.get("netinfo");
-                ipCount.setUserName(netinfo2.getString("orgName"));
-                ipCount.setUserAddr(netinfo2.getString("addr"));
+                if (korean.has("ISP")) {
+                    JSONObject ISP = (JSONObject) korean.get("ISP");
+                    JSONObject netinfo = (JSONObject) ISP.get("netinfo");
+                    ipCount.setIspName(netinfo.getString("orgName"));
+                    ipCount.setIspAddr(netinfo.getString("addr"));
+                }
+                if (korean.has("user")) {
+                    JSONObject user = (JSONObject) korean.get("user");
+                    JSONObject netinfo2 = (JSONObject) user.get("netinfo");
+                    ipCount.setUserName(netinfo2.getString("orgName"));
+                    ipCount.setUserAddr(netinfo2.getString("addr"));
+                }
             }
             ipCountService.updateIpInfo(ipCount);
         }
