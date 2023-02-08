@@ -11,10 +11,10 @@
     <table class="table table-striped">
       <thead>
           <tr class="table-dark" style="font-size:12px;" align="center">
-    <!--        <th>일자</th>-->
             <th>IP</th>
+              <th>국가</th>
             <th>접속 건수</th>
-            <th>위치 확인</th>
+              <th>ISP</br>ISP주소</br>유저</br>유저주소</th>
           </tr>
       </thead>
       <tbody>
@@ -23,10 +23,20 @@
             <td align="center">
                 <a th:text="${list.ipAddress}" th:href="@{/admin/ipBlock?ipAddress={ipAddress} (ipAddress=${list.ipAddress})}"/></a>
             </td>
-              <td align="center">
-                  <a th:text="확인" th:href="@{https://www.ipipipip.net/index.php?ln=ko&menu=ip-address-location-geolocation-lookup-home&ipaddress={ipAddress} (ipAddress=${list.ipAddress})}" target="_blank"/></a>
-              </td>
+              <td align="center" th:text="${list.countryCode}"></td>
             <td align="right" th:text="${#numbers.formatInteger(list.cnt,1,'COMMA')}"></td>
+            <td>
+                <div>
+                    <a th:text="${list.ispName}"></a></br>
+                    <a th:text="${list.ispAddr}"></a></br>
+                    <a th:text="${list.userName}"></a></br>
+                    <a th:text="${list.userAddr}"></a></br>
+                </div>
+            </td>
+<!--            <td align="center">-->
+<!--              <a th:text="확인" th:href="@{https://www.ipipipip.net/index.php?ln=ko&menu=ip-address-location-geolocation-lookup-home&ipaddress={ipAddress} (ipAddress=${list.ipAddress})}" target="_blank"/></a>-->
+<!--            </td>-->
+
           </tr>
       </tbody>
     </table>

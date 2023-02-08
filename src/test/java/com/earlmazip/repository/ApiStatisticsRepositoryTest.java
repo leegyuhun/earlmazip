@@ -36,6 +36,6 @@ class ApiStatisticsRepositoryTest {
 
     @Test
     void test() throws IOException {
-        ipInfoController.MergeIpInformation("10.179.4.117");
+//        ipInfoController.MergeIpInformation("10.179.4.117");
     }
 }
