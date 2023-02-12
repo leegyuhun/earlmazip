@@ -500,8 +500,9 @@ public class TradeController {
                                      @RequestParam(value="term", defaultValue = "1") int term,
                                      @RequestParam(value="landDong", defaultValue = "") String landDong,
                                      HttpServletRequest request,
-                                     Model model) throws UnknownHostException {
+                                     Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
+        ipInfoController.MergeIpInformation(clientIP);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
             return "error";

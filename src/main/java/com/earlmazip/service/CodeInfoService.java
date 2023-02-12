@@ -14,7 +14,11 @@ public class CodeInfoService {
     private final CodeInfoRepository codeInfoRepository;
 
     public String getCodeName(String code) {
-        return codeInfoRepository.getCodeName(code);
+        if (code.length() == 1) {
+            return "";
+        } else {
+            return codeInfoRepository.getCodeName(code);
+        }
     }
 
     public List<SigunguCode> getSigunguList(String areaCode) {
