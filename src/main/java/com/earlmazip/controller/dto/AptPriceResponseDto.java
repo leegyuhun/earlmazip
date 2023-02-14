@@ -13,6 +13,14 @@ public class AptPriceResponseDto {
         return dealDate.substring(2,4) + "." + dealDate.substring(4,6) + "." + dealDate.substring(6,8);
     }
     private String dealDate;
+    private String type;
+    public String getType() {
+        if (this.type.equals("입")) {
+            return "입주권";
+        } else {
+            return "";
+        }
+    }
     private String aptName;
     private int floor;
     private String buildYear;
@@ -295,6 +303,7 @@ public class AptPriceResponseDto {
 
     public AptPriceResponseDto(AptDistributionRaw entity) {
         this.sigunguCode = entity.getSigunguCode();
+        this.type = entity.getType();
         this.dealDate = entity.getDealDate();
         this.aptName = entity.getAptName();
         this.useArea = entity.getUseArea();

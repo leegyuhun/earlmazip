@@ -29,7 +29,10 @@
             </thead>
             <tbody>
                 <tr style="font-size:12px;" th:each="list : ${list}">
-                    <td align="center" th:text="${list.dealDate}"></td>
+                    <td align="center">
+                        <a th:text="${list.dealDate}"></a></br>
+                        <a th:text="${list.type}"></a>
+                    </td>
                     <td align="left">
                         <div>
                             <a th:text="${list.landDong}"></a></br>

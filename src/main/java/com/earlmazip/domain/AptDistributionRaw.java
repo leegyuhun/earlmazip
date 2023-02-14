@@ -19,6 +19,7 @@ public class AptDistributionRaw {
     private String dealMon;
     private String dealDay;
     private String dealDate;
+    private String type;
     private String aptName;
     private float useArea;
     private int useAreaTrunc;
