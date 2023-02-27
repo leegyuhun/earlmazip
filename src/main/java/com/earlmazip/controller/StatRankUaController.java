@@ -54,7 +54,7 @@ public class StatRankUaController {
                                     HttpServletRequest request,
                                     Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
-        ipInfoController.MergeIpInformation(clientIP);
+//        ipInfoController.MergeIpInformation(clientIP);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
             return "error";
