@@ -2,6 +2,7 @@ package com.earlmazip.repository;
 
 import com.earlmazip.controller.IpInfoController;
 import com.earlmazip.domain.ApiCallStat;
+import com.earlmazip.domain.ApiCallStatDetail;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,8 +19,16 @@ class ApiStatisticsRepositoryTest {
     ApiStatisticsRepository apiStatisticsRepository;
 
     @Autowired
+    ApiCallStatRepository apiCallStatRepository;
+
+    @Autowired
     IpInfoController ipInfoController;
 
+    @Test
+    void insertTest() {
+        ApiCallStatDetail item;
+
+    }
     @Test
     void findAllToday() {
 //        List<ApiCallStat> allToday = apiStatisticsRepository.findAllToday("20220926");

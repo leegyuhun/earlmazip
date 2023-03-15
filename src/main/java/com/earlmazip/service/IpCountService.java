@@ -4,14 +4,14 @@ import com.earlmazip.domain.IpCount;
 import com.earlmazip.repository.IpCountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
+//public interface IpCountService {
 @Service
 @RequiredArgsConstructor
 public class IpCountService {
-
     private final IpCountRepository ipCountRepository;
 
     @Transactional
@@ -28,4 +28,9 @@ public class IpCountService {
     public List<IpCount> GetIpHistory() {
         return ipCountRepository.GetIpHistory();
     }
+//    void ipCounting(String ipAddress);
+//
+//    void updateIpInfo(IpCount pIpCount);
+//
+//    List<IpCount> GetIpHistory();
 }

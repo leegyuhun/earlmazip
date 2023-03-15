@@ -14,6 +14,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApiCallStatRepository {
 
+//    EntityManager em;
+//
+//    public ApiCallStatRepository(EntityManager em) {
+//        this.em = em;
+//    }
+
     private final EntityManager em;
 
     public void WriteApiCallStatDetail(String apiName, String sigunguCode, String sigunguName) {

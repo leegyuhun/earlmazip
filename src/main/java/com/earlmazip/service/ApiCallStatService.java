@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+//public interface ApiCallStatService {
 @Service
 @RequiredArgsConstructor
 public class ApiCallStatService {
@@ -56,4 +57,19 @@ public class ApiCallStatService {
         return apiStatisticsRepository.findTodayError(date);
     }
 
+//    void writeApiCallStat(String gubn, String name, String code);
+//
+//    void writeApiCallStatDetail(String apiName, String sigunguCode, String sigunguName);
+//
+//    List<ApiCallStatDetail> findTodaySigungu(String date);
+//
+//    List<ApiCallStat> LoadTodayApiCallList(String gubn);
+//
+//    List<ApiCallStatDetail> findAllTodayDetail(String date);
+//
+//    List<ApiCallStat> findAllToday(String date);
+//
+//    List<ApiCallStat> findGubnToday(String date, String gubn);
+//
+//    List<ApiCallStat> findTodayError(String date);
 }

@@ -10,26 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-public class IpBlockService {
+public interface IpBlockService {
 
-    private final IpBlockRepository ipBlockRepository;
-    @Transactional
-    public Boolean IsBlockIP(String ipAddress) {
-        if (ipAddress.equals("")) return true;
+    Boolean IsBlockIP(String ipAddress);
 
-        return ipBlockRepository.IsBlockIP(ipAddress);
-    }
+    Boolean AddBlockIP(String ipAddress);
 
-    @Transactional
-    public Boolean AddBlockIP(String ipAddress) {
-        if (ipAddress.equals("")) return true;
-
-        return ipBlockRepository.AddBlockIP(ipAddress);
-    }
-
-    public List<IpBlock> GetIPBlock() {
-        return  ipBlockRepository.GetIPBlock();
-    }
+    List<IpBlock> GetIPBlock();
 }

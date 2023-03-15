@@ -9,19 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-public class AptService {
+public interface AptService {
 
-    private final AptRepository aptRepository;
+    List<AptInfo> findApts();
 
-    public List<AptInfo> findApts(){return aptRepository.findAll();}
+    List<AptInfo> findByName(String name);
 
-    public List<AptInfo> findByName(String name) {
-        return aptRepository.findByName(name);
-    }
-
-    public List<AptResponseDto> findAllByName(AptSearch aptSearch) {
-        return aptRepository.findAllByString(aptSearch);
-    }
+    List<AptResponseDto> findAllByName(AptSearch aptSearch);
 }

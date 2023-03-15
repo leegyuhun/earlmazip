@@ -9,17 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-@RequiredArgsConstructor
-public class StatLeaseService {
+public interface StatLeaseService {
 
-    private final StatLeaseRepository statRepository;
+    List<StatLeaseResponseDto> getStatLeaseList(String sigunguCode, String uaType, String term);
 
-    public List<StatLeaseResponseDto> getStatLeaseList(String sigunguCode, String uaType, String term) {
-        return statRepository.getStatLeaseList(sigunguCode, uaType, term).stream().map(StatLeaseResponseDto::new).collect(Collectors.toList());
-    }
-
-    public List<RankLeaseResponseDto> getTopLeaseSigungu(String sigunguCode, String uaType, int leaseType, int dealYear) {
-        return statRepository.getTopLeaseSigungu(sigunguCode, uaType, leaseType, dealYear).stream().map(RankLeaseResponseDto::new).collect(Collectors.toList());
-    }
+    List<RankLeaseResponseDto> getTopLeaseSigungu(String sigunguCode, String uaType, int leaseType, int dealYear);
 }

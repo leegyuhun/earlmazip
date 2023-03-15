@@ -1,28 +1,12 @@
 package com.earlmazip.service;
 
 import com.earlmazip.domain.SigunguCode;
-import com.earlmazip.repository.CodeInfoRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
-@RequiredArgsConstructor
-public class CodeInfoService {
+public interface CodeInfoService {
 
-    private final CodeInfoRepository codeInfoRepository;
+    String getCodeName(String code);
 
-    public String getCodeName(String code) {
-        if (code.length() == 1) {
-            return "";
-        } else {
-            return codeInfoRepository.getCodeName(code);
-        }
-    }
-
-    public List<SigunguCode> getSigunguList(String areaCode) {
-        return codeInfoRepository.getSigunguList(areaCode);
-    }
-
+    List<SigunguCode> getSigunguList(String areaCode);
 }
