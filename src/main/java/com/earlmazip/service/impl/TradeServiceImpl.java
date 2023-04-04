@@ -14,10 +14,14 @@ import java.util.stream.Collectors;
 @Service
 //@RequiredArgsConstructor
 public class TradeServiceImpl implements TradeService {
-//    private final TradeRepository tradeRepository;
-    TradeRepository tradeRepository;
+    private final TradeRepository tradeRepository;
+//    TradeRepository tradeRepository;
 
-    @Autowired
+//    @Autowired
+//    public TradeServiceImpl(TradeRepository tradeRepository) {
+//        this.tradeRepository = tradeRepository;
+//    }
+    // 생성자를 통한 TradeRepository 객체주입
     public TradeServiceImpl(TradeRepository tradeRepository) {
         this.tradeRepository = tradeRepository;
     }

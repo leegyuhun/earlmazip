@@ -11,9 +11,14 @@ import java.util.List;
 @Service
 public class CodeInfoServiceImpl implements CodeInfoService {
 
-    CodeInfoRepository codeInfoRepository;
+//    CodeInfoRepository codeInfoRepository;
+//    @Autowired
+//    public CodeInfoServiceImpl(CodeInfoRepository codeInfoRepository) {
+//        this.codeInfoRepository = codeInfoRepository;
+//    }
 
-    @Autowired
+    private final CodeInfoRepository codeInfoRepository;
+
     public CodeInfoServiceImpl(CodeInfoRepository codeInfoRepository) {
         this.codeInfoRepository = codeInfoRepository;
     }

@@ -12,9 +12,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class StatLeaseServiceImpl implements StatLeaseService {
-    StatLeaseRepository statLeaseRepository;
+//    StatLeaseRepository statLeaseRepository;
+//    @Autowired
+//    public StatLeaseServiceImpl(StatLeaseRepository statLeaseRepository) {
+//        this.statLeaseRepository = statLeaseRepository;
+//    }
+    private final StatLeaseRepository statLeaseRepository;
 
-    @Autowired
     public StatLeaseServiceImpl(StatLeaseRepository statLeaseRepository) {
         this.statLeaseRepository = statLeaseRepository;
     }

@@ -15,9 +15,15 @@ import java.util.List;
 @Service
 public class ApiServiceImpl implements ApiService {
 
-    ApiRepository apiRepository;
+//    ApiRepository apiRepository;
+//
+//    @Autowired
+//    public ApiServiceImpl(ApiRepository apiRepository) {
+//        this.apiRepository = apiRepository;
+//    }
 
-    @Autowired
+    private final ApiRepository apiRepository;
+
     public ApiServiceImpl(ApiRepository apiRepository) {
         this.apiRepository = apiRepository;
     }

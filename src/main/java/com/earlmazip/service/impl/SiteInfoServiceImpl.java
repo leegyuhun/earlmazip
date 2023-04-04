@@ -8,9 +8,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class SiteInfoServiceImpl implements SiteInfoService {
 
-    SiteInfoRepository siteInfoRepository;
+//    SiteInfoRepository siteInfoRepository;
 
-    @Autowired
+//    @Autowired
+//    public SiteInfoServiceImpl(SiteInfoRepository siteInfoRepository) {
+//        this.siteInfoRepository = siteInfoRepository;
+//    }
+
+    private final SiteInfoRepository siteInfoRepository;
+
     public SiteInfoServiceImpl(SiteInfoRepository siteInfoRepository) {
         this.siteInfoRepository = siteInfoRepository;
     }

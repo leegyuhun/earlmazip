@@ -11,9 +11,14 @@ import java.util.List;
 @Service
 public class IpBlockServiceImpl implements IpBlockService {
 
-    IpBlockRepository ipBlockRepository;
+//    IpBlockRepository ipBlockRepository;
+//    @Autowired
+//    public IpBlockServiceImpl(IpBlockRepository ipBlockRepository) {
+//        this.ipBlockRepository = ipBlockRepository;
+//    }
 
-    @Autowired
+    private final IpBlockRepository ipBlockRepository;
+
     public IpBlockServiceImpl(IpBlockRepository ipBlockRepository) {
         this.ipBlockRepository = ipBlockRepository;
     }

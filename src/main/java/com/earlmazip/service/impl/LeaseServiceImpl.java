@@ -13,9 +13,14 @@ import java.util.stream.Collectors;
 @Service
 public class LeaseServiceImpl implements LeaseService {
 
-    LeaseRepository leaseRepository;
+//    LeaseRepository leaseRepository;
+//    @Autowired
+//    public LeaseServiceImpl(LeaseRepository leaseRepository) {
+//        this.leaseRepository = leaseRepository;
+//    }
 
-    @Autowired
+    private final LeaseRepository leaseRepository;
+
     public LeaseServiceImpl(LeaseRepository leaseRepository) {
         this.leaseRepository = leaseRepository;
     }

@@ -13,9 +13,14 @@ import java.util.List;
 @Service
 public class AptServiceImpl implements AptService {
 
-    AptRepository aptRepository;
+//    AptRepository aptRepository;
+//    @Autowired
+//    public AptServiceImpl(AptRepository aptRepository) {
+//        this.aptRepository = aptRepository;
+//    }
 
-    @Autowired
+    private final AptRepository aptRepository;
+
     public AptServiceImpl(AptRepository aptRepository) {
         this.aptRepository = aptRepository;
     }

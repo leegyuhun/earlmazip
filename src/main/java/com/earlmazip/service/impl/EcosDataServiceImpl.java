@@ -14,10 +14,18 @@ import java.util.stream.Collectors;
 @Service
 public class EcosDataServiceImpl implements EcosDataService {
 
-    EcosDataRepository ecosDataRepository;
-    PopulationRepository populationRepository;
+//    EcosDataRepository ecosDataRepository;
+//    PopulationRepository populationRepository;
 
-    @Autowired
+//    @Autowired
+//    public EcosDataServiceImpl(EcosDataRepository ecosDataRepository, PopulationRepository populationRepository) {
+//        this.ecosDataRepository = ecosDataRepository;
+//        this.populationRepository = populationRepository;
+//    }
+
+    private final EcosDataRepository ecosDataRepository;
+    private final PopulationRepository populationRepository;
+
     public EcosDataServiceImpl(EcosDataRepository ecosDataRepository, PopulationRepository populationRepository) {
         this.ecosDataRepository = ecosDataRepository;
         this.populationRepository = populationRepository;

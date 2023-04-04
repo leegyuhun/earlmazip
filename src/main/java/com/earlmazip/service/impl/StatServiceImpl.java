@@ -14,9 +14,15 @@ import java.util.stream.Collectors;
 @Service
 public class StatServiceImpl implements StatService {
 
-    StatRepository statRepository;
+//    StatRepository statRepository;
+//
+//    @Autowired
+//    public StatServiceImpl(StatRepository statRepository) {
+//        this.statRepository = statRepository;
+//    }
 
-    @Autowired
+    private final StatRepository statRepository;
+
     public StatServiceImpl(StatRepository statRepository) {
         this.statRepository = statRepository;
     }

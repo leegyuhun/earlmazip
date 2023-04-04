@@ -12,9 +12,14 @@ import java.util.List;
 @Service
 public class LandDongServiceImpl implements LandDongService {
 
-    LandDongRepository landDongRepository;
+//    LandDongRepository landDongRepository;
+//    @Autowired
+//    public LandDongServiceImpl(LandDongRepository landDongRepository) {
+//        this.landDongRepository = landDongRepository;
+//    }
 
-    @Autowired
+    private LandDongRepository landDongRepository;
+
     public LandDongServiceImpl(LandDongRepository landDongRepository) {
         this.landDongRepository = landDongRepository;
     }
