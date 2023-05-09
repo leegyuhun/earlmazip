@@ -15,7 +15,9 @@ public class AptPriceResponseDto {
     private String dealDate;
     private String type;
     public String getType() {
-        if (this.type.equals("입")) {
+        if (this.type == null) {
+            return "";
+        }else if (this.type.equals("입")) {
             return "입주권";
         } else {
             return "";
