@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class TradeDistributionController {
     private final RequestService requestService;
     private final IpCountService ipCountService;
     private final IpBlockService ipBlockService;
+    private final IpInfoController ipInfoController;
 
 
     /**
@@ -40,10 +42,13 @@ public class TradeDistributionController {
     public String getTradeListDistribution(@RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                            @RequestParam(value = "dealYear", defaultValue = "2023") String dealYear,
                                            HttpServletRequest request,
-                               Model model) throws UnknownHostException {
+                               Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
             return "error";
         }
         ipCountService.ipCounting(clientIP);

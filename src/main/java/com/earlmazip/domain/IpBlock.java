@@ -20,4 +20,5 @@ public class IpBlock {
     private String note;
 
     private Date udt;
+    private Date rdt;
 }

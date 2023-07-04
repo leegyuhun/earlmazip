@@ -59,6 +59,9 @@ public class StatRankUaController {
         if (!ipBlockService.IsBlockIP(clientIP)){
             return "error";
         }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
+            return "error";
+        }
         ipCountService.ipCounting(clientIP);
 
         String title = "-";

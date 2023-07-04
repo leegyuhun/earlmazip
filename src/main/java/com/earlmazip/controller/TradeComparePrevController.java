@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class TradeComparePrevController {
     private final LandDongService landDongService;
     private final RequestService requestService;
     private final IpCountService ipCountService;
+    private final IpInfoController ipInfoController;
     private final IpBlockService ipBlockService;
 
     @RequestMapping("/tradelist/comparePrev/home")
@@ -56,10 +58,13 @@ public class TradeComparePrevController {
                                @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                HttpServletRequest request,
-                               Model model) throws UnknownHostException {
+                               Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
             return "error";
         }
         ipCountService.ipCounting(clientIP);

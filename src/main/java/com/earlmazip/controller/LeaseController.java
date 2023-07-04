@@ -110,6 +110,9 @@ public class LeaseController {
         if (!ipBlockService.IsBlockIP(clientIP)){
             return "error";
         }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
+            return "error";
+        }
         ipCountService.ipCounting(clientIP);
 
         String title = "-";
@@ -181,10 +184,13 @@ public class LeaseController {
                                                     @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                                     @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                                     HttpServletRequest request,
-                                                    Model model) throws UnknownHostException {
+                                                    Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
             return "error";
         }
         ipCountService.ipCounting(clientIP);
@@ -256,10 +262,13 @@ public class LeaseController {
                                   @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                   @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                   HttpServletRequest request,
-                                  Model model) throws UnknownHostException {
+                                  Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
             return "error";
         }
         if (sigunguCode.length() < 2) {
@@ -340,10 +349,13 @@ public class LeaseController {
                                       @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                       @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                       HttpServletRequest request,
-                                      Model model) throws UnknownHostException {
+                                      Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
             return "error";
         }
         ipCountService.ipCounting(clientIP);
@@ -416,13 +428,16 @@ public class LeaseController {
                                       @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                       @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                       HttpServletRequest request,
-                                      Model model) throws UnknownHostException {
+                                      Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
             return "error";
         }
         if (sigunguCode.length() < 2) {
+            return "error";
+        }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
             return "error";
         }
         ipCountService.ipCounting(clientIP);
@@ -499,10 +514,13 @@ public class LeaseController {
                                             @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                             @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                             HttpServletRequest request,
-                                            Model model) throws UnknownHostException {
+                                            Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
             return "error";
         }
         ipCountService.ipCounting(clientIP);
@@ -563,10 +581,13 @@ public class LeaseController {
                                      @RequestParam(value="term", defaultValue = "1") int term,
                                      @RequestParam(value="landDong", defaultValue = "") String landDong,
                                      HttpServletRequest request,
-                                     Model model) throws UnknownHostException {
+                                     Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
             return "error";
         }
         ipCountService.ipCounting(clientIP);
@@ -624,10 +645,13 @@ public class LeaseController {
                                      @RequestParam(value="term", defaultValue = "1") int term,
                                      @RequestParam(value="landDong", defaultValue = "") String landDong,
                                        HttpServletRequest request,
-                                     Model model) throws UnknownHostException {
+                                     Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
             return "error";
         }
         ipCountService.ipCounting(clientIP);

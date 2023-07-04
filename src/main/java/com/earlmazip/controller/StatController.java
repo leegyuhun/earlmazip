@@ -90,6 +90,9 @@ public class StatController {
         if (!ipBlockService.IsBlockIP(clientIP)){
             return "error";
         }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
+            return "error";
+        }
         ipCountService.ipCounting(clientIP);
         if (sigunguCode.length() == 5 || sigunguCode.length() == 2) {
             title = codeInfoService.getCodeName(sigunguCode);
@@ -251,10 +254,13 @@ public class StatController {
                                                  @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                                  @RequestParam(value = "term", defaultValue = "0") int term,
                                                  HttpServletRequest request,
-                                                 Model model) throws UnknownHostException {
+                                                 Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
             return "error";
         }
         ipCountService.ipCounting(clientIP);
@@ -318,10 +324,13 @@ public class StatController {
     public String getStatByDealType(@RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
                                     @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                     HttpServletRequest request,
-                                    Model model) throws UnknownHostException {
+                                    Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
             return "error";
         }
         ipCountService.ipCounting(clientIP);
@@ -449,10 +458,13 @@ public class StatController {
                                         @RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                         @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                         HttpServletRequest request,
-                                        Model model) throws UnknownHostException {
+                                        Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
             return "error";
         }
         ipCountService.ipCounting(clientIP);
@@ -500,10 +512,13 @@ public class StatController {
                                         @RequestParam(value = "sigunguCode", defaultValue = "11") String sigunguCode,
                                         @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                         HttpServletRequest request,
-                                        Model model) throws UnknownHostException {
+                                        Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
             return "error";
         }
         ipCountService.ipCounting(clientIP);

@@ -89,6 +89,9 @@ public class TradeController {
                                      HttpServletRequest request,
                                      Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
+            return "error";
+        }
 //        ipInfoController.MergeIpInformation(clientIP);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
@@ -160,9 +163,12 @@ public class TradeController {
                                @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                HttpServletRequest request,
-                               Model model) throws UnknownHostException {
+                               Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
         System.out.println("clientIP = " + clientIP);
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
+            return "error";
+        }
         if (!ipBlockService.IsBlockIP(clientIP)){
             return "error";
         }
@@ -232,10 +238,13 @@ public class TradeController {
                                      @RequestParam(value = "uaType", defaultValue = "UA01") String uaType,
                                      @RequestParam(value = "landDong", defaultValue = "") String landDong,
                                      HttpServletRequest request,
-                                     Model model) throws UnknownHostException {
+                                     Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
             return "error";
         }
         ipCountService.ipCounting(clientIP);
@@ -304,10 +313,13 @@ public class TradeController {
                                      @RequestParam(value="term", defaultValue = "1") int term,
                                      @RequestParam(value="landDong", defaultValue = "") String landDong,
                                      HttpServletRequest request,
-                                     Model model) throws UnknownHostException {
+                                     Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
             return "error";
         }
         ipCountService.ipCounting(clientIP);
@@ -368,10 +380,13 @@ public class TradeController {
     @GetMapping("/tradelist/cancelDeal")
     public String getCancelDealList(@RequestParam(value = "sigunguCode", defaultValue = "0") String sigunguCode,
                                     HttpServletRequest request,
-                                    Model model) throws UnknownHostException {
+                                    Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
             return "error";
         }
         ipCountService.ipCounting(clientIP);
@@ -423,10 +438,13 @@ public class TradeController {
                                     @RequestParam(value="uaType", defaultValue = "UA01") String uaType,
                                     @RequestParam(value="landDong", defaultValue = "") String landDong,
                                     HttpServletRequest request,
-                                    Model model) throws UnknownHostException {
+                                    Model model) throws IOException {
         String clientIP = requestService.getClientIPAddress(request);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
             return "error";
         }
         ipCountService.ipCounting(clientIP);
@@ -505,6 +523,9 @@ public class TradeController {
 //        ipInfoController.MergeIpInformation(clientIP);
         System.out.println("clientIP = " + clientIP);
         if (!ipBlockService.IsBlockIP(clientIP)){
+            return "error";
+        }
+        if (!ipInfoController.isIPCountryKOR(clientIP)) {
             return "error";
         }
         ipCountService.ipCounting(clientIP);
