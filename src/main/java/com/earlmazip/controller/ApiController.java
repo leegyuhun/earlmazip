@@ -65,6 +65,7 @@ public class ApiController {
             } else {
                 TradeSearchCond con = new TradeSearchCond();
                 String title = codeInfoService.getCodeName(sigunguCode);
+                mon = String.format("%02d", Integer.parseInt(mon));
                 String url = "/api/v1/tradelistMonthly?sigunguCode=" + sigunguCode + "&year=" + year + "&mon=" + mon + "&landDong=" + landDong + "&uaTYpe=" + uaType;
                 apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
                 apiCallStatService.writeApiCallStat("API", "/api/v1/tradelistMonthly?sigunguCode=" + sigunguCode + "&year=" + year + "&mon=" + mon + "&landDong=" + landDong + "&uaTYpe=" + uaType, sigunguCode);
@@ -126,6 +127,7 @@ public class ApiController {
             } else {
                 TradeSearchCond con = new TradeSearchCond();
                 String title = codeInfoService.getCodeName(sigunguCode);
+                mon = String.format("%02d", Integer.parseInt(mon));
                 String url = "/api/v1/leaselistMonthly?sigunguCode=" + sigunguCode + "&year=" + year + "&mon=" + mon + "&landDong=" + landDong + "&uaTYpe=" + uaType;
                 apiCallStatService.writeApiCallStatDetail(url, sigunguCode, title);
                 apiCallStatService.writeApiCallStat("API", "/api/v1/leaselistMonthly?sigunguCode=" + sigunguCode + "&year=" + year + "&mon=" + mon + "&landDong=" + landDong + "&uaTYpe=" + uaType, sigunguCode);
